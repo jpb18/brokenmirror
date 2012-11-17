@@ -1,0 +1,54 @@
+
+newmtl Material.000001
+Ka 0.588235 0.588235 0.588235
+Kd 0.588235 0.588235 0.588235
+Ks 0.9 0.9 0.9
+d 1
+Ns 10
+map_Kd I:\Unorganized 3d Stuff\stbc_aftermath_v075\BC Aftermath 0.75\Data\Models\Ships\K_TNG_BOP\.\k_birdofprey_b_glow.tga
+
+
+newmtl Material.0004fa
+Ka 0.588235 0.588235 0.588235
+Kd 0.588235 0.588235 0.588235
+Ks 0.9 0.9 0.9
+d 1
+Ns 10
+map_Kd I:\Unorganized 3d Stuff\stbc_aftermath_v075\BC Aftermath 0.75\Data\Models\Ships\K_TNG_BOP\.\k_birdofprey_b_glow.tga
+
+
+newmtl Material.00054e
+Ka 0.588235 0.588235 0.588235
+Kd 0.588235 0.588235 0.588235
+Ks 0.9 0.9 0.9
+d 1
+Ns 10
+map_Kd I:\Unorganized 3d Stuff\stbc_aftermath_v075\BC Aftermath 0.75\Data\Models\Ships\K_TNG_BOP\.\k_birdofprey_b_glow.tga
+
+
+newmtl Material.0005a2
+Ka 0.588235 0.588235 0.588235
+Kd 0.588235 0.588235 0.588235
+Ks 0.9 0.9 0.9
+d 1
+Ns 10
+map_Kd I:\Unorganized 3d Stuff\stbc_aftermath_v075\BC Aftermath 0.75\Data\Models\Ships\K_TNG_BOP\.\k_birdofprey_a_glow.tga
+
+
+newmtl Material.000c90
+Ka 0.588235 0.588235 0.588235
+Kd 0.588235 0.588235 0.588235
+Ks 0.9 0.9 0.9
+d 1
+Ns 10
+map_Kd I:\Unorganized 3d Stuff\stbc_aftermath_v075\BC Aftermath 0.75\Data\Models\Ships\K_TNG_BOP\.\k_birdofprey_b_glow.tga
+
+
+newmtl Material.001189
+Ka 0.588235 0.588235 0.588235
+Kd 0.588235 0.588235 0.588235
+Ks 0.9 0.9 0.9
+d 1
+Ns 10
+map_Kd I:\Unorganized 3d Stuff\stbc_aftermath_v075\BC Aftermath 0.75\Data\Models\Ships\K_TNG_BOP\.\k_birdofprey_a_glow.tga
+

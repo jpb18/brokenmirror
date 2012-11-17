@@ -1,0 +1,54 @@
+
+newmtl Material.000001
+Ka 0.588235 0.588235 0.588235
+Kd 0.588235 0.588235 0.588235
+Ks 0.9 0.9 0.9
+d 1
+Ns 10
+map_Kd G:\Unorganized 3d Stuff\BC Aftermath TNG Romulan Addition\Data\Models\Ships\R_TNG_WARBIRD\.\r_warbird_a_glow.tga
+
+
+newmtl Material.000d46
+Ka 0.588235 0.588235 0.588235
+Kd 0.588235 0.588235 0.588235
+Ks 0.9 0.9 0.9
+d 1
+Ns 10
+map_Kd G:\Unorganized 3d Stuff\BC Aftermath TNG Romulan Addition\Data\Models\Ships\R_TNG_WARBIRD\.\r_warbird_d_glow.tga
+
+
+newmtl Material.001493
+Ka 0.588235 0.588235 0.588235
+Kd 0.588235 0.588235 0.588235
+Ks 0.9 0.9 0.9
+d 1
+Ns 10
+map_Kd G:\Unorganized 3d Stuff\BC Aftermath TNG Romulan Addition\Data\Models\Ships\R_TNG_WARBIRD\.\r_warbird_c_glow.tga
+
+
+newmtl Material.001a73
+Ka 0.588235 0.588235 0.588235
+Kd 0.588235 0.588235 0.588235
+Ks 0.9 0.9 0.9
+d 1
+Ns 10
+map_Kd G:\Unorganized 3d Stuff\BC Aftermath TNG Romulan Addition\Data\Models\Ships\R_TNG_WARBIRD\.\r_warbird_b_glow.tga
+
+
+newmtl Material.0021da
+Ka 0.588235 0.588235 0.588235
+Kd 0.588235 0.588235 0.588235
+Ks 0.9 0.9 0.9
+d 1
+Ns 10
+map_Kd G:\Unorganized 3d Stuff\BC Aftermath TNG Romulan Addition\Data\Models\Ships\R_TNG_WARBIRD\.\r_warbird_d_glow.tga
+
+
+newmtl Material.002354
+Ka 0.588235 0.588235 0.588235
+Kd 0.588235 0.588235 0.588235
+Ks 0.9 0.9 0.9
+d 1
+Ns 10
+map_Kd G:\Unorganized 3d Stuff\BC Aftermath TNG Romulan Addition\Data\Models\Ships\R_TNG_WARBIRD\.\r_warbird_d_glow.tga
+
