@@ -69,8 +69,11 @@
 	var torpHold : float; //contains the maximum amount of torpedoes it can hold -- point sistem
 	var torpCount : int; //number of real torpedoes on hold
 	var torpRate : float; //interval between each torpedo launch, in seconds
+	var isReloading : boolean; //checks if the torpedoes are reloading
+	var reloadTime : float; //stores the reload time
 	
 	private var nextTorp : float; //time when the next torpedo can be fired
+	
 	
 	//special hability
 	var energy : float; //energy for the hability
@@ -121,7 +124,7 @@
 	
 	//this function starts automatically everytime the script starts
 	function Start () {
-	
+		torpLoad = torpMaxLoad;
 	}
 	
 	//this function is executed every frame
@@ -294,6 +297,12 @@
 	
 	//this function controls the firing
 	function player_fire() {
+		//check if the torpedoes are ready to fire
+		if(isReloading == true && Time.time >= nextTorp)
+		{
+			torpLoad = torpMaxLoad;
+			isReloading = false;
+		}
 	
 		if (isRedAlert == true)
 		{
@@ -321,11 +330,13 @@
 				{
 				
 					
+						
 					
 					
 					if (Time.time >= nextTorp)
 					{
 				
+						
 						
 						var torp : GameObject = Instantiate(weapon2.torpedo, transform.position, transform.rotation);
 						
@@ -335,7 +346,16 @@
 						script.target = target.transform;
 						script.launched = transform;
 						
-						nextTorp = Time.time + torpRate;
+						torpLoad -= 1;
+						if (torpLoad > 0)
+						{
+							nextTorp = Time.time + torpRate;
+						}
+						else
+						{
+							nextTorp = Time.time + reloadTime;
+							isReloading = true;
+						}
 					}
 					else
 					{
