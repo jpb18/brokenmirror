@@ -9,6 +9,7 @@ var shieldMulti : float; //multiplies the torpedo strenght against shields
 var hullMulti : float; //multiplies the torpedo strenght against hull
 var isCalc : boolean = false; //check if the travel time has been calculated
 var explosion : Transform; //torpedo explosion
+var isMoving : boolean; //check if the coroutine is working
 
 
 
@@ -29,7 +30,11 @@ function FixedUpdate () {
 		isCalc = true;
 	}
 	//fly!!!!
-	StartCoroutine(flight(transform, launched.position, target.position, time));
+	if (isMoving == false)
+	{
+		isMoving = true;
+		StartCoroutine(flight(transform, launched.position, target.position, time));
+	}
 			
 		
 		
@@ -51,10 +56,17 @@ function flight (ThisTransform : Transform, startPos : Vector3, endPos : Vector3
 	var i : float = 0;
 	var rate : float = 1/time * Time.deltaTime;
 	
+	if( i == 1)
+	{
+		Destroy(gameObject);
+		Instantiate(explosion, transform.position, transform.rotation);
+	
+	}
+	
 	while (i < 1)
 	{
 		i += rate;
-		ThisTransform.position = Vector3.Lerp(startPos, endPos,i);
+		ThisTransform.position = Vector3.Lerp(startPos, endPos, i);
 		yield;
 	}
 
