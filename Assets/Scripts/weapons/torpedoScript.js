@@ -11,6 +11,8 @@ var isCalc : boolean = false; //check if the travel time has been calculated
 var explosion : Transform; //torpedo explosion
 var isMoving : boolean; //check if the coroutine is working
 
+var launchSound : AudioSource; //torpedo launch audio source
+
 
 
 
