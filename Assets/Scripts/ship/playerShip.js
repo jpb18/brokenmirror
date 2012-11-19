@@ -9,6 +9,7 @@
 	var isPlayer : boolean = true; //true means it's the player ship, false means it's an npc
 	var faction : int = 0; //0 means player faction, other factions to be considered
 	var shipName : String; //this var represents the ship name
+	var shipExplosion : Transform; //ship explosion type
 	
 	//<------Red Alert----------------->
 	var isRedAlert : boolean = false; //checks if the ship is in red alert
@@ -130,8 +131,9 @@
 	    {
 		     player_movement(); //executes movement function
 		     select_target_player(); //executes selection function
-		     red_alert_player();
-		     player_fire();
+		     red_alert_player(); //checks red alert status
+		     player_fire(); //controls fire from players
+		     
 		     
 	    }
 	    else //else
@@ -139,11 +141,14 @@
 	
 	    }
 		 kinstr(); //executed kinetic strenght function
+		checkHealth(); //checks the ship health
 	
 	}
 	
 	//Engage red alert -- player
 	function red_alert_player() {
+	
+		
 		if(Input.GetAxis("RedAlert"))
 		{
 			
@@ -162,7 +167,18 @@
 	
 	}
 	
+	//check health
+	function checkHealth() {
+		if (health <= 0)
+		{
+			
+			Destroy(gameObject);
+			Instantiate(shipExplosion, transform.position, transform.rotation);
+			
+		}
 	
+	
+	}
 	
 	
 	//this function controls the ship movement -- player

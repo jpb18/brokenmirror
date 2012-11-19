@@ -8,6 +8,7 @@ var speed : float; //torpedoes speed
 var shieldMulti : float; //multiplies the torpedo strenght against shields
 var hullMulti : float; //multiplies the torpedo strenght against hull
 var isCalc : boolean = false; //check if the travel time has been calculated
+var explosion : Transform; //torpedo explosion
 
 
 
@@ -65,8 +66,28 @@ function OnCollisionEnter (hit : Collision) {
 	
 	if (hit.transform != launched.transform)
 	{
-		Debug.Log("Hit: " + hit.transform.name);
+		
+		if(hit.transform.tag == "Ship")
+		{
+			var script : playerShip = hit.gameObject.GetComponent(playerShip);
+			
+			if(script.shields > 0)
+			{
+				script.shields -= damage * shieldMulti;
+			
+			}
+			else
+			{
+				script.health -= damage * hullMulti;
+			}
+		
+		}
+		
+		
 		Destroy(gameObject);
+		Instantiate(explosion.transform.gameObject, transform.position, transform.rotation);
+		
+		
 	
 	}
 
