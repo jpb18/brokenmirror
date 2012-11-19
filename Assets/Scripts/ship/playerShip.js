@@ -286,7 +286,15 @@
 				
 				var find : GameObject = FindClosestEnemy();
 				
-				target = find.transform;
+				if (find != null)
+				{
+					target = find.transform;
+				}
+				else
+				{
+					target = null;
+				}
+				
 				
 			
 			}
@@ -707,21 +715,35 @@
 	    var distance = Mathf.Infinity; 
 	    var position = transform.position; 
 	    // Iterate through them and find the closest one
-	    for (var go : GameObject in gos)  
+	    
+	    
+	    if (gos != null)
 	    {
-	    	var scr : playerShip = go.GetComponent(playerShip); //get ship control script
-	    	if(scr.faction != faction) //compares factions
-	    	{
-	      
-		        var diff = (go.transform.position - position);
-		        var curDistance = diff.sqrMagnitude; 
-		        if (curDistance < distance) 
-		        { 
-		            closest = go; 
-		            distance = curDistance; 
-		        } 
-	    	} 
-	       
+		    for (var go : GameObject in gos)  
+		    {
+		    	var scr : playerShip = go.GetComponent(playerShip); //get ship control script
+		    	if(scr.faction != faction) //compares factions
+		    	{
+		      
+			        var diff = (go.transform.position - position);
+			        var curDistance = diff.sqrMagnitude; 
+			        if (curDistance < distance) 
+			        { 
+			            closest = go; 
+			            distance = curDistance; 
+			        }
+			        
+		    	} 
+		    	
+		       
+			}
+			return closest; 
 		}
-		return closest; 
+		else
+		{
+			return null;
+		}
+		
 	}
+	
+	
