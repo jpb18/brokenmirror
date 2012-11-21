@@ -10,6 +10,7 @@ var hullMulti : float; //multiplies the torpedo strenght against hull
 var isCalc : boolean = false; //check if the travel time has been calculated
 var explosion : Transform; //torpedo explosion
 var isMoving : boolean; //check if the coroutine is working
+var shieldImp : Transform; //shield impact
 
 var launchSound : AudioSource; //torpedo launch audio source
 
@@ -80,28 +81,50 @@ function OnCollisionEnter (hit : Collision) {
 	
 	if (hit.transform != launched.transform)
 	{
+	
 		
 		if(hit.transform.tag == "Ship")
 		{
+		
 			var script : playerShip = hit.gameObject.GetComponent(playerShip);
 			
-			if(script.shields > 0)
-			{
-				script.shields -= damage * shieldMulti;
-			
-			}
-			else
+			if (script.shields <= 0)
 			{
 				script.health -= damage * hullMulti;
+				Destroy(gameObject);
+				Instantiate(explosion.transform.gameObject, transform.position, transform.rotation);
 			}
 		
 		}
 		
 		
-		Destroy(gameObject);
-		Instantiate(explosion.transform.gameObject, transform.position, transform.rotation);
 		
 		
+		
+	
+	}
+
+}
+
+function OnTriggerEnter (hit : Collider)
+{
+	
+	if (hit.transform.parent.transform != launched.transform)
+	{
+		if (hit.tag == "Shields")
+		{
+			var go = hit.transform.parent.gameObject;
+			var script : playerShip = go.gameObject.GetComponent(playerShip);
+			
+			if(script.shields > 0)
+			{
+				script.shields -= damage * shieldMulti;
+				Destroy(gameObject);
+				Instantiate(explosion.transform.gameObject, transform.position, transform.rotation);
+			
+			}
+		
+		}
 	
 	}
 

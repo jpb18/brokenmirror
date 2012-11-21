@@ -36,6 +36,7 @@
 	var health : float = 100.0; //Ship health, soon to be controled through stored variables.
 	var maxShields : float = 100.0; //ships maximum shields
 	var shields : float = 100.0; //Ships shields, soon to be controled through stored variables.
+	var shieldTr : GameObject; //Shield GameObject
 	
 	//<---------------Collisions---------------------------------->
 	//control vars
@@ -179,6 +180,8 @@
 			Instantiate(shipExplosion, transform.position, transform.rotation);
 			
 		}
+		
+		
 	
 	
 	}
