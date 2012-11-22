@@ -88,7 +88,7 @@ function OnCollisionEnter (hit : Collision) {
 		
 			var script : playerShip = hit.gameObject.GetComponent(playerShip);
 			
-			if (script.shields <= 0)
+			if (script.shields <= 0 || script.isRedAlert == false)
 			{
 				script.health -= damage * hullMulti;
 				Destroy(gameObject);
@@ -116,11 +116,11 @@ function OnTriggerEnter (hit : Collider)
 			var go = hit.transform.parent.gameObject;
 			var script : playerShip = go.gameObject.GetComponent(playerShip);
 			
-			if(script.shields > 0)
+			if(script.shields > 0 && script.isRedAlert == true)
 			{
 				script.shields -= damage * shieldMulti;
 				Destroy(gameObject);
-				Instantiate(explosion.transform.gameObject, transform.position, transform.rotation);
+				Instantiate(shieldImp, transform.position, transform.rotation);
 			
 			}
 		

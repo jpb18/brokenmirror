@@ -56,6 +56,7 @@
      <None Include="Assets\Standard Assets\Projectors\Sources\Shaders\Projector Multiply.shader" />
      <None Include="Assets\Models\Ships\Klingon\bird of prey\K_TNG_BOP_VoxelizerDebug.txt" />
      <None Include="Assets\Detonator Explosion Framework\Resources\Detonator\Textures\HeatDistort.shader" />
+     <None Include="Assets\Scripts\shaders\shield.shader" />
      <None Include="Assets\Standard Assets\Skyboxes\_skybox info.txt" />
      <None Include="Assets\Models\Ships\Earth\galaxy\galaxy_obj\F_TNG_GALAXY_VoxelizerDebug.txt" />
      <None Include="Assets\Scripts\shaders\slindev_planet.shader" />

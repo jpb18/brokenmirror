@@ -171,14 +171,28 @@
 	
 	}
 	
-	//check health
+	//check health and shields
 	function checkHealth() {
+		//hp
 		if (health <= 0)
 		{
 			
 			Destroy(gameObject);
 			Instantiate(shipExplosion, transform.position, transform.rotation);
 			
+		}
+		
+		//shields
+		
+		if (isRedAlert == true && shields > 0)
+		{
+			shieldTr.renderer.enabled = true;
+		
+		}
+		
+		if (isRedAlert == false || shields <= 0)
+		{
+			shieldTr.renderer.enabled = false;
 		}
 		
 		
@@ -368,18 +382,12 @@
 							isReloading = true;
 						}
 					}
-					else
-					{
 					
-					
-					}
 					
 				
 				}
-				else
-				{
-					Debug.Log("No Target");
-				}
+				
+				
 			
 			}
 			
