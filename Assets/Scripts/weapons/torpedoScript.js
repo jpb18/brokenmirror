@@ -25,6 +25,11 @@ function Start () {
 
 
 function FixedUpdate () {
+	//if there isn't a target
+	if(target == null)
+	{
+		Destroy(gameObject);
+	}
 
 	if ( isCalc != true)
 	{
@@ -39,7 +44,7 @@ function FixedUpdate () {
 		StartCoroutine(flight(transform, launched.position, target.position, time));
 	}
 			
-		
+	transform.LookAt(target);
 		
 
 }
@@ -120,7 +125,8 @@ function OnTriggerEnter (hit : Collider)
 			{
 				script.shields -= damage * shieldMulti;
 				Destroy(gameObject);
-				Instantiate(shieldImp, transform.position, transform.rotation);
+				var instanteated : Transform = Instantiate(shieldImp, transform.position, transform.rotation);
+				instanteated.transform.parent = target;
 			
 			}
 		
