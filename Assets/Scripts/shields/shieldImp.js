@@ -19,22 +19,5 @@ function Update () {
 		Destroy(gameObject);
 	}
 	
-	if (Time.time < creationTime + (destroy / 2))
-	{
-		if (transform.light.intensity < endBrightness)
-		{
-			transform.light.intensity += incBright * Time.deltaTime;
-		
-		}
 	
-	
-	}
-	
-	if (Time.time > creationTime + (destroy / 2))
-	{
-		
-		transform.light.intensity -= incBright * Time.deltaTime;
-	
-	}
-
 }
