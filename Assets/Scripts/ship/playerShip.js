@@ -203,6 +203,9 @@
 	
 	//this function controls the ship movement -- player
 	function player_movement() {
+	
+		
+	
 		agilityFrame = agility * Time.deltaTime;
 		
 		//Movement
@@ -233,6 +236,12 @@
 		if(SpeedStatus < -1)
 		{
 			SpeedStatus = -1;
+		}
+		
+		//stop if certain button is pressed
+		if(Input.GetButton("FullStop"))
+		{
+			SpeedStatus = 0;
 		}
 		//multiply the wheelStatus with the amountToMove
 		fwd = SpeedStatus *  amountToMove;

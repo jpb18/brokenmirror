@@ -81,7 +81,7 @@ function flight (ThisTransform : Transform, startPos : Vector3, endPos : Vector3
 
 }
 
-//Collision
+//Collision with hull
 function OnCollisionEnter (hit : Collision) {
 	
 	if (hit.transform != launched.transform)
@@ -111,21 +111,25 @@ function OnCollisionEnter (hit : Collision) {
 
 }
 
+//Collision with shields
 function OnTriggerEnter (hit : Collider)
 {
 	
-	if (hit.transform.parent.transform != launched.transform)
+	if (hit.transform.parent.parent.transform != launched.transform)
 	{
+	
 		if (hit.tag == "Shields")
 		{
-			var go = hit.transform.parent.gameObject;
+			var go = hit.transform.parent.parent.gameObject;
 			var script : playerShip = go.gameObject.GetComponent(playerShip);
 			
 			if(script.shields > 0 && script.isRedAlert == true)
 			{
 				script.shields -= damage * shieldMulti;
 				Destroy(gameObject);
-				var instanteated : Transform = Instantiate(shieldImp, transform.position, transform.rotation);
+				var hitpoint = checkShield();
+				
+				var instanteated : Transform = Instantiate(shieldImp, hitpoint, transform.rotation);
 				instanteated.transform.parent = target;
 			
 			}
@@ -133,5 +137,27 @@ function OnTriggerEnter (hit : Collider)
 		}
 	
 	}
+
+}
+
+function checkShield() {
+
+	var ray : Ray = Ray(transform.position, transform.forward);
+	var hit : RaycastHit;
+	
+	if(Physics.Raycast(ray, hit)) {
+		
+		var hitpoint : Vector3 = hit.point;
+		return hitpoint;
+		
+	
+	}
+	else
+	{
+		return null;
+	}
+	
+
+
 
 }
