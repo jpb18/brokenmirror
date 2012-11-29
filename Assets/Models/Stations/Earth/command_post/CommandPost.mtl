@@ -1,0 +1,36 @@
+
+newmtl Material.000001
+Ka 0.588235 0.588235 0.588235
+Kd 0.588235 0.588235 0.588235
+Ks 0.9 0.9 0.9
+d 1
+Ns 10
+map_Kd C:\Users\Chris\Downloads\aftermath_wolf_359_addon_pack\BC Aftermath Wolf359 pack\Data\Models\Bases\F_TNG_COMMAND_POST\.\f_tng_command_a_glow.tga
+
+
+newmtl Material.000216
+Ka 0.588235 0.588235 0.588235
+Kd 0.588235 0.588235 0.588235
+Ks 0.9 0.9 0.9
+d 1
+Ns 10
+map_Kd C:\Users\Chris\Downloads\aftermath_wolf_359_addon_pack\BC Aftermath Wolf359 pack\Data\Models\Bases\F_TNG_COMMAND_POST\.\f_tng_command_b_glow.tga
+
+
+newmtl Material.000c47
+Ka 0.588235 0.588235 0.588235
+Kd 0.588235 0.588235 0.588235
+Ks 0.9 0.9 0.9
+d 1
+Ns 10
+map_Kd C:\Users\Chris\Downloads\aftermath_wolf_359_addon_pack\BC Aftermath Wolf359 pack\Data\Models\Bases\F_TNG_COMMAND_POST\.\f_tng_command_c_glow.tga
+
+
+newmtl Material.0010bc
+Ka 0.588235 0.588235 0.588235
+Kd 0.588235 0.588235 0.588235
+Ks 0.9 0.9 0.9
+d 1
+Ns 10
+map_Kd C:\Users\Chris\Downloads\aftermath_wolf_359_addon_pack\BC Aftermath Wolf359 pack\Data\Models\Bases\F_TNG_COMMAND_POST\.\f_tng_command_c_glow.tga
+

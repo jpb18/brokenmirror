@@ -11,7 +11,7 @@ var isCalc : boolean = false; //check if the travel time has been calculated
 var explosion : Transform; //torpedo explosion
 var isMoving : boolean; //check if the coroutine is working
 var shieldImp : Transform; //shield impact
-
+var hasHit : boolean = false; //checks if it hits something
 var launchSound : AudioSource; //torpedo launch audio source
 
 
@@ -83,81 +83,65 @@ function flight (ThisTransform : Transform, startPos : Vector3, endPos : Vector3
 
 //Collision with hull
 function OnCollisionEnter (hit : Collision) {
-	
-	if (hit.transform != launched.transform)
+	if(hasHit == false)
 	{
-	
 		
-		if(hit.transform.tag == "Ship")
+		if (hit.transform != launched.transform)
 		{
 		
-			var script : playerShip = hit.gameObject.GetComponent(playerShip);
 			
-			if (script.shields <= 0 || script.isRedAlert == false)
+			if(hit.transform.tag == "Ship")
 			{
-				script.health -= damage * hullMulti;
-				Destroy(gameObject);
-				Instantiate(explosion.transform.gameObject, transform.position, transform.rotation);
+			
+				var script : playerShip = hit.gameObject.GetComponent(playerShip);
+				
+				if (script.shields <= 0 || script.isRedAlert == false)
+				{
+					script.health -= damage * hullMulti;
+					Destroy(gameObject);
+					Instantiate(explosion.transform.gameObject, transform.position, transform.rotation);
+					hasHit = true;
+				}
+			
 			}
+		
 		
 		}
 		
-		
-		
-		
-		
+		}
 	
 	}
 
-}
+
 
 //Collision with shields
 function OnTriggerEnter (hit : Collider)
 {
-	
-	if (hit.transform.parent.parent.transform != launched.transform)
+
+	if(hasHit == false)
 	{
-	
-		if (hit.tag == "Shields")
+		if (hit.transform.parent.parent.transform != launched.transform)
 		{
-			var go = hit.transform.parent.parent.gameObject;
-			var script : playerShip = go.gameObject.GetComponent(playerShip);
-			
-			if(script.shields > 0 && script.isRedAlert == true)
+		
+			if (hit.tag == "Shields")
 			{
-				script.shields -= damage * shieldMulti;
-				Destroy(gameObject);
-				var hitpoint = checkShield();
+				var go = hit.transform.parent.parent.gameObject;
+				var script : playerShip = go.gameObject.GetComponent(playerShip);
 				
-				var instanteated : Transform = Instantiate(shieldImp, hitpoint, transform.rotation);
-				instanteated.transform.parent = target;
+				if(script.shields > 0 && script.isRedAlert == true)
+				{
+					script.shields -= damage * shieldMulti;
+					Destroy(gameObject);
+					var instanteated : Transform = Instantiate(shieldImp, transform.position, transform.rotation);
+					instanteated.transform.parent = target;
+					hasHit = true;
+				
+				}
 			
 			}
 		
 		}
-	
 	}
 
 }
 
-function checkShield() {
-
-	var ray : Ray = Ray(transform.position, transform.forward);
-	var hit : RaycastHit;
-	
-	if(Physics.Raycast(ray, hit)) {
-		
-		var hitpoint : Vector3 = hit.point;
-		return hitpoint;
-		
-	
-	}
-	else
-	{
-		return null;
-	}
-	
-
-
-
-}
