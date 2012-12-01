@@ -63,6 +63,8 @@ var isForward : boolean = false; //Checks if the ship in question is forward fir
 //beam/pulse
 var heatLimit : float; //maximum weapon temperature
 private var curHeat : float; //current weapon temperature
+private var isBeam : boolean = false; //checks if the beam is being emited
+private var beam : GameObject; //beams game object
 	
 //torpedo
 var torpMaxLoad : int; //maximum number of simultaneously loaded torpedoes
@@ -91,7 +93,7 @@ class beam {
     var shieldMulti : float; //multiplies the strenght of the weapon against shields
     var hullMulti : float; //multiples the strenght of the weapon against hulls
     var texture : Texture; //beam texture
-    var beam : LineRenderer; //beam gameObject
+    var beam : GameObject; //beam gameObject
     var pulse : GameObject; //pulse gameObject
     var tile : Texture2D; //beam tile texture -- menu
 }
@@ -345,16 +347,7 @@ function player_fire() {
 	if (isRedAlert == true)
 	{
 		//if the player presses, fire the phasers
-		if(Input.GetAxis("Fire1"))
-		{
-			if (target != null)
-			{
-			
-			}
-			
-		
-		
-		}
+		fire_phaser_player();
 		
 		//if player presses the fire torpedoes
 		if(Input.GetAxis("Fire2"))
@@ -708,22 +701,72 @@ function FindClosestEnemy () : GameObject
 	
 }
 
-//this function controls the phaser for the player
+//this function controls the phaser beams or pulse phaser for the player
 function fire_phaser_player() {
 
-	if(weapon1.isBeam == true && weapon1.isPresent == true)
-	{
-		var beam_line : LineRenderer = weapon1.beam;
-		var beam_go : GameObject = Instantiate(beam_line);
-		
-		
-		
-		
-		
-		
-	
-	}
+		if(Input.GetAxis("Fire1"))
+		{
+			if (target != null)
+			{
+				if(weapon1.isBeam == true && weapon1.isPresent == true)
+					{
+						var line_rend : LineRenderer;
+						var script : playerShip = target.GetComponent(playerShip);
+						if(isBeam == false)
+						{
+							//render the beam
+							beam = Instantiate(weapon1.beam);
+							line_rend = beam.GetComponent(LineRenderer);
+							line_rend.SetPosition(0, transform.position);
+							line_rend.SetPosition(1, target.position);
+							isBeam = true;
+							
+							//do damage
+							
+							if (script.isRedAlert == true && script.shields > 0)
+							{
+								script.shields -= weapon1.damage * weapon1.shieldMulti * Time.deltaTime;
+							
+							}
+							else
+							{
+								script.health -= weapon1.damage * weapon1.hullMulti * Time.deltaTime;
+							}
+							
+							
+						}
+						else
+						{
+							//orient the beam
+							line_rend = beam.GetComponent(LineRenderer);
+							line_rend.SetPosition(0, transform.position);
+							line_rend.SetPosition(1, target.position);
+							//do damage
+							
+							if (script.isRedAlert == true && script.shields > 0)
+							{
+								script.shields -= weapon1.damage * weapon1.shieldMulti * Time.deltaTime;
+							
+							}
+							else
+							{
+								script.health -= weapon1.damage * weapon1.hullMulti * Time.deltaTime;
+							}
+						
+						}
+					}
 
+			}
+			
+		
+		
+		}
+		else
+		{
+			isBeam = false;
+			Destroy(beam);
+			beam = null;
+		}
 	
 
 
