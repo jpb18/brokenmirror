@@ -1,3 +1,4 @@
+#pragma strict
 //this script includes everything about the ship, in Broken Mirror 3
 //Horizontal Axis control ship left-right direction, Vertical Axis control top-bottom direction, ShipSpeed Axis controls the speed of the ship.
 //Health and collision control is directly connected
@@ -150,7 +151,7 @@ function FixedUpdate () {
     {
 
     }
-	 kinstr(); //executed kinetic strenght function
+	kinstr(); //executed kinetic strenght function
 	checkHealth(); //checks the ship health
 
 }
@@ -250,7 +251,7 @@ function player_movement() {
 		SpeedStatus = 0;
 	}
 	//multiply the wheelStatus with the amountToMove
-	fwd = SpeedStatus *  amountToMove;
+	var fwd : float = SpeedStatus *  amountToMove;
 	
 	
 	//give speed to the ship
@@ -364,8 +365,8 @@ function player_fire() {
 				{
 			
 					
-					
-					var torp : GameObject = Instantiate(weapon2.torpedo, transform.position, transform.rotation);
+					var close_torp : GameObject = CheckClosestWeapon("TorpLaunch", transform);
+					var torp : GameObject = Instantiate(weapon2.torpedo, close_torp.transform.position, transform.rotation);
 					
 					var script = torp.GetComponent(torpedoScript);
 					
@@ -704,12 +705,10 @@ function FindClosestEnemy () : GameObject
 //this function controls the phaser beams or pulse phaser for the player
 function fire_phaser_player() {
 
-		if(Input.GetAxis("Fire1"))
+		if(Input.GetAxis("Fire1") && target != null && weapon1.isBeam == true && weapon1.isPresent == true)
 		{
-			if (target != null)
-			{
-				if(weapon1.isBeam == true && weapon1.isPresent == true)
-					{
+			
+						var close_phaser : GameObject = CheckClosestWeapon("Phaser", transform);
 						var line_rend : LineRenderer;
 						var script : playerShip = target.GetComponent(playerShip);
 						if(isBeam == false)
@@ -717,7 +716,7 @@ function fire_phaser_player() {
 							//render the beam
 							beam = Instantiate(weapon1.beam);
 							line_rend = beam.GetComponent(LineRenderer);
-							line_rend.SetPosition(0, transform.position);
+							line_rend.SetPosition(0, close_phaser.transform.position);
 							line_rend.SetPosition(1, target.position);
 							isBeam = true;
 							
@@ -739,7 +738,7 @@ function fire_phaser_player() {
 						{
 							//orient the beam
 							line_rend = beam.GetComponent(LineRenderer);
-							line_rend.SetPosition(0, transform.position);
+							line_rend.SetPosition(0, close_phaser.transform.position);
 							line_rend.SetPosition(1, target.position);
 							//do damage
 							
@@ -754,9 +753,8 @@ function fire_phaser_player() {
 							}
 						
 						}
-					}
-
-			}
+				
+		
 			
 		
 		
@@ -768,6 +766,46 @@ function fire_phaser_player() {
 			beam = null;
 		}
 	
+
+
+}
+
+function CheckClosestWeapon  (weaponTag : String, parent : Transform) : GameObject
+{
+	var closest : GameObject;
+	for (var weapon_go : GameObject in GameObject.FindGameObjectsWithTag(weaponTag))
+	{
+	
+		if (closest != null)
+		{
+			if (weapon_go.transform.parent.parent.transform == parent)
+			{
+			
+				var distance1 = Vector3.Distance(weapon_go.transform.position, target.position);
+				var distance2 = Vector3.Distance(closest.transform.position, target.position);
+				
+				if (distance1 < distance2)
+				{
+					closest = weapon_go;
+				}
+			
+			
+			
+			}
+		
+		
+		}
+		else
+		{
+			if (weapon_go.transform.parent.parent.transform == parent)
+			{	
+				closest = weapon_go;
+			}
+		
+		}
+	}
+	return closest;
+
 
 
 }
