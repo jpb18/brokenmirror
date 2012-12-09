@@ -66,6 +66,9 @@ var heatLimit : float; //maximum weapon temperature
 private var curHeat : float; //current weapon temperature
 private var isBeam : boolean = false; //checks if the beam is being emited
 private var beam : GameObject; //beams game object
+var shield_imp : GameObject; //phaser shield impact
+var phaser_flare : GameObject; //phaser exit flare
+
 	
 //torpedo
 var torpMaxLoad : int; //maximum number of simultaneously loaded torpedoes
@@ -351,48 +354,7 @@ function player_fire() {
 		fire_phaser_player();
 		
 		//if player presses the fire torpedoes
-		if(Input.GetAxis("Fire2"))
-		{
-		
-			if(target != null)
-			{
-			
-				
-					
-				
-				
-				if (Time.time >= nextTorp)
-				{
-			
-					
-					var close_torp : GameObject = CheckClosestWeapon("TorpLaunch", transform);
-					var torp : GameObject = Instantiate(weapon2.torpedo, close_torp.transform.position, transform.rotation);
-					
-					var script = torp.GetComponent(torpedoScript);
-					
-					
-					script.target = target.transform;
-					script.launched = transform;
-					
-					torpLoad -= 1;
-					if (torpLoad > 0)
-					{
-						nextTorp = Time.time + torpRate;
-					}
-					else
-					{
-						nextTorp = Time.time + reloadTime;
-						isReloading = true;
-					}
-				}
-				
-				
-			
-			}
-			
-			
-		
-		}
+		fire_player_torpedo();
 		
 		
 	
@@ -711,6 +673,7 @@ function fire_phaser_player() {
 						var close_phaser : GameObject = CheckClosestWeapon("Phaser", transform);
 						var line_rend : LineRenderer;
 						var script : playerShip = target.GetComponent(playerShip);
+						var hitpoint : Vector3 = CheckPhaserImpactShield(close_phaser);
 						if(isBeam == false)
 						{
 							//render the beam
@@ -725,12 +688,18 @@ function fire_phaser_player() {
 							if (script.isRedAlert == true && script.shields > 0)
 							{
 								script.shields -= weapon1.damage * weapon1.shieldMulti * Time.deltaTime;
+								
+								Instantiate(shield_imp, hitpoint ,target.rotation);
+								
 							
 							}
 							else
 							{
 								script.health -= weapon1.damage * weapon1.hullMulti * Time.deltaTime;
 							}
+							
+							
+							
 							
 							
 						}
@@ -744,7 +713,10 @@ function fire_phaser_player() {
 							
 							if (script.isRedAlert == true && script.shields > 0)
 							{
+								
 								script.shields -= weapon1.damage * weapon1.shieldMulti * Time.deltaTime;
+								
+								Instantiate(shield_imp, hitpoint ,target.rotation);
 							
 							}
 							else
@@ -766,6 +738,55 @@ function fire_phaser_player() {
 			beam = null;
 		}
 	
+
+
+}
+
+function fire_player_torpedo() {
+
+	if(Input.GetAxis("Fire2"))
+		{
+		
+			if(target != null)
+			{
+			
+				
+					
+				
+				
+				if (Time.time >= nextTorp)
+				{
+			
+					
+					var close_torp : GameObject = CheckClosestWeapon("TorpLaunch", transform);
+					var torp : GameObject = Instantiate(weapon2.torpedo, close_torp.transform.position, transform.rotation);
+					
+					var script = torp.GetComponent(torpedoScript);
+					
+					
+					script.target = target.transform;
+					script.launched = transform;
+					
+					torpLoad -= 1;
+					if (torpLoad > 0)
+					{
+						nextTorp = Time.time + torpRate;
+					}
+					else
+					{
+						nextTorp = Time.time + reloadTime;
+						isReloading = true;
+					}
+				}
+				
+				
+			
+			}
+			
+			
+		
+		}
+
 
 
 }
@@ -809,3 +830,16 @@ function CheckClosestWeapon  (weaponTag : String, parent : Transform) : GameObje
 
 
 }
+
+function CheckPhaserImpactShield (phaser_point : GameObject) : Vector3 {
+	
+	var hit : RaycastHit;
+	
+	Physics.Raycast(phaser_point.transform.position, (phaser_point.transform.position - target.position).normalized, hit, Mathf.Infinity, LayerMask.NameToLayer("Shield"));
+	
+	return hit.point;
+
+}
+
+
+
