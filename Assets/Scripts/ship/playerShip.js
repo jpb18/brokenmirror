@@ -71,6 +71,10 @@ private var beam : GameObject; //beams game object
 var shield_imp : GameObject; //phaser shield impact
 var phaser_flare : GameObject; //phaser exit flare
 
+//pulse
+var pulseRate : float = 1.0f; //interval in seconds between each pulse fire
+var nextPulse : float; //time when the next pulse can be fired
+
 	
 //torpedo
 var torpMaxLoad : int; //maximum number of simultaneously loaded torpedoes
@@ -98,7 +102,6 @@ class beam {
     var damage : float; //strenght of the weapon
     var shieldMulti : float; //multiplies the strenght of the weapon against shields
     var hullMulti : float; //multiples the strenght of the weapon against hulls
-    var texture : Texture; //beam texture
     var beam : GameObject; //beam gameObject
     var pulse : GameObject; //pulse gameObject
     var tile : Texture2D; //beam tile texture -- menu
@@ -222,7 +225,6 @@ function checkHealth() {
 function player_movement() {
 
 	
-
 	agilityFrame = agility * Time.deltaTime;
 	
 	//Movement
@@ -230,13 +232,10 @@ function player_movement() {
 	var vert = Input.GetAxis("Vertical") * agilityFrame;
 	var horz = Input.GetAxis("Horizontal") * agilityFrame;
 	var rot = Input.GetAxis("Rotate") * agilityFrame;
+		
+	transform.Rotate(vert,horz,rot);
 	
 	
-	//here we rotate the ship
-	if(isReturn != true)
-	{
-	 	transform.Rotate(vert,horz,rot);
-	 }
 	
 	//obtain speed variables
 	amountToMove = speed * Time.deltaTime;
@@ -654,7 +653,7 @@ function FindClosestEnemy () : GameObject
 //this function controls the phaser beams or pulse phaser for the player
 function fire_phaser_player() {
 
-		if(Input.GetAxis("Fire1") && target != null && weapon1.isBeam == true && weapon1.isPresent == true)
+		if(Input.GetAxis("Fire1") && target != null && weapon1.isBeam == true && weapon1.isPresent == true && isForward == false)
 		{
 			
 						var close_phaser : GameObject = CheckClosestWeapon("Phaser", transform);
@@ -720,6 +719,22 @@ function fire_phaser_player() {
 		
 			
 		
+		
+		}
+		//this part controls the firing of fixed pulsed weapons
+		else if (Input.GetAxis("Fire1") && weapon1.isBeam == false && weapon1.isPresent == true && isForward == true && Time.time > nextPulse)
+		{
+			for (var cannon : GameObject in GameObject.FindGameObjectsWithTag("Phaser"))
+			{
+				if(cannon.transform.parent.parent.transform == transform)
+				{
+					var inst : GameObject = Instantiate(weapon1.pulse, cannon.transform.position, transform.rotation);
+					var scr : pulseScript = inst.GetComponent(pulseScript);
+					scr.launched = transform;
+					nextPulse = Time.time + pulseRate;
+				}
+			
+			}
 		
 		}
 		else
