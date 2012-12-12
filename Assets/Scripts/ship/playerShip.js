@@ -14,6 +14,8 @@ var shipExplosion : Transform; //ship explosion type
 
 //<------Red Alert----------------->
 var isRedAlert : boolean = false; //checks if the ship is in red alert
+var timeInterval : float = 0.5f; //trying to reduce the sensitivy of the Red Alert Button
+var nextPress : float; //time when you can press the button again
 
 
 //<---------------movement------------------------------>
@@ -156,14 +158,18 @@ function FixedUpdate () {
     }
 	kinstr(); //executed kinetic strenght function
 	checkHealth(); //checks the ship health
+	
 
 }
 
 //Engage red alert -- player
+
+
+
 function red_alert_player() {
 
 	
-	if(Input.GetAxis("RedAlert"))
+	if(Input.GetAxis("RedAlert") && Time.time >= nextPress)
 	{
 		
 		if(isRedAlert != true)
@@ -175,6 +181,7 @@ function red_alert_player() {
 		{
 			isRedAlert = false;
 		}
+		nextPress = Time.time + timeInterval;
 
 	
 	}
@@ -523,26 +530,6 @@ function OnTriggerExit(collision : Collider) {
 	
 }
 
-function HalfRotation(trans : Transform) 
-{
-	if(!isReturn)
-	{
-		isReturn = true;
-		var i : float = 0;
-		var rate = agility;
-		var degrees =  Mathf.Abs(180);
-		var dest = Quaternion.Euler(0, degrees, 0) * trans.rotation;
-		
-		while (i < 180)
-		{
-			i += Time.deltaTime * rate;
-			trans.rotation = Quaternion.RotateTowards(trans.rotation, dest, i);
-			degrees -= i;
-			yield;
-		}
-	}
-	isReturn = false;
-}
 
 function OnGUI () {
 	
@@ -671,16 +658,18 @@ function fire_phaser_player() {
 		{
 			
 						var close_phaser : GameObject = CheckClosestWeapon("Phaser", transform);
+						var shield_hit : GameObject = CheckClosestPoint("ShieldPhaserImp", close_phaser, target.gameObject);
+						
 						var line_rend : LineRenderer;
 						var script : playerShip = target.GetComponent(playerShip);
-						var hitpoint : Vector3 = CheckPhaserImpactShield(close_phaser);
+						
 						if(isBeam == false)
 						{
 							//render the beam
 							beam = Instantiate(weapon1.beam);
 							line_rend = beam.GetComponent(LineRenderer);
 							line_rend.SetPosition(0, close_phaser.transform.position);
-							line_rend.SetPosition(1, target.position);
+							line_rend.SetPosition(1, shield_hit.transform.position);
 							isBeam = true;
 							
 							//do damage
@@ -689,13 +678,14 @@ function fire_phaser_player() {
 							{
 								script.shields -= weapon1.damage * weapon1.shieldMulti * Time.deltaTime;
 								
-								Instantiate(shield_imp, hitpoint ,target.rotation);
+								Instantiate(shield_imp, shield_hit.transform.position ,target.rotation);
 								
 							
 							}
 							else
 							{
 								script.health -= weapon1.damage * weapon1.hullMulti * Time.deltaTime;
+								
 							}
 							
 							
@@ -708,7 +698,7 @@ function fire_phaser_player() {
 							//orient the beam
 							line_rend = beam.GetComponent(LineRenderer);
 							line_rend.SetPosition(0, close_phaser.transform.position);
-							line_rend.SetPosition(1, target.position);
+							line_rend.SetPosition(1, shield_hit.transform.position);
 							//do damage
 							
 							if (script.isRedAlert == true && script.shields > 0)
@@ -716,12 +706,13 @@ function fire_phaser_player() {
 								
 								script.shields -= weapon1.damage * weapon1.shieldMulti * Time.deltaTime;
 								
-								Instantiate(shield_imp, hitpoint ,target.rotation);
+								Instantiate(shield_imp, shield_hit.transform.position,target.rotation);
 							
 							}
 							else
 							{
 								script.health -= weapon1.damage * weapon1.hullMulti * Time.deltaTime;
+								
 							}
 						
 						}
@@ -742,6 +733,7 @@ function fire_phaser_player() {
 
 }
 
+//FIRE THE TORPEDOES! :D
 function fire_player_torpedo() {
 
 	if(Input.GetAxis("Fire2"))
@@ -791,6 +783,7 @@ function fire_player_torpedo() {
 
 }
 
+//Checks the closest weapon of a certain type to a target
 function CheckClosestWeapon  (weaponTag : String, parent : Transform) : GameObject
 {
 	var closest : GameObject;
@@ -831,15 +824,42 @@ function CheckClosestWeapon  (weaponTag : String, parent : Transform) : GameObje
 
 }
 
-function CheckPhaserImpactShield (phaser_point : GameObject) : Vector3 {
+//checks the closest point to a phaser array
+function CheckClosestPoint (tag : String, close_phaser : GameObject, parent : GameObject)
+{
+	var closest : GameObject;
+	for (var go : GameObject in GameObject.FindGameObjectsWithTag(tag))
+	{ 
+		if (closest != null)
+		{
+			if (go.transform.parent.parent.gameObject == parent)
+			{
+			
+				var distance1 = Vector3.Distance(go.transform.position, close_phaser.transform.position);
+				var distance2 = Vector3.Distance(closest.transform.position, close_phaser.transform.position);
+				
+				if (distance1 < distance2)
+				{
+					closest = go;
+				}
+			
+			
+			
+			}
+		
+		}
+		else
+		{
+			if(go.transform.parent.parent.gameObject == parent)
+			{
+				closest = go;
+			}
+		}
 	
-	var hit : RaycastHit;
 	
-	Physics.Raycast(phaser_point.transform.position, (phaser_point.transform.position - target.position).normalized, hit, Mathf.Infinity, LayerMask.NameToLayer("Shield"));
+	}
 	
-	return hit.point;
+	return closest;
 
 }
-
-
 

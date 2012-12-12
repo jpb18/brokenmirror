@@ -54,6 +54,7 @@
      <Compile Include="Assets\Scripts\menus\mainMenu.js" />
      <Compile Include="Assets\Scripts\menus\setupMenu.js" />
      <Compile Include="Assets\Scripts\shields\shieldImp.js" />
+     <Compile Include="Assets\Scripts\shields\shieldImpPoints.js" />
      <Compile Include="Assets\Scripts\ship\playerShip.js" />
      <Compile Include="Assets\Scripts\weapons\torpedoScript.js" />
      <None Include="Assets\Standard Assets\Projectors\Guidelines.txt" />
