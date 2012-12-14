@@ -6,7 +6,6 @@
 
 //<--------------Properties------------------------------>
 //This part exists so the npc scripts can make assumption
-var type : int = 0; //lets assume 0 is the type player-ship. this var controls the type of object.
 var isPlayer : boolean = true; //true means it's the player ship, false means it's an npc
 var faction : int = 0; //0 means player faction, other factions to be considered
 var shipName : String; //this var represents the ship name
@@ -39,7 +38,6 @@ var maxHealth : float = 100.0; //ships maximum health
 var health : float = 100.0; //Ship health, soon to be controled through stored variables.
 var maxShields : float = 100.0; //ships maximum shields
 var shields : float = 100.0; //Ships shields, soon to be controled through stored variables.
-var shieldTr : GameObject; //Shield GameObject
 
 //<---------------Collisions---------------------------------->
 //control vars
@@ -72,8 +70,12 @@ var shield_imp : GameObject; //phaser shield impact
 var phaser_flare : GameObject; //phaser exit flare
 
 //pulse
-var pulseRate : float = 1.0f; //interval in seconds between each pulse fire
-var nextPulse : float; //time when the next pulse can be fired
+var multiPulse : boolean; //checks if the ship can fire more than one pulse per shot
+var pulseShot : int; //represents the number of pulses each shot has
+var pulseWait : float; //waiting time between pulses if multiPulse = true
+var pulseRecharge : float = 1.0f; //interval in seconds between each pulse fire
+private var nextPulse : float; //time when the next pulse can be fired
+private var isFiringPulse : boolean; //checks if the brel is firing when in multiPulse
 
 	
 //torpedo
@@ -82,7 +84,7 @@ private var torpLoad : int; //current torpedo load count
 var torpHold : float; //contains the maximum amount of torpedoes it can hold -- point sistem
 var torpCount : int; //number of real torpedoes on hold
 var torpRate : float; //interval between each torpedo launch, in seconds
-var isReloading : boolean; //checks if the torpedoes are reloading
+private var isReloading : boolean; //checks if the torpedoes are reloading
 var reloadTime : float; //stores the reload time
 
 private var nextTorp : float; //time when the next torpedo can be fired
@@ -202,18 +204,9 @@ function checkHealth() {
 		
 	}
 	
-	//shields
 	
-	if (isRedAlert == true && shields > 0)
-	{
-		shieldTr.renderer.enabled = true;
 	
-	}
 	
-	if (isRedAlert == false || shields <= 0)
-	{
-		shieldTr.renderer.enabled = false;
-	}
 	
 	
 
@@ -379,7 +372,7 @@ function player_fire() {
 			else
 			{
 			
-			Debug.Log("No Target");
+			
 			}
 		
 	}
@@ -424,7 +417,7 @@ function OnCollisionEnter(collision : Collision) {
 	//if the ship collides with a object tagged as a planet, kill the ship already.
 	if (collision.gameObject.tag == "Planet")
 	{
-		Transform.Destroy(gameObject); //destroy the gameObject, to be replaced with a decent destruction animation
+		health = 0;
 	
 	}
 	
@@ -468,10 +461,7 @@ function OnCollisionEnter(collision : Collision) {
 		}
 		
 		
-		if (health < 1) //see if the health is smaller than 1
-		{
-			Transform.Destroy(gameObject); //destroy the gameObject. To be replaced with a decent destruction animation.
-		}
+		
 		
 		
 		SpeedStatus = SpeedStatus / 2; //reduce speed by half
@@ -506,10 +496,7 @@ function OnCollisionEnter(collision : Collision) {
 			
 			health -= damage; //subtract the damage to health
 			
-			if (health < 1) //if health is smaller than 1, it means the ship is destroyed.
-			{
-				Transform.Destroy(gameObject); //so kill it... (to be replaced with a decent destruction animation).
-			}
+			
 			
 		
 		}
@@ -535,32 +522,58 @@ function OnGUI () {
 	if(isPlayer == true)
 	{
 	//Object selection
-	if (target != null && target.transform.tag != "Player") //if there's an object selected
+	if (target != null && target.transform != transform) //if there's an object selected
 	{
-		//obtain script
-		var go = target.gameObject;
-		var script = go.GetComponent(playerShip);
-		var name = script.shipName; //obtain ship name
+		var go : GameObject;
+		var name : String;
+		var target_hp : float;
+		var target_max_hp : float;
+		var target_shield : float;
+		var target_max_shield : float;
+		
+		if(target.tag == "Ship")
+		{
+			//obtain script
+			go = target.gameObject;
+			var ship_script : playerShip = go.GetComponent(playerShip);
+			name = ship_script.shipName; //obtain ship name
+			target_hp = ship_script.health;
+			target_max_hp = ship_script.maxHealth;
+			target_shield = ship_script.shields;
+			target_max_shield = ship_script.maxShields;
+		}
+		else if(target.tag == "Station")
+		{
+			//obtain script
+			go = target.gameObject;
+			var stat_script : stationScript = go.GetComponent(stationScript);
+			name = stat_script.properties.name; //obtain ship name
+			target_hp = stat_script.health.health;
+			target_max_hp = stat_script.health.maxHealth;
+			target_shield = stat_script.health.shield;
+			target_max_shield = stat_script.health.maxShield;
+		}
 		
 		GUI.Label(Rect(Screen.width/2 - 100/2, 10, 100, 25), name); //print it's name in the screen...
 		
-		if (target.transform.tag == "Ship") //if it's a space ship, show it's health and shields
+		
+			
+		
+		GUI.Label(Rect(Screen.width/2 - 100/2, 35, 100, 25), target_hp.ToString() + "/" + target_max_hp.ToString());
+			
+		//check if the target has shields and then show the shield info...
+		
+		
+		if (target_shield > 0)
 		{
-			
-			var target_hp = script.health;
-			var target_max_hp = script.maxHealth;
-			GUI.Label(Rect(Screen.width/2 - 100/2, 35, 100, 25), target_hp.ToString() + "/" + target_max_hp.ToString());
-			
-			//check if the target has shields and then show the shield info...
-			var target_shield = script.shields;
-			var target_max_shield = script.maxShields;
-			if (target_shield > 0)
-			{
 				GUI.Label(Rect(Screen.width/2 - 100/2, 55, 100, 25), target_shield.ToString() + "/" + target_max_shield.ToString());
-			}
+		}
+		
 		
 		}
-	}
+	
+	
+	
 	
 	
 	//if it selects other ship, shows the ship menu
@@ -587,7 +600,8 @@ function OnGUI () {
 									scr.isPlayer = true;
 									var cam_scr = Camera.main.GetComponent(MouseOrbit);
 									cam_scr.target = target;
-									shipGUI = false;								
+									shipGUI = false;
+																	
 									
 								}
 								if(GUILayout.Button("Leave"))
@@ -614,10 +628,11 @@ function FindClosestEnemy () : GameObject
 {
     // Find all game objects with tag Ship
     var gos : GameObject[];
-    gos = GameObject.FindGameObjectsWithTag("Ship"); 
+    gos = GameObject.FindObjectsOfType(GameObject);
     var closest : GameObject; 
     var distance = Mathf.Infinity; 
-    var position = transform.position; 
+    var position = transform.position;
+    
     // Iterate through them and find the closest one
     
     
@@ -625,19 +640,38 @@ function FindClosestEnemy () : GameObject
     {
 	    for (var go : GameObject in gos)  
 	    {
-	    	var scr : playerShip = go.GetComponent(playerShip); //get ship control script
-	    	if(scr.faction != faction) //compares factions
+	    	if (go.tag == "Ship")
 	    	{
-	      
-		        var diff = (go.transform.position - position);
-		        var curDistance = diff.sqrMagnitude; 
-		        if (curDistance < distance) 
-		        { 
-		            closest = go; 
-		            distance = curDistance; 
-		        }
-		        
-	    	} 
+		    	var scr : playerShip = go.GetComponent(playerShip); //get ship control script
+		    	if(scr.faction != faction) //compares factions
+		    	{
+		      
+			        var diff = (go.transform.position - position);
+			        var curDistance = diff.sqrMagnitude; 
+			        if (curDistance < distance) 
+			        { 
+			            closest = go; 
+			            distance = curDistance; 
+			        }
+			        
+		    	}
+	    	}
+	    	else if (go.tag == "Station")
+	    	{
+	    		var scrStation : stationScript = go.GetComponent(stationScript);
+	    		if(scrStation.properties.faction != faction)
+	    		{
+	    			var diffStation = (go.transform.position - position);
+	    			var curDistanceStation = diff.sqrMagnitude;
+	    			if (curDistanceStation < distance)
+	    			{
+	    				closest = go;
+	    				distance = curDistanceStation;
+	    			}
+	    			
+	    		}
+	    	
+	    	}
 	    	
 	       
 		}
@@ -652,14 +686,18 @@ function FindClosestEnemy () : GameObject
 
 //this function controls the phaser beams or pulse phaser for the player
 function fire_phaser_player() {
-
+		
+		//this controls the firing of 360º beam weapons
 		if(Input.GetAxis("Fire1") && target != null && weapon1.isBeam == true && weapon1.isPresent == true && isForward == false)
 		{
-			
-						var close_phaser : GameObject = CheckClosestWeapon("Phaser", transform);
-						var shield_hit : GameObject = CheckClosestPoint("ShieldPhaserImp", close_phaser, target.gameObject);
+			var close_phaser : GameObject = CheckClosestWeapon("Phaser", transform);
+			var shield_hit : GameObject = CheckClosestPoint("ShieldPhaserImp", close_phaser, target.gameObject);
 						
-						var line_rend : LineRenderer;
+			var line_rend : LineRenderer;
+			if (target.tag == "Ship")
+			{
+			
+						
 						var script : playerShip = target.GetComponent(playerShip);
 						
 						if(isBeam == false)
@@ -718,22 +756,114 @@ function fire_phaser_player() {
 				
 		
 			
-		
+			}
+			else if (target.tag == "Station")
+			{
+				
+						var scriptStation : stationScript = target.GetComponent(stationScript);
+						
+						if(isBeam == false)
+						{
+							//render the beam
+							beam = Instantiate(weapon1.beam);
+							line_rend = beam.GetComponent(LineRenderer);
+							line_rend.SetPosition(0, close_phaser.transform.position);
+							line_rend.SetPosition(1, shield_hit.transform.position);
+							isBeam = true;
+							
+							//do damage
+							
+							if (scriptStation.health.shield > 0)
+							{
+								scriptStation.health.shield -= weapon1.damage * weapon1.shieldMulti * Time.deltaTime;
+								
+								Instantiate(shield_imp, shield_hit.transform.position ,target.rotation);
+								
+							
+							}
+							else
+							{
+								scriptStation.health.health -= weapon1.damage * weapon1.hullMulti * Time.deltaTime;
+								
+							}
+							
+							
+							
+							
+							
+						}
+						else
+						{
+							//orient the beam
+							line_rend = beam.GetComponent(LineRenderer);
+							line_rend.SetPosition(0, close_phaser.transform.position);
+							line_rend.SetPosition(1, shield_hit.transform.position);
+							//do damage
+							
+							if (scriptStation.health.shield > 0)
+							{
+								scriptStation.health.shield -= weapon1.damage * weapon1.shieldMulti * Time.deltaTime;
+								
+								Instantiate(shield_imp, shield_hit.transform.position ,target.rotation);
+								
+							
+							}
+							else
+							{
+								scriptStation.health.health -= weapon1.damage * weapon1.hullMulti * Time.deltaTime;
+								
+							}
+						
+						}
+			}
 		
 		}
 		//this part controls the firing of fixed pulsed weapons
 		else if (Input.GetAxis("Fire1") && weapon1.isBeam == false && weapon1.isPresent == true && isForward == true && Time.time > nextPulse)
 		{
-			for (var cannon : GameObject in GameObject.FindGameObjectsWithTag("Phaser"))
+			if (multiPulse == false)
 			{
-				if(cannon.transform.parent.parent.transform == transform)
+				for (var cannon : GameObject in GameObject.FindGameObjectsWithTag("Phaser"))
 				{
-					var inst : GameObject = Instantiate(weapon1.pulse, cannon.transform.position, transform.rotation);
-					var scr : pulseScript = inst.GetComponent(pulseScript);
-					scr.launched = transform;
-					nextPulse = Time.time + pulseRate;
+					if(cannon.transform.parent.parent.transform == transform)
+					{
+						var inst : GameObject = Instantiate(weapon1.pulse, cannon.transform.position, transform.rotation);
+						var scr : pulseScript = inst.GetComponent(pulseScript);
+						scr.launched = transform;
+						nextPulse = Time.time + pulseRecharge;
+					}
+				
 				}
-			
+			}
+			else
+			{
+				
+				if(isFiringPulse == false)
+				{
+					var useCannons = new Array();
+					for (var cannon : GameObject in GameObject.FindGameObjectsWithTag("Phaser"))
+					{
+						if(cannon.transform.parent.parent.transform == transform)
+						{
+							
+							useCannons.Add(cannon);
+							
+							
+							
+						}
+					
+					}
+					
+					var cannons = useCannons.ToBuiltin(GameObject);
+					
+
+					
+					isFiringPulse = true;
+					StartCoroutine(pulseRapidFire(pulseWait, pulseRecharge, pulseShot, cannons));
+				}
+				
+				
+				
 			}
 		
 		}
@@ -878,3 +1008,25 @@ function CheckClosestPoint (tag : String, close_phaser : GameObject, parent : Ga
 
 }
 
+//this function is supposed
+function pulseRapidFire (wait : float, reload : float, shots : int, cannons : GameObject[]) {
+	
+	
+	
+	for (var x : int = 0; x < shots; x++)
+	{
+		for (var cannon : GameObject in cannons)
+		{
+			var inst : GameObject = Instantiate(weapon1.pulse, cannon.transform.position, transform.rotation);
+			var scr : pulseScript = inst.GetComponent(pulseScript);
+			scr.launched = transform;
+			nextPulse = Time.time + pulseRecharge;
+		}
+		
+	  
+	  	yield WaitForSeconds(wait); 
+	}  
+	nextPulse = Time.time + pulseRecharge;
+	isFiringPulse = false;
+
+}

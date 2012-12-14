@@ -49,6 +49,25 @@ function OnCollisionEnter (hit : Collision) {
 				}
 			
 			}
+			if(hit.transform.tag == "Station")
+			{
+				var stat_script : stationScript = hit.gameObject.GetComponent(stationScript);
+				
+				if (stat_script.health.shield <= 0)
+				{
+					stat_script.health.health -= damage * hullMulti;
+					Destroy(gameObject);
+					Instantiate(explosion.transform.gameObject, transform.position, transform.rotation);
+					hasHit = true;
+					
+				}
+				
+			
+			}
+			if(hit.transform.tag == "Planet")
+			{
+				Destroy(gameObject);
+			}
 		
 		
 		}
@@ -68,18 +87,37 @@ function OnTriggerEnter (hit : Collider)
 		
 			if (hit.tag == "Shields")
 			{
-				var go = hit.transform.parent.parent.gameObject;
-				var script : playerShip = go.gameObject.GetComponent(playerShip);
-				
-				if(script.shields > 0 && script.isRedAlert == true)
+			
+				if (hit.transform.parent.parent.tag == "Ship")
 				{
-					script.shields -= damage * shieldMulti;
-					Destroy(gameObject);
-					var instanteated : Transform = Instantiate(shieldImp, transform.position, transform.rotation);
-					instanteated.transform.parent = hit.transform.parent.parent.transform;
-					hasHit = true;
+					var go = hit.transform.parent.parent.gameObject;
+					var script : playerShip = go.gameObject.GetComponent(playerShip);
+					
+					if(script.shields > 0 && script.isRedAlert == true)
+					{
+						script.shields -= damage * shieldMulti;
+						Destroy(gameObject);
+						var instanteated : Transform = Instantiate(shieldImp, transform.position, transform.rotation);
+						hasHit = true;
+					
+					}
+				}
+				else if (hit.transform.parent.parent.tag == "Station")
+				{
+					var station = hit.transform.parent.parent.gameObject;
+					var stat_script : stationScript = station.GetComponent(stationScript);
+					
+					if (stat_script.health.shield > 0)
+					{	
+						stat_script.health.shield -= damage * shieldMulti;
+						Destroy(gameObject);
+						var stat_instanteated : Transform = Instantiate(shieldImp, transform.position, transform.rotation);
+						hasHit = true;
+					
+					}
 				
 				}
+				
 			
 			}
 		
@@ -87,4 +125,3 @@ function OnTriggerEnter (hit : Collider)
 	}
 
 }
-

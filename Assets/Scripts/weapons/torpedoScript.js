@@ -8,7 +8,7 @@ var speed : float; //torpedoes speed
 var shieldMulti : float; //multiplies the torpedo strenght against shields
 var hullMulti : float; //multiplies the torpedo strenght against hull
 var isCalc : boolean = false; //check if the travel time has been calculated
-var explosion : Transform; //torpedo explosion
+var explosion : GameObject; //torpedo explosion
 var isMoving : boolean; //check if the coroutine is working
 var shieldImp : Transform; //shield impact
 var hasHit : boolean = false; //checks if it hits something
@@ -99,18 +99,35 @@ function OnCollisionEnter (hit : Collision) {
 				{
 					script.health -= damage * hullMulti;
 					Destroy(gameObject);
-					Instantiate(explosion.transform.gameObject, transform.position, transform.rotation);
+					Instantiate(explosion, transform.position, transform.rotation);
 					hasHit = true;
 				}
 			
+			}
+			else if(hit.transform.tag == "Station")
+			{
+				var stat_script : stationScript = hit.gameObject.GetComponent(stationScript);
+				
+				if(stat_script.health.shield <= 0)
+				{
+					stat_script.health.health -= damage * hullMulti;
+					Destroy(gameObject);
+					Instantiate(explosion, transform.position, transform.rotation);
+					hasHit = true;
+					
+				}
+			}
+			else if (hit.transform.tag == "Planet")
+			{
+				Destroy(gameObject);
 			}
 		
 		
 		}
 		
-		}
-	
 	}
+	
+}
 
 
 
@@ -125,18 +142,39 @@ function OnTriggerEnter (hit : Collider)
 		
 			if (hit.tag == "Shields")
 			{
-				var go = hit.transform.parent.parent.gameObject;
-				var script : playerShip = go.gameObject.GetComponent(playerShip);
-				
-				if(script.shields > 0 && script.isRedAlert == true)
+			
+				if (hit.transform.parent.parent.tag == "Ship")
 				{
-					script.shields -= damage * shieldMulti;
-					Destroy(gameObject);
-					var instanteated : Transform = Instantiate(shieldImp, transform.position, transform.rotation);
-					instanteated.transform.parent = target;
-					hasHit = true;
+					var go = hit.transform.parent.parent.gameObject;
+					var script : playerShip = go.gameObject.GetComponent(playerShip);
+					
+					if(script.shields > 0 && script.isRedAlert == true)
+					{
+						script.shields -= damage * shieldMulti;
+						Destroy(gameObject);
+						var instanteated : Transform = Instantiate(shieldImp, transform.position, transform.rotation);
+						instanteated.transform.parent = target;
+						hasHit = true;
+					
+					}
+				}
+				else if (hit.transform.parent.parent.tag == "Station")
+				{
+					var station = hit.transform.parent.parent.gameObject;
+					var stat_script : stationScript = station.GetComponent(stationScript);
+					
+					if (stat_script.health.shield > 0)
+					{	
+						stat_script.health.shield -= damage * shieldMulti;
+						Destroy(gameObject);
+						var stat_instanteated : Transform = Instantiate(shieldImp, transform.position, transform.rotation);
+						stat_instanteated.transform.parent = target;
+						hasHit = true;
+					
+					}
 				
 				}
+				
 			
 			}
 		
