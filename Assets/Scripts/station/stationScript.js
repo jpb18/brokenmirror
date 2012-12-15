@@ -26,7 +26,14 @@ class Health {
 
 //this class contains all player-usefull information about the station
 class Properties {
-	var faction : int; //this var represents the station faction
+		//this subclass controls the enemy factions
+
+	class Faction {
+		var faction : int; //this var represents the station faction
+		var size : int;
+		var enemyFactions : int[] = new int[size];
+	}
+	var faction : Faction; //creating the faction class
 	var name : String; //this var contains the station name
 	var className : String; //this var contains the class name
 	var description : String; //this var contains the station description

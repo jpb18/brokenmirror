@@ -1,15 +1,18 @@
 //this script controls the shield impact effect
 #pragma strict
 
-var destroy : float = 2.0;
+var destroy : float;
 var creationTime :  float;
 
 
 
 
 function Start () {
-
+	
+	var scr : ParticleSystem = gameObject.GetComponent(ParticleSystem);
+	destroy = scr.duration;
 	creationTime = Time.time;
+	
 
 }
 

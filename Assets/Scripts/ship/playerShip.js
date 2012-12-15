@@ -13,8 +13,7 @@ var shipExplosion : Transform; //ship explosion type
 
 //<------Red Alert----------------->
 var isRedAlert : boolean = false; //checks if the ship is in red alert
-var timeInterval : float = 0.5f; //trying to reduce the sensitivy of the Red Alert Button
-var nextPress : float; //time when you can press the button again
+
 
 
 //<---------------movement------------------------------>
@@ -55,6 +54,8 @@ var isPlanet : boolean = false;
 private var planetGUI : boolean = false; //opens the planet GUI
 private var stationGUI : boolean = false; //opens the station GUI
 private var shipGUI : boolean = false; //opens the ship GUI
+
+
 
 
 //<------------Weapons------------------------------>
@@ -134,10 +135,17 @@ class special {
 
 }
 
+class NextPress {
+	var interval : float = 0.2f;
+	var nextRedAlert : float;
+	var nextSelect : float;
+
+}
+
 var weapon1 : beam; //main weapons, force the use of a beam or pulse weapon
 var weapon2 : torpedo; //secondary weapon, force the use of a torpedo weapon
 var weapon3 : special; //Special Hability... FORCE IT!
-
+var nextPress : NextPress;
 
 
 //this function starts automatically everytime the script starts
@@ -174,7 +182,7 @@ function FixedUpdate () {
 function red_alert_player() {
 
 	
-	if(Input.GetAxis("RedAlert") && Time.time >= nextPress)
+	if(Input.GetAxis("RedAlert") && Time.time >= nextPress.nextRedAlert)
 	{
 		
 		if(isRedAlert != true)
@@ -186,7 +194,7 @@ function red_alert_player() {
 		{
 			isRedAlert = false;
 		}
-		nextPress = Time.time + timeInterval;
+		nextPress.nextRedAlert = Time.time + nextPress.interval;
 
 	
 	}
@@ -269,10 +277,10 @@ function player_movement() {
 }
 
 function select_target_player() {
-if(Input.GetAxis("Select")) //Check if the "Select" Axis was used
+	if(Input.GetAxis("Select")) //Check if the "Select" Axis was used
 	{
 		//check if any GUI is on, and if Red Alert mode is not activated
-		if(shipGUI == false && planetGUI == false && stationGUI == false && isRedAlert == false)
+		if(shipGUI == false && planetGUI == false && stationGUI == false && isRedAlert == false && Time.time >= nextPress.nextSelect)
 		{
 			//vars needed for this
 			var ray : Ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -311,6 +319,7 @@ if(Input.GetAxis("Select")) //Check if the "Select" Axis was used
 			{
 				target = null; //clean selected variable
 			}
+			nextPress.nextSelect = Time.time + nextPress.interval;
 		}
 	}
 	
@@ -661,6 +670,7 @@ function FindClosestEnemy () : GameObject
 	    		var scrStation : stationScript = go.GetComponent(stationScript);
 	    		if(scrStation.properties.faction != faction)
 	    		{
+	    		Debug.Log(scrStation.properties.faction.ToString());
 	    			var diffStation = (go.transform.position - position);
 	    			var curDistanceStation = diff.sqrMagnitude;
 	    			if (curDistanceStation < distance)
@@ -706,13 +716,14 @@ function fire_phaser_player() {
 							beam = Instantiate(weapon1.beam);
 							line_rend = beam.GetComponent(LineRenderer);
 							line_rend.SetPosition(0, close_phaser.transform.position);
-							line_rend.SetPosition(1, shield_hit.transform.position);
+							
 							isBeam = true;
 							
 							//do damage
 							
 							if (script.isRedAlert == true && script.shields > 0)
 							{
+								line_rend.SetPosition(1, shield_hit.transform.position);
 								script.shields -= weapon1.damage * weapon1.shieldMulti * Time.deltaTime;
 								
 								Instantiate(shield_imp, shield_hit.transform.position ,target.rotation);
@@ -721,6 +732,7 @@ function fire_phaser_player() {
 							}
 							else
 							{
+								line_rend.SetPosition(1, target.transform.position);
 								script.health -= weapon1.damage * weapon1.hullMulti * Time.deltaTime;
 								
 							}
@@ -735,12 +747,12 @@ function fire_phaser_player() {
 							//orient the beam
 							line_rend = beam.GetComponent(LineRenderer);
 							line_rend.SetPosition(0, close_phaser.transform.position);
-							line_rend.SetPosition(1, shield_hit.transform.position);
+							
 							//do damage
 							
 							if (script.isRedAlert == true && script.shields > 0)
 							{
-								
+								line_rend.SetPosition(1, shield_hit.transform.position);
 								script.shields -= weapon1.damage * weapon1.shieldMulti * Time.deltaTime;
 								
 								Instantiate(shield_imp, shield_hit.transform.position,target.rotation);
@@ -748,6 +760,7 @@ function fire_phaser_player() {
 							}
 							else
 							{
+								line_rend.SetPosition(1, target.transform.position);
 								script.health -= weapon1.damage * weapon1.hullMulti * Time.deltaTime;
 								
 							}
@@ -768,13 +781,14 @@ function fire_phaser_player() {
 							beam = Instantiate(weapon1.beam);
 							line_rend = beam.GetComponent(LineRenderer);
 							line_rend.SetPosition(0, close_phaser.transform.position);
-							line_rend.SetPosition(1, shield_hit.transform.position);
+							
 							isBeam = true;
 							
 							//do damage
 							
 							if (scriptStation.health.shield > 0)
 							{
+								line_rend.SetPosition(1, shield_hit.transform.position);
 								scriptStation.health.shield -= weapon1.damage * weapon1.shieldMulti * Time.deltaTime;
 								
 								Instantiate(shield_imp, shield_hit.transform.position ,target.rotation);
@@ -783,6 +797,7 @@ function fire_phaser_player() {
 							}
 							else
 							{
+								line_rend.SetPosition(1, target.transform.position);
 								scriptStation.health.health -= weapon1.damage * weapon1.hullMulti * Time.deltaTime;
 								
 							}
@@ -797,11 +812,12 @@ function fire_phaser_player() {
 							//orient the beam
 							line_rend = beam.GetComponent(LineRenderer);
 							line_rend.SetPosition(0, close_phaser.transform.position);
-							line_rend.SetPosition(1, shield_hit.transform.position);
+							
 							//do damage
 							
 							if (scriptStation.health.shield > 0)
 							{
+								line_rend.SetPosition(1, shield_hit.transform.position);
 								scriptStation.health.shield -= weapon1.damage * weapon1.shieldMulti * Time.deltaTime;
 								
 								Instantiate(shield_imp, shield_hit.transform.position ,target.rotation);
@@ -810,6 +826,7 @@ function fire_phaser_player() {
 							}
 							else
 							{
+								line_rend.SetPosition(1, target.transform.position);
 								scriptStation.health.health -= weapon1.damage * weapon1.hullMulti * Time.deltaTime;
 								
 							}
@@ -1008,7 +1025,7 @@ function CheckClosestPoint (tag : String, close_phaser : GameObject, parent : Ga
 
 }
 
-//this function is supposed
+//this function is supposed to give the ability to fire a stream of several pulse with each click
 function pulseRapidFire (wait : float, reload : float, shots : int, cannons : GameObject[]) {
 	
 	
