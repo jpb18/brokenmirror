@@ -7,9 +7,15 @@
 //<--------------Properties------------------------------>
 //This part exists so the npc scripts can make assumption
 var isPlayer : boolean = true; //true means it's the player ship, false means it's an npc
-var faction : int = 0; //0 means player faction, other factions to be considered
+var faction : Faction; //0 means player faction, other factions to be considered
 var shipName : String; //this var represents the ship name
 var shipExplosion : Transform; //ship explosion type
+
+class Faction {
+		var faction : int; //this var represents the station faction
+		var size : int;
+		var enemyFactions : int[] = new int[size];
+}
 
 //<------Red Alert----------------->
 var isRedAlert : boolean = false; //checks if the ship is in red alert
@@ -37,6 +43,10 @@ var maxHealth : float = 100.0; //ships maximum health
 var health : float = 100.0; //Ship health, soon to be controled through stored variables.
 var maxShields : float = 100.0; //ships maximum shields
 var shields : float = 100.0; //Ships shields, soon to be controled through stored variables.
+var isShieldRecharge : boolean = true; //checks if the shield recharge is on or not...
+var shieldRechargeRate : float; //the shield recharge rate per second
+var lastShieldHit : float; //the last time the shield was hit
+var hitRechargeInterval : float; //the minimum time period between a hit and starting a recharge
 
 //<---------------Collisions---------------------------------->
 //control vars
@@ -63,10 +73,12 @@ var target : Transform;
 var isForward : boolean = false; //Checks if the ship in question is forward firing only...
 
 //beam/pulse
+var phaserOverheated : boolean = false;
 var heatLimit : float; //maximum weapon temperature
-private var curHeat : float; //current weapon temperature
-private var isBeam : boolean = false; //checks if the beam is being emited
-private var beam : GameObject; //beams game object
+var heatDissipation : float; //amount of heat it dissipates each second when inactive
+var curHeat : float; //current weapon temperature
+var isBeam : boolean = false; //checks if the beam is being emited
+var beam : GameObject; //beams game object
 var shield_imp : GameObject; //phaser shield impact
 var phaser_flare : GameObject; //phaser exit flare
 
@@ -91,8 +103,12 @@ var reloadTime : float; //stores the reload time
 private var nextTorp : float; //time when the next torpedo can be fired
 
 
-//special hability
-var energy : float; //energy for the hability
+//energy
+var energy : float; //ships current energy
+var capacLimit : float; //capacitators limit
+var reactor : float; //amount of energy the reactor can supply to the ship
+var hasLostPower : boolean = false; //checks if the ship has recently lost power
+var restartPoint : float; // in decimals the power restart point
 
 
 //weapon class
@@ -108,6 +124,8 @@ class beam {
     var beam : GameObject; //beam gameObject
     var pulse : GameObject; //pulse gameObject
     var tile : Texture2D; //beam tile texture -- menu
+    var heat : float; //represents the amount of heat that generates each second/shot
+    var energyCons : float; //represents the weapon energy consuption each second/shot
 }
 
 class torpedo {
@@ -121,6 +139,7 @@ class torpedo {
     var torpedo : GameObject; //torpedo gameObject
     var tile : Texture2D; //torpedo tile texture -- menu
     var speed : float; //torpedo speed
+    var energyCons : float; //represents the weapon energy consuption each shot
 
 }
 
@@ -151,6 +170,8 @@ var nextPress : NextPress;
 //this function starts automatically everytime the script starts
 function Start () {
 	torpLoad = torpMaxLoad;
+	energy = capacLimit;
+	curHeat = 0;
 }
 
 //this function is executed every frame
@@ -158,10 +179,13 @@ function FixedUpdate () {
 
     if(isPlayer == true) //if the ship in question is the player ship
     {
-	     player_movement(); //executes movement function
-	     select_target_player(); //executes selection function
-	     red_alert_player(); //checks red alert status
-	     player_fire(); //controls fire from players
+    	if(hasLostPower == false)
+    	{
+		     player_movement(); //executes movement function
+		     select_target_player(); //executes selection function
+		     red_alert_player(); //checks red alert status
+		     player_fire(); //controls fire from players
+	    }
 	     
 	     
     }
@@ -171,7 +195,9 @@ function FixedUpdate () {
     }
 	kinstr(); //executed kinetic strenght function
 	checkHealth(); //checks the ship health
-	
+	CheckTemperature(); //checks the weapons energy and temperature info...
+	EnergyManagement(); //managing the ships energy
+	ShieldRecharge(); //controls the shield recharge
 
 }
 
@@ -395,7 +421,7 @@ function kinstr() {
 	//however we must check if the speed is null 
 	if (curSpeed == 0)
 	{
-	kineticStr = health; //if the ship is in rest, than it's kinetic strenght is equal to its health
+	kineticStr = health + shields; //if the ship is in rest, than it's kinetic strenght is equal to its health
 	}
 	else
 	{
@@ -409,14 +435,14 @@ function kinstr() {
 		{
 			speed = curSpeed;
 		}
-		kineticStr = health * (speed * speed); //now we apply the equation
+		kineticStr = (shields + health) * (speed * speed); //now we apply the equation
 		
 		
 	}
 	
-	if (kineticStr < health) //if the kinetic strenght is smaller than the ships health
+	if (kineticStr < health + shields) //if the kinetic strenght is smaller than the ships health
 		{
-			kineticStr = health; //than make it equal to its health
+			kineticStr = health + shields; //than make it equal to its health
 		}
 	
 }
@@ -431,7 +457,7 @@ function OnCollisionEnter(collision : Collision) {
 	}
 	
 	//if the ship collides with another ship, campare the kinetic strenght with the health and shields, than act accordingly
-	if (collision.gameObject.tag == "Ship" || collision.gameObject.tag == "Station") //Ship tags include starbases and other ships
+	if (collision.gameObject.tag == "Ship") 
 	{
 		//get the other "ship" kinetic strenght
 		
@@ -475,6 +501,47 @@ function OnCollisionEnter(collision : Collision) {
 		
 		SpeedStatus = SpeedStatus / 2; //reduce speed by half
 		
+	}
+	
+	//if the ship collides with a station
+	if (collision.gameObject.tag == "Station")
+	{
+	
+		//get the station kinetic strenght (health + shields)
+		var stat_go = collision.gameObject;
+		var stat_scr : stationScript = stat_go.GetComponent(stationScript);
+		var kin : float = stat_scr.health.health + stat_scr.health.shield;
+		
+		//compare the kinetic strenght with shields first.
+		if (shields > 0 && kin > 0) //see if shields exist first and if there's any kinetic strenght
+		{
+			if (shields > kin) //if the shields are stronger than the Kinetic Strenght of the other ship
+			{
+				shields = shields - kin; //subtract kinetic strenght to shields
+				kin = 0; //neutralize kinetic strenght
+			}
+			else 
+			{
+				kin = kin - shields; //subtract shields to kinetic strenght
+				shields = 0; //neutralize shields						
+			}
+		}
+		
+		if (health > 0 && kin > 0) //check if there's any health and kinetic strenght left (just as a precaution)
+		{
+			if (health > kin) //see if there's more health than incoming kinetic strenght
+			{
+				health = health - kin; //subtract the kinetic strenght to health
+				kin = 0; //neutralize kinetic strenght
+			}
+			else //here we don't need to subtract, since it's final
+			{
+				health = 0; //neutralize health
+			}
+		}
+		
+		
+	
 	}
 	
 	//if the ship collides with an asteroid, check if the shields are up, then act accordingly
@@ -635,9 +702,18 @@ function OnGUI () {
 
 function FindClosestEnemy () : GameObject 
 {
-    // Find all game objects with tag Ship
-    var gos : GameObject[];
-    gos = GameObject.FindObjectsOfType(GameObject);
+
+	
+    // Find all game objects with tag Ship and Station
+    var gos1 = new Array(GameObject.FindGameObjectsWithTag("Ship"));
+    var gos2 = new Array(GameObject.FindGameObjectsWithTag("Station"));
+    
+    //Concat both arrays
+    gos1 = gos1.Concat(gos2);
+    
+    var gos : GameObject[] = gos1.ToBuiltin(GameObject);
+    
+    
     var closest : GameObject; 
     var distance = Mathf.Infinity; 
     var position = transform.position;
@@ -652,7 +728,7 @@ function FindClosestEnemy () : GameObject
 	    	if (go.tag == "Ship")
 	    	{
 		    	var scr : playerShip = go.GetComponent(playerShip); //get ship control script
-		    	if(scr.faction != faction) //compares factions
+		    	if(CompareFaction(scr.faction.faction, faction.enemyFactions)) //compares factions
 		    	{
 		      
 			        var diff = (go.transform.position - position);
@@ -668,9 +744,9 @@ function FindClosestEnemy () : GameObject
 	    	else if (go.tag == "Station")
 	    	{
 	    		var scrStation : stationScript = go.GetComponent(stationScript);
-	    		if(scrStation.properties.faction != faction)
+	    		if(CompareFaction(scrStation.properties.faction.faction, faction.enemyFactions))
 	    		{
-	    		Debug.Log(scrStation.properties.faction.ToString());
+	    		
 	    			var diffStation = (go.transform.position - position);
 	    			var curDistanceStation = diff.sqrMagnitude;
 	    			if (curDistanceStation < distance)
@@ -698,7 +774,7 @@ function FindClosestEnemy () : GameObject
 function fire_phaser_player() {
 		
 		//this controls the firing of 360º beam weapons
-		if(Input.GetAxis("Fire1") && target != null && weapon1.isBeam == true && weapon1.isPresent == true && isForward == false)
+		if(Input.GetAxis("Fire1") && target != null && weapon1.isBeam == true && weapon1.isPresent == true && isForward == false && phaserOverheated == false)
 		{
 			var close_phaser : GameObject = CheckClosestWeapon("Phaser", transform);
 			var shield_hit : GameObject = CheckClosestPoint("ShieldPhaserImp", close_phaser, target.gameObject);
@@ -712,8 +788,11 @@ function fire_phaser_player() {
 						
 						if(isBeam == false)
 						{
+							script.lastShieldHit = Time.time;
+
 							//render the beam
 							beam = Instantiate(weapon1.beam);
+							beam.transform.parent = transform;
 							line_rend = beam.GetComponent(LineRenderer);
 							line_rend.SetPosition(0, close_phaser.transform.position);
 							
@@ -744,6 +823,8 @@ function fire_phaser_player() {
 						}
 						else
 						{
+							script.lastShieldHit = Time.time;
+
 							//orient the beam
 							line_rend = beam.GetComponent(LineRenderer);
 							line_rend.SetPosition(0, close_phaser.transform.position);
@@ -777,8 +858,10 @@ function fire_phaser_player() {
 						
 						if(isBeam == false)
 						{
+							scriptStation.health.lastShieldHit = Time.time;
 							//render the beam
 							beam = Instantiate(weapon1.beam);
+							beam.transform.parent = transform;
 							line_rend = beam.GetComponent(LineRenderer);
 							line_rend.SetPosition(0, close_phaser.transform.position);
 							
@@ -809,6 +892,7 @@ function fire_phaser_player() {
 						}
 						else
 						{
+							scriptStation.health.lastShieldHit = Time.time;
 							//orient the beam
 							line_rend = beam.GetComponent(LineRenderer);
 							line_rend.SetPosition(0, close_phaser.transform.position);
@@ -833,10 +917,13 @@ function fire_phaser_player() {
 						
 						}
 			}
+			
+			curHeat += weapon1.heat * Time.deltaTime;
+			energy -= weapon1.energyCons * Time.deltaTime;
 		
 		}
 		//this part controls the firing of fixed pulsed weapons
-		else if (Input.GetAxis("Fire1") && weapon1.isBeam == false && weapon1.isPresent == true && isForward == true && Time.time > nextPulse)
+		else if (Input.GetAxis("Fire1") && weapon1.isBeam == false && weapon1.isPresent == true && isForward == true && Time.time > nextPulse && phaserOverheated == false)
 		{
 			if (multiPulse == false)
 			{
@@ -848,9 +935,12 @@ function fire_phaser_player() {
 						var scr : pulseScript = inst.GetComponent(pulseScript);
 						scr.launched = transform;
 						nextPulse = Time.time + pulseRecharge;
+						
 					}
 				
 				}
+				curHeat += weapon1.heat;
+				energy -= weapon1.energyCons;
 			}
 			else
 			{
@@ -882,6 +972,8 @@ function fire_phaser_player() {
 				
 				
 			}
+			
+			
 		
 		}
 		else
@@ -889,6 +981,7 @@ function fire_phaser_player() {
 			isBeam = false;
 			Destroy(beam);
 			beam = null;
+			curHeat -= heatDissipation * Time.deltaTime;
 		}
 	
 
@@ -898,16 +991,9 @@ function fire_phaser_player() {
 //FIRE THE TORPEDOES! :D
 function fire_player_torpedo() {
 
-	if(Input.GetAxis("Fire2"))
+	if(Input.GetAxis("Fire2") && target != null && energy > 0)
 		{
 		
-			if(target != null)
-			{
-			
-				
-					
-				
-				
 				if (Time.time >= nextTorp)
 				{
 			
@@ -920,6 +1006,8 @@ function fire_player_torpedo() {
 					
 					script.target = target.transform;
 					script.launched = transform;
+					
+					energy -= weapon2.energyCons;
 					
 					torpLoad -= 1;
 					if (torpLoad > 0)
@@ -935,7 +1023,7 @@ function fire_player_torpedo() {
 				
 				
 			
-			}
+			
 			
 			
 		
@@ -1038,12 +1126,96 @@ function pulseRapidFire (wait : float, reload : float, shots : int, cannons : Ga
 			var scr : pulseScript = inst.GetComponent(pulseScript);
 			scr.launched = transform;
 			nextPulse = Time.time + pulseRecharge;
+			
 		}
 		
-	  
+	  	curHeat += weapon1.heat;
+	  	energy -= weapon1.energyCons;
 	  	yield WaitForSeconds(wait); 
 	}  
 	nextPulse = Time.time + pulseRecharge;
 	isFiringPulse = false;
+
+}
+
+function CompareFaction (targetValue : int, array : int[]) : boolean {
+
+	var isTrue : boolean = false;
+	for (var faction : int in array)
+	{
+		if (faction == targetValue)
+		{
+			isTrue = true;
+			break;
+		}
+		
+	
+	}
+	
+	return isTrue;
+
+
+}
+
+function CheckTemperature() {
+
+	if(curHeat >= heatLimit && phaserOverheated == false)
+	{
+		curHeat = heatLimit;
+		phaserOverheated = true;
+	}
+	else if (curHeat <= 0 && phaserOverheated == true)
+	{
+		curHeat = 0;
+		phaserOverheated = false;
+	}
+	
+	
+	
+
+}
+
+function EnergyManagement () {
+
+	if (energy < capacLimit)
+	{
+		energy += reactor * Time.deltaTime;
+	}
+	else
+	{
+		energy = capacLimit;
+	}
+	
+	if (energy <= 0)
+	{
+		energy = 0;
+		
+		
+		hasLostPower = true;
+		
+	}
+	
+	if (hasLostPower == true)
+	{
+		isShieldRecharge = false;
+	}
+	
+	
+	if (hasLostPower == true && energy >= capacLimit * restartPoint)
+	{
+		hasLostPower = false;
+		isShieldRecharge = true;
+		shields = 0;
+	}
+
+}
+
+function ShieldRecharge () {
+
+	if (hasLostPower == false && lastShieldHit + hitRechargeInterval >= Time.time && shields < maxShields && isShieldRecharge == true)
+	{
+		shields += shieldRechargeRate * Time.deltaTime;
+	}
+
 
 }

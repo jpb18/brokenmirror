@@ -84,7 +84,7 @@ function FindClosestEnemy () : GameObject
 {
     // Find all game objects with tag Ship
     var gos : GameObject[];
-    gos = GameObject.FindObjectsOfType(GameObject);
+    gos = GameObject.FindGameObjectsWithTag("Ship");
     var closest : GameObject; 
     var distance = Mathf.Infinity; 
     var position = transform.position;
@@ -99,7 +99,7 @@ function FindClosestEnemy () : GameObject
 	    	if (go.tag == "Ship")
 	    	{
 		    	var scr : playerShip = go.GetComponent(playerShip); //get ship control script
-		    	if(CompareFaction(scr.faction, status.factions.enemyFactions)) //compares factions
+		    	if(CompareFaction(scr.faction.faction, status.factions.enemyFactions)) //compares factions
 		    	{
 		      
 			        var diff = (go.transform.position - position);
@@ -111,22 +111,6 @@ function FindClosestEnemy () : GameObject
 			        }
 			        
 		    	}
-	    	}
-	    	else if (go.tag == "Station")
-	    	{
-	    		var scrStation : stationScript = go.GetComponent(stationScript);
-	    		if(CompareFaction(scrStation.properties.faction.faction, status.factions.enemyFactions))
-	    		{
-	    			var diffStation = (go.transform.position - position);
-	    			var curDistanceStation = diff.sqrMagnitude;
-	    			if (curDistanceStation < distance)
-	    			{
-	    				closest = go;
-	    				distance = curDistanceStation;
-	    			}
-	    			
-	    		}
-	    	
 	    	}
 	    	
 	       
@@ -170,6 +154,8 @@ function FirePhaser() {
 		var script : playerShip = status.target.GetComponent(playerShip);
 		if(status.isFiring == false)
 		{
+			script.lastShieldHit = Time.time;
+
 			//render the beam
 			status.firingBeam = Instantiate(beam.beam);
 			status.firingBeam.transform.parent = transform;
@@ -204,6 +190,8 @@ function FirePhaser() {
 		}
 		else
 		{
+			script.lastShieldHit = Time.time;
+
 			//orient the beam
 			line_rend = status.firingBeam.GetComponent(LineRenderer);
 			line_rend.SetPosition(0, transform.position);

@@ -20,6 +20,9 @@ class Health {
 	var maxShield : float; //here the max shield strenght of the station is stored
 	var shield : float; //here the current shield strenght of the station is stored
 	var explosion : GameObject; //here the explosion of the station is stored
+	var shieldRechargeRate : float; //the shield recharge rate per second
+	var lastShieldHit : float; //the last time the shield was hit
+	var hitRechargeInterval : float; //the minimum time period between a hit and starting a recharge
 	
 
 }
@@ -61,6 +64,7 @@ function Start () {
 function FixedUpdate() {
 	Rotation();
 	CheckHealth();
+	ShieldRecharge();
 }
 
 //this function processes the station rotation
@@ -92,5 +96,68 @@ function CheckHealth() {
 		Destroy(gameObject);
 	}
 
+
+}
+
+//this function pressesses the shield recharge
+function ShieldRecharge() {
+
+	if (health.lastShieldHit + health.hitRechargeInterval <= Time.time && health.shield < health.maxShield)
+	{
+		health.shield += health.shieldRechargeRate * Time.deltaTime;
+	}
+	
+	
+
+}
+
+//Collision
+function OnCollisionEnter(collision : Collision) {
+
+	if (collision.gameObject.tag == "Ship") 
+	{
+		//get the other "ship" kinetic strenght
+		
+		var go = GameObject.Find(collision.gameObject.name); //obtain the game object
+		var script = go.GetComponent(playerShip); //obtain the other control script
+		var othKS = script.kineticStr; //obtain the oponents kinetic strenght
+		
+		
+		
+		//compare the kinetic strenght with shields first.
+		if (health.shield > 0 && othKS > 0) //see if shields exist first and if there's any kinetic strenght
+		{
+			if (health.shield > othKS) //if the shields are stronger than the Kinetic Strenght of the other ship
+			{
+				health.shield = health.shield - othKS; //subtract kinetic strenght to shields
+				othKS = 0; //neutralize kinetic strenght
+			}
+			else 
+			{
+				othKS = othKS - health.shield; //subtract shields to kinetic strenght
+				health.shield = 0; //neutralize shields						
+			}
+		}
+		
+		if (health.health > 0 && othKS > 0) //check if there's any health and kinetic strenght left (just as a precaution)
+		{
+			if (health.health > othKS) //see if there's more health than incoming kinetic strenght
+			{
+				health.health = health.health - othKS; //subtract the kinetic strenght to health
+				othKS = 0; //neutralize kinetic strenght
+			}
+			else //here we don't need to subtract, since it's final
+			{
+				health.health = 0; //neutralize health
+			}
+		}
+		
+		
+		
+		
+		
+		
+		
+	}
 
 }

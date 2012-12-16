@@ -42,6 +42,7 @@ function OnCollisionEnter (hit : Collision) {
 				
 				if (script.shields <= 0 || script.isRedAlert == false)
 				{
+					script.lastShieldHit = Time.time;
 					script.health -= damage * hullMulti;
 					Destroy(gameObject);
 					Instantiate(explosion.transform.gameObject, transform.position, transform.rotation);
@@ -55,6 +56,7 @@ function OnCollisionEnter (hit : Collision) {
 				
 				if (stat_script.health.shield <= 0)
 				{
+					stat_script.health.lastShieldHit = Time.time;
 					stat_script.health.health -= damage * hullMulti;
 					Destroy(gameObject);
 					Instantiate(explosion.transform.gameObject, transform.position, transform.rotation);
@@ -95,6 +97,7 @@ function OnTriggerEnter (hit : Collider)
 					
 					if(script.shields > 0 && script.isRedAlert == true)
 					{
+						script.lastShieldHit = Time.time;
 						script.shields -= damage * shieldMulti;
 						Destroy(gameObject);
 						var instanteated : Transform = Instantiate(shieldImp, transform.position, transform.rotation);
@@ -109,6 +112,7 @@ function OnTriggerEnter (hit : Collider)
 					
 					if (stat_script.health.shield > 0)
 					{	
+						stat_script.health.lastShieldHit = Time.time;
 						stat_script.health.shield -= damage * shieldMulti;
 						Destroy(gameObject);
 						var stat_instanteated : Transform = Instantiate(shieldImp, transform.position, transform.rotation);
