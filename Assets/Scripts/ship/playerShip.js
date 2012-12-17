@@ -87,20 +87,19 @@ var multiPulse : boolean; //checks if the ship can fire more than one pulse per 
 var pulseShot : int; //represents the number of pulses each shot has
 var pulseWait : float; //waiting time between pulses if multiPulse = true
 var pulseRecharge : float = 1.0f; //interval in seconds between each pulse fire
-private var nextPulse : float; //time when the next pulse can be fired
-private var isFiringPulse : boolean; //checks if the brel is firing when in multiPulse
+var nextPulse : float; //time when the next pulse can be fired
+var isFiringPulse : boolean; //checks if the brel is firing when in multiPulse
 
 	
 //torpedo
 var torpMaxLoad : int; //maximum number of simultaneously loaded torpedoes
-private var torpLoad : int; //current torpedo load count
+var torpLoad : int; //current torpedo load count
 var torpHold : float; //contains the maximum amount of torpedoes it can hold -- point sistem
 var torpCount : int; //number of real torpedoes on hold
 var torpRate : float; //interval between each torpedo launch, in seconds
-private var isReloading : boolean; //checks if the torpedoes are reloading
+var isReloading : boolean; //checks if the torpedoes are reloading
 var reloadTime : float; //stores the reload time
-
-private var nextTorp : float; //time when the next torpedo can be fired
+var nextTorp : float; //time when the next torpedo can be fired
 
 
 //energy
@@ -191,6 +190,11 @@ function FixedUpdate () {
     }
     else //else
     {
+    	if(hasLostPower == false)
+    	{
+    		bot_fire(); //controls the bot weapons
+    		select_target_bot(); //selects a target for the bot and puts it in and out of red alert
+    	}
 
     }
 	kinstr(); //executed kinetic strenght function
@@ -776,150 +780,7 @@ function fire_phaser_player() {
 		//this controls the firing of 360º beam weapons
 		if(Input.GetAxis("Fire1") && target != null && weapon1.isBeam == true && weapon1.isPresent == true && isForward == false && phaserOverheated == false)
 		{
-			var close_phaser : GameObject = CheckClosestWeapon("Phaser", transform);
-			var shield_hit : GameObject = CheckClosestPoint("ShieldPhaserImp", close_phaser, target.gameObject);
-						
-			var line_rend : LineRenderer;
-			if (target.tag == "Ship")
-			{
-			
-						
-						var script : playerShip = target.GetComponent(playerShip);
-						
-						if(isBeam == false)
-						{
-							script.lastShieldHit = Time.time;
-
-							//render the beam
-							beam = Instantiate(weapon1.beam);
-							beam.transform.parent = transform;
-							line_rend = beam.GetComponent(LineRenderer);
-							line_rend.SetPosition(0, close_phaser.transform.position);
-							
-							isBeam = true;
-							
-							//do damage
-							
-							if (script.isRedAlert == true && script.shields > 0)
-							{
-								line_rend.SetPosition(1, shield_hit.transform.position);
-								script.shields -= weapon1.damage * weapon1.shieldMulti * Time.deltaTime;
-								
-								Instantiate(shield_imp, shield_hit.transform.position ,target.rotation);
-								
-							
-							}
-							else
-							{
-								line_rend.SetPosition(1, target.transform.position);
-								script.health -= weapon1.damage * weapon1.hullMulti * Time.deltaTime;
-								
-							}
-							
-							
-							
-							
-							
-						}
-						else
-						{
-							script.lastShieldHit = Time.time;
-
-							//orient the beam
-							line_rend = beam.GetComponent(LineRenderer);
-							line_rend.SetPosition(0, close_phaser.transform.position);
-							
-							//do damage
-							
-							if (script.isRedAlert == true && script.shields > 0)
-							{
-								line_rend.SetPosition(1, shield_hit.transform.position);
-								script.shields -= weapon1.damage * weapon1.shieldMulti * Time.deltaTime;
-								
-								Instantiate(shield_imp, shield_hit.transform.position,target.rotation);
-							
-							}
-							else
-							{
-								line_rend.SetPosition(1, target.transform.position);
-								script.health -= weapon1.damage * weapon1.hullMulti * Time.deltaTime;
-								
-							}
-						
-						}
-				
-		
-			
-			}
-			else if (target.tag == "Station")
-			{
-				
-						var scriptStation : stationScript = target.GetComponent(stationScript);
-						
-						if(isBeam == false)
-						{
-							scriptStation.health.lastShieldHit = Time.time;
-							//render the beam
-							beam = Instantiate(weapon1.beam);
-							beam.transform.parent = transform;
-							line_rend = beam.GetComponent(LineRenderer);
-							line_rend.SetPosition(0, close_phaser.transform.position);
-							
-							isBeam = true;
-							
-							//do damage
-							
-							if (scriptStation.health.shield > 0)
-							{
-								line_rend.SetPosition(1, shield_hit.transform.position);
-								scriptStation.health.shield -= weapon1.damage * weapon1.shieldMulti * Time.deltaTime;
-								
-								Instantiate(shield_imp, shield_hit.transform.position ,target.rotation);
-								
-							
-							}
-							else
-							{
-								line_rend.SetPosition(1, target.transform.position);
-								scriptStation.health.health -= weapon1.damage * weapon1.hullMulti * Time.deltaTime;
-								
-							}
-							
-							
-							
-							
-							
-						}
-						else
-						{
-							scriptStation.health.lastShieldHit = Time.time;
-							//orient the beam
-							line_rend = beam.GetComponent(LineRenderer);
-							line_rend.SetPosition(0, close_phaser.transform.position);
-							
-							//do damage
-							
-							if (scriptStation.health.shield > 0)
-							{
-								line_rend.SetPosition(1, shield_hit.transform.position);
-								scriptStation.health.shield -= weapon1.damage * weapon1.shieldMulti * Time.deltaTime;
-								
-								Instantiate(shield_imp, shield_hit.transform.position ,target.rotation);
-								
-							
-							}
-							else
-							{
-								line_rend.SetPosition(1, target.transform.position);
-								scriptStation.health.health -= weapon1.damage * weapon1.hullMulti * Time.deltaTime;
-								
-							}
-						
-						}
-			}
-			
-			curHeat += weapon1.heat * Time.deltaTime;
-			energy -= weapon1.energyCons * Time.deltaTime;
+			phaser_fire_360();
 		
 		}
 		//this part controls the firing of fixed pulsed weapons
@@ -991,41 +852,12 @@ function fire_phaser_player() {
 //FIRE THE TORPEDOES! :D
 function fire_player_torpedo() {
 
-	if(Input.GetAxis("Fire2") && target != null && energy > 0)
+	if(Input.GetAxis("Fire2") && target != null && energy > 0 && Time.time >= nextTorp)
 		{
 		
-				if (Time.time >= nextTorp)
-				{
-			
-					
-					var close_torp : GameObject = CheckClosestWeapon("TorpLaunch", transform);
-					var torp : GameObject = Instantiate(weapon2.torpedo, close_torp.transform.position, transform.rotation);
-					
-					var script = torp.GetComponent(torpedoScript);
+				fire_torpedo();
 					
 					
-					script.target = target.transform;
-					script.launched = transform;
-					
-					energy -= weapon2.energyCons;
-					
-					torpLoad -= 1;
-					if (torpLoad > 0)
-					{
-						nextTorp = Time.time + torpRate;
-					}
-					else
-					{
-						nextTorp = Time.time + reloadTime;
-						isReloading = true;
-					}
-				}
-				
-				
-			
-			
-			
-			
 		
 		}
 
@@ -1217,5 +1049,231 @@ function ShieldRecharge () {
 		shields += shieldRechargeRate * Time.deltaTime;
 	}
 
+
+}
+
+
+//bot firing control
+function bot_fire() {
+	//Check if the torpedoes are ready to fire
+	if(isReloading == true && Time.time >= nextTorp)
+	{
+		torpLoad = torpMaxLoad;
+		isReloading = false;
+	}
+	
+	//firing 360º phaser beam
+	if (isRedAlert == true && target != null && weapon1.isBeam == true && weapon1.isPresent == true && isForward == false && phaserOverheated == false)
+	{
+		
+		phaser_fire_360();
+	}
+	else
+	{
+		isBeam = false;
+		Destroy(beam);
+		beam = null;
+		curHeat -= heatDissipation * Time.deltaTime;
+	}
+	
+	
+	//torpedo firing
+	if (isRedAlert == true && target != null && weapon2.isPresent == true  && Time.time >= nextTorp && energy > 0)
+	{
+		fire_torpedo();
+	}
+
+}
+
+function phaser_fire_360() {
+			var close_phaser : GameObject = CheckClosestWeapon("Phaser", transform);
+			var shield_hit : GameObject = CheckClosestPoint("ShieldPhaserImp", close_phaser, target.gameObject);
+						
+			var line_rend : LineRenderer;
+			if (target.tag == "Ship")
+			{
+			
+						
+						var script : playerShip = target.GetComponent(playerShip);
+						
+						if(isBeam == false)
+						{
+							script.lastShieldHit = Time.time;
+
+							//render the beam
+							beam = Instantiate(weapon1.beam);
+							beam.transform.parent = transform;
+							line_rend = beam.GetComponent(LineRenderer);
+							line_rend.SetPosition(0, close_phaser.transform.position);
+							
+							isBeam = true;
+							
+							//do damage
+							
+							if (script.isRedAlert == true && script.shields > 0)
+							{
+								line_rend.SetPosition(1, shield_hit.transform.position);
+								script.shields -= weapon1.damage * weapon1.shieldMulti * Time.deltaTime;
+								
+								Instantiate(shield_imp, shield_hit.transform.position ,target.rotation);
+								
+							
+							}
+							else
+							{
+								line_rend.SetPosition(1, target.transform.position);
+								script.health -= weapon1.damage * weapon1.hullMulti * Time.deltaTime;
+								
+							}
+							
+							
+							
+							
+							
+						}
+						else
+						{
+							script.lastShieldHit = Time.time;
+
+							//orient the beam
+							line_rend = beam.GetComponent(LineRenderer);
+							line_rend.SetPosition(0, close_phaser.transform.position);
+							
+							//do damage
+							
+							if (script.isRedAlert == true && script.shields > 0)
+							{
+								line_rend.SetPosition(1, shield_hit.transform.position);
+								script.shields -= weapon1.damage * weapon1.shieldMulti * Time.deltaTime;
+								
+								Instantiate(shield_imp, shield_hit.transform.position,target.rotation);
+							
+							}
+							else
+							{
+								line_rend.SetPosition(1, target.transform.position);
+								script.health -= weapon1.damage * weapon1.hullMulti * Time.deltaTime;
+								
+							}
+						
+						}
+				
+		
+			
+			}
+			else if (target.tag == "Station")
+			{
+				
+						var scriptStation : stationScript = target.GetComponent(stationScript);
+						
+						if(isBeam == false)
+						{
+							scriptStation.health.lastShieldHit = Time.time;
+							//render the beam
+							beam = Instantiate(weapon1.beam);
+							beam.transform.parent = transform;
+							line_rend = beam.GetComponent(LineRenderer);
+							line_rend.SetPosition(0, close_phaser.transform.position);
+							
+							isBeam = true;
+							
+							//do damage
+							
+							if (scriptStation.health.shield > 0)
+							{
+								line_rend.SetPosition(1, shield_hit.transform.position);
+								scriptStation.health.shield -= weapon1.damage * weapon1.shieldMulti * Time.deltaTime;
+								
+								Instantiate(shield_imp, shield_hit.transform.position ,target.rotation);
+								
+							
+							}
+							else
+							{
+								line_rend.SetPosition(1, target.transform.position);
+								scriptStation.health.health -= weapon1.damage * weapon1.hullMulti * Time.deltaTime;
+								
+							}
+							
+							
+							
+							
+							
+						}
+						else
+						{
+							scriptStation.health.lastShieldHit = Time.time;
+							//orient the beam
+							line_rend = beam.GetComponent(LineRenderer);
+							line_rend.SetPosition(0, close_phaser.transform.position);
+							
+							//do damage
+							
+							if (scriptStation.health.shield > 0)
+							{
+								line_rend.SetPosition(1, shield_hit.transform.position);
+								scriptStation.health.shield -= weapon1.damage * weapon1.shieldMulti * Time.deltaTime;
+								
+								Instantiate(shield_imp, shield_hit.transform.position ,target.rotation);
+								
+							
+							}
+							else
+							{
+								line_rend.SetPosition(1, target.transform.position);
+								scriptStation.health.health -= weapon1.damage * weapon1.hullMulti * Time.deltaTime;
+								
+							}
+						
+						}
+			}
+			
+			curHeat += weapon1.heat * Time.deltaTime;
+			energy -= weapon1.energyCons * Time.deltaTime;	
+
+
+}
+
+function select_target_bot() {
+
+	if(target == null)
+	{
+		target = FindClosestEnemy().transform;
+		if (target != null && isRedAlert == false)
+		{
+			isRedAlert = true;
+		}
+		else
+		{
+			isRedAlert = false;
+		}
+	}
+
+}
+
+function fire_torpedo() {
+	
+		var close_torp : GameObject = CheckClosestWeapon("TorpLaunch", transform);
+		var torp : GameObject = Instantiate(weapon2.torpedo, close_torp.transform.position, transform.rotation);
+		
+		var script = torp.GetComponent(torpedoScript);
+		
+		
+		script.target = target.transform;
+		script.launched = transform;
+		
+		energy -= weapon2.energyCons;
+		
+		torpLoad -= 1;
+		if (torpLoad > 0)
+		{
+			nextTorp = Time.time + torpRate;
+		}
+		else
+		{
+		
+			nextTorp = Time.time + reloadTime;
+			isReloading = true;
+		}
 
 }
