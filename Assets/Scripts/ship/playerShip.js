@@ -80,7 +80,9 @@ var curHeat : float; //current weapon temperature
 var isBeam : boolean = false; //checks if the beam is being emited
 var beam : GameObject; //beams game object
 var shield_imp : GameObject; //phaser shield impact
-var phaser_flare : GameObject; //phaser exit flare
+var lastImp : float;
+var intervalImp : float = 0.3f;
+
 
 //pulse
 var multiPulse : boolean; //checks if the ship can fire more than one pulse per shot
@@ -109,6 +111,9 @@ var reactor : float; //amount of energy the reactor can supply to the ship
 var hasLostPower : boolean = false; //checks if the ship has recently lost power
 var restartPoint : float; // in decimals the power restart point
 
+//special habilities
+var isCloaked : boolean = false; //checks if the ship is or not cloaked
+
 
 //weapon class
 
@@ -125,20 +130,15 @@ class beam {
     var tile : Texture2D; //beam tile texture -- menu
     var heat : float; //represents the amount of heat that generates each second/shot
     var energyCons : float; //represents the weapon energy consuption each second/shot
+    var range : float; //range in unity units
 }
 
 class torpedo {
 	var isPresent : boolean; //if the weapon is present
 	var name : String; //name of the weapon
-    var description : String; //a description of the weapon
-    var torpSize : float; //size of a torpedo -- point sistem
-    var damage : float; //strenght of the weapon
-    var shieldMulti : float; //multiplies the strenght of the weapon against shields
-    var hullMulti : float; //multiples the strenght of the weapon against hulls
     var torpedo : GameObject; //torpedo gameObject
-    var tile : Texture2D; //torpedo tile texture -- menu
-    var speed : float; //torpedo speed
     var energyCons : float; //represents the weapon energy consuption each shot
+    var range : float; //range in unity units
 
 }
 
@@ -149,7 +149,13 @@ class special {
 	var tile : Texture2D; //special tile texture -- menu
 	var energyReq : float; //special hability energy requirement
 	var minCool : float; //minimum cooldown time
-	
+	enum Type {
+		none,
+		cloak,
+		emp,
+		thaleron
+	}
+	var type = Type.none;
 
 }
 
@@ -260,8 +266,19 @@ function player_movement() {
 	
 	//Movement
 	//obtain movement variables
-	var vert = Input.GetAxis("Vertical") * agilityFrame;
-	var horz = Input.GetAxis("Horizontal") * agilityFrame;
+	var vert : float;
+	var horz : float;
+	
+	if (isForward == true && isRedAlert == true && !Input.GetAxis("canRot"))
+	{
+		vert = Input.GetAxis("Mouse Y") * agility * Time.deltaTime;
+		horz = Input.GetAxis("Mouse X") * agility * Time.deltaTime;
+	}
+	else
+	{
+		vert = Input.GetAxis("Vertical") * agilityFrame;
+		horz = Input.GetAxis("Horizontal") * agilityFrame;
+	}
 	var rot = Input.GetAxis("Rotate") * agilityFrame;
 		
 	transform.Rotate(vert,horz,rot);
@@ -732,7 +749,7 @@ function FindClosestEnemy () : GameObject
 	    	if (go.tag == "Ship")
 	    	{
 		    	var scr : playerShip = go.GetComponent(playerShip); //get ship control script
-		    	if(CompareFaction(scr.faction.faction, faction.enemyFactions)) //compares factions
+		    	if(CompareFaction(scr.faction.faction, faction.enemyFactions) && scr.isCloaked == false) //compares factions
 		    	{
 		      
 			        var diff = (go.transform.position - position);
@@ -748,7 +765,7 @@ function FindClosestEnemy () : GameObject
 	    	else if (go.tag == "Station")
 	    	{
 	    		var scrStation : stationScript = go.GetComponent(stationScript);
-	    		if(CompareFaction(scrStation.properties.faction.faction, faction.enemyFactions))
+	    		if(CompareFaction(scrStation.properties.faction.faction, faction.enemyFactions) && scrStation.properties.isCloaked == false)
 	    		{
 	    		
 	    			var diffStation = (go.transform.position - position);
@@ -778,13 +795,13 @@ function FindClosestEnemy () : GameObject
 function fire_phaser_player() {
 		
 		//this controls the firing of 360º beam weapons
-		if(Input.GetAxis("Fire1") && target != null && weapon1.isBeam == true && weapon1.isPresent == true && isForward == false && phaserOverheated == false)
+		if(Input.GetAxis("Fire1") && target != null && weapon1.isBeam == true && weapon1.isPresent == true && isForward == false && phaserOverheated == false && Vector3.Distance(transform.position, target.position) <= weapon1.range && hasLostPower == false && isCloaked == false)
 		{
 			phaser_fire_360();
 		
 		}
 		//this part controls the firing of fixed pulsed weapons
-		else if (Input.GetAxis("Fire1") && weapon1.isBeam == false && weapon1.isPresent == true && isForward == true && Time.time > nextPulse && phaserOverheated == false)
+		else if (Input.GetAxis("Fire1") && weapon1.isBeam == false && weapon1.isPresent == true && isForward == true && Time.time > nextPulse && phaserOverheated == false && hasLostPower == false && isCloaked == false)
 		{
 			if (multiPulse == false)
 			{
@@ -852,13 +869,11 @@ function fire_phaser_player() {
 //FIRE THE TORPEDOES! :D
 function fire_player_torpedo() {
 
-	if(Input.GetAxis("Fire2") && target != null && energy > 0 && Time.time >= nextTorp)
+	if(Input.GetAxis("Fire2") && target != null && hasLostPower == false && Time.time >= nextTorp && Vector3.Distance(transform.position, target.position) <= weapon2.range && isCloaked == false)
 		{
 		
 				fire_torpedo();
-					
-					
-		
+			
 		}
 
 
@@ -1063,7 +1078,7 @@ function bot_fire() {
 	}
 	
 	//firing 360º phaser beam
-	if (isRedAlert == true && target != null && weapon1.isBeam == true && weapon1.isPresent == true && isForward == false && phaserOverheated == false)
+	if (isRedAlert == true && target != null && weapon1.isBeam == true && weapon1.isPresent == true && isForward == false && phaserOverheated == false  && Vector3.Distance(transform.position, target.position) <= weapon1.range && hasLostPower == false)
 	{
 		
 		phaser_fire_360();
@@ -1078,7 +1093,7 @@ function bot_fire() {
 	
 	
 	//torpedo firing
-	if (isRedAlert == true && target != null && weapon2.isPresent == true  && Time.time >= nextTorp && energy > 0)
+	if (isRedAlert == true && target != null && weapon2.isPresent == true  && Time.time >= nextTorp && hasLostPower == false && Vector3.Distance(transform.position, target.position) <= weapon2.range)
 	{
 		fire_torpedo();
 	}
@@ -1114,8 +1129,11 @@ function phaser_fire_360() {
 							{
 								line_rend.SetPosition(1, shield_hit.transform.position);
 								script.shields -= weapon1.damage * weapon1.shieldMulti * Time.deltaTime;
-								
-								Instantiate(shield_imp, shield_hit.transform.position ,target.rotation);
+								if(Time.time >= lastImp + intervalImp)
+								{
+									Instantiate(shield_imp, shield_hit.transform.position ,target.rotation);
+									lastImp = Time.time;
+								}
 								
 							
 							}
@@ -1146,7 +1164,11 @@ function phaser_fire_360() {
 								line_rend.SetPosition(1, shield_hit.transform.position);
 								script.shields -= weapon1.damage * weapon1.shieldMulti * Time.deltaTime;
 								
-								Instantiate(shield_imp, shield_hit.transform.position,target.rotation);
+								if(Time.time >= lastImp + intervalImp)
+								{
+									Instantiate(shield_imp, shield_hit.transform.position ,target.rotation);
+									lastImp = Time.time;
+								}
 							
 							}
 							else
@@ -1184,7 +1206,11 @@ function phaser_fire_360() {
 								line_rend.SetPosition(1, shield_hit.transform.position);
 								scriptStation.health.shield -= weapon1.damage * weapon1.shieldMulti * Time.deltaTime;
 								
-								Instantiate(shield_imp, shield_hit.transform.position ,target.rotation);
+								if(Time.time >= lastImp + intervalImp)
+								{
+									Instantiate(shield_imp, shield_hit.transform.position ,target.rotation);
+									lastImp = Time.time;
+								}
 								
 							
 							}
@@ -1214,8 +1240,11 @@ function phaser_fire_360() {
 								line_rend.SetPosition(1, shield_hit.transform.position);
 								scriptStation.health.shield -= weapon1.damage * weapon1.shieldMulti * Time.deltaTime;
 								
-								Instantiate(shield_imp, shield_hit.transform.position ,target.rotation);
-								
+								if(Time.time >= lastImp + intervalImp)
+								{
+									Instantiate(shield_imp, shield_hit.transform.position ,target.rotation);
+									lastImp = Time.time;
+								}
 							
 							}
 							else
@@ -1277,3 +1306,26 @@ function fire_torpedo() {
 		}
 
 }
+
+function CheckTargetCloak() {
+
+	var go : GameObject = target.gameObject;
+	if (go.tag == "Ship")
+	{
+		var scr_ship : playerShip = go.GetComponent(playerShip);
+		if (scr_ship.isCloaked == true)
+		{
+			target == null;
+		}
+	}
+	else if (go.tag == "Station")
+	{
+		var scr_station : stationScript = go.GetComponent(stationScript);
+		if(scr_station.properties.isCloaked == true)
+		{
+			target == null;
+		}
+	}
+
+}
+

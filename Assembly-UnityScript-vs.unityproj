@@ -60,6 +60,7 @@
      <Compile Include="Assets\Scripts\ship\playerShip.js" />
      <Compile Include="Assets\Scripts\station\stationPhaser.js" />
      <Compile Include="Assets\Scripts\station\stationScript.js" />
+     <Compile Include="Assets\Scripts\station\stationTorpedo.js" />
      <Compile Include="Assets\Scripts\weapons\pulseScript.js" />
      <Compile Include="Assets\Scripts\weapons\torpedoScript.js" />
      <None Include="Assets\Standard Assets\Projectors\Guidelines.txt" />

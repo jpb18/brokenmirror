@@ -86,7 +86,7 @@ function OnCollisionEnter (hit : Collision) {
 	if(hasHit == false)
 	{
 		
-		if (hit.transform != launched.transform)
+		if (hit.transform != launched.transform || launched == null)
 		{
 		
 			
@@ -139,7 +139,7 @@ function OnTriggerEnter (hit : Collider)
 
 	if(hasHit == false)
 	{
-		if (hit.transform.parent.parent.transform != launched.transform)
+		if (hit.transform.parent.parent.transform != launched.transform || launched == null)
 		{
 		
 			if (hit.tag == "Shields")

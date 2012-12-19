@@ -42,6 +42,7 @@ class Properties {
 	var description : String; //this var contains the station description
 	var costProj : int; //this var contains the project cost in Credits
 	var matCost : Materials; //this car contains the station cost in raw materials
+	var isCloaked : boolean; //checks if the station is cloaked
 	
 	//this class contains the materials needed for something
 	class Materials {

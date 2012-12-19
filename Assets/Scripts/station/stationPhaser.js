@@ -33,6 +33,9 @@ class Beam {
     var pulse : GameObject; //pulse gameObject
     var energyCons : float; //beams energy consuption each second
     var shieldImp : GameObject; //this var contains the shield impact
+    var lastImp : float; //checks the time the last shield impact has been generated
+    var intervalImp : float = 0.3f; //the time period between each shield impact generation
+    var range : float; //phaser range in unity units
 }
 
 var beam : Beam; //Creating the beam/pulse class
@@ -99,7 +102,7 @@ function FindClosestEnemy () : GameObject
 	    	if (go.tag == "Ship")
 	    	{
 		    	var scr : playerShip = go.GetComponent(playerShip); //get ship control script
-		    	if(CompareFaction(scr.faction.faction, status.factions.enemyFactions)) //compares factions
+		    	if(CompareFaction(scr.faction.faction, status.factions.enemyFactions) && scr.isCloaked == false) //compares factions
 		    	{
 		      
 			        var diff = (go.transform.position - position);
@@ -146,7 +149,7 @@ function CompareFaction (targetValue : int, array : int[]) : boolean {
 
 function FirePhaser() {
 	
-	if (status.target != null && beam.isBeam == true && beam.isPresent == true && status.canFire == true)
+	if (status.target != null && beam.isBeam == true && beam.isPresent == true && status.canFire == true && Vector3.Distance(transform.position, status.target.transform.position) <= beam.range)
 	{				
 		var shield_hit : GameObject = CheckClosestPoint("ShieldPhaserImp", gameObject, status.target);
 		var line_rend : LineRenderer;
@@ -170,9 +173,11 @@ function FirePhaser() {
 			{
 				line_rend.SetPosition(1, shield_hit.transform.position);
 				script.shields -= beam.damage * beam.shieldMulti * Time.deltaTime;
-				
-				Instantiate(beam.shieldImp, shield_hit.transform.position, status.target.transform.rotation);
-				
+				if(Time.time >= beam.intervalImp + beam.lastImp)
+				{
+					Instantiate(beam.shieldImp, shield_hit.transform.position, status.target.transform.rotation);
+					beam.lastImp = Time.time;
+				}
 				
 			
 			}
@@ -202,9 +207,11 @@ function FirePhaser() {
 			{
 				line_rend.SetPosition(1, shield_hit.transform.position);
 				script.shields -= beam.damage * beam.shieldMulti * Time.deltaTime;
-				
-				Instantiate(beam.shieldImp, shield_hit.transform.position, status.target.transform.rotation);
-
+				if(Time.time >= beam.intervalImp + beam.lastImp)
+				{
+					Instantiate(beam.shieldImp, shield_hit.transform.position, status.target.transform.rotation);
+					beam.lastImp = Time.time;
+				}
 				
 				
 			}
@@ -267,5 +274,27 @@ function CheckClosestPoint (tag : String, close_phaser : GameObject, parent : Ga
 	}
 	
 	return closest;
+
+}
+
+function CheckTargetCloak() {
+
+	var go : GameObject = status.target;
+	if (go.tag == "Ship")
+	{
+		var scr_ship : playerShip = go.GetComponent(playerShip);
+		if (scr_ship.isCloaked == true)
+		{
+			status.target == null;
+		}
+	}
+	else if (go.tag == "Station")
+	{
+		var scr_station : stationScript = go.GetComponent(stationScript);
+		if(scr_station.properties.isCloaked == true)
+		{
+			status.target == null;
+		}
+	}
 
 }
