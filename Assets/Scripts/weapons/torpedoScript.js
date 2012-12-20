@@ -29,6 +29,7 @@ function FixedUpdate () {
 	if(target == null)
 	{
 		Destroy(gameObject);
+		Instantiate(explosion, transform.position, transform.rotation);
 	}
 
 	if ( isCalc != true)
@@ -41,10 +42,11 @@ function FixedUpdate () {
 	if (isMoving == false)
 	{
 		isMoving = true;
-		StartCoroutine(flight(transform, launched.position, target.position, time));
+		StartCoroutine(flight(transform, launched.position, target, time));
 	}
 			
 	transform.LookAt(target);
+	CheckTargetCloak();
 		
 
 }
@@ -59,7 +61,7 @@ function travel_time(target : Vector3, start : Vector3, speed : float) {
 }
 
 //flight Coroutine
-function flight (ThisTransform : Transform, startPos : Vector3, endPos : Vector3, time : float)
+function flight (ThisTransform : Transform, startPos : Vector3, endPos : Transform, time : float)
 {
 	var i : float = 0;
 	var rate : float = 1/time * Time.deltaTime;
@@ -73,8 +75,9 @@ function flight (ThisTransform : Transform, startPos : Vector3, endPos : Vector3
 	
 	while (i < 1)
 	{
+		
 		i += rate;
-		ThisTransform.position = Vector3.Lerp(startPos, endPos, i);
+		ThisTransform.position = Vector3.Lerp(startPos, endPos.position, i);
 		yield;
 	}
 
@@ -182,6 +185,29 @@ function OnTriggerEnter (hit : Collider)
 			
 			}
 		
+		}
+	}
+
+}
+
+function CheckTargetCloak() {
+	
+	if (target.tag == "Ship")
+	{
+		var scrShip : playerShip = target.GetComponent(playerShip);
+		if (scrShip.isCloaked == true)
+		{
+			Destroy(gameObject);
+			Instantiate(explosion, transform.position, transform.rotation);
+		}
+	}
+	else if (target.tag == "Station")
+	{
+		var scrStation : stationScript = target.GetComponent(stationScript);
+		if (scrStation.properties.isCloaked == true)
+		{
+			Destroy(gameObject);
+			Instantiate(explosion, transform.position, transform.rotation);
 		}
 	}
 

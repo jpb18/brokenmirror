@@ -142,6 +142,13 @@ class torpedo {
 
 }
 
+enum Type {
+		none,
+		cloak,
+		emp,
+		thaleron
+	}
+
 class special {
 	var isPresent : boolean; //if the weapon is present
 	var name : String; //name of the special hability
@@ -149,12 +156,7 @@ class special {
 	var tile : Texture2D; //special tile texture -- menu
 	var energyReq : float; //special hability energy requirement
 	var minCool : float; //minimum cooldown time
-	enum Type {
-		none,
-		cloak,
-		emp,
-		thaleron
-	}
+	
 	var type = Type.none;
 
 }
@@ -163,13 +165,38 @@ class NextPress {
 	var interval : float = 0.2f;
 	var nextRedAlert : float;
 	var nextSelect : float;
+	var nextCloak : float;
+
+}
+
+//this class contains variables so that the script makes assumption for the nps (Non-Player Ships)
+class botInfo {
+	class botManeuverInfo {
+		var isFacing : boolean = false;
+		var changeStat : boolean = false;
+		var isManeuvering : boolean = false;
+		var manueverAngle : Vector3; //contains the normal maneuver angle
+		var minTurnDist : float = 5; //minimum turning distance
+		var maxTurnDist : float = 20; //maximum turning distance
+	}
+	
+	
+	class botSpeedInfo {
+		var isSpeeding : boolean = false;
+		
+	}
+	
+	
+	var speed : botSpeedInfo;
+	var maneuvering : botManeuverInfo;
 
 }
 
 var weapon1 : beam; //main weapons, force the use of a beam or pulse weapon
 var weapon2 : torpedo; //secondary weapon, force the use of a torpedo weapon
 var weapon3 : special; //Special Hability... FORCE IT!
-var nextPress : NextPress;
+var nextPress : NextPress; //controls the mouse button clicks
+var	bot : botInfo; //contains all revelant informations for the bots
 
 
 //this function starts automatically everytime the script starts
@@ -200,6 +227,7 @@ function FixedUpdate () {
     	{
     		bot_fire(); //controls the bot weapons
     		select_target_bot(); //selects a target for the bot and puts it in and out of red alert
+    		bot_movement(); //controls the nps movement
     	}
 
     }
@@ -419,17 +447,25 @@ function player_fire() {
 	
 	
 	//if player presses, activates special weapon
-	if(Input.GetAxis("Fire3"))
+	if(Input.GetAxis("Fire3") && Time.time >= nextPress.nextCloak + nextPress.interval)
 	{
-		if (target != null)
+		nextPress.nextCloak = Time.time;
+		if ( weapon3.isPresent == true)
+		{
+			if(weapon3.type == Type.cloak)
 			{
+				if(isCloaked == false)
+				{
+					isCloaked = true;
+				}
+				else
+				{
+					isCloaked = false;
+				}
 			
 			}
-			else
-			{
 			
-			
-			}
+		}
 		
 	}
 		
@@ -716,7 +752,9 @@ function OnGUI () {
 	}
 	
 	
-	GUI.Label(Rect(0,0,20,100), isRedAlert.ToString());
+	GUI.Label(Rect(0,0,100,20), isRedAlert.ToString());
+	GUI.Label(Rect(Screen.width - 100, 0, 100, 20), isCloaked.ToString());
+	
 	}
 
 }
@@ -1078,7 +1116,7 @@ function bot_fire() {
 	}
 	
 	//firing 360º phaser beam
-	if (isRedAlert == true && target != null && weapon1.isBeam == true && weapon1.isPresent == true && isForward == false && phaserOverheated == false  && Vector3.Distance(transform.position, target.position) <= weapon1.range && hasLostPower == false)
+	if (isRedAlert == true && target != null && weapon1.isBeam == true && weapon1.isPresent == true && isForward == false && phaserOverheated == false  && Vector3.Distance(transform.position, target.position) <= weapon1.range && hasLostPower == false && isCloaked == false)
 	{
 		
 		phaser_fire_360();
@@ -1093,7 +1131,7 @@ function bot_fire() {
 	
 	
 	//torpedo firing
-	if (isRedAlert == true && target != null && weapon2.isPresent == true  && Time.time >= nextTorp && hasLostPower == false && Vector3.Distance(transform.position, target.position) <= weapon2.range)
+	if (isRedAlert == true && target != null && weapon2.isPresent == true  && Time.time >= nextTorp && hasLostPower == false && Vector3.Distance(transform.position, target.position) <= weapon2.range && isCloaked == false)
 	{
 		fire_torpedo();
 	}
@@ -1307,6 +1345,7 @@ function fire_torpedo() {
 
 }
 
+//this function will check if the target is cloaked
 function CheckTargetCloak() {
 
 	var go : GameObject = target.gameObject;
@@ -1329,3 +1368,207 @@ function CheckTargetCloak() {
 
 }
 
+//this function controls the bot movement
+function bot_movement() {
+	amountToMove = speed * Time.deltaTime;
+	rigidbody.velocity = transform.forward * SpeedStatus * amountToMove;
+	curSpeed = Vector3.Dot(transform.forward, rigidbody.velocity);
+	
+	if (isRedAlert == true && target != null)
+	{
+		combat_movement();
+	}
+	else
+	{
+	
+	}
+
+
+
+}
+
+function combat_movement() {
+
+	if(SpeedStatus <= 1)
+	{
+		if(bot.speed.isSpeeding == false)
+		{
+			
+			StartCoroutine(bot_increase_speed(1));
+			
+		}
+	}
+	//Debug.Log(Vector3.Distance(transform.position, target.position).ToString());
+	
+	var distance1 : float = Vector3.Distance(target.position, transform.position); 
+	if(distance1 >= bot.maneuvering.minTurnDist)
+	{
+		if (bot.maneuvering.isFacing == false && distance1 >= bot.maneuvering.maxTurnDist)
+		{
+			bot.maneuvering.changeStat = true;
+		}
+		if (transform.rotation != Quaternion.LookRotation(target.position - transform.position) && bot.maneuvering.isManeuvering == false)
+		{
+			
+			StartCoroutine(LookAtTarget());
+		}
+	}
+	else
+	{
+		if (bot.maneuvering.isFacing == true && distance1 <= bot.maneuvering.minTurnDist)
+		{
+			bot.maneuvering.changeStat = true;
+		}
+		else if (transform.rotation == Quaternion.LookRotation(target.position - transform.position) && bot.maneuvering.isManeuvering == false)
+		{
+			StartCoroutine(LookFromTarget());
+		}
+		
+		
+	}
+
+
+
+}
+
+//this function controls the bot speed increase
+function bot_increase_speed(targetSpeed : float) {
+	bot.speed.isSpeeding = true;
+	var startSpeed : float = SpeedStatus;
+	var i : float = startSpeed;
+	var rate : float = Time.deltaTime;
+	
+	
+	
+	while (i < 1)
+	{
+		i += rate;
+		
+		SpeedStatus = Mathf.Lerp(startSpeed, targetSpeed, i);
+		yield;
+	}
+	
+	bot.speed.isSpeeding = false;
+
+}
+
+//this function controls the bot speed decrease
+function bot_decrease_speed(targetSpeed : float) {
+	bot.speed.isSpeeding = true;
+	var startSpeed : float = SpeedStatus;
+	var i : float = startSpeed;
+	var rate : float = Time.deltaTime;
+	
+	while (i > targetSpeed)
+	{
+		i-= rate;
+		SpeedStatus = Mathf.Lerp(targetSpeed, startSpeed, i);
+		yield;
+	}
+	bot.speed.isSpeeding = false;
+	
+}
+
+//this functions makes the ship to try to keep its nose on the target
+function LookAtTarget () {
+	bot.maneuvering.isManeuvering = true;
+	var StartTarget : Transform = target;
+	var i : float = 0;
+	var targetPoint : Vector3 = StartTarget.position;
+	var targetRotation = Quaternion.LookRotation(targetPoint - transform.position);
+	var time : float = agility/((targetRotation.x + targetRotation.y + targetRotation.z)/3);
+	var rate : float = 1/time;
+	
+	while (i < 1)
+	{
+		targetPoint = StartTarget.position;
+		targetRotation = Quaternion.LookRotation(targetPoint - transform.position);
+		if (StartTarget != target)
+		{
+			bot.maneuvering.isManeuvering = false;
+			break;
+		}
+		
+		if (bot.maneuvering.changeStat == true)
+		{
+			bot.maneuvering.changeStat = false;
+			bot.maneuvering.isManeuvering = false;
+			break;
+		}
+	
+		i += rate * Time.deltaTime;
+		transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, i);
+		yield;
+	
+	}
+	
+
+	bot.maneuvering.isManeuvering = false;
+
+
+}
+
+function LookFromTarget() {
+	bot.maneuvering.isManeuvering = true;
+	var StartTarget : Transform = target;
+	var v : float = 0;
+	var targetPoint : Vector3 = StartTarget.position;
+	var targetRotation = Quaternion.LookRotation(targetPoint - transform.position);
+	var time : float = agility/((targetRotation.x + targetRotation.y + targetRotation.z)/3);
+	var rate : float = 1/time;
+	
+	if (targetRotation.x > 0)
+	{
+		targetRotation.x += bot.maneuvering.manueverAngle.x;
+	
+	}
+	else
+	{
+		targetRotation.x -= bot.maneuvering.manueverAngle.x;
+	}
+	
+	if (targetRotation.y > 0)
+	{
+		targetRotation.y += bot.maneuvering.manueverAngle.y;
+	}
+	else
+	{
+		targetRotation.y -= bot.maneuvering.manueverAngle.y;
+	}
+	
+	if(targetRotation.z > 0)
+	{
+		targetRotation.z += bot.maneuvering.manueverAngle.z;
+	}
+	else
+	{
+		targetRotation.z -= bot.maneuvering.manueverAngle.z;
+	}
+	
+	while (v < 1)
+	{
+		
+		if (StartTarget != target)
+		{
+			bot.maneuvering.isManeuvering = false;
+			break;
+		}
+		
+		if (bot.maneuvering.changeStat == true)
+		{
+			bot.maneuvering.changeStat = false;
+			bot.maneuvering.isManeuvering = false;
+			break;
+		}
+	
+		v += rate * Time.deltaTime;
+		Debug.Log(v.ToString());
+		transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, v);
+		yield;
+	
+	}
+	
+
+	bot.maneuvering.isManeuvering = false;
+
+}

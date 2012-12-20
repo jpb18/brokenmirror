@@ -148,8 +148,9 @@ function CompareFaction (targetValue : int, array : int[]) : boolean {
 }
 
 function FirePhaser() {
-	
-	if (status.target != null && beam.isBeam == true && beam.isPresent == true && status.canFire == true && Vector3.Distance(transform.position, status.target.transform.position) <= beam.range)
+	var distance1 : float = Vector3.Distance(status.target.transform.position, transform.position);
+	var distance2 : float = Vector3.Distance(transform.parent.parent.transform.position, status.target.transform.position);
+	if (status.target != null && beam.isBeam == true && beam.isPresent == true && status.canFire == true && distance1 <= beam.range && distance1 < distance2 )
 	{				
 		var shield_hit : GameObject = CheckClosestPoint("ShieldPhaserImp", gameObject, status.target);
 		var line_rend : LineRenderer;
