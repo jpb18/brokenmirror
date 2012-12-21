@@ -15,7 +15,7 @@ private var y = 0.0;
 var rotation : Quaternion;
 var position;
 
-@script AddComponentMenu("Camera-Control/Mouse Orbit")
+
 
 function Start () {
     var angles = transform.eulerAngles;

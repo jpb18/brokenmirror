@@ -14,27 +14,30 @@ public class screenshot : MonoBehaviour {
 	// LateUpdate is called once per frame
 	void LateUpdate () {
 		
-		if(Input.GetKeyDown (KeyCode.F11))
+		if(!Application.isWebPlayer)
 		{
-			//create game directory
-			string direc = System.Environment.GetFolderPath(System.Environment.SpecialFolder.MyDocuments);
-			direc = direc + "\\Broken-Mirror-3\\ScreenShots\\";
-			
-			if(!System.IO.Directory.Exists(@direc))
+			if(Input.GetKeyDown (KeyCode.F11))
 			{
-				System.IO.Directory.CreateDirectory(@direc);	
+				//create game directory
+				string direc = System.Environment.GetFolderPath(System.Environment.SpecialFolder.MyDocuments);
+				direc = direc + "\\Broken-Mirror-3\\ScreenShots\\";
+				
+				if(!System.IO.Directory.Exists(@direc))
+				{
+					System.IO.Directory.CreateDirectory(@direc);	
+				}
+				
+				//count files already present
+				System.IO.DirectoryInfo dir = new System.IO.DirectoryInfo(direc);
+		    	int count = dir.GetFiles().Length;
+				
+				//extend the name
+				direc = direc + "Screenshot" + count.ToString () + ".png";
+				
+				//save the screenshot
+				Application.CaptureScreenshot (direc);
+				
 			}
-			
-			//count files already present
-			System.IO.DirectoryInfo dir = new System.IO.DirectoryInfo(direc);
-        	int count = dir.GetFiles().Length;
-			
-			//extend the name
-			direc = direc + "Screenshot" + count.ToString () + ".png";
-			
-			//save the screenshot
-			Application.CaptureScreenshot (direc);
-			
 		}
 		
 	}
