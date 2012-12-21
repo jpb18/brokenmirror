@@ -54,7 +54,13 @@ var hitRechargeInterval : float; //the minimum time period between a hit and sta
 var kineticStr : float; //this var controls the kinetic strenght of an object, calculated using E=mc^2
 
 //<----------------Ship Properties------------------------------>
-var isSmall : boolean; //this caracteristic is used to discover if a ship can enter or not in the atmosphere of a planet
+enum ShipType {
+	Escort,
+	Cruiser,
+	Battleship
+}
+
+var type : ShipType; //this caracteristic is used to discover if a ship can enter or not in the atmosphere of a planet
 
 //<-----------------GUI----------------------------------------->
 var isLeaving : boolean = false;
@@ -173,7 +179,7 @@ class NextPress {
 class botInfo {
 	class botManeuverInfo {
 		var isFacing : boolean = false;
-		var changeStat : boolean = false;
+		var changeStat : boolean = true;
 		var isManeuvering : boolean = false;
 		var manueverAngle : Vector3; //contains the normal maneuver angle
 		var minTurnDist : float = 5; //minimum turning distance
@@ -189,7 +195,7 @@ class botInfo {
 	
 	var speed : botSpeedInfo;
 	var maneuvering : botManeuverInfo;
-
+	
 }
 
 var weapon1 : beam; //main weapons, force the use of a beam or pulse weapon
@@ -1305,9 +1311,10 @@ function select_target_bot() {
 
 	if(target == null)
 	{
-		target = FindClosestEnemy().transform;
-		if (target != null && isRedAlert == false)
+		var find : GameObject = FindClosestEnemy();
+		if (find != null && isRedAlert == false)
 		{
+			target = find.transform;
 			isRedAlert = true;
 		}
 		else
@@ -1389,45 +1396,43 @@ function bot_movement() {
 
 function combat_movement() {
 
-	if(SpeedStatus <= 1)
+	if(type == ShipType.Battleship)
 	{
-		if(bot.speed.isSpeeding == false)
-		{
-			
-			StartCoroutine(bot_increase_speed(1));
-			
-		}
+		battleship_combat_movement();
 	}
-	//Debug.Log(Vector3.Distance(transform.position, target.position).ToString());
-	
-	var distance1 : float = Vector3.Distance(target.position, transform.position); 
-	if(distance1 >= bot.maneuvering.minTurnDist)
+	else if (type == ShipType.Cruiser)
 	{
-		if (bot.maneuvering.isFacing == false && distance1 >= bot.maneuvering.maxTurnDist)
-		{
-			bot.maneuvering.changeStat = true;
-		}
-		if (transform.rotation != Quaternion.LookRotation(target.position - transform.position) && bot.maneuvering.isManeuvering == false)
-		{
-			
-			StartCoroutine(LookAtTarget());
-		}
+	
+	}
+	else if (type == ShipType.Escort)
+	{
+	
+	}
+
+
+}
+
+//this function controls the combat movement of a battleship
+function battleship_combat_movement() {
+	//distance control
+	var Distance1 : float = Vector3.Distance(target.position, transform.position);
+	
+	if(Distance1 >= weapon1.range/2)
+	{
+		StopCoroutine("bot_decrease_speed");
+		StartCoroutine(bot_increase_speed(1));
 	}
 	else
 	{
-		if (bot.maneuvering.isFacing == true && distance1 <= bot.maneuvering.minTurnDist)
-		{
-			bot.maneuvering.changeStat = true;
-		}
-		else if (transform.rotation == Quaternion.LookRotation(target.position - transform.position) && bot.maneuvering.isManeuvering == false)
-		{
-			StartCoroutine(LookFromTarget());
-		}
-		
-		
+		StopCoroutine("bot_increase_speed");
+		StartCoroutine(bot_decrease_speed(0));
 	}
-
-
+	
+	//orientation
+	if(!bot.maneuvering.isManeuvering)
+	{
+		StartCoroutine(LookAtTarget());
+	}
 
 }
 
@@ -1451,6 +1456,8 @@ function bot_increase_speed(targetSpeed : float) {
 	bot.speed.isSpeeding = false;
 
 }
+
+
 
 //this function controls the bot speed decrease
 function bot_decrease_speed(targetSpeed : float) {
@@ -1476,24 +1483,27 @@ function LookAtTarget () {
 	var i : float = 0;
 	var targetPoint : Vector3 = StartTarget.position;
 	var targetRotation = Quaternion.LookRotation(targetPoint - transform.position);
-	var time : float = agility/((targetRotation.x + targetRotation.y + targetRotation.z)/3);
+	var time : float = agility/((targetRotation.eulerAngles.x + targetRotation.eulerAngles.y + targetRotation.eulerAngles.z)/3);
 	var rate : float = 1/time;
 	
 	while (i < 1)
 	{
 		targetPoint = StartTarget.position;
 		targetRotation = Quaternion.LookRotation(targetPoint - transform.position);
+		
 		if (StartTarget != target)
 		{
+			
 			bot.maneuvering.isManeuvering = false;
-			break;
+			StopCoroutine("LookAtTarget");
 		}
 		
 		if (bot.maneuvering.changeStat == true)
 		{
-			bot.maneuvering.changeStat = false;
+			
 			bot.maneuvering.isManeuvering = false;
-			break;
+			StopCoroutine("LookAtTarget");
+			
 		}
 	
 		i += rate * Time.deltaTime;
@@ -1514,51 +1524,52 @@ function LookFromTarget() {
 	var v : float = 0;
 	var targetPoint : Vector3 = StartTarget.position;
 	var targetRotation = Quaternion.LookRotation(targetPoint - transform.position);
-	var time : float = agility/((targetRotation.x + targetRotation.y + targetRotation.z)/3);
+	var time : float = agility/((targetRotation.eulerAngles.x + targetRotation.eulerAngles.y + targetRotation.eulerAngles.z)/3);
 	var rate : float = 1/time;
 	
-	if (targetRotation.x > 0)
+	if (targetRotation.eulerAngles.x > 0)
 	{
-		targetRotation.x += bot.maneuvering.manueverAngle.x;
+		targetRotation.eulerAngles.x += bot.maneuvering.manueverAngle.x;
 	
 	}
 	else
 	{
-		targetRotation.x -= bot.maneuvering.manueverAngle.x;
+		targetRotation.eulerAngles.x -= bot.maneuvering.manueverAngle.x;
 	}
 	
-	if (targetRotation.y > 0)
+	if (targetRotation.eulerAngles.y > 0)
 	{
 		targetRotation.y += bot.maneuvering.manueverAngle.y;
 	}
 	else
 	{
-		targetRotation.y -= bot.maneuvering.manueverAngle.y;
+		targetRotation.eulerAngles.y -= bot.maneuvering.manueverAngle.y;
 	}
 	
-	if(targetRotation.z > 0)
+	if(targetRotation.eulerAngles.z > 0)
 	{
-		targetRotation.z += bot.maneuvering.manueverAngle.z;
+		targetRotation.eulerAngles.z += bot.maneuvering.manueverAngle.z;
 	}
 	else
 	{
-		targetRotation.z -= bot.maneuvering.manueverAngle.z;
+		targetRotation.eulerAngles.z -= bot.maneuvering.manueverAngle.z;
 	}
 	
 	while (v < 1)
 	{
 		
-		if (StartTarget != target)
+		if (StartTarget != target || target == null)
 		{
+			
 			bot.maneuvering.isManeuvering = false;
-			break;
+			StopCoroutine("LookFromTarget");
 		}
 		
 		if (bot.maneuvering.changeStat == true)
 		{
-			bot.maneuvering.changeStat = false;
+			
 			bot.maneuvering.isManeuvering = false;
-			break;
+			StopCoroutine("LookFromTarget");
 		}
 	
 		v += rate * Time.deltaTime;

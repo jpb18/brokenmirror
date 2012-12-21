@@ -142,7 +142,22 @@ function OnTriggerEnter (hit : Collider)
 
 	if(hasHit == false)
 	{
-		if (hit.transform.parent.parent.transform != launched.transform || launched == null)
+		
+		var launchGO : GameObject = launched.gameObject;
+		var launchTransf : Transform;
+		if(launchGO != null)
+		{
+			launchTransf = launchGO.transform;
+		}
+		
+		var hitGO : GameObject = hit.transform.parent.parent.transform.gameObject;
+		var hitTransf : Transform;
+		if( hitGO != null)
+		{
+			hitTransf = hitGO.transform;
+		}
+		
+		if (hitTransf != launchTransf)
 		{
 		
 			if (hit.tag == "Shields")
@@ -186,6 +201,7 @@ function OnTriggerEnter (hit : Collider)
 			}
 		
 		}
+		
 	}
 
 }
