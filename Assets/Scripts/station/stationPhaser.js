@@ -18,6 +18,7 @@ class Status {
 	var firingBeam : GameObject; //this var contains the beam that's currently being fired
 	var curImpact : GameObject; //this var contains the current shield impact
 	var canFire : boolean; //this var controls if the weapon can fire or not
+	var isLooking : boolean; //this var controls if the weapon is or not looking for a target
 }
 
 //This class contains the weapon information
@@ -51,10 +52,12 @@ function Start () {
 
 function FixedUpdate () {
 	ConfirmFactionInfo();
-	status.target = FindClosestEnemy();
 	FirePhaser();
 	CheckEnergy();
-	
+	if(status.isLooking == false)
+	{
+		StartCoroutine(CheckTargetCoroutine(1));
+	}
 	
 
 }
@@ -297,5 +300,15 @@ function CheckTargetCloak() {
 			status.target == null;
 		}
 	}
+
+}
+
+function CheckTargetCoroutine(time : float)
+{
+	status.isLooking = true;
+	status.target = FindClosestEnemy();
+	
+	yield WaitForSeconds(time);
+	status.isLooking = false;
 
 }
