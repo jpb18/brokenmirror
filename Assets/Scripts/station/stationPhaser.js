@@ -51,7 +51,7 @@ function Start () {
 }
 
 function FixedUpdate () {
-	ConfirmFactionInfo();
+	
 	FirePhaser();
 	CheckEnergy();
 	if(status.isLooking == false)
@@ -305,6 +305,7 @@ function CheckTargetCloak() {
 
 function CheckTargetCoroutine(time : float)
 {
+	ConfirmFactionInfo();
 	status.isLooking = true;
 	status.target = FindClosestEnemy();
 	

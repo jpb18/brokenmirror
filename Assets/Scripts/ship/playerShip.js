@@ -192,9 +192,13 @@ class botInfo {
 		
 	}
 	
+	class targetingInfo {
+		var isTargeting : boolean = false;
+	}
 	
 	var speed : botSpeedInfo;
 	var maneuvering : botManeuverInfo;
+	var target : targetingInfo;
 	
 }
 
@@ -232,7 +236,10 @@ function FixedUpdate () {
     	if(hasLostPower == false)
     	{
     		bot_fire(); //controls the bot weapons
-    		select_target_bot(); //selects a target for the bot and puts it in and out of red alert
+    		if(bot.target.isTargeting == false)
+    		{
+    			StartCoroutine(select_target_co(1));
+    		}
     		bot_movement(); //controls the nps movement
     	}
 
@@ -1307,6 +1314,16 @@ function phaser_fire_360() {
 
 }
 
+//make sure the bot only searches for targets every X seconds
+function select_target_co(time : float) {
+	bot.target.isTargeting = true;
+	select_target_bot();
+	yield WaitForSeconds(time);
+	bot.target.isTargeting = false;
+	
+
+}
+
 function select_target_bot() {
 
 	if(target == null)
@@ -1328,7 +1345,7 @@ function select_target_bot() {
 function fire_torpedo() {
 	
 		var close_torp : GameObject = CheckClosestWeapon("TorpLaunch", transform);
-		var torp : GameObject = Instantiate(weapon2.torpedo, close_torp.transform.position, transform.rotation);
+		var torp : GameObject = Instantiate(weapon2.torpedo, close_torp.transform.position, close_torp.transform.rotation);
 		
 		var script = torp.GetComponent(torpedoScript);
 		
@@ -1483,28 +1500,20 @@ function LookAtTarget () {
 	var i : float = 0;
 	var targetPoint : Vector3 = StartTarget.position;
 	var targetRotation = Quaternion.LookRotation(targetPoint - transform.position);
-	var time : float = agility/((targetRotation.eulerAngles.x + targetRotation.eulerAngles.y + targetRotation.eulerAngles.z)/3);
+	var time : float = ((targetRotation.x + targetRotation.y + targetRotation.z + targetRotation.w)/4)/agility;
 	var rate : float = 1/time;
 	
 	while (i < 1)
 	{
-		targetPoint = StartTarget.position;
-		targetRotation = Quaternion.LookRotation(targetPoint - transform.position);
+		
 		
 		if (StartTarget != target)
 		{
-			
 			bot.maneuvering.isManeuvering = false;
 			StopCoroutine("LookAtTarget");
 		}
 		
-		if (bot.maneuvering.changeStat == true)
-		{
-			
-			bot.maneuvering.isManeuvering = false;
-			StopCoroutine("LookAtTarget");
-			
-		}
+		
 	
 		i += rate * Time.deltaTime;
 		transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, i);
@@ -1565,12 +1574,6 @@ function LookFromTarget() {
 			StopCoroutine("LookFromTarget");
 		}
 		
-		if (bot.maneuvering.changeStat == true)
-		{
-			
-			bot.maneuvering.isManeuvering = false;
-			StopCoroutine("LookFromTarget");
-		}
 	
 		v += rate * Time.deltaTime;
 		Debug.Log(v.ToString());

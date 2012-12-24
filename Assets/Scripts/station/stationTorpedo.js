@@ -12,6 +12,7 @@ class TorpStatus {
 	var target : GameObject; //this var represents the target ship
 	var cdTime : float; //this var contains the cooldown time
 	var lastShot : float; //this var contains the last shot fired time
+	var isLooking : boolean; //this ver controls if the targeting coroutine is on
 
 }
 
@@ -26,8 +27,11 @@ function Start () {
 
 // Update is called once per frame
 function FixedUpdate () {
-	ConfirmFactionInfo();
-	status.target = FindClosestEnemy();
+	
+	if(status.isLooking == false)
+	{
+		StartCoroutine(CheckTargetCoroutine(1));
+	}
 	fire_torpedo();
 	
 	
@@ -144,5 +148,16 @@ function CheckTargetCloak() {
 			status.target == null;
 		}
 	}
+
+}
+
+function CheckTargetCoroutine(time : float)
+{
+	ConfirmFactionInfo();
+	status.isLooking = true;
+	status.target = FindClosestEnemy();
+	
+	yield WaitForSeconds(time);
+	status.isLooking = false;
 
 }
