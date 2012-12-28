@@ -46,12 +46,74 @@ function FixedUpdate () {
 function OnCollisionEnter (hit : Collision) {
 	if(hasHit == false)
 	{
-		
-		if (hit.transform != launched.transform || launched == null)
+		if(!launched)
+		{
+			hit_hull(hit);
+		}
+		else if (hit.transform != launched.transform)
 		{
 		
 			
-			if(hit.transform.tag == "Ship")
+			hit_hull(hit);
+		
+		
+		}
+		
+	}
+	
+}
+
+
+
+//Collision with shields
+function OnTriggerEnter (hit : Collider)
+{
+
+	if(hasHit == false)
+	{
+		if(!launched)
+		{
+			hit_shields(hit);
+		}
+		if (hit.transform.parent.parent.transform != launched.transform )
+		{
+		
+			hit_shields(hit);
+				
+			
+		}
+		
+		
+		
+	}
+
+}
+
+function CheckTargetCloak() {
+	
+	if (target.tag == "Ship")
+	{
+		var scrShip : playerShip = target.GetComponent(playerShip);
+		if (scrShip.isCloaked == true)
+		{
+			Destroy(gameObject);
+			Instantiate(explosion, transform.position, transform.rotation);
+		}
+	}
+	else if (target.tag == "Station")
+	{
+		var scrStation : stationScript = target.GetComponent(stationScript);
+		if (scrStation.properties.isCloaked == true)
+		{
+			Destroy(gameObject);
+			Instantiate(explosion, transform.position, transform.rotation);
+		}
+	}
+
+}
+
+function hit_hull(hit : Collision) {
+	if(hit.transform.tag == "Ship")
 			{
 			
 				var script : playerShip = hit.gameObject.GetComponent(playerShip);
@@ -84,40 +146,10 @@ function OnCollisionEnter (hit : Collision) {
 			{
 				Destroy(gameObject);
 			}
-		
-		
-		}
-		
-	}
-	
+
 }
 
-
-
-//Collision with shields
-function OnTriggerEnter (hit : Collider)
-{
-
-	if(hasHit == false)
-	{
-		
-		var launchGO : GameObject = launched.gameObject;
-		var launchTransf : Transform;
-		if(launchGO != null)
-		{
-			launchTransf = launchGO.transform;
-		}
-		
-		var hitGO : GameObject = hit.transform.parent.parent.transform.gameObject;
-		var hitTransf : Transform;
-		if( hitGO != null)
-		{
-			hitTransf = hitGO.transform;
-		}
-		
-		if (hitTransf != launchTransf)
-		{
-		
+function hit_shields(hit : Collider) {
 			if (hit.tag == "Shields")
 			{
 			
@@ -154,36 +186,6 @@ function OnTriggerEnter (hit : Collider)
 					}
 				
 				}
-				
-			
 			}
-		
-		}
-		
-	}
 
 }
-
-function CheckTargetCloak() {
-	
-	if (target.tag == "Ship")
-	{
-		var scrShip : playerShip = target.GetComponent(playerShip);
-		if (scrShip.isCloaked == true)
-		{
-			Destroy(gameObject);
-			Instantiate(explosion, transform.position, transform.rotation);
-		}
-	}
-	else if (target.tag == "Station")
-	{
-		var scrStation : stationScript = target.GetComponent(stationScript);
-		if (scrStation.properties.isCloaked == true)
-		{
-			Destroy(gameObject);
-			Instantiate(explosion, transform.position, transform.rotation);
-		}
-	}
-
-}
-
