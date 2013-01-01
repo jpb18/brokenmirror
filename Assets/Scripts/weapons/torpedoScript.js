@@ -68,14 +68,14 @@ function OnCollisionEnter (hit : Collision) {
 //Collision with shields
 function OnTriggerEnter (hit : Collider)
 {
-
+	
 	if(hasHit == false)
 	{
 		if(!launched)
 		{
 			hit_shields(hit);
 		}
-		if (hit.transform.parent.parent.transform != launched.transform )
+		else if (hit.transform.parent.parent.transform != launched.transform )
 		{
 		
 			hit_shields(hit);

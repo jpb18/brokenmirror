@@ -151,87 +151,96 @@ function CompareFaction (targetValue : int, array : int[]) : boolean {
 }
 
 function FirePhaser() {
+	if(status.target != null)
+	{
 	var distance1 : float = Vector3.Distance(status.target.transform.position, transform.position);
 	var distance2 : float = Vector3.Distance(transform.parent.parent.transform.position, status.target.transform.position);
-	if (status.target != null && beam.isBeam == true && beam.isPresent == true && status.canFire == true && distance1 <= beam.range && distance1 < distance2 )
-	{				
-		var shield_hit : GameObject = CheckClosestPoint("ShieldPhaserImp", gameObject, status.target);
-		var line_rend : LineRenderer;
-		
-		var script : playerShip = status.target.GetComponent(playerShip);
-		if(status.isFiring == false)
-		{
-			script.lastShieldHit = Time.time;
-
-			//render the beam
-			status.firingBeam = Instantiate(beam.beam);
-			status.firingBeam.transform.parent = transform;
-			line_rend = status.firingBeam.GetComponent(LineRenderer);
-			line_rend.SetPosition(0, transform.position);
+		if (beam.isBeam == true && beam.isPresent == true && status.canFire == true && distance1 <= beam.range && distance1 < distance2 )
+		{				
+			var shield_hit : GameObject = CheckClosestPoint("ShieldPhaserImp", gameObject, status.target);
+			var line_rend : LineRenderer;
 			
-			status.isFiring = true;
-			
-			//do damage
-			
-			if (script.isRedAlert == true && script.shields > 0)
+			var script : playerShip = status.target.GetComponent(playerShip);
+			if(status.isFiring == false)
 			{
-				line_rend.SetPosition(1, shield_hit.transform.position);
-				script.shields -= beam.damage * beam.shieldMulti * Time.deltaTime;
-				if(Time.time >= beam.intervalImp + beam.lastImp)
+				script.lastShieldHit = Time.time;
+	
+				//render the beam
+				status.firingBeam = Instantiate(beam.beam);
+				status.firingBeam.transform.parent = transform;
+				line_rend = status.firingBeam.GetComponent(LineRenderer);
+				line_rend.SetPosition(0, transform.position);
+				
+				status.isFiring = true;
+				
+				//do damage
+				
+				if (script.isRedAlert == true && script.shields > 0)
 				{
-					Instantiate(beam.shieldImp, shield_hit.transform.position, status.target.transform.rotation);
-					beam.lastImp = Time.time;
+					line_rend.SetPosition(1, shield_hit.transform.position);
+					script.shields -= beam.damage * beam.shieldMulti * Time.deltaTime;
+					if(Time.time >= beam.intervalImp + beam.lastImp)
+					{
+						Instantiate(beam.shieldImp, shield_hit.transform.position, status.target.transform.rotation);
+						beam.lastImp = Time.time;
+					}
+					
+				
+				}
+				else
+				{
+					line_rend.SetPosition(1, status.target.transform.position);
+					script.health -= beam.damage * beam.hullMulti * Time.deltaTime;
+					
 				}
 				
-			
+				
+				
+				
+				
 			}
 			else
 			{
-				line_rend.SetPosition(1, status.target.transform.position);
-				script.health -= beam.damage * beam.hullMulti * Time.deltaTime;
+				script.lastShieldHit = Time.time;
+	
+				//orient the beam
+				line_rend = status.firingBeam.GetComponent(LineRenderer);
+				line_rend.SetPosition(0, transform.position);
 				
+				//do damage
+				
+				if (script.isRedAlert == true && script.shields > 0)
+				{
+					line_rend.SetPosition(1, shield_hit.transform.position);
+					script.shields -= beam.damage * beam.shieldMulti * Time.deltaTime;
+					if(Time.time >= beam.intervalImp + beam.lastImp)
+					{
+						Instantiate(beam.shieldImp, shield_hit.transform.position, status.target.transform.rotation);
+						beam.lastImp = Time.time;
+					}
+					
+					
+				}
+				else
+				{
+					line_rend.SetPosition(1, status.target.transform.position);
+					script.health -= beam.damage * beam.hullMulti * Time.deltaTime;
+					
+				}
+			
 			}
 			
+			status.curEnergy -= beam.energyCons * Time.deltaTime;
 			
 			
-			
-			
+	
 		}
 		else
 		{
-			script.lastShieldHit = Time.time;
-
-			//orient the beam
-			line_rend = status.firingBeam.GetComponent(LineRenderer);
-			line_rend.SetPosition(0, transform.position);
-			
-			//do damage
-			
-			if (script.isRedAlert == true && script.shields > 0)
-			{
-				line_rend.SetPosition(1, shield_hit.transform.position);
-				script.shields -= beam.damage * beam.shieldMulti * Time.deltaTime;
-				if(Time.time >= beam.intervalImp + beam.lastImp)
-				{
-					Instantiate(beam.shieldImp, shield_hit.transform.position, status.target.transform.rotation);
-					beam.lastImp = Time.time;
-				}
-				
-				
-			}
-			else
-			{
-				line_rend.SetPosition(1, status.target.transform.position);
-				script.health -= beam.damage * beam.hullMulti * Time.deltaTime;
-				
-			}
-		
+			status.isFiring = false;
+			Destroy(status.firingBeam);
+			status.firingBeam = null;
 		}
-		
-		status.curEnergy -= beam.energyCons * Time.deltaTime;
-		
-		
-
 	}
 	else
 	{
@@ -239,7 +248,6 @@ function FirePhaser() {
 		Destroy(status.firingBeam);
 		status.firingBeam = null;
 	}
-
 
 }
 
