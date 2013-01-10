@@ -44,51 +44,35 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Behave\Editor\BehaveAbout.cs" />
-     <Compile Include="Assets\Behave\Editor\BehaveAssetEditor.cs" />
-     <Compile Include="Assets\Behave\Editor\BehaveBrowser.cs" />
-     <Compile Include="Assets\Behave\Editor\BehaveComponentEditor.cs" />
-     <Compile Include="Assets\Behave\Editor\BehaveDebugWindow.cs" />
-     <Compile Include="Assets\Behave\Editor\BehaveEditor.cs" />
-     <Compile Include="Assets\Behave\Editor\BehaveMenu.cs" />
-     <Compile Include="Assets\Behave\Editor\BehaveTreeEditor.cs" />
+     <Compile Include="Assets\StrumpyShaderEditor\Editor\Scripts\NodeEditorWindow.cs" />
+     <Compile Include="Assets\StrumpyShaderEditor\Editor\Scripts\StrumpyPreviewWindow.cs" />
      <None Include="Assets\Standard Assets\Projectors\Guidelines.txt" />
-     <None Include="Assets\Behave\Changelog.txt" />
      <None Include="Assets\Standard Assets\Projectors\Sources\Shaders\Projector Multiply.shader" />
      <None Include="Assets\Models\Ships\Klingon\bird of prey\K_TNG_BOP_VoxelizerDebug.txt" />
+     <None Include="Assets\StrumpyShaderEditor\Editor\Resources\Internal\Temp\TempShader.shader" />
      <None Include="Assets\Scripts\shaders\aditive.shader" />
      <None Include="Assets\Detonator Explosion Framework\Resources\Detonator\Textures\HeatDistort.shader" />
      <None Include="Assets\Scripts\shaders\shield.shader" />
      <None Include="Assets\Standard Assets\Skyboxes\_skybox info.txt" />
      <None Include="Assets\Models\Ships\Earth\galaxy\galaxy_obj\F_TNG_GALAXY_VoxelizerDebug.txt" />
      <None Include="Assets\Scripts\shaders\slindev_planet.shader" />
-     <None Include="Assets\Behave\Readme.txt" />
      <None Include="Assets\Standard Assets\Projectors\Sources\Shaders\Projector Light.shader" />
      <None Include="Assets\Scripts\shaders\atm_scat.shader" />
      <None Include="Assets\Scripts\atm_scat.shader" />
-     <None Include="Assets\Behave\License.txt" />
      <None Include="Assets\Models\Ships\Klingon\bird of prey\K_TNG_KVORT_VoxelizerDebug.txt" />
      <None Include="Assets\Space Shooter\Info.txt" />
+     <None Include="Assets\StrumpyShaderEditor\Editor\Resources\Internal\TextureCopy.shader" />
  <Reference Include="Assembly-UnityScript-firstpass">
  <HintPath>Library\ScriptAssemblies\Assembly-UnityScript-firstpass.dll</HintPath>
  </Reference>
  <Reference Include="Assembly-UnityScript">
  <HintPath>Library\ScriptAssemblies\Assembly-UnityScript.dll</HintPath>
  </Reference>
+ <Reference Include="StrumpyShaderEditor">
+ <HintPath>Assets\StrumpyShaderEditor\Editor\StrumpyShaderEditor.dll</HintPath>
+ </Reference>
  <Reference Include="UnityEditor.Graphs">
  <HintPath>C:\Program Files (x86)\Unity\Editor\Data\Managed\UnityEditor.Graphs.dll</HintPath>
- </Reference>
- <Reference Include="Behave.Unity.Runtime">
- <HintPath>Assets\Behave\Behave.Unity.Runtime.dll</HintPath>
- </Reference>
- <Reference Include="Behave">
- <HintPath>Assets\Behave\Compatibility\Behave.dll</HintPath>
- </Reference>
- <Reference Include="Behave.Unity.Editor">
- <HintPath>Assets\Behave\Editor\Behave.Unity.Editor.dll</HintPath>
- </Reference>
- <Reference Include="Behave.Unity.Assets">
- <HintPath>Assets\Behave\Behave.Unity.Assets.dll</HintPath>
  </Reference>
   </ItemGroup>
   <ItemGroup>

@@ -120,6 +120,16 @@ var restartPoint : float; // in decimals the power restart point
 //special habilities
 var isCloaked : boolean = false; //checks if the ship is or not cloaked
 
+//clocking stuff
+class Cloak {
+	var cloackingTime : float; //cloaking Time in seconds
+	var alpha : float; //value of the alpha when cloaked
+	var isCloaking : boolean; //checks if the ship is cloaked
+	
+
+}
+
+var cloakInfo : Cloak;
 
 //weapon class
 
@@ -214,6 +224,11 @@ function Start () {
 	torpLoad = torpMaxLoad;
 	energy = capacLimit;
 	curHeat = 0;
+	
+	
+	
+
+	
 }
 
 //this function is executed every frame
@@ -310,16 +325,10 @@ function player_movement() {
 	var vert : float;
 	var horz : float;
 	
-	if (isForward == true && isRedAlert == true && !Input.GetAxis("canRot"))
-	{
-		vert = Input.GetAxis("Mouse Y") * agility * Time.deltaTime;
-		horz = Input.GetAxis("Mouse X") * agility * Time.deltaTime;
-	}
-	else
-	{
-		vert = Input.GetAxis("Vertical") * agilityFrame;
-		horz = Input.GetAxis("Horizontal") * agilityFrame;
-	}
+	
+	vert = Input.GetAxis("Vertical") * agilityFrame;
+	horz = Input.GetAxis("Horizontal") * agilityFrame;
+	
 	var rot = Input.GetAxis("Rotate") * agilityFrame;
 		
 	transform.Rotate(vert,horz,rot);
@@ -469,10 +478,17 @@ function player_fire() {
 			{
 				if(isCloaked == false)
 				{
+					
+					
+					
 					isCloaked = true;
+					
 				}
 				else
 				{
+				
+					
+					
 					isCloaked = false;
 				}
 			
@@ -1390,5 +1406,39 @@ function CheckTargetCloak() {
 		}
 	}
 
+}
+
+//this function cloaks the ship
+function Cloaking (time : float , alpha : float) {
+	//set is cloaking
+	cloakInfo.isCloaking = true;
+	
+	//get alpha diference
+	var diff : float = 1 - alpha;
+	
+	//get rate
+	var rate : float = diff/time * Time.deltaTime;
+	var i : float = 0;
+	
+
+	
+	while (i < 1)
+	{
+		Debug.Log(i.ToString());
+		for (var shipChild : Transform in transform)
+		{
+			if(shipChild.renderer)
+			{
+				
+				shipChild.renderer.material.color.a -= rate; 
+			}
+		}
+		i += 1/time * Time.deltaTime;
+		yield;
+	}
+	
+			
+	isCloaked = true;
+	cloakInfo.isCloaking = false;
 }
 
