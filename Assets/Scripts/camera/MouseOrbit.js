@@ -30,13 +30,13 @@ function Start () {
 function LateUpdate () {
 	if (target) {
 		//obtain red alert status
-		var go : GameObject = target.gameObject;
+		/*var go : GameObject = target.gameObject;
 		var script : playerShip = go.GetComponent(playerShip);
 		var red_alert = script.isRedAlert;
 		
 	
 		if(red_alert == false) //check if red alert isn't activated or if the ship is forward firing and the rotation key is pressed
-		{
+		{*/
 		
 			
 				if(Input.GetAxis("camSpace")) //Check status of "camSpace" Input Axis
@@ -78,7 +78,7 @@ function LateUpdate () {
 			    	Debug.LogError("The script has no target");
 			    }
 		    
-	    }
+	    /*}
 	    else
 	    {	
 	    	 //Check if the script has a target
@@ -92,7 +92,7 @@ function LateUpdate () {
 			        	  transform.position = position;
 	    	
 	    	
-    	}
+    	}*/
     }
     
 }

@@ -58,6 +58,8 @@
      <Compile Include="Assets\Scripts\shields\shieldImp.js" />
      <Compile Include="Assets\Scripts\shields\shieldImpPoints.js" />
      <Compile Include="Assets\Scripts\ship\playerShip.js" />
+     <Compile Include="Assets\Scripts\ship\shipMovement.js" />
+     <Compile Include="Assets\Scripts\ship\shipProperties.js" />
      <Compile Include="Assets\Scripts\station\stationPhaser.js" />
      <Compile Include="Assets\Scripts\station\stationScript.js" />
      <Compile Include="Assets\Scripts\station\stationTorpedo.js" />
