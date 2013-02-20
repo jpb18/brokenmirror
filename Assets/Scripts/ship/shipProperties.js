@@ -2,6 +2,11 @@
 #pragma strict
 
 //create classes
+//stores all player/ship properties
+class ship_PlayerProps {
+	var isPlayer : boolean = false;
+
+}
 
 //this class is used to caracterize ship movement
 class ship_Movement {
@@ -13,4 +18,5 @@ class ship_Movement {
 
 
 //use classes
+var playerProps : ship_PlayerProps;
 var movement : ship_Movement;

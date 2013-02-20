@@ -6,13 +6,24 @@ var properties : shipProperties;
 var speedStatus : float; //from -.25 to 1, this controls the ship "impulse"
 var speedStep : float = 0.25f; //how much speed increase there is
 var keys : KeyControlMovemnt; //this controls all keys related to movement
+var movProps : MovementProperties; //this controls all movement properties
 
+var debugvar : float;
 
 class KeyControlMovemnt {
 	var KeyDelay : float = 0.2f;
 	var SpeedIncreaseKey : float;
 	var SpeedDecreaseKey : float;
+	
 }
+
+class MovementProperties {
+	var minStatus : float = - 0.25;
+	var maxStatus : float = 1.0f;
+
+
+}
+
 
 function Start () {
 
@@ -21,8 +32,14 @@ function Start () {
 }
 
 function Update () {
-	shipPlayer_speed();
-
+	var isPlayer : boolean = properties.playerProps.isPlayer;
+	if (isPlayer)
+	{
+		shipPlayer_speed();
+		shipPlayer_movement();
+		
+	}
+	
 }
 
 //this function controls the ship speed
@@ -32,7 +49,7 @@ function shipPlayer_speed () {
 	if(Input.GetAxis("ShipSpeed") > 0 && Time.time >= keys.SpeedIncreaseKey + keys.KeyDelay)
 	{
 		keys.SpeedIncreaseKey = Time.time;
-		if (speedStatus < 1)
+		if (speedStatus < movProps.maxStatus)
 		{
 			speedStatus += speedStep;
 		}
@@ -43,15 +60,33 @@ function shipPlayer_speed () {
 	else if (Input.GetAxis("ShipSpeed") < 0 && Time.time >= keys.SpeedDecreaseKey + keys.KeyDelay)
 	{
 		keys.SpeedDecreaseKey = Time.time;
-		if (speedStatus > -0.25)
+		if (speedStatus > movProps.minStatus)
 		{
 			speedStatus -= speedStep;
 		}
 	}
 	
-	var SpeedChange : Vector3 = new Vector3(0, 0, speedStatus * shipSpeed);
+	var SpeedChange : float = speedStatus * shipSpeed;
 	
-	rigidbody.velocity = SpeedChange;
+	rigidbody.velocity = transform.forward * SpeedChange;
+	
 
 
 }
+
+function shipPlayer_movement () {
+	
+	
+	var shipAgility : float = properties.movement.agility * Time.deltaTime;
+	
+	//get axis input
+	var inputHor : float = Input.GetAxis("Horizontal");
+	var inputVer : float = Input.GetAxis("Vertical");
+	
+	//apply rotation
+	transform.Rotate(Vector3(inputVer * shipAgility, shipAgility * inputHor, 0));	
+	
+}
+
+
+
