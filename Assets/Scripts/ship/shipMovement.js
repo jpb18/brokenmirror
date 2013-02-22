@@ -44,7 +44,7 @@ function Update () {
 
 //this function controls the ship speed
 function shipPlayer_speed () {
-	var shipSpeed : float = properties.movement.speed * Time.deltaTime;
+	var shipSpeed : float = properties.movement.impulseSpeed * Time.deltaTime;
 	
 	if(Input.GetAxis("ShipSpeed") > 0 && Time.time >= keys.SpeedIncreaseKey + keys.KeyDelay)
 	{
