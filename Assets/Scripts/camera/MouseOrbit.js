@@ -3,6 +3,10 @@
 var target : Transform;
 var distance = 10.0;
 
+var maxDistance : float = 10.0f;
+var minDistance : float = 1.0f;
+var distanceRate : float = 2.0f;
+
 var xSpeed = 250.0;
 var ySpeed = 120.0;
 
@@ -76,6 +80,30 @@ function LateUpdate () {
 			    else //else, warn the absence of target
 			    {
 			    	Debug.LogError("The script has no target");
+			    }
+			    
+			    if(Input.GetAxis("camZoom") > 0)
+			    {
+			    	if (distance < maxDistance)
+			    	{
+			    		distance += distanceRate * Time.deltaTime;
+			    	}
+			    	else
+			    	{
+			    		distance = maxDistance;
+			    	}
+			    }
+			    
+			    if (Input.GetAxis("camZoom") < 0)
+			    {
+			    	if (distance > minDistance)
+			    	{
+			    		distance -= distanceRate * Time.deltaTime;
+			    	}
+			    	else
+			    	{
+			    		distance = minDistance;
+			    	}
 			    }
 		    
 	    /*}
