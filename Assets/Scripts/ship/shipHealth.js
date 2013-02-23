@@ -11,11 +11,14 @@ class ship_Health {
 
 var shipHealth : ship_Health;
 var properties : shipProperties;
+var triggers : shipTriggers;
 var explosion : GameObject;
 
 function Start () {
 
 	properties = gameObject.GetComponent(shipProperties);
+	triggers = gameObject.GetComponent(shipTriggers);
+	
 	
 	shipHealth.maxHealth = properties.shipHealth.basicHealth;
 	shipHealth.health = shipHealth.maxHealth;
@@ -27,6 +30,7 @@ function Start () {
 function Update () {
 
 	updateHealth();
+	Triggers();
 	Die();
 
 }
@@ -45,6 +49,18 @@ function Die () {
 		Instantiate(explosion, transform.position, transform.rotation);
 		Destroy(gameObject);
 	}
+	
 
 }
 
+function Triggers () {
+	var isKill : boolean = triggers.triggerProps.isKill;
+	
+	if (isKill)
+	{
+		shipHealth.shields = 0;
+		shipHealth.health = 0;
+	}
+	
+
+}

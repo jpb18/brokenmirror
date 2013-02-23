@@ -1,13 +1,13 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\camera\MouseOrbit.js">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\ship\shipHealth.js">
     <Files>
-      <File FileName="Assets\Scripts\camera\MouseOrbit.js" Line="105" Column="33" />
-      <File FileName="Assets\Scripts\ship\shipTriggers.js" Line="19" Column="15" />
-      <File FileName="Assets\Scripts\ship\shipProperties.js" Line="8" Column="29" />
-      <File FileName="Assets\Scripts\ship\shipMovement.js" Line="75" Column="2" />
+      <File FileName="Assets\Scripts\ship\shipTriggers.js" Line="39" Column="30" />
+      <File FileName="Assets\Scripts\ship\shipProperties.js" Line="9" Column="122" />
+      <File FileName="Assets\Scripts\camera\MouseOrbit.js" Line="44" Column="3" />
+      <File FileName="Assets\Scripts\ship\shipMovement.js" Line="31" Column="2" />
       <File FileName="Assets\Scripts\ship\playerShip.js" Line="366" Column="2" />
-      <File FileName="Assets\Scripts\ship\shipHealth.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\ship\shipHealth.js" Line="33" Column="13" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

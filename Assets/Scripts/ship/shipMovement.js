@@ -28,6 +28,7 @@ class MovementProperties {
 function Start () {
 
 	properties = gameObject.GetComponent(shipProperties);
+	
 
 }
 

@@ -6,6 +6,7 @@
 class ship_PlayerProps {
 	var isPlayer : boolean = false;
 	var inventory : GameObject[];
+	var shipStrenght : float; //this var contains the ship strenght... Used in AI, and calculating fleet and planet strenght
 
 }
 
