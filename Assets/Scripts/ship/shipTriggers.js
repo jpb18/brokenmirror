@@ -11,15 +11,19 @@ class trigger_props {
 
 var triggerProps : trigger_props;
 var properties : shipProperties;
+var reentryParticles : GameObject;
 
 function Start () {
 
 	properties = gameObject.GetComponent(shipProperties);
+	reentryParticles = GameObject.Find("reentry_particles");
+	reentryParticles.particleSystem.Play();
+	reentryParticles.particleSystem.enableEmission = false;
 
 }
 
 function Update () {
-
+	reentry();
 }
 
 function OnTriggerEnter(hit : Collider) {
@@ -52,5 +56,24 @@ function OnTriggerExit (hit : Collider) {
 	{
 		triggerProps.isTurbulence = false;
 	}
+
+}
+
+function reentry() {
+
+	
+	if(triggerProps.isTurbulence)
+	{
+		
+		reentryParticles.particleSystem.enableEmission = true;
+
+		
+	}
+	else
+	{
+		reentryParticles.particleSystem.enableEmission = false;
+
+	}
+
 
 }
