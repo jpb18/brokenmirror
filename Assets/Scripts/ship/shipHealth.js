@@ -14,6 +14,7 @@ var properties : shipProperties;
 var triggers : shipTriggers;
 var explosion : GameObject;
 var smokeTrails : GameObject[];
+var plasmaParticles : GameObject[];
 
 
 function Start () {
@@ -25,8 +26,7 @@ function Start () {
 	//get health stats
 	shipHealth.maxHealth = properties.shipHealth.basicHealth;
 	shipHealth.health = shipHealth.maxHealth;
-	shipHealth.maxShields = properties.shipHealth.basicShields;
-	shipHealth.shields = shipHealth.maxShields;
+	
 	
 	//get smoke trails
 	var smokeGroup : Transform = gameObject.Find("trail_renderers/smoke_trails").transform;
@@ -40,6 +40,17 @@ function Start () {
 	
 	
 	smokeTrails = trails.ToBuiltin(GameObject);
+	
+	//Get plasma leaks
+	var plasmas = new Array();
+	var plasmaGroup : Transform = gameObject.Find("ParticleSystems/PlasmaParticles").transform;
+	
+	for (var plasma : Transform in plasmaGroup)
+	{
+		plasmas.Add(plasma.gameObject);
+		plasma.gameObject.particleSystem.enableEmission = false;
+	}
+	plasmaParticles = plasmas.ToBuiltin(GameObject);
 
 	
 
@@ -51,13 +62,14 @@ function Update () {
 	Triggers();
 	Die();
 	Trails();
+	PlasmaLeak();
 
 }
 
 function updateHealth () {
 
 	shipHealth.maxHealth = properties.shipHealth.basicHealth;
-	shipHealth.maxShields = properties.shipHealth.basicShields;
+	
 
 }
 
@@ -87,7 +99,7 @@ function Triggers () {
 function Trails () {
 	var isTurbulence : boolean = triggers.triggerProps.isTurbulence;
 	
-	if (isTurbulence || shipHealth.health <= shipHealth.maxHealth/10)
+	if (isTurbulence || shipHealth.health <= shipHealth.maxHealth*0.5)
 	{
 		for (var trail : GameObject in smokeTrails)
 		{
@@ -107,5 +119,27 @@ function Trails () {
 	}
 
 
+
+}
+
+function PlasmaLeak() {
+	if (shipHealth.health <= shipHealth.maxHealth*0.15)
+	{
+		for (var plasma : GameObject in plasmaParticles)
+		{
+			plasma.particleSystem.enableEmission = true;
+			plasma.particleSystem.Play();
+			
+		}
+	}
+	else
+	{
+		for (var plasma : GameObject in plasmaParticles)
+		{
+			plasma.particleSystem.enableEmission = false;
+			plasma.particleSystem.Stop();
+			
+		}
+	}
 
 }

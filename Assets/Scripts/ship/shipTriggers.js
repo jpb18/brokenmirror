@@ -16,7 +16,7 @@ var reentryParticles : GameObject;
 function Start () {
 
 	properties = gameObject.GetComponent(shipProperties);
-	reentryParticles = GameObject.Find("reentry_particles");
+	reentryParticles = GameObject.Find("ParticleSystems/reentry_particles");
 	reentryParticles.particleSystem.Play();
 	reentryParticles.particleSystem.enableEmission = false;
 
