@@ -1,7 +1,8 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\ship\shipHealth.js">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\ship\shipMovement.js">
     <Files>
+      <File FileName="Assets\Scripts\ship\shipMovement.js" Line="89" Column="97" />
       <File FileName="Assets\Scripts\ship\shipHealth.js" Line="73" Column="1" />
       <File FileName="Assets\Scripts\ship\shipTriggers.js" Line="19" Column="54" />
       <File FileName="Assets\Scripts\ship\shipProperties.js" Line="23" Column="2" />

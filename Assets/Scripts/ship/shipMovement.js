@@ -83,9 +83,10 @@ function shipPlayer_movement () {
 	//get axis input
 	var inputHor : float = -Input.GetAxis("Horizontal");
 	var inputVer : float = Input.GetAxis("Vertical");
+	var inputRot : float = Input.GetAxis("Rotate");
 	
 	//apply rotation
-	transform.Rotate(Vector3(inputVer * shipAgility, shipAgility * inputHor, 0));	
+	transform.Rotate(Vector3(inputVer * shipAgility, shipAgility * inputHor, inputRot * shipAgility));	
 	
 }
 
