@@ -10,6 +10,8 @@ ModelImporter:
     100008: Object01
     100010: Object03
     100012: //RootNode
+    100014: DrawCall_0035
+    100016: galaxy
     400000: DrawCall_0041
     400002: Object02
     400004: DrawCall_0040
@@ -17,24 +19,29 @@ ModelImporter:
     400008: Object01
     400010: Object03
     400012: //RootNode
+    400014: DrawCall_0035
+    400016: galaxy
     2300000: DrawCall_0041
     2300002: Object02
     2300004: DrawCall_0040
     2300006: DrawCall_0034
     2300008: Object01
     2300010: Object03
+    2300012: DrawCall_0035
     3300000: DrawCall_0041
     3300002: Object02
     3300004: DrawCall_0040
     3300006: DrawCall_0034
     3300008: Object01
     3300010: Object03
+    3300012: DrawCall_0035
     4300000: Object03
     4300002: Object01
     4300004: DrawCall_0034
     4300006: DrawCall_0040
     4300008: Object02
     4300010: DrawCall_0041
+    4300012: DrawCall_0035
     7400000: Take 001
     11100000: //RootNode
   materials:
