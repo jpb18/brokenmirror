@@ -15,6 +15,7 @@ var triggers : shipTriggers;
 var explosion : GameObject;
 var smokeTrails : GameObject[];
 var plasmaParticles : GameObject[];
+var shipModel : GameObject[];
 
 
 function Start () {
@@ -77,8 +78,20 @@ function Die () {
 
 	if (shipHealth.health <= 0)
 	{
-		Instantiate(explosion, transform.position, transform.rotation);
+		
+		for (var go : GameObject in shipModel)
+		{
+			go.transform.parent = null;
+			go.AddComponent(Rigidbody);
+		}
+		
 		Destroy(gameObject);
+		
+		
+		
+		Instantiate(explosion, transform.position, transform.rotation);
+		
+		
 	}
 	
 
