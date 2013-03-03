@@ -5,7 +5,7 @@
 	<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
 	<ProductVersion>10.0.20506</ProductVersion>
 	<SchemaVersion>2.0</SchemaVersion>
-	<ProjectGuid>{2AB7713F-C0D3-53A9-E600-6E16DB224526}</ProjectGuid>
+	<ProjectGuid>{8251AC50-EAC0-489B-D2E9-77542B048A6F}</ProjectGuid>
 	<OutputType>Library</OutputType>
 	<AppDesignerFolder>Properties</AppDesignerFolder>
 	<RootNamespace></RootNamespace>
@@ -62,7 +62,6 @@
      <None Include="Assets\Standard Assets\Projectors\Sources\Shaders\Projector Multiply.shader" />
      <None Include="Assets\Models\Ships\Klingon\bird of prey\K_TNG_BOP_VoxelizerDebug.txt" />
      <None Include="Assets\Standard Assets\Particles\Sources\Shaders\Particle Alpha Blend (Queue +100).shader" />
-     <None Include="Assets\StrumpyShaderEditor\Editor\Resources\Internal\Temp\TempShader.shader" />
      <None Include="Assets\Scripts\shaders\aditive.shader" />
      <None Include="Assets\Detonator Explosion Framework\Resources\Detonator\Textures\HeatDistort.shader" />
      <None Include="Assets\Scripts\shaders\shield.shader" />
@@ -74,13 +73,12 @@
      <None Include="Assets\Scripts\atm_scat.shader" />
      <None Include="Assets\Models\Ships\Klingon\bird of prey\K_TNG_KVORT_VoxelizerDebug.txt" />
      <None Include="Assets\Space Shooter\Info.txt" />
-     <None Include="Assets\StrumpyShaderEditor\Editor\Resources\Internal\TextureCopy.shader" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
-      <Project>{E0830A94-69AB-4106-4387-3C769B9D7F75}</Project>      <Name>Assembly-CSharp-firstpass</Name>    </ProjectReference>
+      <Project>{8D708713-098D-B8C2-5BD8-CD070A62756A}</Project>      <Name>Assembly-CSharp-firstpass</Name>    </ProjectReference>
     <ProjectReference Include="Assembly-UnityScript-firstpass.unityproj">
-      <Project>{1BFB35EF-6ECD-3D95-1700-63808DFD60CB}</Project>      <Name>Assembly-UnityScript-firstpass</Name>    </ProjectReference>
+      <Project>{BDB3388C-4084-B102-AC89-02F82900507C}</Project>      <Name>Assembly-UnityScript-firstpass</Name>    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

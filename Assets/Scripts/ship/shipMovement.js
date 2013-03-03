@@ -67,6 +67,11 @@ function shipPlayer_speed () {
 		}
 	}
 	
+	if (Input.GetAxis("FullStop"))
+	{
+		speedStatus = 0;
+	}
+	
 	var SpeedChange : float = speedStatus * shipSpeed;
 	
 	rigidbody.velocity = transform.forward * SpeedChange;

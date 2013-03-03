@@ -1,20 +1,27 @@
 fileFormatVersion: 2
-guid: c5cb457e6cc857d49a90ca2bf54893f5
+guid: 9ccede6068131ba4a80fb6d75c80c3d5
 ModelImporter:
   serializedVersion: 15
   fileIDToRecycleName:
-    100000: //RootNode
-    400000: //RootNode
-    2300000: //RootNode
-    3300000: //RootNode
-    4300000: Sphere001
-    11100000: //RootNode
+    100000: Clouds
+    100002: Earth
+    100004: //RootNode
+    400000: Clouds
+    400002: Earth
+    400004: //RootNode
+    2300000: Clouds
+    2300002: Earth
+    3300000: Clouds
+    3300002: Earth
+    4300000: Earth
+    4300002: Clouds
+    9500000: //RootNode
   materials:
     importMaterials: 1
     materialName: 0
     materialSearch: 1
   animations:
-    legacyGenerateAnimations: 3
+    legacyGenerateAnimations: 4
     bakeSimulation: 0
     animationCompression: 1
     animationRotationError: .5
@@ -57,5 +64,5 @@ ModelImporter:
     rootMotionBoneName: 
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   additionalBone: 1
-  animationType: 1
+  animationType: 2
   userData: 
