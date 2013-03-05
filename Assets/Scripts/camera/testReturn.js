@@ -12,7 +12,7 @@ function OnGUI () {
 
 	if(Input.GetKey(KeyCode.Escape))
 	{
-		Application.LoadLevel(0);
+		Application.Quit();
 	}
 
 }
