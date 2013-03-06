@@ -62,11 +62,14 @@
      <Compile Include="Assets\Scripts\ship\shipMovement.js" />
      <Compile Include="Assets\Scripts\ship\shipProperties.js" />
      <Compile Include="Assets\Scripts\ship\shipTriggers.js" />
+     <Compile Include="Assets\Scripts\ship\shipWeapons.js" />
      <Compile Include="Assets\Scripts\station\stationPhaser.js" />
      <Compile Include="Assets\Scripts\station\stationScript.js" />
      <Compile Include="Assets\Scripts\station\stationTorpedo.js" />
+     <Compile Include="Assets\Scripts\weapons\phaserScript.js" />
      <Compile Include="Assets\Scripts\weapons\pulseScript.js" />
      <Compile Include="Assets\Scripts\weapons\torpedoScript.js" />
+     <Compile Include="Assets\Scripts\weapons\weaponScript.js" />
      <Compile Include="Assets\endoftheworldscript.js" />
      <None Include="Assets\Standard Assets\Projectors\Guidelines.txt" />
      <None Include="Assets\Standard Assets\Projectors\Sources\Shaders\Projector Multiply.shader" />
