@@ -57,12 +57,13 @@
      <Compile Include="Assets\Scripts\menus\testMenu.js" />
      <Compile Include="Assets\Scripts\shields\shieldImp.js" />
      <Compile Include="Assets\Scripts\shields\shieldImpPoints.js" />
+     <Compile Include="Assets\Scripts\ship\WeaponScripts\shipWeaponsGalaxy.js" />
      <Compile Include="Assets\Scripts\ship\playerShip.js" />
      <Compile Include="Assets\Scripts\ship\shipHealth.js" />
      <Compile Include="Assets\Scripts\ship\shipMovement.js" />
      <Compile Include="Assets\Scripts\ship\shipProperties.js" />
+     <Compile Include="Assets\Scripts\ship\shipTarget.js" />
      <Compile Include="Assets\Scripts\ship\shipTriggers.js" />
-     <Compile Include="Assets\Scripts\ship\shipWeapons.js" />
      <Compile Include="Assets\Scripts\station\stationPhaser.js" />
      <Compile Include="Assets\Scripts\station\stationScript.js" />
      <Compile Include="Assets\Scripts\station\stationTorpedo.js" />
