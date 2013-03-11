@@ -3,29 +3,34 @@
 
 //create classes
 //stores all player/ship properties
-class ship_PlayerProps {
+class ShipPlayerProps {
 	var isPlayer : boolean = false;
 	var inventory : GameObject[];
-	var shipStrenght : float; //this var contains the ship strenght... Used in AI, and calculating fleet and planet strenght
-
+	
 }
 
 //this class is used to caracterize ship movement
-class ship_MovementProps {
+class ShipMovementProps {
 	var agility : float; //Standard Agility of the craft, soon to be controled through stored variables. In degrees per second.
 	var impulseSpeed : float; //Standard Maximum Speed of the craft at sublight, soon to be controled through stored variables
 	
 }
 
 //this contains the basic health status of the ship
-class ship_HealthProps {
+class ShipHealthProps {
 	var basicHealth : float;
 	
 }
 
+class ShipProps {
+	var shipStrenght : float; //this var contains the ship strenght... Used in AI, and calculating fleet and planet strenght
+
+
+}
 
 
 //use classes
-var playerProps : ship_PlayerProps;
-var movement : ship_MovementProps;
-var shipHealth : ship_HealthProps;
+var playerProps : ShipPlayerProps;
+var movement : ShipMovementProps;
+var shipHealth : ShipHealthProps;
+var shipProps : ShipProps;

@@ -10,7 +10,7 @@ class WeaponSlot {
 	var phaser_point : GameObject;
 	var torpedo_point : GameObject;
 	var pulse_point : GameObject;
-	var lastShot : float = 0.0f;
+	var nextShot : float = 0.0f;
 }
 
 class weapon_compat {
@@ -62,16 +62,17 @@ function PlayerFire() {
 			
 			if (target1)
 			{
-				var cd1 : float = weapon1.weapon_go.GetComponent(phaserScript).standard_cd;
 				
-				if (Time.time >= cd1 + weapon1.lastShot)
+				
+				if (Time.time >= weapon1.nextShot)
 				{
 				
 					var origin1 : GameObject = weapon1.phaser_point;
 					var weapon_go1 : GameObject = weapon1.weapon_go;
 					
 					FireBeam(target1, origin1, weapon_go1);
-					weapon1.lastShot = Time.time;
+					var cd1 : float = weapon_go1.GetComponent(phaserScript).standard_cd;
+					weapon1.nextShot = Time.time + cd1;
 				}
 			}
 		}
