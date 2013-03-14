@@ -59,6 +59,9 @@ function OnCollisionEnter (hit : Collision) {
 			transform.parent = hit.transform;
 			
 			var healthSC : shipHealth = hit.transform.gameObject.GetComponent(shipHealth);
+			if (impactEffects.hull)	{
+				Instantiate(impactEffects.hull, transform.position, transform.rotation);
+			}
 			healthSC.shipHealth.health -= damage;
 		
 		}
@@ -81,7 +84,9 @@ function OnTriggerEnter (hit : Collider) {
 				{
 					rigidbody.velocity = Vector3(0,0,0);
 					transform.parent = hit.transform;
-					Instantiate(impactEffects.shield, transform.position, transform.rotation);
+					if(impactEffects.shield){
+						Instantiate(impactEffects.shield, transform.position, transform.rotation);
+					}
 					
 					healthSC.shipHealth.shields -= damage;
 					
