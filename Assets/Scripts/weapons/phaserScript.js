@@ -33,7 +33,7 @@ function Start () {
 
 }
 
-function Update () {
+function FixedUpdate () {
 	designLine();
 	deletePhaser();
 	
