@@ -9,13 +9,20 @@ class ship_Health {
 
 }
 
+class ShieldsShow {
+	var lastHit : float;
+	var showDur : float = 3.0f;
+}
+
 var shipHealth : ship_Health;
+var shieldShow : ShieldsShow;
 var properties : shipProperties;
 var triggers : shipTriggers;
 var explosion : GameObject;
 var smokeTrails : GameObject[];
 var plasmaParticles : GameObject[];
 var shipModel : GameObject[];
+var shield : GameObject;
 
 
 function Start () {
@@ -64,6 +71,7 @@ function Update () {
 	Die();
 	Trails();
 	PlasmaLeak();
+	ShieldShow();
 
 }
 
@@ -153,6 +161,25 @@ function PlasmaLeak() {
 			plasma.particleSystem.Stop();
 			
 		}
+	}
+
+}
+
+function ShieldShow () {
+	
+	if (Time.time <= shieldShow.lastHit + shieldShow.showDur && shield.renderer.enabled == true && shieldShow.lastHit != 0)
+	{
+		var totTime : float = shieldShow.showDur + shieldShow.lastHit;
+		var remTime : float = totTime - Time.time;
+		
+		Debug.Log(remTime.ToString());
+		
+		var alpha : float = (50 * remTime)/shieldShow.showDur;
+		
+		shield.renderer.material.color.a = alpha;
+		
+		
+	
 	}
 
 }

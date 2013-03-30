@@ -89,8 +89,13 @@ function OnTriggerEnter (hit : Collider) {
 					}
 					
 					healthSC.shipHealth.shields -= damage;
+					healthSC.shieldShow.lastHit = Time.time;
 					
 					hitshield = true;
+					
+					//make shield show up
+					
+					
 				}
 			}
 		}
