@@ -11,7 +11,7 @@ class ship_Health {
 
 class ShieldsShow {
 	var lastHit : float;
-	var showDur : float = 3.0f;
+	var showDur : float = 1.0f;
 }
 
 var shipHealth : ship_Health;
@@ -174,12 +174,16 @@ function ShieldShow () {
 		
 		Debug.Log(remTime.ToString());
 		
-		var alpha : float = (50 * remTime)/shieldShow.showDur;
+		var alpha : float = (1 * remTime)/shieldShow.showDur;
 		
 		shield.renderer.material.color.a = alpha;
 		
 		
 	
+	}
+	else
+	{
+		shield.renderer.material.color.a = 0;
 	}
 
 }
