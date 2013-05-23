@@ -1,191 +1,76 @@
-//this script controls the torpedoes...
 #pragma strict
 
-var target : Transform; //torpedoes target
-var launched : Transform; //ship from where the torpedo was launched
-var damage : float; //torpedoes damage
-var speed : float; //torpedoes speed
-var shieldMulti : float; //multiplies the torpedo strenght against shields
-var hullMulti : float; //multiplies the torpedo strenght against hull
-var explosion : GameObject; //torpedo explosion
-var shieldImp : Transform; //shield impact
-var hasHit : boolean = false; //checks if it hits something
-var launchSound : AudioSource; //torpedo launch audio source
+class stats {
+	var speed : float; //torpedo speed
+	var hullDmg : float; //torpedo damage vs hull
+	var shieldDmg : float; //torpedo damage vs shield
+	var range : float; //torpedo range
+	var cost : float; //torpedo "normal" cost, to be used in GUI only
+	var cooldown : float; // torpedo cooldown
+	var spread : int; //number of torpedoes fired in a spread
+}
 
-
-
+var status : stats;
+var target : GameObject; //target ship
+var origin : GameObject; //origin ship
+var launched : float; //launch time
+var isSpread : boolean = false; //checks if the torpedo is already a spread
 
 function Start () {
-	rigidbody.velocity = transform.forward * speed;
+	rigidbody.velocity = status.speed * transform.forward;
+	launched = Time.time;
 }
 
+function Update () {
+	calc_range();
+	HomeIn();
+	Spread();
+	
 
+}
 
-
-function FixedUpdate () {
-	//if there isn't a target
-	if(target == null)
+function calc_range() {
+	var time_passed : int = Time.time - launched;
+	var distance_made : int = time_passed * status.speed;
+	
+	if (distance_made >= status.range)
 	{
 		Destroy(gameObject);
-		Instantiate(explosion, transform.position, transform.rotation);
 	}
-
-	
-	
-	transform.LookAt(target);
-	CheckTargetCloak();
-	rigidbody.velocity = transform.forward * speed;	
 
 }
 
+function HomeIn() {
+	
+	transform.LookAt(target.transform);
 
+}
 
-
-
-//Collision with hull
-function OnCollisionEnter (hit : Collision) {
-	if(hasHit == false)
+function Spread() {
+	if (status.spread > 1 && Time.time - launched >= 0.5f && isSpread == false )
 	{
-		if(!launched)
+		for (var x : int = 0; x <= status.spread - 1; x++)
 		{
-			hit_hull(hit);
-		}
-		else if (hit.transform != launched.transform)
-		{
-		
-			
-			hit_hull(hit);
-		
-		
+			var displacement : Vector3 = Vector3(Random.Range(-0.1,0.1),Random.Range(-0.1,0.1),Random.Range(-0.1,0.1));
+			var torpedo : GameObject = Instantiate(gameObject, transform.position + displacement, transform.rotation);
+			var ts : TorpedoScript = torpedo.GetComponent(TorpedoScript);
+	
+			ts.target = target;
+			ts.origin = origin;
+			ts.isSpread = true;
 		}
 		
+		Destroy(gameObject);
+	
 	}
 	
+
 }
 
+Function OnTriggerEnter() {
 
-
-//Collision with shields
-function OnTriggerEnter (hit : Collider)
-{
 	
-	if(hasHit == false)
-	{
-		if(!launched)
-		{
-			hit_shields(hit);
-		}
-		else if (hit.transform.parent.parent.transform != launched.transform )
-		{
-		
-			hit_shields(hit);
-				
-			
-		}
-		
-		
-		
-	}
 
-}
 
-function CheckTargetCloak() {
-	
-	if (target.tag == "Ship")
-	{
-		var scrShip : playerShip = target.GetComponent(playerShip);
-		if (scrShip.isCloaked == true)
-		{
-			Destroy(gameObject);
-			Instantiate(explosion, transform.position, transform.rotation);
-		}
-	}
-	else if (target.tag == "Station")
-	{
-		var scrStation : stationScript = target.GetComponent(stationScript);
-		if (scrStation.properties.isCloaked == true)
-		{
-			Destroy(gameObject);
-			Instantiate(explosion, transform.position, transform.rotation);
-		}
-	}
-
-}
-
-function hit_hull(hit : Collision) {
-	if(hit.transform.tag == "Ship")
-			{
-			
-				var script : playerShip = hit.gameObject.GetComponent(playerShip);
-				
-				if (script.shields <= 0 || script.isRedAlert == false)
-				{
-					script.lastShieldHit = Time.time;
-					script.health -= damage * hullMulti;
-					Destroy(gameObject);
-					Instantiate(explosion, transform.position, transform.rotation);
-					hasHit = true;
-				}
-			
-			}
-			else if(hit.transform.tag == "Station")
-			{
-				var stat_script : stationScript = hit.gameObject.GetComponent(stationScript);
-				
-				if(stat_script.health.shield <= 0)
-				{
-					stat_script.health.lastShieldHit = Time.time;
-					stat_script.health.health -= damage * hullMulti;
-					Destroy(gameObject);
-					Instantiate(explosion, transform.position, transform.rotation);
-					hasHit = true;
-					
-				}
-			}
-			else if (hit.transform.tag == "Planet")
-			{
-				Destroy(gameObject);
-			}
-
-}
-
-function hit_shields(hit : Collider) {
-			if (hit.tag == "Shields")
-			{
-			
-				if (hit.transform.parent.parent.tag == "Ship")
-				{
-					var go = hit.transform.parent.parent.gameObject;
-					var script : playerShip = go.gameObject.GetComponent(playerShip);
-					
-					if(script.shields > 0 && script.isRedAlert == true)
-					{
-						script.lastShieldHit = Time.time;
-						script.shields -= damage * shieldMulti;
-						Destroy(gameObject);
-						var instanteated : Transform = Instantiate(shieldImp, transform.position, transform.rotation);
-						instanteated.transform.parent = target;
-						hasHit = true;
-					
-					}
-				}
-				else if (hit.transform.parent.parent.tag == "Station")
-				{
-					var station = hit.transform.parent.parent.gameObject;
-					var stat_script : stationScript = station.GetComponent(stationScript);
-					
-					if (stat_script.health.shield > 0)
-					{	
-						stat_script.health.lastShieldHit = Time.time;
-						stat_script.health.shield -= damage * shieldMulti;
-						Destroy(gameObject);
-						var stat_instanteated : Transform = Instantiate(shieldImp, transform.position, transform.rotation);
-						stat_instanteated.transform.parent = target;
-						hasHit = true;
-					
-					}
-				
-				}
-			}
 
 }

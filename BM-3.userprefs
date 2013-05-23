@@ -1,8 +1,9 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\ship\WeaponScripts\shipWeaponsGalaxy.js">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\weapons\TorpedoScript.js">
     <Files>
-      <File FileName="Assets\Scripts\ship\WeaponScripts\shipWeaponsGalaxy.js" Line="121" Column="35" />
+      <File FileName="Assets\Scripts\weapons\TorpedoScript.js" Line="72" Column="2" />
+      <File FileName="Assets\Scripts\ship\WeaponScripts\shipWeaponsGalaxy.js" Line="129" Column="9" />
       <File FileName="Assets\Scripts\ship\shipHealth.js" Line="14" Column="25" />
       <File FileName="Assets\Scripts\ship\shipMovement.js" Line="89" Column="54" />
       <File FileName="Assets\Scripts\ship\shipTriggers.js" Line="19" Column="54" />
