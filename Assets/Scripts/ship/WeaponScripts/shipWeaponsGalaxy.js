@@ -84,7 +84,7 @@ function PlayerFire() {
 					{
 						origin1 = weapon1.torpedo_point;
 						FireTorpedo(target1, origin1, weapon_go1);
-						var cd1_1 : float = weapon_go1.GetComponent(TorpedoScript).status.cooldown;
+						var cd1_1 : float = weapon_go1.GetComponent(torpedoScript).status.cooldown;
 						weapon1.nextShot = Time.time + cd1_1;
 					}
 					else if (weapon1_sc.type == WeaponType.pulse) //if its a pulse weapon
@@ -162,7 +162,7 @@ function FireBeam (target : GameObject, origin : GameObject, weapon : GameObject
 function FireTorpedo (target : GameObject, origin : GameObject, weapon : GameObject)
 {
 	var torpedo : GameObject = Instantiate(weapon, origin.transform.position, origin.transform.rotation);
-	var ts : TorpedoScript = torpedo.GetComponent(TorpedoScript);
+	var ts : torpedoScript = torpedo.GetComponent(torpedoScript);
 	
 	ts.target = target;
 	ts.origin = origin.transform.parent.parent.gameObject;
