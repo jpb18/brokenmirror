@@ -38,6 +38,7 @@ function Update () {
 
 }
 
+
 function calc_range() {
 	var time_passed : int = Time.time - launched;
 	var distance_made : int = time_passed * status.speed;
@@ -51,7 +52,10 @@ function calc_range() {
 
 function HomeIn() {
 	rigidbody.velocity = status.speed * transform.forward * Time.deltaTime;
-	transform.LookAt(target.transform);
+	if(target)
+	{	
+		transform.LookAt(target.transform);
+	}
 
 }
 
@@ -84,25 +88,28 @@ function OnTriggerEnter(hit : Collider) {
 		var hitGO : GameObject = hit.transform.parent.parent.transform.gameObject;
 		if(hitGO != origin)
 		{
-			var hitHS : shipHealth = hitGO.GetComponent(shipHealth);
-			var shields = hitHS.shipHealth.shields;
-			if(shields > 0)
+			if (hitGO.tag == "Ship")
 			{
-				effect.hasExploded = true;
-				if(shields >= status.shieldDmg)
+				Debug.Log("shield:" + hitGO.name);
+				var hitHS : shipHealth = hitGO.GetComponent(shipHealth);
+				var shields = hitHS.shipHealth.shields;
+				if(shields > 0)
 				{
-					hitHS.shipHealth.shields -= status.shieldDmg;
+					effect.hasExploded = true;
+					if(shields >= status.shieldDmg)
+					{
+						hitHS.shipHealth.shields -= status.shieldDmg;
+					}
+					else
+					{
+						hitHS.shipHealth.shields = 0;
+					}
+				
+					hitHS.shieldShow.lastHit = Time.time;
+					Instantiate(effect.explosion, transform.position, transform.rotation);
+					Destroy(gameObject);
 				}
-				else
-				{
-					hitHS.shipHealth.shields = 0;
-				}
-			
-			
-				Instantiate(effect.explosion, transform.position, transform.rotation);
-				Destroy(gameObject);
 			}
-			
 		}
 	
 	
@@ -112,15 +119,20 @@ function OnTriggerEnter(hit : Collider) {
 
 }
 
-function OnCollisionEnter(hit: Collision) {
+function OnCollisionEnter (hit: Collision) {
 
-	if(hit.transform.gameObject != origin && !effect.hasExploded)
+	Debug.Log("hull:" + hit.transform.name);
+	if(hit.transform.gameObject != origin && effect.hasExploded == false)
 	{
-		effect.hasExploded = true;
-		var hitHS : shipHealth = hit.gameObject.GetComponent(shipHealth);
-		hitHS.shipHealth.health -= status.hullDmg;
-		Instantiate(effect.explosion, transform.position, transform.rotation);
-		Destroy(gameObject);
+		
+		if(hit.transform.tag == "Ship")
+		{
+			effect.hasExploded = true;
+			var hitHS : shipHealth = hit.gameObject.GetComponent(shipHealth);
+			hitHS.shipHealth.health -= status.hullDmg;
+			Instantiate(effect.explosion, transform.position, transform.rotation);
+			Destroy(gameObject);
+		}
 			
 	}
 
