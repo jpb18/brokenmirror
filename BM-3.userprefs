@@ -1,15 +1,8 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\ship\shipTarget.js">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\camera\fpsCounter.js">
     <Files>
-      <File FileName="Assets\Scripts\ship\WeaponScripts\shipWeapons.js" Line="257" Column="17" />
-      <File FileName="Assets\Scripts\ship\shipProperties.js" Line="20" Column="24" />
-      <File FileName="Assets\Scripts\weapons\torpedoScript.js" Line="55" Column="5" />
-      <File FileName="Assets\Scripts\ship\shipHealth.js" Line="7" Column="25" />
-      <File FileName="Assets\Scripts\weapons\phaserScript.js" Line="93" Column="27" />
-      <File FileName="Assets\Scripts\weapons\weaponScript.js" Line="5" Column="25" />
-      <File FileName="Assets\Scripts\weapons\pulseScript.js" Line="7" Column="25" />
-      <File FileName="Assets\Scripts\ship\shipTarget.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\camera\fpsCounter.js" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
