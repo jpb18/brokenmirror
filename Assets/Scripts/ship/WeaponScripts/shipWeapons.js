@@ -2,14 +2,16 @@
 #pragma strict
 
 class WeaponSlot {
-	var isEnabled : boolean = false;
-	var slot_num : int;
-	var weapon_go : GameObject;
-	var orientation : weapon_orientation;
-	var phaser_point : GameObject;
-	var torpedo_point : GameObject;
-	var pulse_point : GameObject;
-	var nextShot : float = 0.0f;
+	var isEnabled : boolean = false; //checks if the weapon is enabled
+	var slot_num : int; //number (still has no function)
+	var weapon_go : GameObject; //weapon GameObject. It contains the projectile
+	var orientation : weapon_orientation; //checks if the weapon is firing forward or backwards
+	var phaser_point : GameObject; //if the weapon is a beam weapon, it fires from this game object
+	var torpedo_point : GameObject; //if the weapon is a torpedo weapon, it fires from this game object
+	var pulse_point : GameObject; //if the weapon is a pulse weapon, it fires from this game object
+	var nextShot : float = 0.0f; //contains the time reference for when the weapon is able to fire again
+	var isAngle : boolean = false; //checks if the target is inside the firing arch
+	var isRange : boolean = false; //checks if the target is in range
 	
 }
 
@@ -19,9 +21,7 @@ enum weapon_orientation {
 
 	forward,
 	backward,
-	left,
-	right,
-
+	
 }
 
 //forward weapons
@@ -59,13 +59,13 @@ function Update () {
 	{
 		PlayerFire();
 	}
-	
+	CheckWeapons();
 
 }
 
 
 function PlayerFire() {
-	if (Input.GetAxis("Fire1") && weapon1.isEnabled == true) //Player fires weapon 1
+	if (Input.GetAxis("Fire1") && weapon1.isEnabled == true && weapon1.isRange == true && weapon1.isAngle == true) //Player fires weapon 1
 	{
 		if (weapon1 != null) //checks if there's a weapon in the slot
 		{
@@ -242,5 +242,158 @@ function OnGUI () {
 	
 	GUILayout.EndArea();
 	}
+
+}
+
+//this function checks if the weapons are ready to fire
+function CheckWeapons() {
+	if (shipTar.target != null)
+	{
+		if(weapon1.isEnabled && weapon1.weapon_go != null)
+		{
+			weapon1.isRange = CheckWeaponRange(weapon1, shipTar.target.transform);
+			weapon1.isAngle = CheckWeaponAngle(weapon1, shipTar.target.transform);
+		}
+		if(weapon2.isEnabled && weapon2.weapon_go != null)
+		{
+			weapon2.isRange = CheckWeaponRange(weapon2, shipTar.target.transform);
+			weapon2.isAngle = CheckWeaponAngle(weapon2, shipTar.target.transform);
+		}
+		if(weapon3.isEnabled && weapon3.weapon_go != null)
+		{
+			weapon3.isRange = CheckWeaponRange(weapon3, shipTar.target.transform);
+			weapon3.isAngle = CheckWeaponAngle(weapon3, shipTar.target.transform);
+		}
+		if(weapon4.isEnabled && weapon4.weapon_go != null)
+		{
+			weapon4.isRange = CheckWeaponRange(weapon4, shipTar.target.transform);
+			weapon4.isAngle = CheckWeaponAngle(weapon4, shipTar.target.transform);
+		}
+		if(weapon5.isEnabled && weapon5.weapon_go != null)
+		{
+			weapon5.isRange = CheckWeaponRange(weapon5, shipTar.target.transform);
+			weapon5.isAngle = CheckWeaponAngle(weapon5, shipTar.target.transform);
+		}
+		if(weapon6.isEnabled && weapon6.weapon_go != null)
+		{
+			weapon6.isRange = CheckWeaponRange(weapon6, shipTar.target.transform);
+			weapon6.isAngle = CheckWeaponAngle(weapon6, shipTar.target.transform);
+		}
+		if(weapon7.isEnabled && weapon7.weapon_go != null)
+		{
+			weapon7.isRange = CheckWeaponRange(weapon7, shipTar.target.transform);
+			weapon7.isAngle = CheckWeaponAngle(weapon7, shipTar.target.transform);
+		}
+		if(weapon8.isEnabled && weapon8.weapon_go != null)
+		{
+			weapon8.isRange = CheckWeaponRange(weapon8, shipTar.target.transform);
+			weapon8.isAngle = CheckWeaponAngle(weapon8, shipTar.target.transform);
+		}
+	}
+	
+
+
+}
+
+
+
+
+//this function can be used to check if the target is withing the firing angle
+function CheckWeaponAngle(weapon : WeaponSlot, target : Transform) : boolean {
+
+	//get weapon script and firing angle
+	var weaponGO : GameObject = weapon.weapon_go;
+	var weaponScr : weaponScript = weaponGO.GetComponent(weaponScript);
+	var firingAngle : float = weaponScr.firingAngle;
+	
+	//get weapon origin
+	var weaponType = weaponScr.type;
+	var origin : Transform;
+	
+	if(weaponType == WeaponType.beam)
+	{
+		origin = weapon.phaser_point.transform;
+	}
+	else if (weaponType == WeaponType.torpedo)
+	{
+		origin = weapon.torpedo_point.transform;
+	}
+	else if (weaponType == WeaponType.pulse)
+	{
+		origin = weapon.pulse_point.transform;
+	}
+	
+	//get angle between the objects
+	var targetDir = target.position - origin.position;
+	var forward = origin.forward;
+	
+	var angle = Vector3.Angle(targetDir, forward);
+	
+	
+	//check if it's inside the angle or not
+	var isAngle : boolean;
+	if (angle <= firingAngle/2)
+	{
+		isAngle = true;
+	}
+	else
+	{
+		isAngle = false;
+	}
+	
+	//return result
+	return isAngle;
+	
+	
+}
+
+//this function will confirm is the weapon is in range
+function CheckWeaponRange(weapon : WeaponSlot, target : Transform) : boolean {
+
+	//get weapon script and weapon type
+	var weaponGO : GameObject = weapon.weapon_go;
+	var weaponScr : weaponScript = weaponGO.GetComponent(weaponScript);
+	var weaponType : WeaponType = weaponScr.type;
+	
+	//get range from the weapon and origin point
+	var range : float;
+	var origin : Transform;
+	
+	if(weaponType == WeaponType.beam)
+	{
+		var phaserScr : phaserScript = weaponGO.GetComponent(phaserScript);
+		range = phaserScr.range;
+		origin = weapon.phaser_point.transform;
+	}
+	else if (weaponType == WeaponType.torpedo)
+	{
+		var torpedoScr : torpedoScript = weaponGO.GetComponent(torpedoScript);
+		range = torpedoScr.status.range;
+		origin = weapon.torpedo_point.transform;
+	}
+	else if (weaponType == WeaponType.pulse)
+	{
+		var pulseScr : pulseScript = weaponGO.GetComponent(pulseScript);
+		range = pulseScr.range;
+		origin = weapon.pulse_point.transform;
+	}
+
+	//get distance between target and origin point
+	var distance : float = Vector3.Distance(origin.position, target.position);
+	
+	//checks if target is in range
+	var isRange : boolean;
+	
+	if(distance <= range)
+	{
+		isRange = true;
+	}
+	else
+	{
+		isRange = false;
+	}
+
+	//return result
+	return isRange;
 
 }

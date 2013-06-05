@@ -2,6 +2,7 @@
 #pragma strict
 
 var type : WeaponType;
+var firingAngle : float;
 
 enum WeaponType {
 	beam,

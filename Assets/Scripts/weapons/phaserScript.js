@@ -3,6 +3,7 @@
 
 var damage : float;
 var speed : float;
+var range : float;
 
 var target : GameObject;
 var origin : GameObject;
@@ -89,11 +90,12 @@ function OnTriggerEnter (hit : Collider) {
 					}
 					
 					healthSC.shipHealth.shields -= damage;
+					//make shield show up
 					healthSC.shieldShow.lastHit = Time.time;
 					
 					hitshield = true;
 					
-					//make shield show up
+					
 					
 					
 				}
