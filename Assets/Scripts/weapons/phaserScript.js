@@ -28,7 +28,7 @@ class ImpactEffects {
 function Start () {
 
 	transform.LookAt(target.transform.position);
-	rigidbody.velocity = speed * transform.forward;
+	rigidbody.velocity = speed * transform.forward * Time.deltaTime;
 	spawnTime = Time.time;
 
 

@@ -41,7 +41,7 @@ function Start () {
 	var trails = new Array();
 	for (var trail : Transform in smokeGroup)
 	{
-	
+		trail.renderer.enabled = false;
 		trails.Add(trail.gameObject);
 	
 	}

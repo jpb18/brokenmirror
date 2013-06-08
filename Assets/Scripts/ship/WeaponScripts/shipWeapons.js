@@ -5,7 +5,6 @@ class WeaponSlot {
 	var isEnabled : boolean = false; //checks if the weapon is enabled
 	var slot_num : int; //number (still has no function)
 	var weapon_go : GameObject; //weapon GameObject. It contains the projectile
-	var orientation : weapon_orientation; //checks if the weapon is firing forward or backwards
 	var phaser_point : GameObject; //if the weapon is a beam weapon, it fires from this game object
 	var torpedo_point : GameObject; //if the weapon is a torpedo weapon, it fires from this game object
 	var pulse_point : GameObject; //if the weapon is a pulse weapon, it fires from this game object
@@ -13,16 +12,12 @@ class WeaponSlot {
 	var isAngle : boolean = false; //checks if the target is inside the firing arch
 	var isRange : boolean = false; //checks if the target is in range
 	
-}
-
-
-
-enum weapon_orientation {
-
-	forward,
-	backward,
 	
 }
+
+
+
+
 
 //forward weapons
 var weapon1 : WeaponSlot;
@@ -67,36 +62,73 @@ function Update () {
 function PlayerFire() {
 	if (Input.GetAxis("Fire1") && weapon1.isEnabled == true && weapon1.isRange == true && weapon1.isAngle == true) //Player fires weapon 1
 	{
-		if (weapon1 != null) //checks if there's a weapon in the slot
-		{
-			var target1 : GameObject = shipTar.target;
-			
-			if (target1) //if there's a target
+		FireWeapon(weapon1, shipTar.target);
+	}
+	
+	if (Input.GetAxis("Fire2") && weapon2.isEnabled == true && weapon2.isRange == true && weapon2.isAngle == true) //Player fires weapon2
+	{
+		FireWeapon(weapon2, shipTar.target);
+	}
+	
+	if (Input.GetAxis("Fire3") && weapon3.isEnabled == true && weapon3.isRange == true && weapon3.isAngle == true)
+	{
+		FireWeapon(weapon3, shipTar.target);	
+	}
+	if (Input.GetAxis("Fire4") && weapon4.isEnabled == true && weapon4.isRange == true && weapon4.isAngle == true)
+	{
+		FireWeapon(weapon4, shipTar.target);	
+	}
+	if (Input.GetAxis("Fire5") && weapon5.isEnabled == true && weapon5.isRange == true && weapon5.isAngle == true)
+	{
+		FireWeapon(weapon5, shipTar.target);	
+	}
+	if (Input.GetAxis("Fire6") && weapon6.isEnabled == true && weapon6.isRange == true && weapon6.isAngle == true)
+	{
+		FireWeapon(weapon6, shipTar.target);	
+	}
+	if (Input.GetAxis("Fire7") && weapon7.isEnabled == true && weapon7.isRange == true && weapon7.isAngle == true)
+	{
+		FireWeapon(weapon7, shipTar.target);	
+	}
+	if (Input.GetAxis("Fire8") && weapon8.isEnabled == true && weapon8.isRange == true && weapon8.isAngle == true)
+	{
+		FireWeapon(weapon8, shipTar.target);	
+	}
+
+}
+
+function FireWeapon (weapon : WeaponSlot, target : GameObject) {
+	if (weapon.weapon_go != null) //checks if there's a weapon in the slot
+	{
+			if (target) //if there's a target
 			{
 				
-				if (Time.time >= weapon1.nextShot) //check if the cooldown has finished
+				if (Time.time >= weapon.nextShot) //check if the cooldown has finished
 				{
 				
-					var origin1 : GameObject; 
-					var weapon_go1 : GameObject = weapon1.weapon_go; //gets weapon GameObject
-					var weapon1_sc = weapon_go1.GetComponent(weaponScript); //gets weapon script
-					if(weapon1_sc.type == WeaponType.beam) //if weapon is a beam
+					var origin : GameObject; 
+					var weapon_go : GameObject = weapon.weapon_go; //gets weapon GameObject
+					var weapon_sc = weapon_go.GetComponent(weaponScript); //gets weapon script
+					if(weapon_sc.type == WeaponType.beam) //if weapon is a beam
 					{
-						origin1 = weapon1.phaser_point; //set the phaser origin
-						FireBeam(target1, origin1, weapon_go1); //fire beam
-						var cd1 : float = weapon_go1.GetComponent(phaserScript).standard_cd; //get weapon cooldown
-						weapon1.nextShot = Time.time + cd1; //sets next shot
+						origin = weapon.phaser_point; //set the phaser origin
+						FireBeam(target, origin, weapon_go); //fire beam
+						var cd1 : float = weapon_go.GetComponent(phaserScript).standard_cd; //get weapon cooldown
+						weapon.nextShot = Time.time + cd1; //sets next shot
 					}
-					else if (weapon1_sc.type == WeaponType.torpedo) //if weapon is a torpedo
+					else if (weapon_sc.type == WeaponType.torpedo) //if weapon is a torpedo
 					{
-						origin1 = weapon1.torpedo_point;
-						StartCoroutine(FireTorpedo(target1, origin1, weapon_go1, torpSpread, torpVolley, volleyWait));
-						var cd1_1 : float = weapon_go1.GetComponent(torpedoScript).status.cooldown;
-						weapon1.nextShot = Time.time + cd1_1 * torpSpread * torpVolley;
+						origin = weapon.torpedo_point;
+						StartCoroutine(FireTorpedo(target, origin, weapon_go, torpSpread, torpVolley, volleyWait));
+						var cd2 : float = weapon_go.GetComponent(torpedoScript).status.cooldown;
+						weapon.nextShot = Time.time + cd2 * torpSpread * torpVolley;
 					}
-					else if (weapon1_sc.type == WeaponType.pulse) //if its a pulse weapon
+					else if (weapon_sc.type == WeaponType.pulse) //if its a pulse weapon
 					{
-						//put pulse weapon stuff here
+						origin = weapon.pulse_point;
+						StartCoroutine(FirePulse(target, origin, weapon_go));
+						var cd3 : float = weapon_go.GetComponent(pulseScript).cooldown;
+						weapon.nextShot = Time.time + cd3;
 					}
 				}
 			
@@ -105,57 +137,10 @@ function PlayerFire() {
 		}
 		else //if there's no weapon
 		{
-			Debug.Log("There's no weapon in the 1st Slot");
+			Debug.Log("There's no weapon in that Slot");
 		}
-	}
-	
-	if (Input.GetAxis("Fire2") && weapon2.isEnabled == true) //Player fires weapon2
-	{
-		if(weapon2 != null) //checks if there's a weapon on slot 2
-		{
-			var target2 : GameObject = shipTar.target; //gets the target
-			
-			if (target2) //if there's a target
-			{
-				
-				if (Time.time >= weapon2.nextShot) //check if the cooldown has finished
-				{
-				
-					var origin2 : GameObject; 
-					var weapon_go2 : GameObject = weapon2.weapon_go; //gets weapon GameObject
-					var weapon2_sc = weapon_go2.GetComponent(weaponScript); //gets weapon script
-					if(weapon2_sc.type == WeaponType.beam) //if weapon is a beam
-					{
-						origin2 = weapon2.phaser_point; //set the phaser origin
-						FireBeam(target2, origin2, weapon_go2); //fire beam
-						var cd2 : float = weapon_go2.GetComponent(phaserScript).standard_cd; //get weapon cooldown
-						weapon2.nextShot = Time.time + cd2; //sets next shot
-					}
-					else if (weapon2_sc.type == WeaponType.torpedo) //if weapon is a torpedo
-					{
-						origin2 = weapon2.torpedo_point;
-						StartCoroutine(FireTorpedo(target2, origin2, weapon_go2, torpSpread, torpVolley, volleyWait));
-						var cd2_1 : float = weapon_go2.GetComponent(torpedoScript).status.cooldown;
-						weapon2.nextShot = Time.time + cd2_1 * torpSpread * torpVolley;
-					}
-					else if (weapon2_sc.type == WeaponType.pulse) //if its a pulse weapon
-					{
-						//put pulse weapon stuff here
-					}
-				}
-			}
-		}
-		else
-		{
-			Debug.Log("There's no weapon in the 2nd Slot");
-		}
-	}
-	
-	if (Input.GetAxis("Fire3") && weapon3.isEnabled == true)
-	{
-	
-	
-	}
+
+
 
 }
 
@@ -183,6 +168,27 @@ function FireTorpedo (target : GameObject, origin : GameObject, weapon : GameObj
 		
 		yield WaitForSeconds(waitReload);
 	}
+
+}
+
+function FirePulse (target : GameObject, origin : GameObject, weapon : GameObject) {
+
+	var ps1 : pulseScript = weapon.GetComponent(pulseScript);
+	var volley : int = ps1.volleys;
+	var timeInt : float = ps1.timeInt;
+
+	for (var x : int = 0; x < volley; x++)
+	{
+		var pulse : GameObject = Instantiate(weapon, origin.transform.position, origin.transform.rotation);
+		var ps : pulseScript = pulse.GetComponent(pulseScript);
+		
+		ps.target = target;
+		ps.origin = origin.transform.parent.parent.gameObject;
+		
+		yield WaitForSeconds(timeInt);
+	
+	}
+	
 
 }
 

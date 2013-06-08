@@ -41,7 +41,7 @@ function Update () {
 
 function calc_range() {
 	var time_passed : int = Time.time - launched;
-	var distance_made : int = time_passed * status.speed;
+	var distance_made : int = time_passed * status.speed * Time.deltaTime;
 	
 	if (distance_made >= status.range)
 	{
