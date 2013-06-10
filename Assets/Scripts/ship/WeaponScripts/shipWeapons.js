@@ -114,21 +114,21 @@ function FireWeapon (weapon : WeaponSlot, target : GameObject) {
 						origin = weapon.phaser_point; //set the phaser origin
 						FireBeam(target, origin, weapon_go); //fire beam
 						var cd1 : float = weapon_go.GetComponent(phaserScript).standard_cd; //get weapon cooldown
-						weapon.nextShot = Time.time + cd1; //sets next shot
+						weapon.nextShot = Time.time + cd1 * shipProps.shipModifiers.reloadSpeed; //sets next shot
 					}
 					else if (weapon_sc.type == WeaponType.torpedo) //if weapon is a torpedo
 					{
 						origin = weapon.torpedo_point;
 						StartCoroutine(FireTorpedo(target, origin, weapon_go, torpSpread, torpVolley, volleyWait));
 						var cd2 : float = weapon_go.GetComponent(torpedoScript).status.cooldown;
-						weapon.nextShot = Time.time + cd2 * torpSpread * torpVolley;
+						weapon.nextShot = Time.time + cd2 * torpSpread * torpVolley * shipProps.shipModifiers.reloadSpeed;
 					}
 					else if (weapon_sc.type == WeaponType.pulse) //if its a pulse weapon
 					{
 						origin = weapon.pulse_point;
 						StartCoroutine(FirePulse(target, origin, weapon_go));
 						var cd3 : float = weapon_go.GetComponent(pulseScript).cooldown;
-						weapon.nextShot = Time.time + cd3;
+						weapon.nextShot = Time.time + cd3 * shipProps.shipModifiers.reloadSpeed;
 					}
 				}
 			

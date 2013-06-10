@@ -28,9 +28,15 @@ class ShipProps {
 
 }
 
+class ShipModifiers {
+	var reloadSpeed : float;
+
+}
+
 
 //use classes
 var playerProps : ShipPlayerProps;
 var movement : ShipMovementProps;
 var shipHealth : ShipHealthProps;
 var shipProps : ShipProps;
+var shipModifiers : ShipModifiers;
