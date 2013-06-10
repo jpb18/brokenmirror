@@ -193,60 +193,68 @@ function FirePulse (target : GameObject, origin : GameObject, weapon : GameObjec
 }
 
 function OnGUI () {
-	if(shipProps.playerProps.isPlayer)
+	//gets escape menu status
+	var cam_go : GameObject = Camera.main.gameObject;
+	var cam_sc : testReturn = cam_go.GetComponent(testReturn);
+	var isPause : boolean = cam_sc.isPause;
+	
+	if(!isPause)
 	{
-	GUILayout.BeginArea(Rect(0,0,200,200));
-	
-		GUILayout.BeginHorizontal();
+		if(shipProps.playerProps.isPlayer)
+		{
+		GUILayout.BeginArea(Rect(0,0,200,200));
 		
-			GUILayout.BeginVertical();
-				GUILayout.Box("Volley");
-				if(GUILayout.Button("+"))
-				{
-					if(torpVolley * torpSpread < torpLimit)
-					{
-						torpVolley += 1;
-					}
-				}
-				
-				GUILayout.Label(torpVolley.ToString());
-				
-				if(GUILayout.Button("-"))
-				{
-					if(torpVolley > 1)
-					{
-						torpVolley -= 1;
-					}
-				}
-				
+			GUILayout.BeginHorizontal();
 			
-			GUILayout.EndVertical();
-			
-			GUILayout.BeginVertical();
-				GUILayout.Box("Spread");
-				if(GUILayout.Button("+"))
-				{
-					if(torpVolley * torpSpread < torpLimit)
+				GUILayout.BeginVertical();
+					GUILayout.Box("Volley");
+					if(GUILayout.Button("+"))
 					{
-						torpSpread += 1;
+						if(torpVolley * torpSpread < torpLimit)
+						{
+							torpVolley += 1;
+						}
 					}
-				}
-				
-				GUILayout.Label(torpSpread.ToString());
-				
-				if(GUILayout.Button("-"))
-				{
-					if(torpSpread > 1)
+					
+					GUILayout.Label(torpVolley.ToString());
+					
+					if(GUILayout.Button("-"))
 					{
-						torpSpread -= 1;
+						if(torpVolley > 1)
+						{
+							torpVolley -= 1;
+						}
 					}
-				}
+					
+				
+				GUILayout.EndVertical();
+				
+				GUILayout.BeginVertical();
+					GUILayout.Box("Spread");
+					if(GUILayout.Button("+"))
+					{
+						if(torpVolley * torpSpread < torpLimit)
+						{
+							torpSpread += 1;
+						}
+					}
+					
+					GUILayout.Label(torpSpread.ToString());
+					
+					if(GUILayout.Button("-"))
+					{
+						if(torpSpread > 1)
+						{
+							torpSpread -= 1;
+						}
+					}
+				
+				GUILayout.EndVertical();
 			
-			GUILayout.EndVertical();
+			GUILayout.EndHorizontal();
 		
-		GUILayout.EndHorizontal();
-	
-	GUILayout.EndArea();
+		GUILayout.EndArea();
+		}
 	}
 
 }

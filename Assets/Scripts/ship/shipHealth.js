@@ -35,15 +35,17 @@ function Start () {
 	shipHealth.maxHealth = properties.shipHealth.basicHealth;
 	shipHealth.health = shipHealth.maxHealth;
 	
-	
+	/*this is commented, because it's now being done at hand, because, somehow, it's not working properly
 	//get smoke trails
 	var smokeGroup : Transform = gameObject.Find("trail_renderers/smoke_trails").transform;
 	var trails = new Array();
 	for (var trail : Transform in smokeGroup)
 	{
-		trail.renderer.enabled = false;
-		trails.Add(trail.gameObject);
-	
+		if(trail.parent.parent.parent.gameObject == gameObject)
+		{
+			trail.gameObject.GetComponent(TrailRenderer).enabled = false;
+			trails.Add(trail.gameObject);
+		}
 	}
 	
 	
@@ -51,16 +53,19 @@ function Start () {
 	
 	//Get plasma leaks
 	var plasmas = new Array();
-	var plasmaGroup : Transform = gameObject.Find("ParticleSystems/PlasmaParticles").transform;
+	var plasmaGroup : Transform = gameObject.Find("/ParticleSystems/PlasmaParticles").transform;
 	
 	for (var plasma : Transform in plasmaGroup)
 	{
-		plasmas.Add(plasma.gameObject);
-		plasma.gameObject.particleSystem.enableEmission = false;
+		if(plasma.parent.parent.parent.gameObject == gameObject)
+		{
+			plasmas.Add(plasma.gameObject);
+			plasma.gameObject.particleSystem.enableEmission = false;
+		}
 	}
 	plasmaParticles = plasmas.ToBuiltin(GameObject);
 
-	
+	*/
 
 }
 
@@ -120,12 +125,13 @@ function Triggers () {
 function Trails () {
 	var isTurbulence : boolean = triggers.triggerProps.isTurbulence;
 	
-	if (isTurbulence || shipHealth.health <= shipHealth.maxHealth*0.5)
+	if (isTurbulence || shipHealth.health <= shipHealth.maxHealth * 0.5)
 	{
 		for (var trail : GameObject in smokeTrails)
 		{
+			
 			var rend : TrailRenderer = trail.GetComponent(TrailRenderer);
-			rend.renderer.enabled = true;			
+			rend.enabled = true;			
 			
 		}
 	}
@@ -134,7 +140,7 @@ function Trails () {
 		for (var trail : GameObject in smokeTrails)
 		{
 			var rend1 : TrailRenderer = trail.GetComponent(TrailRenderer);
-			rend1.renderer.enabled = false;			
+			rend1.enabled = false;			
 			
 		}
 	}
@@ -144,7 +150,7 @@ function Trails () {
 }
 
 function PlasmaLeak() {
-	if (shipHealth.health <= shipHealth.maxHealth*0.15)
+	if (shipHealth.health <= shipHealth.maxHealth * 0.15)
 	{
 		for (var plasma : GameObject in plasmaParticles)
 		{
