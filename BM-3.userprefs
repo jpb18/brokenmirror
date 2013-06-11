@@ -1,10 +1,11 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\ship\shipTriggers.js">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\weapons\torpedoScript.js">
     <Files>
+      <File FileName="Assets\Scripts\ship\shipTriggers.js" Line="58" Column="14" />
       <File FileName="Assets\Scripts\ship\shipHealth.js" Line="69" Column="1" />
       <File FileName="Assets\Scripts\ship\shipProperties.js" Line="35" Column="29" />
-      <File FileName="Assets\Scripts\ship\shipTriggers.js" Line="65" Column="2" />
+      <File FileName="Assets\Scripts\weapons\torpedoScript.js" Line="73" Column="22" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
