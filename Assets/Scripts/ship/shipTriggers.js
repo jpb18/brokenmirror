@@ -19,6 +19,7 @@ function Start () {
 	reentryParticles = GameObject.Find("ParticleSystems/reentry_particles");
 	reentryParticles.particleSystem.Play();
 	reentryParticles.particleSystem.enableEmission = false;
+	
 
 }
 
@@ -64,15 +65,12 @@ function reentry() {
 	
 	if(triggerProps.isTurbulence)
 	{
-		
 		reentryParticles.particleSystem.enableEmission = true;
-
-		
+				
 	}
 	else
 	{
 		reentryParticles.particleSystem.enableEmission = false;
-
 	}
 
 
