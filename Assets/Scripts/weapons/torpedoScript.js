@@ -34,7 +34,16 @@ function Update () {
 	calc_range();
 	HomeIn();
 	Spread();
+	CheckTTargetAndOrigin();
 	
+
+}
+
+function CheckTTargetAndOrigin () {
+	if(!target || !origin)
+	{
+		Destroy(gameObject);
+	}
 
 }
 

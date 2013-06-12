@@ -193,3 +193,9 @@ function ShieldShow () {
 	}
 
 }
+
+function OnDestroy () {
+	
+	gameObject.SetActive(false);
+ 
+} 

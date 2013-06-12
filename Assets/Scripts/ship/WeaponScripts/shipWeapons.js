@@ -15,8 +15,14 @@ class WeaponSlot {
 	
 }
 
+class BotWeapons {
+	
+	var isFiring : boolean = false;
 
+}
 
+//bot
+var botWeapon : BotWeapons;
 
 
 //forward weapons
@@ -35,6 +41,8 @@ var weapon8 : WeaponSlot; //right weapon
 
 var shipProps : shipProperties;
 var shipTar : shipTarget;
+var genInfo : GeneralInfo;
+var globInfo : GlobalInfo;
 
 var torpSpread : int = 1;
 var torpVolley : int = 1;
@@ -45,6 +53,14 @@ function Start () {
 
 	shipProps = gameObject.GetComponent(shipProperties);
 	shipTar = gameObject.GetComponent(shipTarget);
+	
+	//get general info
+	var gen_go : GameObject = GameObject.Find("SaveGame");
+	genInfo = gen_go.GetComponent(GeneralInfo);
+	
+	//get global info
+	var glo_go : GameObject = GameObject.Find("GlobalInfo");
+	globInfo = glo_go.GetComponent(GlobalInfo);
 
 }
 
@@ -53,6 +69,13 @@ function Update () {
 	if (isPlayer)
 	{
 		PlayerFire();
+	}
+	else
+	{
+		if(!botWeapon.isFiring)
+		{
+			StartCoroutine(BotFire());
+		}
 	}
 	CheckWeapons();
 
@@ -409,5 +432,84 @@ function CheckWeaponRange(weapon : WeaponSlot, target : Transform) : boolean {
 
 	//return result
 	return isRange;
+
+}
+
+function BotFire() {
+
+	if(shipTar.target)
+	{
+		botWeapon.isFiring = true;
+		//get waiting time
+		var dificulty : Dificulty = genInfo.playerInfo.gameDificulty;
+		var wait : WaitingTimes = globInfo.waitingTimes;
+		var waitTime : float;
+		
+		if(dificulty == Dificulty.Easy)
+		{
+			waitTime = wait.easy;
+		}
+		else if (dificulty == Dificulty.Medium)
+		{
+			waitTime = wait.medium;
+		}
+		else if (dificulty == Dificulty.Hard)
+		{
+			waitTime = wait.hard;
+		}
+		else if (dificulty == Dificulty.Hardcore)
+		{
+			waitTime = wait.hardcore;
+		}
+		
+		//process firing
+		yield WaitForSeconds (waitTime);
+		if (weapon1.isEnabled == true && weapon1.isRange == true && weapon1.isAngle == true) //Player fires weapon 1
+		{
+			FireWeapon(weapon1, shipTar.target);
+			yield WaitForSeconds (waitTime);
+		}
+		
+		if (weapon2.isEnabled == true && weapon2.isRange == true && weapon2.isAngle == true) //Player fires weapon2
+		{
+			FireWeapon(weapon2, shipTar.target);
+			yield WaitForSeconds (waitTime);
+		}
+		
+		if (weapon3.isEnabled == true && weapon3.isRange == true && weapon3.isAngle == true)
+		{
+			FireWeapon(weapon3, shipTar.target);
+			yield WaitForSeconds (waitTime);	
+		}
+		
+		if ( weapon4.isEnabled == true && weapon4.isRange == true && weapon4.isAngle == true)
+		{
+			FireWeapon(weapon4, shipTar.target);
+			yield WaitForSeconds (waitTime);	
+		}
+		if (weapon5.isEnabled == true && weapon5.isRange == true && weapon5.isAngle == true)
+		{
+			FireWeapon(weapon5, shipTar.target);
+			yield WaitForSeconds (waitTime);	
+		}
+		if (weapon6.isEnabled == true && weapon6.isRange == true && weapon6.isAngle == true)
+		{
+			FireWeapon(weapon6, shipTar.target);
+			yield WaitForSeconds (waitTime);	
+		}
+		if (weapon7.isEnabled == true && weapon7.isRange == true && weapon7.isAngle == true)
+		{
+			FireWeapon(weapon7, shipTar.target);
+			yield WaitForSeconds (waitTime);	
+		}
+		if (weapon8.isEnabled == true && weapon8.isRange == true && weapon8.isAngle == true)
+		{
+			FireWeapon(weapon8, shipTar.target);
+			yield WaitForSeconds (waitTime);	
+		}
+		botWeapon.isFiring = false;
+	}
+	
+		
 
 }

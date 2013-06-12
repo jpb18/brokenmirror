@@ -165,7 +165,8 @@ function botFunction() {
 	{
 	
 		target = FindTarget(gameObject, shipProps);
-		Debug.Log("Found target");
+		
 	}
 	
 }
+

@@ -34,7 +34,7 @@ function Start () {
 
 }
 
-function FixedUpdate () {
+function Update () {
 	designLine();
 	deletePhaser();
 	
@@ -108,6 +108,14 @@ function OnTriggerEnter (hit : Collider) {
 
 function deletePhaser () {
 	if (Time.time >= spawnTime + durTime)
+	{
+		Destroy(gameObject);
+	}
+
+}
+
+function CheckPTargetAndOrigin() {
+	if(!target || !origin)
 	{
 		Destroy(gameObject);
 	}

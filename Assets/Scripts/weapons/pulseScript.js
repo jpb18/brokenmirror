@@ -27,6 +27,16 @@ function Update () {
 	calc_range();
 }
 
+function CheckPUTargetAndOrigin() {
+	if(!target || !origin)
+	{
+		Destroy(gameObject);
+		
+	}
+	
+
+}
+
 function calc_range() {
 	var timePassed : float = Time.time - launchTime;
 	var distanceCrossed : float = timePassed * speed * Time.deltaTime;
