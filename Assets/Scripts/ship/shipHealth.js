@@ -35,37 +35,7 @@ function Start () {
 	shipHealth.maxHealth = properties.shipHealth.basicHealth;
 	shipHealth.health = shipHealth.maxHealth;
 	
-	/*this is commented, because it's now being done at hand, because, somehow, it's not working properly
-	//get smoke trails
-	var smokeGroup : Transform = gameObject.Find("trail_renderers/smoke_trails").transform;
-	var trails = new Array();
-	for (var trail : Transform in smokeGroup)
-	{
-		if(trail.parent.parent.parent.gameObject == gameObject)
-		{
-			trail.gameObject.GetComponent(TrailRenderer).enabled = false;
-			trails.Add(trail.gameObject);
-		}
-	}
-	
-	
-	smokeTrails = trails.ToBuiltin(GameObject);
-	
-	//Get plasma leaks
-	var plasmas = new Array();
-	var plasmaGroup : Transform = gameObject.Find("/ParticleSystems/PlasmaParticles").transform;
-	
-	for (var plasma : Transform in plasmaGroup)
-	{
-		if(plasma.parent.parent.parent.gameObject == gameObject)
-		{
-			plasmas.Add(plasma.gameObject);
-			plasma.gameObject.particleSystem.enableEmission = false;
-		}
-	}
-	plasmaParticles = plasmas.ToBuiltin(GameObject);
-
-	*/
+	//to be added trail renderer automatic collection
 
 }
 
