@@ -17,13 +17,8 @@ var durTime : float;
 
 var hitshield : boolean = false;
 
-var impactEffects : ImpactEffects;
 
-class ImpactEffects {
-	var shield : GameObject;
-	var hull : GameObject;
 
-}
 
 function Start () {
 
@@ -61,9 +56,7 @@ function OnCollisionEnter (hit : Collision) {
 			collider.isTrigger = true;
 			
 			var healthSC : shipHealth = hit.transform.gameObject.GetComponent(shipHealth);
-			if (impactEffects.hull)	{
-				Instantiate(impactEffects.hull, transform.position, transform.rotation);
-			}
+			
 			healthSC.shipHealth.health -= damage;
 		
 		}
@@ -86,9 +79,7 @@ function OnTriggerEnter (hit : Collider) {
 				{
 					rigidbody.velocity = Vector3(0,0,0);
 					transform.parent = hit.transform;
-					if(impactEffects.shield){
-						Instantiate(impactEffects.shield, transform.position, transform.rotation);
-					}
+					
 					
 					healthSC.shipHealth.shields -= damage;
 					//make shield show up
