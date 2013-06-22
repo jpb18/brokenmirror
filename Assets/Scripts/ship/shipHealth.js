@@ -21,7 +21,6 @@ var triggers : shipTriggers;
 var explosion : GameObject;
 var smokeTrails : GameObject[];
 var plasmaParticles : GameObject[];
-var shipModel : GameObject[];
 var shield : GameObject;
 
 
@@ -35,7 +34,17 @@ function Start () {
 	shipHealth.maxHealth = properties.shipHealth.basicHealth;
 	shipHealth.health = shipHealth.maxHealth;
 	
-	//to be added trail renderer automatic collection
+	
+	//get smoke trails
+	
+	smokeTrails = gameObject.FindGameObjectsWithTag("Smoke");
+	
+	for(var smoke : GameObject in smokeTrails)
+	{
+		smoke.GetComponent(TrailRenderer).enabled = false;
+	
+	}
+	
 
 }
 
@@ -61,18 +70,8 @@ function Die () {
 
 	if (shipHealth.health <= 0)
 	{
-		
-		for (var go : GameObject in shipModel)
-		{
-			go.transform.parent = null;
-			go.AddComponent(Rigidbody);
-		}
-		
-		Destroy(gameObject);
-		
-		
-		
 		Instantiate(explosion, transform.position, transform.rotation);
+		Destroy(gameObject);
 		
 		
 	}
