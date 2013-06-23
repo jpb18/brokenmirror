@@ -157,7 +157,7 @@ function ShieldShow () {
 		var totTime : float = shieldShow.showDur + shieldShow.lastHit;
 		var remTime : float = totTime - Time.time;
 		
-		Debug.Log(remTime.ToString());
+		
 		
 		var alpha : float = (1 * remTime)/shieldShow.showDur;
 		

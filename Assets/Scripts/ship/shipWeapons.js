@@ -186,7 +186,7 @@ function FireTorpedo (target : GameObject, origin : GameObject, weapon : GameObj
 		var ts : torpedoScript = torpedo.GetComponent(torpedoScript);
 		
 		ts.target = target;
-		ts.origin = origin.transform.parent.parent.gameObject;
+		ts.origin = origin.transform.parent.parent.parent.gameObject;
 		ts.status.spread = spread;
 		
 		yield WaitForSeconds(waitReload);

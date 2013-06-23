@@ -20,6 +20,7 @@ var hitshield : boolean = false;
 
 
 
+
 function Start () {
 
 	transform.LookAt(target.transform.position);
@@ -45,9 +46,11 @@ function designLine () {
 
 }
 
+
+
 function OnCollisionEnter (hit : Collision) {
 	//if the phaser object hits a ship
-	if (hit.transform.gameObject != origin.transform.parent.parent.parent.gameObject && !hitshield)
+	if (hit.transform.gameObject != origin.transform.parent.parent.parent.parent.gameObject && !hitshield)
 	{
 		if (hit.transform.tag == "Ship")
 		{
@@ -58,6 +61,10 @@ function OnCollisionEnter (hit : Collision) {
 			var healthSC : shipHealth = hit.transform.gameObject.GetComponent(shipHealth);
 			
 			healthSC.shipHealth.health -= damage;
+			
+			
+			Debug.Log("Origin: " + origin.transform.parent.parent.parent.parent.gameObject.name + "/Hit: " + hit.transform.gameObject.name);
+			
 		
 		}
 	}
@@ -69,7 +76,7 @@ function OnTriggerEnter (hit : Collider) {
 	if (hit.tag == "Shields" && !hitshield)
 	{
 		
-		if(hit.transform.parent.parent.gameObject != origin.transform.parent.parent.parent.gameObject)
+		if(hit.transform.parent.parent.gameObject != origin.transform.parent.parent.parent.parent.gameObject)
 		{
 			if (hit.transform.parent.parent.gameObject.tag == "Ship")
 			{
@@ -77,9 +84,10 @@ function OnTriggerEnter (hit : Collider) {
 				
 				if(healthSC.shipHealth.shields > 0)
 				{
-					rigidbody.velocity = Vector3(0,0,0);
-					transform.parent = hit.transform;
 					
+					
+					transform.parent = hit.transform.parent.parent.transform;
+					rigidbody.velocity = Vector3(0,0,0);
 					
 					healthSC.shipHealth.shields -= damage;
 					//make shield show up
@@ -88,7 +96,8 @@ function OnTriggerEnter (hit : Collider) {
 					hitshield = true;
 					
 					
-					
+					Debug.Log("Origin: " + origin.transform.parent.parent.parent.parent.gameObject.name + "/Hit: " + hit.transform.gameObject.name);
+			
 					
 				}
 			}
