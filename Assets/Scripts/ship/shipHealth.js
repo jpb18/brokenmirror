@@ -45,6 +45,15 @@ function Start () {
 	
 	}
 	
+	//get plasma particles
+	plasmaParticles = gameObject.FindGameObjectsWithTag("plasma");
+	
+	for(var plasma : GameObject in plasmaParticles)
+	{
+		
+		plasma.particleSystem.Stop();
+	}
+	
 
 }
 
@@ -123,7 +132,7 @@ function PlasmaLeak() {
 	{
 		for (var plasma : GameObject in plasmaParticles)
 		{
-			plasma.particleSystem.enableEmission = true;
+			
 			plasma.particleSystem.Play();
 			
 		}
@@ -132,8 +141,9 @@ function PlasmaLeak() {
 	{
 		for (var plasma : GameObject in plasmaParticles)
 		{
-			plasma.particleSystem.enableEmission = false;
+			
 			plasma.particleSystem.Stop();
+			plasma.particleSystem.Clear();
 			
 		}
 	}

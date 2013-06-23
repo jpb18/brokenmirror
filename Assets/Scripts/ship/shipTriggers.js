@@ -17,8 +17,8 @@ function Start () {
 
 	properties = gameObject.GetComponent(shipProperties);
 	reentryParticles = GameObject.Find("ParticleSystems/reentry_particles");
-	reentryParticles.particleSystem.Play();
-	reentryParticles.particleSystem.enableEmission = false;
+	reentryParticles.particleSystem.Stop();
+	
 	
 
 }
@@ -65,12 +65,13 @@ function reentry() {
 	
 	if(triggerProps.isTurbulence)
 	{
-		reentryParticles.particleSystem.enableEmission = true;
+		reentryParticles.particleSystem.Play();
 				
 	}
 	else
 	{
-		reentryParticles.particleSystem.enableEmission = false;
+		reentryParticles.particleSystem.Stop();
+		reentryParticles.particleSystem.Clear();
 	}
 
 
