@@ -9,6 +9,7 @@
       <File FileName="Assets\Scripts\ship\shipTriggers.js" Line="74" Column="43" />
       <File FileName="Assets\Scripts\weapons\torpedoScript.js" Line="124" Column="6" />
       <File FileName="Assets\Scripts\weapons\phaserScript.js" Line="80" Column="4" />
+      <File FileName="Assets\Scripts\effects\LookAtCamera.js" Line="10" Column="28" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
