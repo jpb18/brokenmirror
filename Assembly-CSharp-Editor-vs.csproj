@@ -49,6 +49,7 @@
      <None Include="Assets\Standard Assets\Projectors\Guidelines.txt" />
      <None Include="Assets\Standard Assets\Projectors\Sources\Shaders\Projector Multiply.shader" />
      <None Include="Assets\Models\Ships\Klingon\bird of prey\K_TNG_BOP_VoxelizerDebug.txt" />
+     <None Include="Assets\Scripts\shaders\AlphaSelfIllum.shader" />
      <None Include="Assets\Standard Assets\Particles\Sources\Shaders\Particle Alpha Blend (Queue +100).shader" />
      <None Include="Assets\StrumpyShaderEditor\Editor\Resources\Internal\Temp\TempShader.shader" />
      <None Include="Assets\Scripts\shaders\aditive.shader" />
@@ -58,6 +59,7 @@
      <None Include="Assets\Models\Ships\Earth\galaxy\galaxy_obj\F_TNG_GALAXY_VoxelizerDebug.txt" />
      <None Include="Assets\Scripts\shaders\slindev_planet.shader" />
      <None Include="Assets\Standard Assets\Projectors\Sources\Shaders\Projector Light.shader" />
+     <None Include="Assets\Standard Assets\AlphaSelfIllum.shader.shader" />
      <None Include="Assets\Scripts\shaders\atm_scat.shader" />
      <None Include="Assets\Scripts\atm_scat.shader" />
      <None Include="Assets\Models\Ships\Klingon\bird of prey\K_TNG_KVORT_VoxelizerDebug.txt" />
