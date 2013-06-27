@@ -178,3 +178,7 @@ function OnDestroy () {
 	gameObject.SetActive(false);
  
 } 
+
+function OnDisable () {
+	gameObject.SetActive(false);
+}

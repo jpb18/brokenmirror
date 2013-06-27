@@ -31,8 +31,10 @@ function Start () {
 }
 
 function Update () {
-	designLine();
 	deletePhaser();
+	CheckPTargetAndOrigin();
+	designLine();
+	
 	
 
 }
@@ -96,8 +98,7 @@ function OnTriggerEnter (hit : Collider) {
 					hitshield = true;
 					
 					
-					Debug.Log("Origin: " + origin.transform.parent.parent.parent.parent.gameObject.name + "/Hit: " + hit.transform.gameObject.name);
-			
+					
 					
 				}
 			}
@@ -118,6 +119,22 @@ function CheckPTargetAndOrigin() {
 	if(!target || !origin)
 	{
 		Destroy(gameObject);
+	}
+
+}
+
+function OnTriggerExit(hit : Collider) {
+	if(hit.tag == "Shields" && gameObject.layer == LayerMask.NameToLayer("PhaserStart"))
+	{
+		var hitGO : GameObject = hit.transform.parent.parent.transform.gameObject;
+		var originGO : GameObject = origin.transform.parent.parent.parent.parent.gameObject;
+		
+		if (hitGO == originGO)
+		{
+			gameObject.layer = LayerMask.NameToLayer("Weapon");			
+			
+		}
+	
 	}
 
 }
