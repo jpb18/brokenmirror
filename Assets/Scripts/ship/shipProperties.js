@@ -19,6 +19,7 @@ class ShipMovementProps {
 //this contains the basic health status of the ship
 class ShipHealthProps {
 	var basicHealth : float;
+	var armor : float = 0.0f;
 }
 
 class ShipProps {

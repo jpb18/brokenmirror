@@ -31,6 +31,7 @@ function Start () {
 }
 
 function Update () {
+	transform.LookAt(target.transform.position);
 	deletePhaser();
 	CheckPTargetAndOrigin();
 	designLine();
@@ -62,7 +63,10 @@ function OnCollisionEnter (hit : Collision) {
 			
 			var healthSC : shipHealth = hit.transform.gameObject.GetComponent(shipHealth);
 			
-			healthSC.shipHealth.health -= damage;
+			var propScript : shipProperties = hit.transform.gameObject.GetComponent(shipProperties);
+			
+			
+			healthSC.shipHealth.health -= damage - propScript.shipHealth.armor;
 			
 			
 			Debug.Log("Origin: " + origin.transform.parent.parent.parent.parent.gameObject.name + "/Hit: " + hit.transform.gameObject.name);
