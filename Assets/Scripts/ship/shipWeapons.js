@@ -21,6 +21,8 @@ class BotWeapons {
 
 }
 
+
+
 //bot
 var botWeapon : BotWeapons;
 
@@ -48,6 +50,8 @@ var torpSpread : int = 1;
 var torpVolley : int = 1;
 var volleyWait : float = 0.2f;
 var torpLimit : int = 10;
+
+
 
 function Start () {
 
@@ -216,6 +220,8 @@ function FirePulse (target : GameObject, origin : GameObject, weapon : GameObjec
 }
 
 function OnGUI () {
+	
+
 	//gets escape menu status
 	var cam_go : GameObject = Camera.main.gameObject;
 	var cam_sc : testReturn = cam_go.GetComponent(testReturn);
@@ -225,6 +231,12 @@ function OnGUI () {
 	{
 		if(shipProps.playerProps.isPlayer)
 		{
+		//inventory modules
+		
+		
+		
+		
+		//tactical module
 		GUILayout.BeginArea(Rect(0,0,200,200));
 		
 			GUILayout.BeginHorizontal();

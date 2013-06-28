@@ -11,6 +11,13 @@ enum WeaponType {
 
 }
 
+class GuiInfo {
+	var name : String;
+	var description : String;
+	var image : Texture2D;
+
+}
+
 
 function Start () {
 

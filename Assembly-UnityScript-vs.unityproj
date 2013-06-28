@@ -56,6 +56,7 @@
      <Compile Include="Assets\Scripts\environment\border.js" />
      <Compile Include="Assets\Scripts\environment\planetScript.js" />
      <Compile Include="Assets\Scripts\environment\spaceGeneration.js" />
+     <Compile Include="Assets\Scripts\menus\guiScript.js" />
      <Compile Include="Assets\Scripts\menus\mainMenu.js" />
      <Compile Include="Assets\Scripts\menus\setupMenu.js" />
      <Compile Include="Assets\Scripts\menus\testMenu.js" />
