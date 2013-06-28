@@ -127,7 +127,7 @@ function ChangeSpeed(targetSpeed : float, currentSpeed : float, shipAcceleration
 	//set time duration
 	var speedInterval : float = Mathf.Sqrt(Mathf.Pow(targetSpeed - currentSpeed, 2));
 	var time : float = speedInterval/shipAcceleration;
-	var increment : float = shipAcceleration * Time.deltaTime;
+	var increment : float = shipAcceleration;
 	var i : float = 0;
 	var rate : float = 1/time;
 	//Debug.Log("SpeedInt: " + speedInterval.ToString() + " time: " + time.ToString());
@@ -150,12 +150,18 @@ function ChangeSpeed(targetSpeed : float, currentSpeed : float, shipAcceleration
 		
 		if(isIncreasing)
 		{
-			speedStatus += increment * Time.deltaTime;
+			speedStatus += increment * Mathf.Pow(Time.deltaTime, 2);
 		}
 		else
 		{
-			speedStatus -= increment * Time.deltaTime;
+			speedStatus -= increment * Mathf.Pow(Time.deltaTime, 2);
 		}
+		
+		if (Mathf.Sqrt(Mathf.Pow(speedStatus - targetSpeed, 2)) < increment * Time.deltaTime)
+		{
+			speedStatus = targetSpeed;
+		}
+		
 		
 		yield;
 	}
