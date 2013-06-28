@@ -1,6 +1,13 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\menus\guiScript.js">
+    <Files>
+      <File FileName="Assets\Scripts\ship\shipProperties.js" Line="17" Column="81" />
+      <File FileName="Assets\Scripts\ship\shipWeapons.js" Line="225" Column="2" />
+      <File FileName="Assets\Scripts\ship\shipMovement.js" Line="172" Column="1" />
+      <File FileName="Assets\Scripts\menus\guiScript.js" Line="51" Column="29" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
