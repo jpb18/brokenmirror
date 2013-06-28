@@ -12,8 +12,9 @@ class ShipPlayerProps {
 
 //this class is used to caracterize ship movement
 class ShipMovementProps {
-	var agility : float; //Standard Agility of the craft, soon to be controled through stored variables. In degrees per second.
-	var impulseSpeed : float; //Standard Maximum Speed of the craft at sublight, soon to be controled through stored variables
+	var agility : float; //Standard Agility of the craft. In degrees per second.
+	var impulseSpeed : float; //Standard Maximum Speed of the craft at sublight.
+	var acceleration : float; //Ship acceleration at sublight speed (in percentage)
 }
 
 //this contains the basic health status of the ship
