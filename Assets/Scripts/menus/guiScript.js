@@ -9,10 +9,20 @@ class MovementGui {
 	var upIcon : Texture2D;
 	var downIcon : Texture2D;
 	
+	
+	
 	var buttonWidth : int = 48;
 	var buttonHeight : int = 48;
 	
 	var buttonPadding : int = 2;
+	
+	var barBG : Texture2D;
+	var barFG : Texture2D;
+	
+	var barWidth : int = 50;
+	var barHeight : int = 206;
+	
+	var fgMode : ScaleMode;
 
 }
 
@@ -51,7 +61,7 @@ function MovementGUI () {
 		GUILayout.BeginVertical();
 			//Stop Button
 			GUILayout.BeginHorizontal();
-				if(GUI.Button(Rect(0,0,MovGUI.buttonWidth, MovGUI.buttonHeight), MovGUI.stopIcon, MovGUI.style.button))
+				if(GUI.Button(Rect(0,50,MovGUI.buttonWidth, MovGUI.buttonHeight), MovGUI.stopIcon, MovGUI.style.button))
 				{
 					//here comes the button action
 					shipMov.speedTarget = 0;
@@ -62,7 +72,7 @@ function MovementGUI () {
 			//Up Button
 			GUILayout.BeginHorizontal();
 				//calculate diference from before
-				var upHeight : int = MovGUI.buttonHeight + MovGUI.buttonPadding;
+				var upHeight : int = 50 + MovGUI.buttonHeight + MovGUI.buttonPadding;
 				if(GUI.Button(Rect(0,upHeight,MovGUI.buttonWidth, MovGUI.buttonHeight), MovGUI.upIcon, MovGUI.style.button))
 				{
 					//here cames the button action
@@ -126,6 +136,26 @@ function MovementGUI () {
 		
 			GUILayout.BeginHorizontal();
 				//here goes the speed graphic code
+				//first draw bg bar
+				GUI.DrawTexture(Rect(50,0, MovGUI.barWidth, MovGUI.barHeight), MovGUI.barBG);
+				
+				//now the fg bar
+				//but first lets get the speed values
+				var curSpeed = Mathf.Sqrt(Mathf.Pow(shipMov.speedStatus, 2)); //get the module value
+				var maxSpeed = shipMov.movProps.maxStatus;
+				
+				//now we convert the speed value to pixels
+				var fgheight : int = ValueToPixels(maxSpeed, MovGUI.barHeight, curSpeed);
+				
+				//now we set the place where the bar shall be
+				var yCood : int = MovGUI.barHeight - fgheight;
+				
+				//now we draw the bar
+				GUI.DrawTexture(Rect(50, yCood, MovGUI.barWidth, fgheight), MovGUI.barFG, MovGUI.fgMode);
+				
+								
+				
+				
 			GUILayout.EndHorizontal();;
 		
 		GUILayout.EndVertical();
@@ -134,5 +164,15 @@ function MovementGUI () {
 	GUILayout.EndArea();
 	
 	
+
+}
+
+function ValueToPixels(baseValue : float, basePixels : int, desiredValue : float) : int {
+	
+	var result : int;
+	result = (basePixels * desiredValue)/baseValue;
+	
+	return result;
+
 
 }
