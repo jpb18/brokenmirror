@@ -1,5 +1,14 @@
 #pragma strict
 
+
+class CenterGUI {
+	var width : int;
+	var height : int;
+	
+	
+
+}
+
 class MovementGui {
 	var height : int;
 	var width : int;
@@ -26,7 +35,94 @@ class MovementGui {
 
 }
 
+class TacticalGui {
+	var width : int;
+	var height : int;
+
+}
+
+class TorpedoGui {
+	var width : int;
+	var height : int;
+	
+	//Background
+	var bgImage : Texture2D;
+	
+	
+	//Taskbar
+	var taskImage : Texture2D;
+	var taskX : int = 5;
+	var taskY : int = 7;
+	var taskWidth : int = 322;
+	var taskHeight : int = 11;
+	
+	//Title Text
+	var titleStyle : GUIStyle;
+	var titleText : String = "Torpedo";
+	var titleX : int;
+	var titleY : int;
+	var titleWidth : int;
+	var titleHeight : int;
+	
+	//"Spread" Text
+	var spreadStyle : GUIStyle;
+	var spreadText = "Spread";
+	var spreadX : int;
+	var spreadY : int;
+	var spreadWidth : int;
+	var spreadHeight : int;
+	
+	//"Volley" Text
+	var volleyStyle : GUIStyle;
+	var volleyText = "Volley";
+	var volleyX : int;
+	var volleyY : int;
+	var volleyWidth : int;
+	var volleyHeight : int;
+	
+	//Buttons
+	var style : GUISkin;
+	var buttonWidth : int;
+	var buttonHeight : int;
+	
+	//Button Spread "-"
+	var minusSpreadX : int;
+	var minusSpreadY : int;
+	
+	//Button Spread "+"
+	var plusSpreadX : int;
+	var plusSpreadY : int;
+	
+	//Button Volley "-"
+	var minusVolleyX :int;
+	var minusVolleyY : int;
+	
+	//Button Volley "+"
+	var plusVolleyX :int;
+	var plusVolleyY :int;
+	
+	//Displays
+	var displayImg : Texture2D;
+	var displayWidth : int = 28;
+	var displayHeight : int = 28;
+	
+	//Display Spread
+	var displaySpreadX : int;
+	var displaySpreadY : int;
+	
+	//Display Volley
+	var displayVolleyX : int;
+	var displayVolleyY : int;
+	
+	
+	
+
+}
+
+var centGUI : CenterGUI;
 var MovGUI : MovementGui;
+var tacGUI : TacticalGui;
+var torpGUI : TorpedoGui;
 var shipProps : shipProperties;
 var shipMov : shipMovement;
 
@@ -46,17 +142,36 @@ function OnGUI () {
 
 	if(shipProps.playerProps.isPlayer && !isPause)
 	{
-		MovementGUI();
+		CenterGUI();
 	
 	}
 
 
 }
 
+
+function CenterGUI() {
+
+	//Start by getting the x cood
+	var XCood : int;
+	XCood = Screen.width/2 - centGUI.width;
+	
+	//now get the y cood
+	var YCood : int;
+	YCood = Screen.height - centGUI.height;
+	
+	//now create area
+	GUILayout.BeginArea(Rect(XCood, YCood, centGUI.width, centGUI.height));
+		MovementGUI();
+		TacticalGUI();
+	GUILayout.EndArea();
+
+}
+
 //this function build the movement gui section
 function MovementGUI () {
 	//Create Movement GUI Area
-	GUILayout.BeginArea(Rect(0, Screen.height - MovGUI.height, MovGUI.width, MovGUI.height));
+	GUILayout.BeginArea(Rect(0, centGUI.height - MovGUI.height, MovGUI.width, MovGUI.height));
 		//Create button area	
 		GUILayout.BeginVertical();
 			//Stop Button
@@ -164,6 +279,75 @@ function MovementGUI () {
 	GUILayout.EndArea();
 	
 	
+
+}
+
+function TacticalGUI (){
+
+	//get position of the area
+	var XCood : int = centGUI.width - tacGUI.width;
+	var YCood : int = centGUI.height - tacGUI.height;
+	
+	//Start by drawing area
+	GUILayout.BeginArea(Rect(XCood, YCood, tacGUI.width, tacGUI.height));
+		TorpedoGUI();
+	
+	GUILayout.EndArea();
+	
+
+
+}
+
+function TorpedoGUI () {
+	//get position of the area
+	var XCood : int = tacGUI.width - torpGUI.width;
+	
+	//Draw Area
+	GUILayout.BeginArea(Rect(XCood, 0, torpGUI.width, torpGUI.height));
+		//Load background
+		GUI.DrawTexture(Rect(0,0,torpGUI.width, torpGUI.height), torpGUI.bgImage);
+		
+		//draw taskbar
+		GUI.DrawTexture(Rect(torpGUI.taskX, torpGUI.taskY, torpGUI.taskWidth, torpGUI.taskHeight), torpGUI.taskImage);
+		
+		//write title
+		GUI.Label(Rect(torpGUI.titleX, torpGUI.titleY, torpGUI.titleWidth, torpGUI.titleHeight), torpGUI.titleText, torpGUI.titleStyle);
+		
+		//Do Spread
+		//write "Spread"
+		GUI.Label(Rect(torpGUI.spreadX, torpGUI.spreadY, torpGUI.spreadWidth, torpGUI.spreadHeight), torpGUI.spreadText, torpGUI.spreadStyle);
+		//minus button
+		if(GUI.Button(Rect(torpGUI.minusSpreadX, torpGUI.minusSpreadY, torpGUI.buttonWidth, torpGUI.buttonHeight), "-", torpGUI.style.button)) {
+			//put code here
+		}
+		//plus button
+		if(GUI.Button(Rect(torpGUI.plusSpreadX, torpGUI.plusSpreadY, torpGUI.buttonWidth, torpGUI.buttonHeight), "+", torpGUI.style.button)) {
+			//put code here
+		}
+		//spread display
+		//place the display background
+		GUI.DrawTexture(Rect(torpGUI.displaySpreadX, torpGUI.displaySpreadY, torpGUI.displayWidth, torpGUI.displayHeight), torpGUI.displayImg);
+		
+		//Do volley	
+		//write "Volley"
+		GUI.Label(Rect(torpGUI.volleyX, torpGUI.volleyY, torpGUI.volleyWidth, torpGUI.volleyHeight), torpGUI.volleyText, torpGUI.volleyStyle);
+		
+		//minus button
+		if(GUI.Button(Rect(torpGUI.minusVolleyX, torpGUI.minusVolleyY, torpGUI.buttonWidth, torpGUI.buttonHeight), "-", torpGUI.style.button)) {
+			//put code here
+		}
+		
+		//plus button
+		if(GUI.Button(Rect(torpGUI.plusVolleyX, torpGUI.plusVolleyY, torpGUI.buttonWidth, torpGUI.buttonHeight), "+", torpGUI.style.button)) {
+			//put code here
+		}
+		
+		//volley display
+		GUI.DrawTexture(Rect(torpGUI.displayVolleyX, torpGUI.displayVolleyY, torpGUI.displayWidth, torpGUI.displayHeight), torpGUI.displayImg);
+		
+	
+	GUILayout.EndArea();
+
 
 }
 
