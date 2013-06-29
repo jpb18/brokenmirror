@@ -1,9 +1,10 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\menus\guiScript.js">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\ship\shipWeapons.js">
     <Files>
-      <File FileName="Assets\Scripts\menus\guiScript.js" Line="154" Column="62" />
+      <File FileName="Assets\Scripts\menus\guiScript.js" Line="346" Column="138" />
       <File FileName="Assets\Scripts\ship\shipMovement.js" Line="18" Column="22" />
+      <File FileName="Assets\Scripts\ship\shipWeapons.js" Line="225" Column="27" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
