@@ -74,8 +74,10 @@
      <None Include="Assets\Standard Assets\AlphaSelfIllum.shader.shader" />
      <None Include="Assets\Scripts\shaders\atm_scat.shader" />
      <None Include="Assets\Scripts\atm_scat.shader" />
+     <None Include="Assets\Scripts\shaders\cloudShadder.shader" />
      <None Include="Assets\Models\Ships\Klingon\bird of prey\K_TNG_KVORT_VoxelizerDebug.txt" />
      <None Include="Assets\Space Shooter\Info.txt" />
+     <None Include="Assets\Scripts\shaders\PlanetShadder.shader" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
