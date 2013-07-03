@@ -4,10 +4,9 @@
 class CenterGUI {
 	var width : int;
 	var height : int;
-	
-	
-
 }
+
+
 
 class MovementGui {
 	var height : int;
@@ -109,12 +108,38 @@ class TorpedoGui {
 	//Display Spread
 	var displaySpreadX : int;
 	var displaySpreadY : int;
+	var styleSpread : GUIStyle;
 	
 	//Display Volley
 	var displayVolleyX : int;
 	var displayVolleyY : int;
+	var styleVolley : GUIStyle;
+}
+
+class HealthGui {
+	var width : int;
+	var height : int;
 	
+	var barWidth : int;
+	var barHeight : int;
 	
+	var botPadding : int;
+	
+	var bgBar : Texture2D;
+	var shieldBar : Texture2D;
+	var hullBar : Texture2D;
+	
+	var scaleMode : ScaleMode;
+
+}
+
+class WeaponsGUI {
+	var width : int;
+	var height : int;
+	
+	var botPadding : int;
+	
+	var backImage : Texture2D;
 	
 
 }
@@ -123,14 +148,27 @@ var centGUI : CenterGUI;
 var MovGUI : MovementGui;
 var tacGUI : TacticalGui;
 var torpGUI : TorpedoGui;
+var healthGUI : HealthGui;
+var weaponGUI : WeaponsGUI;
+
+
+//needed scripts
 var shipProps : shipProperties;
 var shipMov : shipMovement;
+var shipWep : shipWeapons;
+var shipHea : shipHealth;
+
 
 function Start () {
 
 	//get necessary scripts
 	shipProps = gameObject.GetComponent(shipProperties);
 	shipMov = gameObject.GetComponent(shipMovement);
+	shipWep = gameObject.GetComponent(shipWeapons);
+	shipHea = gameObject.GetComponent(shipHealth);
+	
+	
+	
 
 }
 
@@ -154,7 +192,7 @@ function CenterGUI() {
 
 	//Start by getting the x cood
 	var XCood : int;
-	XCood = Screen.width/2 - centGUI.width;
+	XCood = (Screen.width/2) - (centGUI.width/2);
 	
 	//now get the y cood
 	var YCood : int;
@@ -164,6 +202,7 @@ function CenterGUI() {
 	GUILayout.BeginArea(Rect(XCood, YCood, centGUI.width, centGUI.height));
 		MovementGUI();
 		TacticalGUI();
+		WeaponsGUI();
 	GUILayout.EndArea();
 
 }
@@ -176,7 +215,7 @@ function MovementGUI () {
 		GUILayout.BeginVertical();
 			//Stop Button
 			GUILayout.BeginHorizontal();
-				if(GUI.Button(Rect(0,50,MovGUI.buttonWidth, MovGUI.buttonHeight), MovGUI.stopIcon, MovGUI.style.button))
+				if(GUI.Button(Rect(0,25,MovGUI.buttonWidth, MovGUI.buttonHeight), MovGUI.stopIcon, MovGUI.style.button))
 				{
 					//here comes the button action
 					shipMov.speedTarget = 0;
@@ -187,7 +226,7 @@ function MovementGUI () {
 			//Up Button
 			GUILayout.BeginHorizontal();
 				//calculate diference from before
-				var upHeight : int = 50 + MovGUI.buttonHeight + MovGUI.buttonPadding;
+				var upHeight : int = 25 + MovGUI.buttonHeight + MovGUI.buttonPadding;
 				if(GUI.Button(Rect(0,upHeight,MovGUI.buttonWidth, MovGUI.buttonHeight), MovGUI.upIcon, MovGUI.style.button))
 				{
 					//here cames the button action
@@ -252,7 +291,7 @@ function MovementGUI () {
 			GUILayout.BeginHorizontal();
 				//here goes the speed graphic code
 				//first draw bg bar
-				GUI.DrawTexture(Rect(50,0, MovGUI.barWidth, MovGUI.barHeight), MovGUI.barBG);
+				GUI.DrawTexture(Rect(25,0, MovGUI.barWidth, MovGUI.barHeight), MovGUI.barBG);
 				
 				//now the fg bar
 				//but first lets get the speed values
@@ -266,7 +305,7 @@ function MovementGUI () {
 				var yCood : int = MovGUI.barHeight - fgheight;
 				
 				//now we draw the bar
-				GUI.DrawTexture(Rect(50, yCood, MovGUI.barWidth, fgheight), MovGUI.barFG, MovGUI.fgMode);
+				GUI.DrawTexture(Rect(25, yCood, MovGUI.barWidth, fgheight), MovGUI.barFG, MovGUI.fgMode);
 				
 								
 				
@@ -285,12 +324,13 @@ function MovementGUI () {
 function TacticalGUI (){
 
 	//get position of the area
-	var XCood : int = centGUI.width - tacGUI.width;
+	var XCood : int = MovGUI.width + 15;
 	var YCood : int = centGUI.height - tacGUI.height;
 	
 	//Start by drawing area
 	GUILayout.BeginArea(Rect(XCood, YCood, tacGUI.width, tacGUI.height));
 		TorpedoGUI();
+		HealthGUI();
 	
 	GUILayout.EndArea();
 	
@@ -319,14 +359,33 @@ function TorpedoGUI () {
 		//minus button
 		if(GUI.Button(Rect(torpGUI.minusSpreadX, torpGUI.minusSpreadY, torpGUI.buttonWidth, torpGUI.buttonHeight), "-", torpGUI.style.button)) {
 			//put code here
+			if(shipWep.torpSpread > 1)
+			{
+				shipWep.torpSpread -= 1;
+			}
+			
+			
 		}
 		//plus button
 		if(GUI.Button(Rect(torpGUI.plusSpreadX, torpGUI.plusSpreadY, torpGUI.buttonWidth, torpGUI.buttonHeight), "+", torpGUI.style.button)) {
 			//put code here
+			
+			
+			if(shipWep.torpVolley * shipWep.torpSpread < shipWep.torpLimit)
+			{
+				shipWep.torpSpread += 1;
+			}
+			
+			
 		}
 		//spread display
 		//place the display background
 		GUI.DrawTexture(Rect(torpGUI.displaySpreadX, torpGUI.displaySpreadY, torpGUI.displayWidth, torpGUI.displayHeight), torpGUI.displayImg);
+		
+		//place the value
+		GUI.Label(Rect(torpGUI.displaySpreadX, torpGUI.displaySpreadY, torpGUI.displayWidth, torpGUI.displayHeight), shipWep.torpSpread.ToString(), torpGUI.styleSpread);
+	
+		
 		
 		//Do volley	
 		//write "Volley"
@@ -335,15 +394,85 @@ function TorpedoGUI () {
 		//minus button
 		if(GUI.Button(Rect(torpGUI.minusVolleyX, torpGUI.minusVolleyY, torpGUI.buttonWidth, torpGUI.buttonHeight), "-", torpGUI.style.button)) {
 			//put code here
+			if(shipWep.torpVolley > 1)
+			{
+				shipWep.torpVolley -= 1;
+			}
+			
 		}
 		
 		//plus button
 		if(GUI.Button(Rect(torpGUI.plusVolleyX, torpGUI.plusVolleyY, torpGUI.buttonWidth, torpGUI.buttonHeight), "+", torpGUI.style.button)) {
 			//put code here
+			if(shipWep.torpVolley * shipWep.torpSpread < shipWep.torpLimit)
+			{
+				shipWep.torpVolley += 1;
+			}
 		}
 		
 		//volley display
 		GUI.DrawTexture(Rect(torpGUI.displayVolleyX, torpGUI.displayVolleyY, torpGUI.displayWidth, torpGUI.displayHeight), torpGUI.displayImg);
+		//Place the value
+		GUI.Label(Rect(torpGUI.displayVolleyX, torpGUI.displayVolleyY, torpGUI.displayWidth, torpGUI.displayHeight), shipWep.torpVolley.ToString(), torpGUI.styleVolley);
+	
+	GUILayout.EndArea();
+
+
+}
+
+function HealthGUI () {
+	//Get position of the area
+	var XCood : int = tacGUI.width - healthGUI.width;
+	var YCood : int = tacGUI.height - healthGUI.height - healthGUI.botPadding;
+	
+	GUILayout.BeginArea(Rect(XCood, YCood, healthGUI.width, healthGUI.height));
+	
+		//Draw background bar for shield
+		GUI.DrawTexture(Rect(0, 0, healthGUI.barWidth, healthGUI.barHeight), healthGUI.bgBar);
+		
+		//get shield status
+		var maxShield : float = shipHea.shipHealth.maxShields;
+		var curShield : float = shipHea.shipHealth.shields;
+		
+		//get desired bar width
+		var shieldWidth : int = ValueToPixels(maxShield, healthGUI.barWidth, curShield);
+		
+		//Draw shield bar
+		GUI.DrawTexture(Rect(0,0, shieldWidth, healthGUI.barHeight), healthGUI.shieldBar, healthGUI.scaleMode);
+		
+		
+		//Draw background bar for hull
+		GUI.DrawTexture(Rect(0, healthGUI.barHeight, healthGUI.barWidth, healthGUI.barHeight), healthGUI.bgBar);
+		
+		//get hull status
+		var maxHull : float = shipHea.shipHealth.maxHealth;
+		var curHull : float = shipHea.shipHealth.health;
+		
+		//get desired bar width
+		var hullWidth : int = ValueToPixels(maxHull, healthGUI.barWidth, curHull);
+		
+		//Draw Hull bar
+		GUI.DrawTexture(Rect(0, healthGUI.barHeight, hullWidth, healthGUI.barHeight), healthGUI.hullBar, healthGUI.scaleMode);
+		
+		
+		
+	
+	GUILayout.EndArea();
+	
+
+
+}
+
+function WeaponsGUI () {
+
+	//Start by calculation the area coordinates
+	var CoodX : int = centGUI.width - weaponGUI.width;
+	var CoodY : int = centGUI.height - weaponGUI.height;
+	
+	GUILayout.BeginArea(Rect(CoodX, 0, weaponGUI.width, weaponGUI.height));
+	
+		GUI.DrawTexture(Rect(0,0, weaponGUI.width, weaponGUI.height), weaponGUI.backImage);
+		
 		
 	
 	GUILayout.EndArea();

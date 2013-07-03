@@ -29,6 +29,18 @@ function Update () {
 	
 	
 	//put stuff in here
+	if (screenRatio == screenRatios.s169)
+	{
+	
+	}
+	else if (screenRatio == screenRatios.s43)
+	{
+	
+	}
+	else if (screenRatio == screenRatios.s1610)
+	{
+	
+	}	
 	
 	
 	//Load Next Screen

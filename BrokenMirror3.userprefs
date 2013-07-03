@@ -1,12 +1,12 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\shaders\PlanetShadder.shader">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\menus\guiScript.js">
     <Files>
-      <File FileName="Assets\Scripts\Load\GameLoad.js" Line="31" Column="21" />
-      <File FileName="Assets\Scripts\menus\guiScript.js" Line="346" Column="138" />
+      <File FileName="Assets\Scripts\menus\guiScript.js" Line="476" Column="3" />
+      <File FileName="Assets\Scripts\Load\GameLoad.js" Line="43" Column="2" />
       <File FileName="Assets\Scripts\ship\shipMovement.js" Line="18" Column="22" />
-      <File FileName="Assets\Scripts\ship\shipWeapons.js" Line="225" Column="27" />
-      <File FileName="Assets\Scripts\shaders\PlanetShadder.shader" Line="135" Column="6" />
+      <File FileName="Assets\Scripts\ship\shipWeapons.js" Line="222" Column="1" />
+      <File FileName="Assets\Scripts\ship\shipHealth.js" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
