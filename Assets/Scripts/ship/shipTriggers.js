@@ -17,7 +17,8 @@ function Start () {
 
 	properties = gameObject.GetComponent(shipProperties);
 	reentryParticles = GameObject.Find("ParticleSystems/reentry_particles");
-	reentryParticles.particleSystem.Stop();
+	reentryParticles.particleSystem.Play();
+	reentryParticles.particleSystem.enableEmission = false;
 	
 	
 
@@ -60,18 +61,25 @@ function OnTriggerExit (hit : Collider) {
 
 }
 
+function OnCollisionEnter(hit : Collision) {
+	if(hit.transform.tag == "Planet")
+	{
+		triggerProps.isKill = true;
+	}
+
+}
+
 function reentry() {
 
 	
 	if(triggerProps.isTurbulence)
 	{
-		reentryParticles.particleSystem.Play();
+		reentryParticles.particleSystem.enableEmission = true;
 				
 	}
 	else
 	{
-		reentryParticles.particleSystem.Stop();
-		reentryParticles.particleSystem.Clear();
+		reentryParticles.particleSystem.enableEmission = false;
 	}
 
 

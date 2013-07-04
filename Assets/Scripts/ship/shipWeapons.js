@@ -74,6 +74,7 @@ function Update () {
 	if (isPlayer)
 	{
 		PlayerFire();
+		FireWeapons();
 	}
 	else
 	{
@@ -90,37 +91,83 @@ function Update () {
 function PlayerFire() {
 	if (Input.GetAxis("Fire1") && weapon1.isEnabled == true && weapon1.isRange == true && weapon1.isAngle == true) //Player fires weapon 1
 	{
-		FireWeapon(weapon1, shipTar.target);
+		weapon1.isFiring = true;
 	}
 	
 	if (Input.GetAxis("Fire2") && weapon2.isEnabled == true && weapon2.isRange == true && weapon2.isAngle == true) //Player fires weapon2
 	{
-		FireWeapon(weapon2, shipTar.target);
+		weapon2.isFiring = true;
 	}
 	
 	if (Input.GetAxis("Fire3") && weapon3.isEnabled == true && weapon3.isRange == true && weapon3.isAngle == true)
 	{
-		FireWeapon(weapon3, shipTar.target);	
+		weapon3.isFiring = true;
 	}
 	if (Input.GetAxis("Fire4") && weapon4.isEnabled == true && weapon4.isRange == true && weapon4.isAngle == true)
 	{
-		FireWeapon(weapon4, shipTar.target);	
+		weapon4.isFiring = true;
 	}
 	if (Input.GetAxis("Fire5") && weapon5.isEnabled == true && weapon5.isRange == true && weapon5.isAngle == true)
 	{
-		FireWeapon(weapon5, shipTar.target);	
+		weapon5.isFiring = true;
 	}
 	if (Input.GetAxis("Fire6") && weapon6.isEnabled == true && weapon6.isRange == true && weapon6.isAngle == true)
 	{
-		FireWeapon(weapon6, shipTar.target);	
+		weapon6.isFiring = true;
 	}
 	if (Input.GetAxis("Fire7") && weapon7.isEnabled == true && weapon7.isRange == true && weapon7.isAngle == true)
 	{
-		FireWeapon(weapon7, shipTar.target);	
+		weapon7.isFiring = true;	
 	}
 	if (Input.GetAxis("Fire8") && weapon8.isEnabled == true && weapon8.isRange == true && weapon8.isAngle == true)
 	{
+		weapon8.isFiring = true;
+	}
+
+}
+
+function FireWeapons() {
+	if (weapon1.isFiring) //Player fires weapon 1
+	{
+		FireWeapon(weapon1, shipTar.target);
+		weapon1.isFiring = false;
+	}
+	
+	if (weapon2.isFiring) //Player fires weapon2
+	{
+		FireWeapon(weapon2, shipTar.target);
+		weapon2.isFiring = false;
+	}
+	
+	if (weapon3.isFiring)
+	{
+		FireWeapon(weapon3, shipTar.target);
+		weapon3.isFiring = false;	
+	}
+	if (weapon4.isFiring)
+	{
+		FireWeapon(weapon4, shipTar.target);	
+		weapon4.isFiring = false;
+	}
+	if (weapon5.isFiring)
+	{
+		FireWeapon(weapon5, shipTar.target);
+		weapon5.isFiring = false;	
+	}
+	if (weapon6.isFiring)
+	{
+		FireWeapon(weapon6, shipTar.target);	
+		weapon6.isFiring = false;
+	}
+	if (weapon7.isFiring)
+	{
+		FireWeapon(weapon7, shipTar.target);
+		weapon7.isFiring = false;	
+	}
+	if (weapon8.isFiring)
+	{
 		FireWeapon(weapon8, shipTar.target);	
+		weapon8.isFiring = false;
 	}
 
 }

@@ -7,10 +7,13 @@ var clickInt : float = 0.2f;
 
 var shipProps : shipProperties;
 
+var shipWeps : shipWeapons;
+
 
 function Start () {
 
 	shipProps = gameObject.GetComponent(shipProperties);
+	shipWeps = gameObject.GetComponent(shipWeapons);
 
 }
 
@@ -51,10 +54,8 @@ function ClickTarget() {
 				}
 				
 			}
-			else //if not, deselects
-			{
-				target = null; //clean selected variable
-			}
+			
+			
 			
 			lastClick = Time.time;
 	

@@ -165,6 +165,28 @@ class WeaponsGUI {
 	//button 3
 	var bt3X : int;
 	var bt3Y : int;
+	
+	//button 4
+	var bt4X : int;
+	var bt4Y : int;
+	
+	//button 5
+	var bt5X : int;
+	var bt5Y : int;
+	
+	//button 6
+	var bt6X : int;
+	var bt6Y : int;
+	
+	//button 7
+	var bt7X : int;
+	var bt7Y : int;
+	
+	//button 8
+	var bt8X : int;
+	var bt8Y : int;
+	
+	
 
 }
 
@@ -199,6 +221,8 @@ function Start () {
 }
 
 function OnGUI () {
+	
+
 	//gets escape menu status
 	var cam_go : GameObject = Camera.main.gameObject;
 	var cam_sc : testReturn = cam_go.GetComponent(testReturn);
@@ -210,7 +234,7 @@ function OnGUI () {
 	
 	}
 
-
+	
 }
 
 
@@ -516,8 +540,26 @@ function WeaponsGUI () {
 		var weapon3 : WeaponSlot = shipWep.weapon3; //get weapon
 		WeaponButton(weapon3, weaponGUI.btWidth, weaponGUI.btHeight, weaponGUI.bt3X, weaponGUI.bt3Y, weaponGUI.buttonStyle.button);
 		
+		//Draw button 4
+		var weapon4 : WeaponSlot = shipWep.weapon4; //get weapon
+		WeaponButton(weapon4, weaponGUI.btWidth, weaponGUI.btHeight, weaponGUI.bt4X, weaponGUI.bt4Y, weaponGUI.buttonStyle.button);
 		
-	
+		//Draw button 5
+		var weapon5 : WeaponSlot = shipWep.weapon5; //get weapon
+		WeaponButton(weapon5, weaponGUI.btWidth, weaponGUI.btHeight, weaponGUI.bt5X, weaponGUI.bt5Y, weaponGUI.buttonStyle.button);
+		
+		//Draw button 6
+		var weapon6 : WeaponSlot = shipWep.weapon6; //get weapon
+		WeaponButton(weapon6, weaponGUI.btWidth, weaponGUI.btHeight, weaponGUI.bt6X, weaponGUI.bt6Y, weaponGUI.buttonStyle.button);
+		
+		//Draw button 7
+		var weapon7 : WeaponSlot = shipWep.weapon7; //get weapon
+		WeaponButton(weapon7, weaponGUI.btWidth, weaponGUI.btHeight, weaponGUI.bt7X, weaponGUI.bt7Y, weaponGUI.buttonStyle.button);
+		
+		//Draw button 8
+		var weapon8 : WeaponSlot = shipWep.weapon8; //get weapon
+		WeaponButton(weapon8, weaponGUI.btWidth, weaponGUI.btHeight, weaponGUI.bt8X, weaponGUI.bt8Y, weaponGUI.buttonStyle.button);
+		
 	GUILayout.EndArea();
 
 
@@ -533,12 +575,19 @@ function WeaponButton (weapon : WeaponSlot, width : int, height : int, XCood : i
 						
 			if(GUI.Button(Rect(XCood, YCood, width, height), weaText, style))
 			{
+				if(!shipTar.target)
+				{
+					shipTar.target = shipTar.FindTarget(gameObject, shipProps);
+				}
+			
 				if(weapon.isEnabled == true && weapon.isRange == true && weapon.isAngle)
 				{
 					
-					shipWep.FireWeapon(weapon, shipTar.target);
+					weapon.isFiring = true;
 					
 				}
+				
+				
 			
 			}
 		}
