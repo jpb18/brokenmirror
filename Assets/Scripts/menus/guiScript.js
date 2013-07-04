@@ -140,7 +140,31 @@ class WeaponsGUI {
 	var botPadding : int;
 	
 	var backImage : Texture2D;
+	var shipImg : Texture2D;
 	
+	//ship img dimensions
+	var shipWidth : int;
+	var shipHeight : int;
+	//ship img coordinates
+	var shipCoodX : int;
+	var shipCoodY : int;
+	
+	//buttons
+	var buttonStyle : GUISkin;
+	var btWidth : int;
+	var btHeight : int;
+	
+	//button1
+	var bt1X : int;
+	var bt1Y : int;
+	
+	//button2
+	var bt2X : int;
+	var bt2Y : int;
+	
+	//button 3
+	var bt3X : int;
+	var bt3Y : int;
 
 }
 
@@ -157,6 +181,7 @@ var shipProps : shipProperties;
 var shipMov : shipMovement;
 var shipWep : shipWeapons;
 var shipHea : shipHealth;
+var shipTar : shipTarget;
 
 
 function Start () {
@@ -166,6 +191,7 @@ function Start () {
 	shipMov = gameObject.GetComponent(shipMovement);
 	shipWep = gameObject.GetComponent(shipWeapons);
 	shipHea = gameObject.GetComponent(shipHealth);
+	shipTar = gameObject.GetComponent(shipTarget);
 	
 	
 	
@@ -471,11 +497,51 @@ function WeaponsGUI () {
 	
 	GUILayout.BeginArea(Rect(CoodX, 0, weaponGUI.width, weaponGUI.height));
 	
+		//Draw Background
 		GUI.DrawTexture(Rect(0,0, weaponGUI.width, weaponGUI.height), weaponGUI.backImage);
+		
+		//Draw ship texture
+		GUI.DrawTexture(Rect(weaponGUI.shipCoodX,weaponGUI.shipCoodY, weaponGUI.shipWidth , weaponGUI.shipHeight ), weaponGUI.shipImg);
+		
+		//Draw Buttons
+		//Draw button 1
+		var weapon1 : WeaponSlot = shipWep.weapon1; //get weapon
+		WeaponButton(weapon1, weaponGUI.btWidth, weaponGUI.btHeight, weaponGUI.bt1X, weaponGUI.bt1Y, weaponGUI.buttonStyle.button);
+		
+		//Draw button 2
+		var weapon2 : WeaponSlot = shipWep.weapon2; //get weapon
+		WeaponButton(weapon2, weaponGUI.btWidth, weaponGUI.btHeight, weaponGUI.bt2X, weaponGUI.bt2Y, weaponGUI.buttonStyle.button);
+		
+		//Draw button 3
+		var weapon3 : WeaponSlot = shipWep.weapon3; //get weapon
+		WeaponButton(weapon3, weaponGUI.btWidth, weaponGUI.btHeight, weaponGUI.bt3X, weaponGUI.bt3Y, weaponGUI.buttonStyle.button);
 		
 		
 	
 	GUILayout.EndArea();
+
+
+}
+
+function WeaponButton (weapon : WeaponSlot, width : int, height : int, XCood : int, YCood : int, style : GUIStyle) {
+
+		var weapon_go : GameObject = weapon.weapon_go;
+		if(weapon_go)
+		{
+			var weaSc : weaponScript = weapon_go.GetComponent(weaponScript); //get weapon script
+			var weaText : Texture2D = weaSc.guiInfo.image; //get weapon texture
+						
+			if(GUI.Button(Rect(XCood, YCood, width, height), weaText, style))
+			{
+				if(weapon.isEnabled == true && weapon.isRange == true && weapon.isAngle)
+				{
+					
+					shipWep.FireWeapon(weapon, shipTar.target);
+					
+				}
+			
+			}
+		}
 
 
 }

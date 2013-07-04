@@ -3,6 +3,7 @@
 
 var type : WeaponType;
 var firingAngle : float;
+var guiInfo : GuiInfo;
 
 enum WeaponType {
 	beam,

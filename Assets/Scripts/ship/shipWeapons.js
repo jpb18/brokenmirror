@@ -11,6 +11,7 @@ class WeaponSlot {
 	var nextShot : float = 0.0f; //contains the time reference for when the weapon is able to fire again
 	var isAngle : boolean = false; //checks if the target is inside the firing arch
 	var isRange : boolean = false; //checks if the target is in range
+	var isFiring : boolean = false; //checks if the weapon is firing
 	
 	
 }
