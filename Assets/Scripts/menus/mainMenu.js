@@ -18,6 +18,20 @@ class Button {
 
 }
 
+//main menu
+var gradientMain : Texture2D;
+var MainWidth : int;
+var MainHeight : int;
+var MainX :int;
+var MainY : int;
+
+
+var PlayButton : Button;
+var OptionsButton : Button;
+var CreditsButton : Button;
+
+
+
 //exit button
 var ExitButton : Button;
 
@@ -45,6 +59,20 @@ function OnGUI() {
 }
 
 function MainMenu() {
+	
+	//Create area
+	GUILayout.BeginArea(Rect(Screen.width - MainX, Screen.height - MainY, MainWidth, MainHeight));
+		//Draw Play Button
+		GUI.Button(Rect(PlayButton.CoodX, PlayButton.CoodY, PlayButton.width, PlayButton.height), "Play Game", PlayButton.Style);
+		
+		//Draw Options Button
+		GUI.Button(Rect(OptionsButton.CoodX, OptionsButton.CoodY, OptionsButton.width, OptionsButton.height), "Options", OptionsButton.Style);
+		
+		//Draw Credits Button
+		GUI.Button(Rect(CreditsButton.CoodX, CreditsButton.CoodY, CreditsButton.width, CreditsButton.height), "Credits", CreditsButton.Style);
+		
+	GUILayout.EndArea();
+	
 	
 
 }
