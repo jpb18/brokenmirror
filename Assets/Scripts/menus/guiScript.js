@@ -1,5 +1,6 @@
 #pragma strict
 
+var hideGUI : boolean = false;
 
 class CenterGUI {
 	var width : int;
@@ -220,6 +221,15 @@ function Start () {
 
 }
 
+function Update() {
+	
+	if (Input.GetAxis("Hide")) {
+	
+		hideGUI = !hideGUI;
+	}
+
+}
+
 function OnGUI () {
 	
 
@@ -228,7 +238,7 @@ function OnGUI () {
 	var cam_sc : testReturn = cam_go.GetComponent(testReturn);
 	var isPause : boolean = cam_sc.isPause;
 
-	if(shipProps.playerProps.isPlayer && !isPause)
+	if(shipProps.playerProps.isPlayer && !isPause && !hideGUI)
 	{
 		CenterGUI();
 	

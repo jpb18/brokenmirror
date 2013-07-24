@@ -5,6 +5,8 @@ Project("{26371F9E-20C7-A42F-FF1F-0A20259D122C}") = "BrokenMirror3", "Assembly-C
 EndProject
 Project("{26371F9E-20C7-A42F-FF1F-0A20259D122C}") = "BrokenMirror3", "Assembly-CSharp.csproj", "{8251AC50-EAC0-489B-D2E9-77542B048A6F}"
 EndProject
+Project("{26371F9E-20C7-A42F-FF1F-0A20259D122C}") = "BrokenMirror3", "Assembly-CSharp-Editor.csproj", "{BD1EA1A2-1ED9-952B-F3E2-D291EDD75BE6}"
+EndProject
 Project("{26371F9E-20C7-A42F-FF1F-0A20259D122C}") = "BrokenMirror3", "Assembly-UnityScript-firstpass.unityproj", "{BDB3388C-4084-B102-AC89-02F82900507C}"
 EndProject
 Project("{26371F9E-20C7-A42F-FF1F-0A20259D122C}") = "BrokenMirror3", "Assembly-UnityScript.unityproj", "{E489C562-EE00-2CFE-35C2-D522B02AE873}"
@@ -23,6 +25,10 @@ Global
 		{8251AC50-EAC0-489B-D2E9-77542B048A6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8251AC50-EAC0-489B-D2E9-77542B048A6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8251AC50-EAC0-489B-D2E9-77542B048A6F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BD1EA1A2-1ED9-952B-F3E2-D291EDD75BE6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD1EA1A2-1ED9-952B-F3E2-D291EDD75BE6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD1EA1A2-1ED9-952B-F3E2-D291EDD75BE6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD1EA1A2-1ED9-952B-F3E2-D291EDD75BE6}.Release|Any CPU.Build.0 = Release|Any CPU
 		{BDB3388C-4084-B102-AC89-02F82900507C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{BDB3388C-4084-B102-AC89-02F82900507C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BDB3388C-4084-B102-AC89-02F82900507C}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -35,7 +41,7 @@ Global
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
-																											GlobalSection(MonoDevelopProperties) = preSolution
+																																		GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = Assembly-CSharp.csproj
 		Policies = $0
 		$0.TextStylePolicy = $1
