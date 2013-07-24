@@ -48,6 +48,7 @@
      <Compile Include="Assets\SpaceUnity\Editor\SU_SpaceParticlesEditor.cs" />
      <Compile Include="Assets\SpaceUnity\Editor\SU_SpaceSceneConstructionKitEditor.cs" />
      <None Include="Assets\Standard Assets\Projectors\Guidelines.txt" />
+     <None Include="Assets\SpaceUnity\_Read Me First.txt" />
      <None Include="Assets\Standard Assets\Projectors\Sources\Shaders\Projector Multiply.shader" />
      <None Include="Assets\Models\Ships\Klingon\bird of prey\K_TNG_BOP_VoxelizerDebug.txt" />
      <None Include="Assets\SpaceUnity\Read First.txt" />

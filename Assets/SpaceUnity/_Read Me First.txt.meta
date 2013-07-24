@@ -1,0 +1,25 @@
+fileFormatVersion: 2
+guid: cd35f5706d9fd9d48bb8fb8f14ec5fe1
+labels:
+- planet
+- spacescene
+- space
+- planets
+- alien
+- ice
+- earth
+- atmosphere
+- desert
+- gas
+- universe
+- planetary
+- spaceunity
+- expansion
+- texture
+- material
+- 4096
+- normal
+- climate-alien
+- atmosphere-blue-medium
+TextScriptImporter:
+  userData: 
