@@ -1,13 +1,9 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\menus\mainMenu.js">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Load\sceneSwapper.js">
     <Files>
-      <File FileName="Assets\Scripts\menus\mainMenu.js" Line="6" Column="30" />
-      <File FileName="Assets\Scripts\ship\shipWeapons.js" Line="77" Column="17" />
-      <File FileName="Assets\Scripts\ship\shipHealth.js" Line="182" Column="1" />
-      <File FileName="Assets\Scripts\weapons\weaponScript.js" Line="6" Column="23" />
-      <File FileName="Assets\Scripts\ship\shipTarget.js" Line="69" Column="6" />
-      <File FileName="Assets\Scripts\ship\shipTriggers.js" Line="67" Column="30" />
+      <File FileName="Assets\Scripts\Load\sceneSwapper.js" Line="23" Column="29" />
+      <File FileName="Assets\Scripts\ship\shipMovement.js" Line="55" Column="18" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

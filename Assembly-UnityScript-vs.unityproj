@@ -48,6 +48,8 @@
      <Compile Include="Assets\Detonator Explosion Framework\TestScene\DetonatorTest.js" />
      <Compile Include="Assets\Scripts\GlobalInfo.js" />
      <Compile Include="Assets\Scripts\Load\GameLoad.js" />
+     <Compile Include="Assets\Scripts\Load\dontDestroy.js" />
+     <Compile Include="Assets\Scripts\Load\sceneSwapper.js" />
      <Compile Include="Assets\Scripts\SaveGame\GeneralInfo.js" />
      <Compile Include="Assets\Scripts\camera\MouseOrbit.js" />
      <Compile Include="Assets\Scripts\camera\flareOclusion.js" />
@@ -57,7 +59,6 @@
      <Compile Include="Assets\Scripts\environment\border.js" />
      <Compile Include="Assets\Scripts\environment\planetScript.js" />
      <Compile Include="Assets\Scripts\environment\spaceGeneration.js" />
-     <Compile Include="Assets\Scripts\menus\guiScript.js" />
      <Compile Include="Assets\Scripts\menus\mainMenu.js" />
      <Compile Include="Assets\Scripts\menus\setupMenu.js" />
      <Compile Include="Assets\Scripts\menus\testMenu.js" />
@@ -74,6 +75,7 @@
      <Compile Include="Assets\Scripts\weapons\torpedoScript.js" />
      <Compile Include="Assets\Scripts\weapons\weaponScript.js" />
      <Compile Include="Assets\endoftheworldscript.js" />
+     <Compile Include="Assets\loadNextScene.js" />
      <None Include="Assets\Standard Assets\Projectors\Guidelines.txt" />
      <None Include="Assets\SpaceUnity\_Read Me First.txt" />
      <None Include="Assets\Standard Assets\Projectors\Sources\Shaders\Projector Multiply.shader" />

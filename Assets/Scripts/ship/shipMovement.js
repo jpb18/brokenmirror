@@ -4,7 +4,6 @@
 var properties : shipProperties;
 
 var speedStatus : float; //from -.25 to 1, this controls the ship "impulse"
-var speedStep : float = 0.25f; //how much speed increase there is
 var keys : KeyControlMovemnt; //this controls all keys related to movement
 var movProps : MovementProperties; //this controls all movement properties
 
@@ -48,44 +47,39 @@ function Update () {
 //this function controls the ship speed
 function shipPlayer_speed () {
 	var shipSpeed : float = properties.movement.impulseSpeed * Time.deltaTime;
+	var shipAcceleration : float = properties.movement.acceleration;
 	
-	if(Input.GetAxis("ShipSpeed") > 0 && Time.time >= keys.SpeedIncreaseKey + keys.KeyDelay)
+	if(Input.GetAxis("ShipSpeed") > 0)
 	{
-		keys.SpeedIncreaseKey = Time.time;
-		if (speedTarget < movProps.maxStatus)
+		
+		if (speedStatus < movProps.maxStatus)
 		{
-			speedTarget += speedStep;
-			speedChanged = true;
+			speedStatus += shipAcceleration * Time.deltaTime;
+			
 		}
 		
 		
 	
 	}
-	else if (Input.GetAxis("ShipSpeed") < 0 && Time.time >= keys.SpeedDecreaseKey + keys.KeyDelay)
+	else if (Input.GetAxis("ShipSpeed") < 0)
 	{
-		keys.SpeedDecreaseKey = Time.time;
-		if (speedTarget > movProps.minStatus)
+		
+		if (speedStatus > movProps.minStatus)
 		{
-			speedTarget -= speedStep;
-			speedChanged = true;
+			speedStatus -= shipAcceleration * Time.deltaTime;
+			
 		}
 	}
 	
 	if (Input.GetAxis("FullStop"))
 	{
 		speedTarget = 0;
-		speedChanged = true;
+		ChangeSpeed(speedTarget, speedStatus, shipAcceleration);
 	}
 	
 	
 	
-	if(isChanging == false || speedChanged == true)
-	{
-		var targetSpeed : float = speedTarget;
-		var currentSpeed : float = speedStatus;
-		var shipAcceleration : float = properties.movement.acceleration;
-		StartCoroutine(ChangeSpeed(targetSpeed, currentSpeed, shipAcceleration));
-	}
+	
 	
 	var SpeedChange : float = speedStatus * shipSpeed;
 	
