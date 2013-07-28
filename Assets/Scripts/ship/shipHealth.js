@@ -14,8 +14,17 @@ class ShieldsShow {
 	var showDur : float = 1.0f;
 }
 
+class ShieldRegeneration {
+	var isRegen : boolean = false; //checks if the ships shields can regenerate
+	var lastHit : float; //checks last hit by a weapon
+	var timeInt : float; //contains time interval from last hit before the shield start regenerating
+	var regenRate : float; //contains the regeneration rate
+
+}
+
 var shipHealth : ship_Health;
 var shieldShow : ShieldsShow;
+var shieldRegen : ShieldRegeneration;
 var properties : shipProperties;
 var triggers : shipTriggers;
 var explosion : GameObject;
@@ -65,6 +74,19 @@ function Update () {
 	Trails();
 	PlasmaLeak();
 	ShieldShow();
+	shield_regen();
+
+}
+
+//this function controls a ship shield regeneration
+function shield_regen() {
+	//checks if the time interval has passed and the shield is able of regenerating
+	if (shieldRegen.lastHit + shieldRegen.timeInt >= Time.time && shieldRegen.isRegen == true)
+	{
+	
+		shipHealth.shields += shieldRegen.regenRate * Time.deltaTime; //adds shield
+	
+	}
 
 }
 

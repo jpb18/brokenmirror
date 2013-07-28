@@ -76,6 +76,7 @@ function OnTriggerEnter(hit : Collider) {
 					}
 				
 					hitHS.shieldShow.lastHit = Time.time;
+					hitHS.shieldRegen.lastHit = Time.time;
 					Instantiate(effect.explosion, transform.position, transform.rotation);
 					Destroy(gameObject);
 				}
@@ -95,6 +96,7 @@ function OnCollisionEnter (hit: Collision) {
 			effect.hasExploded = true;
 			var hitHS : shipHealth = hit.gameObject.GetComponent(shipHealth);
 			hitHS.shipHealth.health -= hullDmg;
+			hitHS.shieldRegen.lastHit = Time.time;
 			Instantiate(effect.explosion, transform.position, transform.rotation);
 			Destroy(gameObject);
 		}

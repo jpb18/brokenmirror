@@ -67,6 +67,7 @@ function OnCollisionEnter (hit : Collision) {
 			
 			
 			healthSC.shipHealth.health -= damage - propScript.shipHealth.armor;
+			healthSC.shieldRegen.lastHit = Time.time;
 			
 			
 			Debug.Log("Origin: " + origin.transform.parent.parent.parent.parent.gameObject.name + "/Hit: " + hit.transform.gameObject.name);
@@ -98,7 +99,7 @@ function OnTriggerEnter (hit : Collider) {
 					healthSC.shipHealth.shields -= damage;
 					//make shield show up
 					healthSC.shieldShow.lastHit = Time.time;
-					
+					healthSC.shieldRegen.lastHit = Time.time;
 					hitshield = true;
 					
 					
