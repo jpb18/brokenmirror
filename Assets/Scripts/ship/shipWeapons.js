@@ -89,41 +89,45 @@ function Update () {
 
 
 function PlayerFire() {
-	if (Input.GetAxis("Fire1") && weapon1.isEnabled == true && weapon1.isRange == true && weapon1.isAngle == true) //Player fires weapon 1
+	//Get red alert mode
+	var isRedAlert : boolean = shipProps.combatStatus.isRedAlert;
+	if(isRedAlert)
 	{
-		weapon1.isFiring = true;
+		if (Input.GetAxis("Fire1") && weapon1.isEnabled == true && weapon1.isRange == true && weapon1.isAngle == true) //Player fires weapon 1
+		{
+			weapon1.isFiring = true;
+		}
+		
+		if (Input.GetAxis("Fire2") && weapon2.isEnabled == true && weapon2.isRange == true && weapon2.isAngle == true) //Player fires weapon2
+		{
+			weapon2.isFiring = true;
+		}
+		
+		if (Input.GetAxis("Fire3") && weapon3.isEnabled == true && weapon3.isRange == true && weapon3.isAngle == true)
+		{
+			weapon3.isFiring = true;
+		}
+		if (Input.GetAxis("Fire4") && weapon4.isEnabled == true && weapon4.isRange == true && weapon4.isAngle == true)
+		{
+			weapon4.isFiring = true;
+		}
+		if (Input.GetAxis("Fire5") && weapon5.isEnabled == true && weapon5.isRange == true && weapon5.isAngle == true)
+		{
+			weapon5.isFiring = true;
+		}
+		if (Input.GetAxis("Fire6") && weapon6.isEnabled == true && weapon6.isRange == true && weapon6.isAngle == true)
+		{
+			weapon6.isFiring = true;
+		}
+		if (Input.GetAxis("Fire7") && weapon7.isEnabled == true && weapon7.isRange == true && weapon7.isAngle == true)
+		{
+			weapon7.isFiring = true;	
+		}
+		if (Input.GetAxis("Fire8") && weapon8.isEnabled == true && weapon8.isRange == true && weapon8.isAngle == true)
+		{
+			weapon8.isFiring = true;
+		}
 	}
-	
-	if (Input.GetAxis("Fire2") && weapon2.isEnabled == true && weapon2.isRange == true && weapon2.isAngle == true) //Player fires weapon2
-	{
-		weapon2.isFiring = true;
-	}
-	
-	if (Input.GetAxis("Fire3") && weapon3.isEnabled == true && weapon3.isRange == true && weapon3.isAngle == true)
-	{
-		weapon3.isFiring = true;
-	}
-	if (Input.GetAxis("Fire4") && weapon4.isEnabled == true && weapon4.isRange == true && weapon4.isAngle == true)
-	{
-		weapon4.isFiring = true;
-	}
-	if (Input.GetAxis("Fire5") && weapon5.isEnabled == true && weapon5.isRange == true && weapon5.isAngle == true)
-	{
-		weapon5.isFiring = true;
-	}
-	if (Input.GetAxis("Fire6") && weapon6.isEnabled == true && weapon6.isRange == true && weapon6.isAngle == true)
-	{
-		weapon6.isFiring = true;
-	}
-	if (Input.GetAxis("Fire7") && weapon7.isEnabled == true && weapon7.isRange == true && weapon7.isAngle == true)
-	{
-		weapon7.isFiring = true;	
-	}
-	if (Input.GetAxis("Fire8") && weapon8.isEnabled == true && weapon8.isRange == true && weapon8.isAngle == true)
-	{
-		weapon8.isFiring = true;
-	}
-
 }
 
 function FireWeapons() {
@@ -423,7 +427,7 @@ function CheckWeaponRange(weapon : WeaponSlot, target : Transform) : boolean {
 
 function BotFire() {
 
-	if(shipTar.target)
+	if(shipTar.target && shipProps.combatStatus.isRedAlert)
 	{
 		botWeapon.isFiring = true;
 		//get waiting time

@@ -27,9 +27,24 @@ function Update () {
 	else
 	{
 		botFunction();
+		BotRedAlert();
 	}
 	
 	
+
+}
+
+function BotRedAlert() {
+
+	if(!target) {
+		
+		shipProps.combatStatus.isRedAlert = false;
+	
+	}
+	else
+	{
+		shipProps.combatStatus.isRedAlert = true;
+	}
 
 }
 

@@ -49,10 +49,10 @@ function shipPlayer_speed () {
 	var shipSpeed : float = properties.movement.impulseSpeed * Time.deltaTime;
 	var shipAcceleration : float = properties.movement.acceleration;
 	
-	if(Input.GetAxis("ShipSpeed") > 0)
+	if(Input.GetAxis("ShipSpeed") > 0 && !isChanging)
 	{
 		
-		if (speedStatus < movProps.maxStatus)
+		if (speedStatus < movProps.maxStatus )
 		{
 			speedStatus += shipAcceleration * Time.deltaTime;
 			
@@ -61,7 +61,7 @@ function shipPlayer_speed () {
 		
 	
 	}
-	else if (Input.GetAxis("ShipSpeed") < 0)
+	else if (Input.GetAxis("ShipSpeed") < 0 && !isChanging)
 	{
 		
 		if (speedStatus > movProps.minStatus)
@@ -71,10 +71,10 @@ function shipPlayer_speed () {
 		}
 	}
 	
-	if (Input.GetAxis("FullStop"))
+	if (Input.GetAxis("FullStop") && !isChanging && speedStatus != 0)
 	{
-		speedTarget = 0;
-		ChangeSpeed(speedTarget, speedStatus, shipAcceleration);
+		
+			StartCoroutine(FullStop(speedStatus, properties.movement.acceleration));
 	}
 	
 	
@@ -105,67 +105,51 @@ function shipPlayer_movement () {
 }
 
 
-function ChangeSpeed(targetSpeed : float, currentSpeed : float, shipAcceleration : float)
+function FullStop (currentSpeed : float, acceleration : float)
 {
-	//check if its increasing or reducing
-	var isIncreasing : boolean = false;
-	if(currentSpeed > targetSpeed)
+	isChanging = true;
+	var isIncreasing : boolean;
+	if (currentSpeed > 0) 
 	{
 		isIncreasing = false;
 	}
-	else if (currentSpeed < targetSpeed)
+	else
 	{
 		isIncreasing = true;
 	}
-	
-	//set time duration
-	var speedInterval : float = Mathf.Sqrt(Mathf.Pow(targetSpeed - currentSpeed, 2));
-	var time : float = speedInterval/shipAcceleration;
-	var increment : float = shipAcceleration;
-	var i : float = 0;
+
+	var time : float = Mathf.Sqrt(Mathf.Pow(currentSpeed, 2))/acceleration;
 	var rate : float = 1/time;
-	//Debug.Log("SpeedInt: " + speedInterval.ToString() + " time: " + time.ToString());
-		
-	while(i < 1)
+	var i : float = 0;
+	if(isIncreasing)
 	{
-		if(speedChanged == true && isChanging == true)
+		while(i < 1)
 		{
-			speedChanged = false;
-			isChanging = false;
-			return;
-		}
-		else if (speedChanged == true && isChanging == false)
-		{
-			speedChanged = false;
-			isChanging = true;
-		}
-		
-		i += rate * Time.deltaTime;
-		
-		if(isIncreasing)
-		{
-			speedStatus += increment * Mathf.Pow(Time.deltaTime, 2);
-		}
-		else
-		{
-			speedStatus -= increment * Mathf.Pow(Time.deltaTime, 2);
-		}
-		
-		if (Mathf.Sqrt(Mathf.Pow(speedStatus - targetSpeed, 2)) < increment * Time.deltaTime)
-		{
-			speedStatus = targetSpeed;
-		}
-		
-		
+		i += Time.deltaTime * rate;
+		speedStatus += acceleration * Time.deltaTime;
 		yield;
+		
+		}
+	}
+	else
+	{
+		while(i < 1)
+		{
+		i += Time.deltaTime * rate;
+		speedStatus -= acceleration * Time.deltaTime;
+		yield;
+		
+		}
 	}
 	
+	if(Mathf.Sqrt(Mathf.Pow(speedStatus, 2)) < acceleration * Time.deltaTime)
+	{
+		speedStatus = 0;
+	}
+	
+	
 	isChanging = false;
-		
-		
-	
-	
+
 
 }
-
 

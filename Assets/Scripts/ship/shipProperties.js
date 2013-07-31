@@ -17,6 +17,12 @@ class ShipMovementProps {
 	var acceleration : float; //Ship acceleration at sublight speed (in percentage)
 }
 
+class ShipCombatStatus {
+	var isRedAlert : boolean; 
+	var lastRedPress : float;
+	var timeInt : float = 0.2f;
+}
+
 //this contains the basic health status of the ship
 class ShipHealthProps {
 	var basicHealth : float;
@@ -45,3 +51,16 @@ var shipHealth : ShipHealthProps;
 var shipProps : ShipProps;
 var shipModifiers : ShipModifiers;
 var shipInfo : ShipInfo;
+var combatStatus : ShipCombatStatus;
+
+function Update() {
+
+	if (Input.GetAxis("RedAlert") && Time.time >= combatStatus.lastRedPress + combatStatus.timeInt && playerProps.isPlayer)
+	{
+		combatStatus.isRedAlert = !combatStatus.isRedAlert;
+		combatStatus.lastRedPress = Time.time;
+	}
+
+	
+
+}

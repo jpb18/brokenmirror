@@ -103,25 +103,30 @@ function OnTriggerEnter(hit : Collider) {
 		{
 			if (hitGO.tag == "Ship")
 			{
-				Debug.Log("shield:" + hitGO.name);
-				var hitHS : shipHealth = hitGO.GetComponent(shipHealth);
-				var shields = hitHS.shipHealth.shields;
-				if(shields > 0)
-				{
-					effect.hasExploded = true;
-					if(shields >= status.shieldDmg)
-					{
-						hitHS.shipHealth.shields -= status.shieldDmg;
-					}
-					else
-					{
-						hitHS.shipHealth.shields = 0;
-					}
+				//get red alert status
+				var isRedAlert : boolean = hitGO.GetComponent(shipProperties).combatStatus.isRedAlert;
 				
-					hitHS.shieldShow.lastHit = Time.time;
-					hitHS.shieldRegen.lastHit = Time.time;
-					Instantiate(effect.explosion, transform.position, transform.rotation);
-					Destroy(gameObject);
+				if(isRedAlert) {
+					Debug.Log("shield:" + hitGO.name);
+					var hitHS : shipHealth = hitGO.GetComponent(shipHealth);
+					var shields = hitHS.shipHealth.shields;
+					if(shields > 0)
+					{
+						effect.hasExploded = true;
+						if(shields >= status.shieldDmg)
+						{
+							hitHS.shipHealth.shields -= status.shieldDmg;
+						}
+						else
+						{
+							hitHS.shipHealth.shields = 0;
+						}
+					
+						hitHS.shieldShow.lastHit = Time.time;
+						hitHS.shieldRegen.lastHit = Time.time;
+						Instantiate(effect.explosion, transform.position, transform.rotation);
+						Destroy(gameObject);
+					}
 				}
 			}
 		}
@@ -146,6 +151,10 @@ function OnCollisionEnter (hit: Collision) {
 			hitHS.shipHealth.health -= status.hullDmg;
 			hitHS.shieldRegen.lastHit = Time.time;
 			Instantiate(effect.explosion, transform.position, transform.rotation);
+			Destroy(gameObject);
+		}
+		else if(hit.transform.tag == "Torpedoes")
+		{
 			Destroy(gameObject);
 		}
 			

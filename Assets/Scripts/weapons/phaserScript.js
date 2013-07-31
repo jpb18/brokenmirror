@@ -85,26 +85,34 @@ function OnTriggerEnter (hit : Collider) {
 		
 		if(hit.transform.parent.parent.gameObject != origin.transform.parent.parent.parent.parent.gameObject)
 		{
+		
 			if (hit.transform.parent.parent.gameObject.tag == "Ship")
 			{
-				var healthSC : shipHealth = hit.transform.parent.parent.gameObject.GetComponent(shipHealth);
-				
-				if(healthSC.shipHealth.shields > 0)
+			
+				//checks the target red alert status
+				var isRedAlert : boolean = hit.transform.parent.parent.gameObject.GetComponent(shipProperties).combatStatus.isRedAlert;
+				Debug.Log("Red Alert: " + isRedAlert.ToString());
+				if(isRedAlert)
 				{
+					var healthSC : shipHealth = hit.transform.parent.parent.gameObject.GetComponent(shipHealth);
 					
-					
-					transform.parent = hit.transform.parent.parent.transform;
-					rigidbody.velocity = Vector3(0,0,0);
-					
-					healthSC.shipHealth.shields -= damage;
-					//make shield show up
-					healthSC.shieldShow.lastHit = Time.time;
-					healthSC.shieldRegen.lastHit = Time.time;
-					hitshield = true;
-					
-					
-					
-					
+					if(healthSC.shipHealth.shields > 0)
+					{
+						
+						
+						transform.parent = hit.transform.parent.parent.transform;
+						rigidbody.velocity = Vector3(0,0,0);
+						
+						healthSC.shipHealth.shields -= damage;
+						//make shield show up
+						healthSC.shieldShow.lastHit = Time.time;
+						healthSC.shieldRegen.lastHit = Time.time;
+						hitshield = true;
+						
+						
+						
+						
+					}
 				}
 			}
 		}
