@@ -30,7 +30,7 @@ function Start () {
 
 }
 
-function Update () {
+function FixedUpdate () {
 	transform.LookAt(target.transform.position);
 	deletePhaser();
 	CheckPTargetAndOrigin();

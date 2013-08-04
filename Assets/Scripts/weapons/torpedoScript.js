@@ -29,7 +29,7 @@ function Start () {
 	launched = Time.time;
 }
 
-function Update () {
+function FixedUpdate () {
 	
 	calc_range();
 	HomeIn();

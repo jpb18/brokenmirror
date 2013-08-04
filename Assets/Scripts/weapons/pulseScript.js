@@ -23,7 +23,7 @@ function Start () {
 
 }
 
-function Update () {
+function FixedUpdate () {
 	calc_range();
 }
 
