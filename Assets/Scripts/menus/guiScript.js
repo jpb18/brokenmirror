@@ -14,6 +14,10 @@ var HelmModule : GuiAreas;
 
 //Gui Elements
 
+
+//Skin
+var HudSkin : GUISkin;
+
 //helm
 class HelmGui {
 	//Main background
@@ -35,7 +39,14 @@ class HelmGui {
 	var fwd_speed_fg : Texture;
 	var fwd_speed_area : GuiAreas;
 	
+	//Buttons
+	//Increase Button
+	var inc_but_area : GuiAreas;
+	var inc_but_img : Texture;
 	
+	//Decrease button
+	var dec_but_area : GuiAreas;
+	var dec_but_img : Texture;
 	
 	
 
@@ -139,6 +150,8 @@ function helmModule () {
 		
 		GUI.DrawTexture(Rect(Helm.bw_speed_area.x, Helm.bw_speed_area.y, bwbarSize, Helm.bw_speed_area.height), Helm.bw_speed_fg, ScaleMode.ScaleAndCrop);
 	
+		//Draw buttons
+		
 	
 	GUILayout.EndArea();
 
