@@ -151,6 +151,15 @@ function helmModule () {
 		GUI.DrawTexture(Rect(Helm.bw_speed_area.x, Helm.bw_speed_area.y, bwbarSize, Helm.bw_speed_area.height), Helm.bw_speed_fg, ScaleMode.ScaleAndCrop);
 	
 		//Draw buttons
+		//Increase button
+		GUI.Button(Rect(Helm.inc_but_area.x, Helm.inc_but_area.y, Helm.inc_but_area.width, Helm.inc_but_area.height), Helm.inc_but_img, HudSkin.button);
+		
+		//Decrease button
+		GUI.Button(Rect(Helm.dec_but_area.x, Helm.dec_but_area.y, Helm.dec_but_area.width, Helm.dec_but_area.height), Helm.dec_but_img, HudSkin.button);
+		
+		
+		
+		
 		
 	
 	GUILayout.EndArea();
