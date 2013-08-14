@@ -11,6 +11,7 @@ class GuiAreas {
 //Areas
 var BotGui : GuiAreas;
 var HelmModule : GuiAreas;
+var HealthModule : GuiAreas;
 
 //Gui Elements
 var isMap : boolean = false; //checks if map is up
@@ -57,11 +58,18 @@ class HelmGui {
 	var map_img : Texture;
 	
 	
+}
+
+class HealthGui {
+	//orbs
+	var orbs_area : GuiAreas;
+	var orbs_img : Texture;
+
 
 }
 
 var Helm : HelmGui;
-
+var Health : HealthGui;
 
 
 //External Scripts
@@ -96,7 +104,7 @@ function BotGUI () {
 	GUILayout.BeginArea(Rect(Screen.width/2 - BotGui.x/2, Screen.height - BotGui.y, BotGui.width, BotGui.height));
 	
 		helmModule();
-	
+		healthModule();
 	
 	GUILayout.EndArea();
 
@@ -205,6 +213,11 @@ function helmModule () {
 		
 	
 	GUILayout.EndArea();
+
+}
+
+function healthModule() {
+
 
 }
 
