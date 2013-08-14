@@ -151,11 +151,30 @@ function helmModule () {
 		GUI.DrawTexture(Rect(Helm.bw_speed_area.x, Helm.bw_speed_area.y, bwbarSize, Helm.bw_speed_area.height), Helm.bw_speed_fg, ScaleMode.ScaleAndCrop);
 	
 		//Draw buttons
+		//get movement info
+		var speedInc : float = shipProps.movement.acceleration;
+		
 		//Increase button
-		GUI.Button(Rect(Helm.inc_but_area.x, Helm.inc_but_area.y, Helm.inc_but_area.width, Helm.inc_but_area.height), Helm.inc_but_img, HudSkin.button);
+		if(GUI.RepeatButton(Rect(Helm.inc_but_area.x, Helm.inc_but_area.y, Helm.inc_but_area.width, Helm.inc_but_area.height), Helm.inc_but_img, HudSkin.button)) {
+			
+			
+			if(curSpeed < maxSpeed) {
+				shipMov.speedStatus += Time.deltaTime * speedInc;
+			
+			}
+		
+		}
 		
 		//Decrease button
-		GUI.Button(Rect(Helm.dec_but_area.x, Helm.dec_but_area.y, Helm.dec_but_area.width, Helm.dec_but_area.height), Helm.dec_but_img, HudSkin.button);
+		if(GUI.RepeatButton(Rect(Helm.dec_but_area.x, Helm.dec_but_area.y, Helm.dec_but_area.width, Helm.dec_but_area.height), Helm.dec_but_img, HudSkin.button))
+		{
+		
+			if(curSpeed > minSpeed) {
+				shipMov.speedStatus -= Time.deltaTime * speedInc;
+			
+			}
+		
+		}
 		
 		
 		
