@@ -48,6 +48,10 @@ class HelmGui {
 	var dec_but_area : GuiAreas;
 	var dec_but_img : Texture;
 	
+	//Stop Button
+	var stop_area : GuiAreas;
+	var stop_img : Texture;
+	
 	
 
 }
@@ -176,6 +180,15 @@ function helmModule () {
 		
 		}
 		
+		//Stop button
+		if(GUI.Button(Rect(Helm.stop_area.x, Helm.stop_area.y, Helm.stop_area.width, Helm.stop_area.height), Helm.stop_img, HudSkin.GetStyle("StopButton")))
+		{
+			if(curSpeed != 0 && !shipMov.isChanging) {
+			
+				StartCoroutine(shipMov.FullStop(curSpeed, speedInc));
+			  
+			} 
+		}
 		
 		
 		
