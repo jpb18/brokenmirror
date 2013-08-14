@@ -13,7 +13,7 @@ var BotGui : GuiAreas;
 var HelmModule : GuiAreas;
 
 //Gui Elements
-
+var isMap : boolean = false; //checks if map is up
 
 //Skin
 var HudSkin : GUISkin;
@@ -51,6 +51,10 @@ class HelmGui {
 	//Stop Button
 	var stop_area : GuiAreas;
 	var stop_img : Texture;
+	
+	//Map button
+	var map_area : GuiAreas;
+	var map_img : Texture;
 	
 	
 
@@ -191,6 +195,12 @@ function helmModule () {
 		}
 		
 		
+		//Map button
+		if(GUI.Button(Rect(Helm.map_area.x, Helm.map_area.y, Helm.map_area.width, Helm.map_area.height), Helm.map_img, HudSkin.button)) {
+			
+			isMap = !isMap;
+		
+		}
 		
 		
 	
