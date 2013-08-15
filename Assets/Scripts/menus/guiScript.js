@@ -61,6 +61,17 @@ class HelmGui {
 }
 
 class HealthGui {
+	//bars
+	//hull
+	var hull_area : GuiAreas;
+	var hull_bg : Texture;
+	var hull_fg : Texture;
+	
+	//shield
+	var shield_area : GuiAreas;
+	var shield_bg : Texture;
+	var shield_fg : Texture;
+
 	//orbs
 	var orbs_area : GuiAreas;
 	var orbs_img : Texture;
@@ -217,6 +228,22 @@ function helmModule () {
 }
 
 function healthModule() {
+
+	GUILayout.BeginArea(Rect(HealthModule.x, HealthModule.y, HealthModule.width, HealthModule.height));
+	
+		//Health Bars
+		//Hull Background
+		GUI.DrawTexture(Rect(Health.hull_area.x, Health.hull_area.y, Health.hull_area.width, Health.hull_area.height), Health.hull_bg);
+	
+		//Shield Backgroound
+		GUI.DrawTexture(Rect(Health.shield_area.x, Health.shield_area.y, Health.shield_area.width, Health.shield_area.height), Health.shield_bg);  
+		
+		
+		//Health Orbs
+		//Draw Background
+		GUI.DrawTexture(Rect(Health.orbs_area.x, Health.orbs_area.y, Health.orbs_area.width, Health.orbs_area.height), Health.orbs_img);
+	
+	GUILayout.EndArea();
 
 
 }
