@@ -64,11 +64,13 @@ class HealthGui {
 	//bars
 	//hull
 	var hull_area : GuiAreas;
+	var hull_fg_area : GuiAreas;
 	var hull_bg : Texture;
 	var hull_fg : Texture;
 	
 	//shield
 	var shield_area : GuiAreas;
+	var shield_fg_area : GuiAreas;
 	var shield_bg : Texture;
 	var shield_fg : Texture;
 
@@ -234,10 +236,17 @@ function healthModule() {
 		//Health Bars
 		//Hull Background
 		GUI.DrawTexture(Rect(Health.hull_area.x, Health.hull_area.y, Health.hull_area.width, Health.hull_area.height), Health.hull_bg);
+		
+		
+		//Hull Foreground
+		GUI.DrawTexture(Rect(Health.hull_fg_area.x, Health.hull_fg_area.y, Health.hull_fg_area.width, Health.hull_fg_area.height), Health.hull_fg);
+	
 	
 		//Shield Backgroound
 		GUI.DrawTexture(Rect(Health.shield_area.x, Health.shield_area.y, Health.shield_area.width, Health.shield_area.height), Health.shield_bg);  
 		
+		//Shield Foreground
+		GUI.DrawTexture(Rect(Health.shield_fg_area.x, Health.shield_fg_area.y, Health.shield_fg_area.width, Health.shield_fg_area.height), Health.shield_fg);
 		
 		//Health Orbs
 		//Draw Background
