@@ -77,6 +77,11 @@ class HealthGui {
 	//orbs
 	var orbs_area : GuiAreas;
 	var orbs_img : Texture;
+	
+	//orb values
+	
+	var shield_label_area : GuiAreas;
+	var hull_label_area : GuiAreas;
 
 
 }
@@ -88,6 +93,7 @@ var Health : HealthGui;
 //External Scripts
 var shipProps : shipProperties;
 var shipMov : shipMovement;
+var shipHea : shipHealth;
 
 
 
@@ -96,6 +102,7 @@ function Start () {
 
 	shipProps = gameObject.GetComponent(shipProperties);
 	shipMov = gameObject.GetComponent(shipMovement);
+	shipHea = gameObject.GetComponent(shipHealth);
 
 }
 
@@ -233,24 +240,61 @@ function healthModule() {
 
 	GUILayout.BeginArea(Rect(HealthModule.x, HealthModule.y, HealthModule.width, HealthModule.height));
 	
+		//calculations
+		//get hull values
+		var maxHull : float = shipHea.shipHealth.maxHealth;
+		var curHull : float = shipHea.shipHealth.health;
+		var percHull : float = ValueToPercentage(maxHull, curHull);
+		
+		
+		//get shield values
+		var maxShield : float = shipHea.shipHealth.maxShields;
+		var curShield : float = shipHea.shipHealth.shields;
+		var percShield : float = ValueToPercentage(maxShield, curShield);
+	
+	
 		//Health Bars
 		//Hull Background
 		GUI.DrawTexture(Rect(Health.hull_area.x, Health.hull_area.y, Health.hull_area.width, Health.hull_area.height), Health.hull_bg);
 		
+		//Calculate foreground transparency
+		var hullColor : Color = Color.white;
+		var hullAlpha : float = percHull/100;
+		hullColor.a = hullAlpha;
+					
+		GUI.color = hullColor; //sets transparency
 		
 		//Hull Foreground
 		GUI.DrawTexture(Rect(Health.hull_fg_area.x, Health.hull_fg_area.y, Health.hull_fg_area.width, Health.hull_fg_area.height), Health.hull_fg);
-	
+		
+		GUI.color = Color.white; //sets back to default
 	
 		//Shield Backgroound
 		GUI.DrawTexture(Rect(Health.shield_area.x, Health.shield_area.y, Health.shield_area.width, Health.shield_area.height), Health.shield_bg);  
 		
+		//Calculate foreground transparency
+		var shieldColor : Color = Color.white;
+		var shieldAlpha : float = percShield/100;
+		shieldColor.a = shieldAlpha;
+		
+		GUI.color = shieldColor; //sets transparent
+		
 		//Shield Foreground
 		GUI.DrawTexture(Rect(Health.shield_fg_area.x, Health.shield_fg_area.y, Health.shield_fg_area.width, Health.shield_fg_area.height), Health.shield_fg);
+		
+		GUI.color = Color.white; //sets default back
 		
 		//Health Orbs
 		//Draw Background
 		GUI.DrawTexture(Rect(Health.orbs_area.x, Health.orbs_area.y, Health.orbs_area.width, Health.orbs_area.height), Health.orbs_img);
+		
+		
+	
+		//Write hull value
+		GUI.Label(Rect(Health.hull_label_area.x, Health.hull_label_area.y, Health.hull_label_area.width, Health.hull_label_area.height), Mathf.RoundToInt(percHull).ToString() + "%", HudSkin.label);
+	
+		//Write shield value
+		GUI.Label(Rect(Health.shield_label_area.x, Health.shield_label_area.y, Health.shield_label_area.width, Health.shield_label_area.height), Mathf.RoundToInt(percShield).ToString() + "%", HudSkin.GetStyle("ShieldLabel"));
 	
 	GUILayout.EndArea();
 
@@ -267,5 +311,16 @@ function GetBarSize (FullSize : int, MaxValue : float, CurValue : float) : int {
 	
 	return newSize;
 	
+
+}
+
+function ValueToPercentage(MaxValue : float, CurValue : float) : float {
+
+	var perc : float;
+	
+	perc = (100*CurValue) / MaxValue;
+	
+	return perc;
+
 
 }
