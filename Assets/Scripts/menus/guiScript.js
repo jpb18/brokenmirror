@@ -12,6 +12,7 @@ class GuiAreas {
 var BotGui : GuiAreas;
 var HelmModule : GuiAreas;
 var HealthModule : GuiAreas;
+var WeaponModule : GuiAreas;
 
 //Gui Elements
 var isMap : boolean = false; //checks if map is up
@@ -86,14 +87,26 @@ class HealthGui {
 
 }
 
+class WeaponGui {
+	//background
+	var bg_area : GuiAreas;
+	var bg_image : Texture;
+
+	//weapon buttons
+	var weap_area : GuiAreas[];
+	
+
+}
+
 var Helm : HelmGui;
 var Health : HealthGui;
-
+var Weapon : WeaponGui;
 
 //External Scripts
 var shipProps : shipProperties;
 var shipMov : shipMovement;
 var shipHea : shipHealth;
+var shipWeap : shipWeapons;
 
 
 
@@ -103,6 +116,7 @@ function Start () {
 	shipProps = gameObject.GetComponent(shipProperties);
 	shipMov = gameObject.GetComponent(shipMovement);
 	shipHea = gameObject.GetComponent(shipHealth);
+	shipWeap = gameObject.GetComponent(shipWeapons);
 
 }
 
@@ -125,6 +139,7 @@ function BotGUI () {
 	
 		helmModule();
 		healthModule();
+		weaponModule();
 	
 	GUILayout.EndArea();
 
@@ -236,6 +251,8 @@ function helmModule () {
 
 }
 
+//Shows health
+
 function healthModule() {
 
 	GUILayout.BeginArea(Rect(HealthModule.x, HealthModule.y, HealthModule.width, HealthModule.height));
@@ -298,6 +315,29 @@ function healthModule() {
 	
 	GUILayout.EndArea();
 
+
+}
+
+//Shows weapon gui module
+
+function weaponModule() {
+
+	GUILayout.BeginArea(Rect(WeaponModule.x, WeaponModule.y, WeaponModule.width, WeaponModule.height));
+	
+		//Draw Background
+		GUI.DrawTexture(Rect(Weapon.bg_area.x, Weapon.bg_area.y, Weapon.bg_area.width, Weapon.bg_area.height), Weapon.bg_image);
+	
+		//Draw buttons
+	
+	
+	GUILayout.EndArea();
+
+}
+
+//this function automates the button creation process for the weapons
+function CreateWeapButton(Weapon : WeaponSlot, Skin : GUISkin, Area : Rect) {
+	
+	
 
 }
 

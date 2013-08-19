@@ -23,10 +23,11 @@ var hitshield : boolean = false;
 
 function Start () {
 
+	transform.parent = null;
 	transform.LookAt(target.transform.position);
 	rigidbody.velocity = speed * transform.forward * Time.deltaTime;
 	spawnTime = Time.time;
-
+	
 
 }
 
