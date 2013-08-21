@@ -3,6 +3,7 @@
 
 using UnityEngine;
 using System.Collections;
+using System.IO;
 
 public class screenshot : MonoBehaviour {
 
@@ -19,8 +20,18 @@ public class screenshot : MonoBehaviour {
 			if(Input.GetKeyDown (KeyCode.F11))
 			{
 				//create game directory
-				string direc = System.Environment.GetFolderPath(System.Environment.SpecialFolder.MyDocuments);
-				direc = direc + "\\Broken-Mirror-3\\ScreenShots\\";
+				string direc = Application.dataPath;
+				
+				
+				if(Application.platform == RuntimePlatform.WindowsPlayer || Application.platform == RuntimePlatform.OSXPlayer)
+				{
+					direc = direc + "\\Screenshots\\";
+				}
+				else if (Application.platform == RuntimePlatform.LinuxPlayer)
+				{
+					direc = direc + "/Screenshots/";	
+				}
+				
 				
 				if(!System.IO.Directory.Exists(@direc))
 				{
