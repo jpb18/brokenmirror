@@ -13,6 +13,7 @@ var BotGui : GuiAreas;
 var HelmModule : GuiAreas;
 var HealthModule : GuiAreas;
 var WeaponModule : GuiAreas;
+var TorpedoModule : Rect;
 
 //Gui Elements
 var isMap : boolean = false; //checks if map is up
@@ -107,9 +108,17 @@ class WeaponGui {
 	
 }
 
+class TorpedoGui {
+	var bg_area : Rect;
+	var bg_image : Texture;
+
+
+}
+
 var Helm : HelmGui;
 var Health : HealthGui;
 var Weapon : WeaponGui;
+var Torpedo : TorpedoGui;
 
 //External Scripts
 var shipProps : shipProperties;
@@ -150,6 +159,7 @@ function BotGUI () {
 		helmModule();
 		healthModule();
 		weaponModule();
+		torpedoModule();
 	
 	GUILayout.EndArea();
 
@@ -369,6 +379,18 @@ function weaponModule() {
 	
 	
 	GUILayout.EndArea();
+
+}
+
+function torpedoModule() {
+	GUILayout.BeginArea(TorpedoModule);
+	
+		//Draw Background image
+		GUI.DrawTexture(Torpedo.bg_area, Torpedo.bg_image);
+	
+	
+	GUILayout.EndArea();
+
 
 }
 
