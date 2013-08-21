@@ -116,7 +116,7 @@ var shipProps : shipProperties;
 var shipMov : shipMovement;
 var shipHea : shipHealth;
 var shipWeap : shipWeapons;
-
+var shipTar : shipTarget;
 
 
 
@@ -126,6 +126,7 @@ function Start () {
 	shipMov = gameObject.GetComponent(shipMovement);
 	shipHea = gameObject.GetComponent(shipHealth);
 	shipWeap = gameObject.GetComponent(shipWeapons);
+	shipTar = gameObject.GetComponent(shipTarget);
 
 }
 
@@ -386,9 +387,19 @@ function CreateWeapButton(Weapon : WeaponSlot, Skin : GUISkin, Area : Rect) {
 		var weapon_img : Texture = weapon_scr.guiInfo.image; //Get weapon GUI Image
 		
 		//Draw button with Area, weapon_img and Skin and check if said button is pressed 
-		if(GUI.Button(Area, weapon_img, Skin.button)) {
+		if(GUI.Button(Area, weapon_img, Skin.button) && shipProps.combatStatus.isRedAlert) {
 		
-			Weapon.isFiring = true; //Set isFiring as true
+			if(shipTar.target) { //check if there's a target
+		
+				Weapon.isFiring = true; //Set isFiring as true
+			
+			} else { //if there isn't, find one and set isFiring as true after
+			
+				shipTar.target = shipTar.FindTarget(gameObject, shipProps); //Find target 
+				Weapon.isFiring = true; //Set isFiring as true
+			
+			}
+			
 		
 		}
 		
