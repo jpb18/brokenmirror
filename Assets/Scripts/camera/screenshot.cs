@@ -23,14 +23,7 @@ public class screenshot : MonoBehaviour {
 				string direc = Application.dataPath;
 				
 				
-				if(Application.platform == RuntimePlatform.WindowsPlayer || Application.platform == RuntimePlatform.OSXPlayer)
-				{
-					direc = direc + "\\Screenshots\\";
-				}
-				else if (Application.platform == RuntimePlatform.LinuxPlayer)
-				{
-					direc = direc + "/Screenshots/";	
-				}
+				direc = direc + "/../Screenshots/";
 				
 				
 				if(!System.IO.Directory.Exists(@direc))
