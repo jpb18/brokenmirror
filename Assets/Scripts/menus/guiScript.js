@@ -22,6 +22,7 @@ var TargetModule : Rect;
 var isMap : boolean = false; //checks if map is up
 var isInventory : boolean = false; //checks if inventory is up
 var isCargo : boolean = false; //checks if cargo is up
+var isExpanded : boolean = false; //checks if some elements on the target are expanded
 
 //Skin
 var HudSkin : GUISkin;
@@ -136,6 +137,7 @@ class TorpedoGui {
 
 class TargetGui {
 	//Main
+	var main_area : Rect;
 	//Background
 	var bg_area : Rect;
 	var bg_image : Texture;
@@ -163,6 +165,15 @@ class TargetGui {
 	//hull
 	var hull_area : Rect;
 	var hull_img : Texture;
+	
+	//expand area
+	var exp_area : Rect;
+	
+	//expand button
+	var exp_bt_area : Rect;
+	var exp_img : Texture;
+	
+	//
 	
 
 }
@@ -529,8 +540,23 @@ function targetModule() {
 
 		GUILayout.BeginArea(TargetModule);
 			
+			//Expand Area
+			
+			GUILayout.BeginArea(Target.exp_area);
+			
+			
+				
+			
+				//Expand button
+				if(GUI.Button(Target.exp_bt_area, "", HudSkin.GetStyle("ExpandButton"))) {
+				
+							
+				
+				}
+			
+			GUILayout.EndArea();
 			//Main Component
-			GUILayout.BeginArea(Target.bg_area);
+			GUILayout.BeginArea(Target.main_area);
 				//Lets start by the background
 				GUI.DrawTexture(Target.bg_area, Target.bg_image);
 				
@@ -622,7 +648,7 @@ function targetModule() {
 				GUI.DrawTexture(Rect(Target.shield_area.x, Target.shield_area.y, shieldWidth, Target.shield_area.height), Target.shield_img);
 				GUI.DrawTexture(Rect(Target.hull_area.x, Target.hull_area.y, hullWidth, Target.hull_area.height), Target.hull_img);
 				
-				//Expand button
+				
 			
 			GUILayout.EndArea();
 		
