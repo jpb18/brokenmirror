@@ -48,31 +48,41 @@ function OnGUI () {
 				
 					if(GUILayout.Button("Restart Game"))
 					{
-						Application.LoadLevel(0);					
+						Application.LoadLevel(0);
+						
+											
 					}
 					
 					if(GUILayout.Button("Load Earth"))
 					{
+						
+						Time.timeScale = 1;
 						Application.LoadLevel(1);
+						
 					}
 					
 					if(GUILayout.Button("Load Alpha Centauri"))
 					{
+						Time.timeScale = 1;
 						Application.LoadLevel(2);
+						
 					}
 					
 					if(GUILayout.Button("Load Andoria"))
 					{
+						Time.timeScale = 1;
 						Application.LoadLevel(3);
 					}
 					
 					if(GUILayout.Button("Load Tygokor"))
 					{
+						Time.timeScale = 1;
 						Application.LoadLevel(4);
 					}
 					
 					if(GUILayout.Button("Exit"))
 					{
+						Time.timeScale = 1;
 						Application.Quit();
 					}
 				
