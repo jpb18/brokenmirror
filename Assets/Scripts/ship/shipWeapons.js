@@ -201,6 +201,7 @@ function FireWeapon (weapon : WeaponSlot, target : GameObject) {
 						FireBeam(target, origin, weapon_go); //fire beam
 						var cd1 : float = weapon_go.GetComponent(phaserScript).standard_cd; //get weapon cooldown
 						weapon.nextShot = Time.time + cd1 * shipProps.shipModifiers.reloadSpeed; //sets next shot
+						weapon.lastReload = cd1 * shipProps.shipModifiers.reloadSpeed;
 					}
 					else if (weapon_sc.type == WeaponType.torpedo) //if weapon is a torpedo
 					{
@@ -222,7 +223,7 @@ function FireWeapon (weapon : WeaponSlot, target : GameObject) {
 						StartCoroutine(FireTorpedo(target, origin, weapon_go, sizeVolley, volleyWait));
 						var cd2 : float = weapon_go.GetComponent(torpedoScript).status.cooldown;
 						weapon.nextShot = Time.time + cd2 * sizeVolley * shipProps.shipModifiers.reloadSpeed;
-						weapon.lastReload = sizeVolley * shipProps.shipModifiers.reloadSpeed;
+						weapon.lastReload = cd2 * sizeVolley * shipProps.shipModifiers.reloadSpeed;
 						
 						//Reset volley status
 						torpVolley = Volley.one;
@@ -236,6 +237,7 @@ function FireWeapon (weapon : WeaponSlot, target : GameObject) {
 						StartCoroutine(FirePulse(target, origin, weapon_go));
 						var cd3 : float = weapon_go.GetComponent(pulseScript).cooldown;
 						weapon.nextShot = Time.time + cd3 * shipProps.shipModifiers.reloadSpeed;
+						weapon.lastReload = cd3 * shipProps.shipModifiers.reloadSpeed;
 					}
 				}
 			

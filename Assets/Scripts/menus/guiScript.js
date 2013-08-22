@@ -419,9 +419,9 @@ function torpedoModule() {
 		//Draw Background image
 		GUI.DrawTexture(Torpedo.bg_area, Torpedo.bg_image);
 		
-		//set overlay transparency at 0.5
+		//set overlay transparency at 0.75
 		var overColor : Color = Color.white;
-		overColor.a = 0.5;	
+		overColor.a = 0.75;	
 	
 		
 		//Draw 3x modifier button
@@ -537,6 +537,31 @@ function CreateWeapButton(Weapon : WeaponSlot, Skin : GUISkin, Area : Rect) {
 			}
 			
 		
+		}
+		
+		//If weapon is reloading, draw overlay
+		if(Time.time < Weapon.nextShot) {
+		
+			//Calculate size
+			//Get total reload time and time remaining
+			var totalReload : float = Weapon.lastReload;
+			var remainTime : float = Weapon.nextShot - Time.time;
+			
+			//Get overlay height
+			var overHeight : int = GetBarSize(Area.height, totalReload, remainTime);
+			
+			//get size diference
+			var sizeDif : int = Area.height - overHeight;
+		
+			//transparency
+			var overColor : Color = Color.white;
+			overColor.a = 0.75;
+			
+			GUI.color = overColor;
+		
+			GUI.DrawTexture(Rect(Area.x, Area.y + sizeDif, Area.width, overHeight), yellowOver);
+		
+			GUI.color = Color.white;
 		}
 		
 		
