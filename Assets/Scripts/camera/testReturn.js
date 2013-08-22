@@ -14,13 +14,13 @@ function Update () {
 		lastClick = Time.time;
 		if(isPause == true)
 		{
-			Debug.Log("Is here");
+			
 			isPause = false;
 			Time.timeScale = 0;
 		}
 		else
 		{
-			Debug.Log("Is there");
+			
 			isPause = true;
 			Time.timeScale = 1;
 		}
@@ -39,9 +39,29 @@ function OnGUI () {
 			
 				GUILayout.BeginVertical();
 				
-					if(GUILayout.Button("Reload Scene"))
+					if(GUILayout.Button("Restart Game"))
 					{
 						Application.LoadLevel(0);					
+					}
+					
+					if(GUILayout.Button("Load Earth"))
+					{
+						Application.LoadLevel(1);
+					}
+					
+					if(GUILayout.Button("Load Alpha Centauri"))
+					{
+						Application.LoadLevel(2);
+					}
+					
+					if(GUILayout.Button("Load Andoria"))
+					{
+						Application.LoadLevel(3);
+					}
+					
+					if(GUILayout.Button("Load Tygokor"))
+					{
+						Application.LoadLevel(4);
 					}
 					
 					if(GUILayout.Button("Exit"))
