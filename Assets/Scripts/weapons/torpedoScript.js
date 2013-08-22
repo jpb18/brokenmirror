@@ -7,8 +7,7 @@ class stats {
 	var range : float; //torpedo range
 	var cost : float; //torpedo "normal" cost, to be used in GUI only
 	var cooldown : float; // torpedo cooldown
-	var spread : int; //number of torpedoes fired in a spread
-	var spreadTime : float = 1.5f;
+	
 }
 
 class effects {
@@ -33,7 +32,6 @@ function FixedUpdate () {
 	
 	calc_range();
 	HomeIn();
-	Spread();
 	CheckTTargetAndOrigin();
 	
 
@@ -68,28 +66,7 @@ function HomeIn() {
 
 }
 
-function Spread() {
-	if (status.spread > 1 && Time.time - launched >= status.spreadTime && isSpread == false )
-	{
-		var shipTargeted : GameObject[];
-		for (var x : int = 0; x <= status.spread - 1; x++)
-		{
-			
-			var displacement : Vector3 = Vector3(Random.Range(-0.1,0.1),Random.Range(-0.1,0.1),Random.Range(-0.1,0.1));
-			var torpedo : GameObject = Instantiate(gameObject, transform.position + displacement, transform.rotation);
-			var ts : torpedoScript = torpedo.GetComponent(torpedoScript);
-	
-			ts.target = target;
-			ts.origin = origin;
-			ts.isSpread = true;
-		}
-		
-		Destroy(gameObject);
-	
-	}
-	
 
-}
 
 
 

@@ -12,13 +12,21 @@ class WeaponSlot {
 	var isAngle : boolean = false; //checks if the target is inside the firing arch
 	var isRange : boolean = false; //checks if the target is in range
 	var isFiring : boolean = false; //checks if the weapon is firing
-	
+	var lastReload : float; //total time it took for the last reload
 	
 }
 
 class BotWeapons {
 	
 	var isFiring : boolean = false;
+
+}
+
+enum Volley {
+	one,
+	three,
+	five,
+	eight
 
 }
 
@@ -47,8 +55,7 @@ var shipTar : shipTarget;
 var genInfo : GeneralInfo;
 var globInfo : GlobalInfo;
 
-var torpSpread : int = 1;
-var torpVolley : int = 1;
+var torpVolley : Volley = Volley.one;
 var volleyWait : float = 0.2f;
 var torpLimit : int = 10;
 
@@ -197,10 +204,31 @@ function FireWeapon (weapon : WeaponSlot, target : GameObject) {
 					}
 					else if (weapon_sc.type == WeaponType.torpedo) //if weapon is a torpedo
 					{
+						
+						//get volley size value
+						var sizeVolley : int;
+						if(torpVolley == Volley.one) {
+							sizeVolley = 1;
+						} else if (torpVolley == Volley.three) {
+							sizeVolley = 3;
+						} else if (torpVolley == Volley.five) {
+							sizeVolley = 5;
+						} else if (torpVolley == Volley.eight) {
+							sizeVolley = 8;
+						}
+						
+						//Fire weapon
 						origin = weapon.torpedo_point;
-						StartCoroutine(FireTorpedo(target, origin, weapon_go, torpSpread, torpVolley, volleyWait));
+						StartCoroutine(FireTorpedo(target, origin, weapon_go, sizeVolley, volleyWait));
 						var cd2 : float = weapon_go.GetComponent(torpedoScript).status.cooldown;
-						weapon.nextShot = Time.time + cd2 * torpSpread * torpVolley * shipProps.shipModifiers.reloadSpeed;
+						weapon.nextShot = Time.time + cd2 * sizeVolley * shipProps.shipModifiers.reloadSpeed;
+						weapon.lastReload = sizeVolley * shipProps.shipModifiers.reloadSpeed;
+						
+						//Reset volley status
+						torpVolley = Volley.one;
+						
+						
+						
 					}
 					else if (weapon_sc.type == WeaponType.pulse) //if its a pulse weapon
 					{
@@ -233,7 +261,7 @@ function FireBeam (target : GameObject, origin : GameObject, weapon : GameObject
 	
 }
 
-function FireTorpedo (target : GameObject, origin : GameObject, weapon : GameObject, spread : int, volley : int, waitReload : float)
+function FireTorpedo (target : GameObject, origin : GameObject, weapon : GameObject, volley : int, waitReload : float)
 {
 
 	for (var x : int = 0; x < volley; x++)
@@ -243,7 +271,7 @@ function FireTorpedo (target : GameObject, origin : GameObject, weapon : GameObj
 		
 		ts.target = target;
 		ts.origin = origin.transform.parent.parent.parent.gameObject;
-		ts.status.spread = spread;
+		
 		
 		yield WaitForSeconds(waitReload);
 	}

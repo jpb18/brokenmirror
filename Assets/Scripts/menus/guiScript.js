@@ -15,6 +15,9 @@ var HealthModule : GuiAreas;
 var WeaponModule : GuiAreas;
 var TorpedoModule : Rect;
 
+var TopGui : Rect;
+var TargetModule : Rect;
+
 //Gui Elements
 var isMap : boolean = false; //checks if map is up
 var isInventory : boolean = false; //checks if inventory is up
@@ -22,6 +25,9 @@ var isCargo : boolean = false; //checks if cargo is up
 
 //Skin
 var HudSkin : GUISkin;
+
+//global elements
+var yellowOver : Texture;
 
 //helm
 class HelmGui {
@@ -108,7 +114,28 @@ class WeaponGui {
 	
 }
 
+
 class TorpedoGui {
+	//Background
+	var bg_area : Rect;
+	var bg_image : Texture;
+	
+	//times three
+	var area_3x : Rect;
+	
+	
+	//times five
+	var area_5x : Rect;
+	
+	
+	//time eight
+	var area_8x : Rect;
+	
+
+}
+
+class TargetGui {
+	//Background
 	var bg_area : Rect;
 	var bg_image : Texture;
 
@@ -119,6 +146,7 @@ var Helm : HelmGui;
 var Health : HealthGui;
 var Weapon : WeaponGui;
 var Torpedo : TorpedoGui;
+var Target : TargetGui;
 
 //External Scripts
 var shipProps : shipProperties;
@@ -144,6 +172,7 @@ function OnGUI () {
 	if(shipProps.playerProps.isPlayer)
 	{
 		BotGUI();
+		TopGUI();
 	
 	}
 	
@@ -382,11 +411,96 @@ function weaponModule() {
 
 }
 
+//torpedo module
+
 function torpedoModule() {
 	GUILayout.BeginArea(TorpedoModule);
 	
 		//Draw Background image
 		GUI.DrawTexture(Torpedo.bg_area, Torpedo.bg_image);
+		
+		//set overlay transparency at 0.5
+		var overColor : Color = Color.white;
+		overColor.a = 0.5;	
+	
+		
+		//Draw 3x modifier button
+		if(GUI.Button(Torpedo.area_3x, "x3", HudSkin.button)) {
+			shipWeap.torpVolley = Volley.three;
+		
+		}
+		
+		//if its selected, draw a overlay over it
+		if(shipWeap.torpVolley == Volley.three) {
+		
+			GUI.color = overColor;	
+		
+			GUI.DrawTexture(Torpedo.area_3x, yellowOver);
+			
+			GUI.color = Color.white;
+		
+		}
+		
+		
+		
+	
+		//5x modifier button
+		if(GUI.Button(Torpedo.area_5x, "x5", HudSkin.button)) {
+			shipWeap.torpVolley = Volley.five;
+		}
+		
+		//if its selected, draw a overlay over it
+		if(shipWeap.torpVolley == Volley.five) {
+		
+			GUI.color = overColor;	
+		
+			GUI.DrawTexture(Torpedo.area_5x, yellowOver);
+			
+			GUI.color = Color.white;
+		
+		}
+		
+		//8x modifier button
+		if(GUI.Button(Torpedo.area_8x, "x8", HudSkin.button)) {
+			shipWeap.torpVolley = Volley.eight;
+		}
+		
+		//if its selected, draw a overlay over it
+		if(shipWeap.torpVolley == Volley.eight) {
+		
+			GUI.color = overColor;	
+		
+			GUI.DrawTexture(Torpedo.area_8x, yellowOver);
+			
+			GUI.color = Color.white;
+		
+		}
+		
+	
+	GUILayout.EndArea();
+
+
+}
+
+
+//Draws the superior part of the HUD
+function TopGUI() {
+
+	GUILayout.BeginArea(Rect(Screen.width/2 - TopGui.x/2, TopGui.y, TopGui.width, TopGui.height));
+	
+		targetModule();
+	
+	
+	GUILayout.EndArea();
+
+
+}
+
+//Draws the targetting module of the HUD
+function targetModule() {
+
+	GUILayout.BeginArea(TargetModule);
+	
 	
 	
 	GUILayout.EndArea();
