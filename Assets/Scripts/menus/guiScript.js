@@ -135,10 +135,35 @@ class TorpedoGui {
 }
 
 class TargetGui {
+	//Main
 	//Background
 	var bg_area : Rect;
 	var bg_image : Texture;
+	
+	//orb placement
+	var orb_area : Rect;
+	
+	//orb colors
+	var orb_enemy_color : Texture;
+	var orb_ally_color : Texture;
+	var orb_owned_color : Texture;
+	var orb_neutral_color : Texture;
 
+	//labels
+	var name_area : Rect;	
+	var class_area : Rect;
+	
+	
+	//health bars
+	
+	//shield
+	var shield_area : Rect;
+	var shield_img : Texture;
+	
+	//hull
+	var hull_area : Rect;
+	var hull_img : Texture;
+	
 
 }
 
@@ -499,11 +524,111 @@ function TopGUI() {
 //Draws the targetting module of the HUD
 function targetModule() {
 
-	GUILayout.BeginArea(TargetModule);
+	if(shipTar.target) //checks first if the ship has a target to show
+	{
+
+		GUILayout.BeginArea(TargetModule);
+			
+			//Main Component
+			GUILayout.BeginArea(Target.bg_area);
+				//Lets start by the background
+				GUI.DrawTexture(Target.bg_area, Target.bg_image);
+				
+				//Now the orb part
+				//get the player ship faction and faction information
+				var playerFaction : int = shipProps.shipInfo.faction;
+				var playerAllies : int[] = shipProps.shipInfo.alliedFactions;
+				var playerEnemies : int[] = shipProps.shipInfo.hostileFactions;
+				
+				//obtain the target faction
+				var tarFaction : int;
+				
+				if(shipTar.target.tag == "Ship") {
+					
+					var targetScript : shipProperties = shipTar.target.GetComponent(shipProperties);
+					tarFaction = targetScript.shipInfo.faction;						
+				
+				}
+				
+				//Now lets select the orb in question
+				var orbTexture : Texture;
+				if(playerFaction == tarFaction) //check if it has the same faction
+				{
+					orbTexture = Target.orb_owned_color; //give owned color
+				}
+				else if (CheckArrayValue(playerFaction, playerAllies)) //check if it's an ally
+				{
+					orbTexture = Target.orb_ally_color; //give allied color
+				}
+				else if (CheckArrayValue(playerFaction, playerEnemies)) //check if it's an enemy
+				{
+					orbTexture = Target.orb_enemy_color; //give enemy color
+				}
+				else //if none of the above
+				{
+					orbTexture = Target.orb_owned_color; //give neutral color
+				}
+				
+				
+				//Draw the texture
+				GUI.DrawTexture(Target.orb_area, Target.orb_enemy_color);
+				
+				//Now Draw the ship image
+				//First get it from the targeted object
+				var tarImage : Texture;
+				var shipClass : String; //get these for the future
+ 				var shipName : String;
+				
+				if(shipTar.target.tag == "Ship") { //if it's a ship
+				
+					
+					var tarShipProps : shipProperties = shipTar.target.GetComponent(shipProperties); //get ship properties script
+					tarImage = tarShipProps.shipInfo.targetImg; //get image
+					shipClass = tarShipProps.shipInfo.shipClass; //get class
+					shipName = tarShipProps.shipInfo.shipName; //get name
+				
+				}
+				
+				//Now draw the texture
+				GUI.DrawTexture(Target.orb_area, tarImage);
+				
+				//And now, it's time for writing those labels
+				GUI.Label(Target.name_area, shipName, HudSkin.GetStyle("TargetLabel"));
+				GUI.Label(Target.class_area, shipClass, HudSkin.GetStyle("TargetLabel"));
+				
+				//And now the health bars of the target
+				//lets start by getting the target status
+				
+				var hull : float;
+				var maxHull : float;
+				var shield : float;
+				var maxShield : float;
+				
+				if(shipTar.target.tag == "Ship") { //if its a ship
+				
+					var healthTarget : shipHealth = shipTar.target.GetComponent(shipHealth); //get the target health script
+					hull = healthTarget.shipHealth.health; //get hull values
+					maxHull = healthTarget.shipHealth.maxHealth; //get max hull
+					shield = healthTarget.shipHealth.shields; // get shields
+					maxShield = healthTarget.shipHealth.maxShields; //get max shields
+				
+				}
+				
+				//lets get the width of those bars
+				var shieldWidth : int = GetBarSize(Target.shield_area.width, maxShield, shield);
+				var hullWidth : int = GetBarSize(Target.hull_area.width, maxHull, hull);
+				//Now lets draw them
+				//start by shield
+				GUI.DrawTexture(Rect(Target.shield_area.x, Target.shield_area.y, shieldWidth, Target.shield_area.height), Target.shield_img);
+				GUI.DrawTexture(Rect(Target.hull_area.x, Target.hull_area.y, hullWidth, Target.hull_area.height), Target.hull_img);
+				
+			
+			
+			GUILayout.EndArea();
+		
+		GUILayout.EndArea();
 	
-	
-	
-	GUILayout.EndArea();
+	}
 
 
 }
@@ -596,5 +721,23 @@ function ValueToPercentage(MaxValue : float, CurValue : float) : float {
 	
 	return perc;
 
+
+}
+
+//this function will check if a certain element belongs in 1 array
+function CheckArrayValue(desValue : int, array : int[]) : boolean {
+
+	var belongs : boolean = false;
+	
+	for(var val : int in array) {
+	
+		if (desValue == val)
+		{
+			belongs = true;
+		}
+	
+	}
+	
+	return belongs;
 
 }

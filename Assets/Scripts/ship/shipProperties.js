@@ -5,7 +5,7 @@
 //stores all player/ship properties
 class ShipPlayerProps {
 	var isPlayer : boolean = false;
-	var inventory : GameObject[];
+	
 	
 	
 }
@@ -38,11 +38,18 @@ class ShipModifiers {
 }
 
 class ShipInfo {
+
 	var faction : int;
 	var hostileFactions : int[];
 	var alliedFactions : int[];
+	
+	var targetImg : Texture; //this image will appear on the player gui
+	var shipClass : String; //this contains the ship class
+	var shipName : String; //this contains the ship name
 
 }
+
+
 
 //use classes
 var playerProps : ShipPlayerProps;
@@ -52,6 +59,7 @@ var shipProps : ShipProps;
 var shipModifiers : ShipModifiers;
 var shipInfo : ShipInfo;
 var combatStatus : ShipCombatStatus;
+
 
 function Update() {
 

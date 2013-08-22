@@ -8,7 +8,8 @@ function Start () {
 
 }
 
-function Update () {
+function FixedUpdate () {
+
 	if(Input.GetAxis("EscapeMenu") && Time.time >= lastClick + clickInt)
 	{
 		lastClick = Time.time;
@@ -16,15 +17,16 @@ function Update () {
 		{
 			
 			isPause = false;
-			Time.timeScale = 0;
+			Time.timeScale = 1;
 		}
 		else
 		{
 			
 			isPause = true;
-			Time.timeScale = 1;
+			Time.timeScale = 0;
 		}
 	}
+	
 }
 
 function OnGUI () {
@@ -38,6 +40,11 @@ function OnGUI () {
 			GUILayout.BeginHorizontal();
 			
 				GUILayout.BeginVertical();
+					if(GUILayout.Button("Resume Game")) {
+						isPause = false;
+						Time.timeScale = 1;
+									
+					}				
 				
 					if(GUILayout.Button("Restart Game"))
 					{
