@@ -32,7 +32,7 @@ function Start () {
 }
 
 function FixedUpdate () {
-	transform.LookAt(target.transform.position);
+	
 	deletePhaser();
 	CheckPTargetAndOrigin();
 	designLine();
@@ -58,7 +58,7 @@ function OnCollisionEnter (hit : Collision) {
 	{
 		if (hit.transform.tag == "Ship")
 		{
-			rigidbody.velocity = Vector3(0,0,0);
+			rigidbody.velocity = Vector3.zero;
 			transform.parent = hit.transform;
 			collider.isTrigger = true;
 			
@@ -102,7 +102,7 @@ function OnTriggerEnter (hit : Collider) {
 						
 						
 						transform.parent = hit.transform.parent.parent.transform;
-						rigidbody.velocity = Vector3(0,0,0);
+						rigidbody.velocity = Vector3.zero;
 						
 						healthSC.shipHealth.shields -= damage;
 						//make shield show up

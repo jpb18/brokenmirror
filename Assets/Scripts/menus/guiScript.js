@@ -622,7 +622,7 @@ function targetModule() {
 				GUI.DrawTexture(Rect(Target.shield_area.x, Target.shield_area.y, shieldWidth, Target.shield_area.height), Target.shield_img);
 				GUI.DrawTexture(Rect(Target.hull_area.x, Target.hull_area.y, hullWidth, Target.hull_area.height), Target.hull_img);
 				
-			
+				//Expand button
 			
 			GUILayout.EndArea();
 		

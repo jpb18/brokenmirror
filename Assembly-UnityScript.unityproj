@@ -47,6 +47,7 @@
      <Compile Include="Assets\Detonator Explosion Framework\Sample Supporting Emitters\Detonator Spray Helper.js" />
      <Compile Include="Assets\Detonator Explosion Framework\TestScene\DetonatorTest.js" />
      <Compile Include="Assets\Scripts\GlobalInfo.js" />
+     <Compile Include="Assets\Scripts\HotFixes\dontGoThroughThings.js" />
      <Compile Include="Assets\Scripts\Load\GameLoad.js" />
      <Compile Include="Assets\Scripts\Load\dontDestroy.js" />
      <Compile Include="Assets\Scripts\Load\sceneSwapper.js" />

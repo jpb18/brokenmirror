@@ -81,7 +81,7 @@ function Update () {
 //this function controls a ship shield regeneration
 function shield_regen() {
 	//checks if the time interval has passed and the shield is able of regenerating
-	if (shieldRegen.lastHit + shieldRegen.timeInt >= Time.time && shieldRegen.isRegen == true && shipHealth.shields < shipHealth.maxShields)
+	if (shieldRegen.lastHit + shieldRegen.timeInt <= Time.time && shieldRegen.isRegen == true && shipHealth.shields < shipHealth.maxShields)
 	{
 	
 		shipHealth.shields += shieldRegen.regenRate * Time.deltaTime; //adds shield
