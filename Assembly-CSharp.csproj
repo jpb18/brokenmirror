@@ -57,6 +57,8 @@
      <Compile Include="Assets\Detonator Explosion Framework\System\DetonatorSound.cs" />
      <Compile Include="Assets\Detonator Explosion Framework\System\DetonatorSparks.cs" />
      <Compile Include="Assets\Detonator Explosion Framework\System\DetonatorSpray.cs" />
+     <Compile Include="Assets\Scripts\camera\RTtest.cs" />
+     <Compile Include="Assets\Scripts\camera\RenderTextureFree.cs" />
      <Compile Include="Assets\Scripts\camera\screenshot.cs" />
      <Compile Include="Assets\Scripts\effects\AnimateTiledTexture.cs" />
      <Compile Include="Assets\SpaceUnity\Scripts\SU_Asteroid.cs" />
