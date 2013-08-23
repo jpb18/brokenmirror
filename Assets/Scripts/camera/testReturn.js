@@ -60,27 +60,27 @@ function OnGUI () {
 					{
 						
 						Time.timeScale = 1;
-						Application.LoadLevel(1);
+						Application.LoadLevel("Earth");
 						
 					}
 					
 					if(GUILayout.Button("Load Alpha Centauri"))
 					{
 						Time.timeScale = 1;
-						Application.LoadLevel(2);
+						Application.LoadLevel("AlphaCentauri");
 						
 					}
 					
 					if(GUILayout.Button("Load Andoria"))
 					{
 						Time.timeScale = 1;
-						Application.LoadLevel(3);
+						Application.LoadLevel("Andoria");
 					}
 					
 					if(GUILayout.Button("Load Tygokor"))
 					{
 						Time.timeScale = 1;
-						Application.LoadLevel(4);
+						Application.LoadLevel("Tygokor");
 					}
 					
 					if(GUILayout.Button("Exit"))

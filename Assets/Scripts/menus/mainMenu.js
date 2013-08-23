@@ -134,13 +134,20 @@ function PlayMenu () {
 		GUI.Label(Rect(playTitleX, playTitleY, playTitleW, playTitleH), "Select Dificulty", playTitleStyle);
 		
 		//Easy button
-		GUI.Button(Rect(difEasy.CoodX, difEasy.CoodY, difEasy.width, difEasy.height), "Easy", difEasy.Style);
+		if(GUI.Button(Rect(difEasy.CoodX, difEasy.CoodY, difEasy.width, difEasy.height), "Easy", difEasy.Style)) {
+			Application.LoadLevel("Earth");
+		
+		}
 		
 		//Normal button
-		GUI.Button(Rect(difNormal.CoodX, difNormal.CoodY, difNormal.width, difNormal.height), "Normal", difNormal.Style);
+		if(GUI.Button(Rect(difNormal.CoodX, difNormal.CoodY, difNormal.width, difNormal.height), "Normal", difNormal.Style)) {
+			Application.LoadLevel("Earth");
+		}
 		
 		//Hard button
-		GUI.Button(Rect(difHard.CoodX, difHard.CoodY, difHard.width, difHard.height), "Hard", difHard.Style);
+		if(GUI.Button(Rect(difHard.CoodX, difHard.CoodY, difHard.width, difHard.height), "Hard", difHard.Style)) {
+			Application.LoadLevel("Earth");
+		}
 		
 		//Return Main Menu button
 		if(GUI.Button(Rect(difReturn.CoodX, difReturn.CoodY, difReturn.width, difReturn.height), "Main Menu", difReturn.Style)) {
