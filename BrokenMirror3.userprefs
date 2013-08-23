@@ -2,11 +2,11 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\camera\testReturn.js">
     <Files>
+      <File FileName="Assets\Scripts\camera\testReturn.js" Line="50" Column="7" />
       <File FileName="Assets\Scripts\menus\guiScript.js" Line="176" Column="4" />
       <File FileName="Assets\Scripts\weapons\phaserScript.js" Line="61" Column="38" />
       <File FileName="Assets\Scripts\weapons\torpedoScript.js" Line="21" Column="10" />
       <File FileName="Assets\Scripts\ship\shipHealth.js" Line="204" Column="1" />
-      <File FileName="Assets\Scripts\camera\testReturn.js" Line="85" Column="26" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

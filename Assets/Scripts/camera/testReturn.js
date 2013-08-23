@@ -48,6 +48,9 @@ function OnGUI () {
 				
 					if(GUILayout.Button("Restart Game"))
 					{
+						Time.timeScale = 1;
+						var per_go : GameObject = GameObject.FindWithTag("Persistent");
+						Destroy(per_go);
 						Application.LoadLevel(0);
 						
 											
