@@ -68,7 +68,10 @@ var difReturn : Button;
 //exit button
 var ExitButton : Button;
 
-
+//load next scene
+var loadImage : Texture;
+var isLoading : boolean = false;
+var loadDestiny : String;
 
 
 
@@ -93,6 +96,12 @@ function OnGUI() {
 	if(GUI.Button(Rect(ExitButton.CoodX, Screen.height - ExitButton.CoodY, ExitButton.width, ExitButton.height), "Quit", ExitButton.Style)) {
 	
 		Application.Quit();
+	}
+	
+	if(isLoading) {
+		GUI.DrawTexture(Rect(0,0,Screen.width, Screen.height), loadImage);
+		Application.LoadLevel(loadDestiny);
+		
 	}
 	
 
@@ -135,18 +144,22 @@ function PlayMenu () {
 		
 		//Easy button
 		if(GUI.Button(Rect(difEasy.CoodX, difEasy.CoodY, difEasy.width, difEasy.height), "Easy", difEasy.Style)) {
-			Application.LoadLevel("Earth");
+			isLoading = true;
+			loadDestiny = "Earth";
 		
 		}
 		
 		//Normal button
 		if(GUI.Button(Rect(difNormal.CoodX, difNormal.CoodY, difNormal.width, difNormal.height), "Normal", difNormal.Style)) {
-			Application.LoadLevel("Earth");
+		isLoading = true;
+			loadDestiny = "Earth";
 		}
 		
 		//Hard button
 		if(GUI.Button(Rect(difHard.CoodX, difHard.CoodY, difHard.width, difHard.height), "Hard", difHard.Style)) {
-			Application.LoadLevel("Earth");
+			
+			isLoading = true;
+			loadDestiny = "Earth";
 		}
 		
 		//Return Main Menu button

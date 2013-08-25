@@ -1,10 +1,11 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\weapons\phaserScript.js">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\menus\guiScript.js">
     <Files>
+      <File FileName="Assets\Scripts\menus\mainMenu.js" Line="1" Column="1" />
+      <File FileName="Assets\loadNextScene.js" Line="11" Column="2" />
       <File FileName="Assets\Scripts\weapons\phaserScript.js" Line="34" Column="15" />
-      <File FileName="Assets\Scripts\camera\testReturn.js" Line="50" Column="7" />
-      <File FileName="Assets\Scripts\menus\guiScript.js" Line="176" Column="4" />
+      <File FileName="Assets\Scripts\menus\guiScript.js" Line="218" Column="81" />
       <File FileName="Assets\Scripts\weapons\torpedoScript.js" Line="21" Column="10" />
       <File FileName="Assets\Scripts\ship\shipHealth.js" Line="204" Column="1" />
       <File FileName="Assets\Scripts\effects\AnimateTiledTexture.cs" Line="67" Column="71" />
