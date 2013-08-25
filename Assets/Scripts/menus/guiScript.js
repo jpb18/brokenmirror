@@ -191,6 +191,9 @@ var shipHea : shipHealth;
 var shipWeap : shipWeapons;
 var shipTar : shipTarget;
 
+//Temporary variables
+var tstRtn : testReturn;
+
 
 
 function Start () {
@@ -201,11 +204,18 @@ function Start () {
 	shipWeap = gameObject.GetComponent(shipWeapons);
 	shipTar = gameObject.GetComponent(shipTarget);
 
+	//temporary stuff
+	//get main camera
+	var mainCam : GameObject = Camera.main.gameObject;
+	//get testReturn script
+	tstRtn = mainCam.GetComponent(testReturn);
+	
+
 }
 
 function OnGUI () {
 
-	if(shipProps.playerProps.isPlayer)
+	if(shipProps.playerProps.isPlayer && !tstRtn.isLoading) //2nd part is temporary
 	{
 		BotGUI();
 		TopGUI();

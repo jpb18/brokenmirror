@@ -3,6 +3,9 @@
 var isPause : boolean = false;
 var lastClick : float;
 var clickInt : float = 0.2f;
+var loadImage : Texture;
+var dstScene : String;
+var isLoading : boolean;
 
 function Start () {
 
@@ -51,7 +54,8 @@ function OnGUI () {
 						Time.timeScale = 1;
 						var per_go : GameObject = GameObject.FindWithTag("Persistent");
 						Destroy(per_go);
-						Application.LoadLevel(0);
+						dstScene = "gameLoad";
+						isLoading = true;
 						
 											
 					}
@@ -60,27 +64,35 @@ function OnGUI () {
 					{
 						
 						Time.timeScale = 1;
-						Application.LoadLevel("Earth");
+						
+						dstScene = "Earth";
+						isLoading = true;
 						
 					}
 					
 					if(GUILayout.Button("Load Alpha Centauri"))
 					{
 						Time.timeScale = 1;
-						Application.LoadLevel("AlphaCentauri");
+						
+						dstScene = "AlphaCentauri";
+						isLoading = true;
 						
 					}
 					
 					if(GUILayout.Button("Load Andoria"))
 					{
 						Time.timeScale = 1;
-						Application.LoadLevel("Andoria");
+						
+						dstScene = "Andoria";
+						isLoading = true;
 					}
 					
 					if(GUILayout.Button("Load Tygokor"))
 					{
 						Time.timeScale = 1;
-						Application.LoadLevel("Tygokor");
+						
+						dstScene = "Tygokor";
+						isLoading = true;
 					}
 					
 					if(GUILayout.Button("Exit"))
@@ -94,6 +106,13 @@ function OnGUI () {
 			GUILayout.EndHorizontal();
 		
 		GUILayout.EndArea();
+	}
+	
+	if(isLoading)
+	{
+		GUI.DrawTexture(Rect(0, 0, Screen.width, Screen.height), loadImage);
+		Application.LoadLevel(dstScene);
+	
 	}
 
 }
