@@ -17,15 +17,15 @@ var durTime : float;
 
 var hitshield : boolean = false;
 
+var isCalc : boolean = false;
+var isMoving : boolean = false;
+
 
 
 
 
 function Start () {
 
-	transform.parent = null;
-	transform.LookAt(target.transform.position);
-	rigidbody.velocity = speed * transform.forward * Time.deltaTime;
 	spawnTime = Time.time;
 	
 
@@ -36,6 +36,21 @@ function FixedUpdate () {
 	deletePhaser();
 	CheckPTargetAndOrigin();
 	designLine();
+	
+	if (!isCalc)
+    {
+    //calc the flight time
+            var time = travel_time(target.transform.position, origin.transform.position, speed);
+            isCalc = true;
+    }
+    //fly!!!!
+    if (!isMoving)
+    {
+            isMoving = true;
+            StartCoroutine(flight(transform, origin.transform.position, target.transform.position, time));
+    }
+                    
+    transform.LookAt(target.transform.position);
 	
 	
 
@@ -50,6 +65,43 @@ function designLine () {
 
 }
 
+//calculates the distance between the origin and the target
+
+function travel_time(target : Vector3, start : Vector3, speed : float) {
+
+        var distance = Vector3.Distance(start, target);
+        return distance/speed;  
+
+}
+
+//flight Coroutine
+function flight (ThisTransform : Transform, startPos : Vector3, endPos : Vector3, time : float)
+{
+        var i : float = 0;
+        var rate : float = 1/time * Time.deltaTime;
+        
+        
+        while (i < 1 && !hitshield)
+        {
+        
+        	
+        	if(!hitshield)
+        	{
+        		
+                i += rate;
+                ThisTransform.position = Vector3.Lerp(startPos, endPos, i);
+           	}
+           	else
+           	{
+           		i = 1;
+           	}
+           	Debug.Log(i.ToString() + " : " + hitshield.ToString() + " : " + rate.ToString());
+            yield;
+        }
+
+
+}
+
 
 
 function OnCollisionEnter (hit : Collision) {
@@ -58,8 +110,6 @@ function OnCollisionEnter (hit : Collision) {
 	{
 		if (hit.transform.tag == "Ship")
 		{
-			rigidbody.velocity = Vector3.zero;
-			transform.parent = hit.transform;
 			collider.isTrigger = true;
 			
 			var healthSC : shipHealth = hit.transform.gameObject.GetComponent(shipHealth);
@@ -92,7 +142,6 @@ function OnTriggerEnter (hit : Collider) {
 			
 				//checks the target red alert status
 				var isRedAlert : boolean = hit.transform.parent.parent.gameObject.GetComponent(shipProperties).combatStatus.isRedAlert;
-				Debug.Log("Red Alert: " + isRedAlert.ToString());
 				if(isRedAlert)
 				{
 					var healthSC : shipHealth = hit.transform.parent.parent.gameObject.GetComponent(shipHealth);
@@ -101,8 +150,7 @@ function OnTriggerEnter (hit : Collider) {
 					{
 						
 						
-						transform.parent = hit.transform.parent.parent.transform;
-						rigidbody.velocity = Vector3.zero;
+						
 						
 						healthSC.shipHealth.shields -= damage;
 						//make shield show up
