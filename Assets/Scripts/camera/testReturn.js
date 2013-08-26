@@ -95,6 +95,19 @@ function OnGUI () {
 						isLoading = true;
 					}
 					
+					if(GUILayout.Button("Load Vulcan")) {
+						Time.timeScale = 1;
+						dstScene = "Vulcan";
+						isLoading = true;
+					}
+					
+					if(GUILayout.Button("Load Romulus/Remus")) {
+						Time.timeScale = 1;
+						dstScene = "Romulus_Remus";
+						isLoading = true;
+					
+					}
+					
 					if(GUILayout.Button("Exit"))
 					{
 						Time.timeScale = 1;

@@ -95,7 +95,7 @@ function shipPlayer_movement () {
 	var shipAgility : float = properties.movement.agility * Time.deltaTime;
 	
 	//get axis input
-	var inputHor : float = -Input.GetAxis("Horizontal");
+	var inputHor : float = Input.GetAxis("Horizontal");
 	var inputVer : float = Input.GetAxis("Vertical");
 	var inputRot : float = Input.GetAxis("Rotate");
 	
