@@ -1,0 +1,135 @@
+fileFormatVersion: 2
+guid: c63c87fcfd3be48f0aa1138c5cc35209
+ModelImporter:
+  serializedVersion: 15
+  fileIDToRecycleName:
+    100000: Editable_Mesh
+    100002: rom_head:0
+    100004: rom_head:1
+    100006: rom_head:4
+    100008: rom_hull main:1
+    100010: rom_hull main:2
+    100012: rom_hull main:4
+    100014: rom_hull spine top:1
+    100016: rom_hull spine top:2
+    100018: rom_hull spine top:3
+    100020: rom_hull spine top:4
+    100022: rom_wing top left:3
+    100024: rom_wing top left:4
+    100026: rom_wing top right:3
+    100028: rom_wing top right:4
+    100030: //RootNode
+    400000: Editable_Mesh
+    400002: rom_head:0
+    400004: rom_head:1
+    400006: rom_head:4
+    400008: rom_hull main:1
+    400010: rom_hull main:2
+    400012: rom_hull main:4
+    400014: rom_hull spine top:1
+    400016: rom_hull spine top:2
+    400018: rom_hull spine top:3
+    400020: rom_hull spine top:4
+    400022: rom_wing top left:3
+    400024: rom_wing top left:4
+    400026: rom_wing top right:3
+    400028: rom_wing top right:4
+    400030: //RootNode
+    2300000: Editable_Mesh
+    2300002: rom_head:0
+    2300004: rom_head:1
+    2300006: rom_head:4
+    2300008: rom_hull main:1
+    2300010: rom_hull main:2
+    2300012: rom_hull main:4
+    2300014: rom_hull spine top:1
+    2300016: rom_hull spine top:2
+    2300018: rom_hull spine top:3
+    2300020: rom_hull spine top:4
+    2300022: rom_wing top left:3
+    2300024: rom_wing top left:4
+    2300026: rom_wing top right:3
+    2300028: rom_wing top right:4
+    3300000: Editable_Mesh
+    3300002: rom_head:0
+    3300004: rom_head:1
+    3300006: rom_head:4
+    3300008: rom_hull main:1
+    3300010: rom_hull main:2
+    3300012: rom_hull main:4
+    3300014: rom_hull spine top:1
+    3300016: rom_hull spine top:2
+    3300018: rom_hull spine top:3
+    3300020: rom_hull spine top:4
+    3300022: rom_wing top left:3
+    3300024: rom_wing top left:4
+    3300026: rom_wing top right:3
+    3300028: rom_wing top right:4
+    4300000: Editable_Mesh
+    4300002: rom_head:0
+    4300004: rom_head:1
+    4300006: rom_head:4
+    4300008: rom_hull main:1
+    4300010: rom_hull main:2
+    4300012: rom_hull main:4
+    4300014: rom_hull spine top:1
+    4300016: rom_hull spine top:2
+    4300018: rom_hull spine top:3
+    4300020: rom_hull spine top:4
+    4300022: rom_wing top left:3
+    4300024: rom_wing top left:4
+    4300026: rom_wing top right:3
+    4300028: rom_wing top right:4
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    handles: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  additionalBone: 1
+  animationType: 2
+  userData: 

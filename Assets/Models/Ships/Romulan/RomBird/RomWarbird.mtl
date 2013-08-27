@@ -1,0 +1,144 @@
+
+newmtl Material.000001
+Ka 1 1 1
+Kd 1 1 1
+Ks 1 1 1
+d 1
+Ns 0.25
+map_Kd warbirdmisc_glow.tga
+
+
+newmtl Material.00010b
+Ka 1 1 1
+Kd 1 1 1
+Ks 1 1 1
+d 1
+Ns 0.25
+map_Kd warbirdmisc_glow.tga
+
+
+newmtl Material.000215
+Ka 1 1 1
+Kd 1 1 1
+Ks 1 1 1
+d 1
+Ns 0.25
+map_Kd warbirdhead_glow.tga
+
+
+newmtl Material.000405
+Ka 1 1 1
+Kd 1 1 1
+Ks 1 1 1
+d 1
+Ns 0.25
+map_Kd warbirdmisc_glow.tga
+
+
+newmtl Material.0007e6
+Ka 1 1 1
+Kd 1 1 1
+Ks 1 1 1
+d 1
+Ns 0.25
+map_Kd warbirdhead_glow.tga
+
+
+newmtl Material.000808
+Ka 1 1 1
+Kd 1 1 1
+Ks 1 1 1
+d 1
+Ns 0.25
+map_Kd warbirdmisc_glow.tga
+
+
+newmtl Material.000adc
+Ka 1 1 1
+Kd 1 1 1
+Ks 1 1 1
+d 1
+Ns 0.25
+map_Kd warbirdbottomwing.tga
+
+
+newmtl Material.000cfc
+Ka 1 1 1
+Kd 1 1 1
+Ks 1 1 1
+d 1
+Ns 0.25
+map_Kd warbirdhead_glow.tga
+
+
+newmtl Material.000d23
+Ka 1 1 1
+Kd 1 1 1
+Ks 1 1 1
+d 1
+Ns 0.25
+map_Kd warbirdmisc_glow.tga
+
+
+newmtl Material.000ff3
+Ka 1 1 1
+Kd 1 1 1
+Ks 1 1 1
+d 1
+Ns 0.25
+map_Kd warbirdbottomwing.tga
+
+
+newmtl Material.001029
+Ka 1 1 1
+Kd 1 1 1
+Ks 1 1 1
+d 1
+Ns 0.25
+map_Kd warbirdtopwing.tga
+
+
+newmtl Material.00106d
+Ka 1 1 1
+Kd 1 1 1
+Ks 1 1 1
+d 1
+Ns 0.25
+map_Kd warbirdhead_glow.tga
+
+
+newmtl Material.0010fa
+Ka 1 1 1
+Kd 1 1 1
+Ks 1 1 1
+d 1
+Ns 0.25
+map_Kd warbirdtopwing.tga
+
+
+newmtl Material.001186
+Ka 1 1 1
+Kd 1 1 1
+Ks 1 1 1
+d 1
+Ns 0.25
+map_Kd warbirdhead_glow.tga
+
+
+newmtl Material.0011ad
+Ka 1 1 1
+Kd 1 1 1
+Ks 1 1 1
+d 1
+Ns 0.25
+map_Kd warbirdtopwing.tga
+
+
+newmtl Material.001239
+Ka 1 1 1
+Kd 1 1 1
+Ks 1 1 1
+d 1
+Ns 0.25
+map_Kd warbirdhead_glow.tga
+
