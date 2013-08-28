@@ -43,6 +43,10 @@ function Start () {
 	shipHealth.maxHealth = properties.shipHealth.basicHealth;
 	shipHealth.health = shipHealth.maxHealth;
 	
+	//get shield stats
+	shipHealth.maxShields = properties.shipHealth.basicShield;
+	shipHealth.shields = shipHealth.maxShields;
+	
 	
 	//get smoke trails
 	

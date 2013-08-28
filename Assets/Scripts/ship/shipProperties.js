@@ -26,6 +26,7 @@ class ShipCombatStatus {
 //this contains the basic health status of the ship
 class ShipHealthProps {
 	var basicHealth : float;
+	var basicShield : float;
 	var armor : float = 0.0f;
 }
 
