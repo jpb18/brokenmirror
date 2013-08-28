@@ -9,6 +9,9 @@ var shipProps : shipProperties;
 
 var shipWeps : shipWeapons;
 
+var repeatClick : boolean = false;
+
+
 
 function Start () {
 
@@ -56,16 +59,19 @@ function ClickTarget() {
 		
 			if(Physics.Raycast(ray, hit)) //check if it hits something
 			{
-				if(hit.transform != target) //check if it's the first click
+				if(hit.transform.gameObject != target) //check if it's the first click
 				{
-					if(hit.transform != transform)
+					if(hit.transform.gameObject != gameObject)
 					{
 						target = hit.transform.gameObject; //store the target
 					}
 				}
 				else
 				{
-					
+					if(hit.transform.gameObject != gameObject)
+					{
+						repeatClick = true;
+					}
 				}
 				
 			}
@@ -187,4 +193,5 @@ function botFunction() {
 	}
 	
 }
+
 

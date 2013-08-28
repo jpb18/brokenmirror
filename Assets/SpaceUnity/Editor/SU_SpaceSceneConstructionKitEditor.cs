@@ -1280,7 +1280,7 @@ public class SU_SpaceSceneConstructionKitEditor : EditorWindow {
 	/// <typeparam name='T'>
 	/// The type of enum.
 	/// </typeparam>
-	static T GetRandomEnum<T>(int startValue = 0) {
+	static T GetRandomEnum<T>(int startValue) {
 	    System.Array A = System.Enum.GetValues(typeof(T));
 	    T V = (T)A.GetValue(UnityEngine.Random.Range(startValue,A.Length));
 	    return V;

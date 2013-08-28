@@ -64,7 +64,7 @@ public class AnimateTiledTexture : MonoBehaviour
         StartCoroutine(updateTiling());
     }
  
-    public void ChangeMaterial(Material newMaterial, bool newInstance = false)
+    public void ChangeMaterial(Material newMaterial, bool newInstance)
     {
         if (newInstance)
         {

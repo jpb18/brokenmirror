@@ -1,10 +1,11 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\camera\testReturn.js">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\ship\shipHealth.js">
     <Files>
-      <File FileName="Assets\Scripts\camera\screenshot.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\ship\shipHealth.js" Line="48" Column="45" />
       <File FileName="Assets\Scripts\camera\testReturn.js" Line="105" Column="26" />
       <File FileName="Assets\Scripts\ship\shipMovement.js" Line="98" Column="25" />
+      <File FileName="Assets\Scripts\ship\shipProperties.js" Line="29" Column="3" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
