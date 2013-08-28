@@ -108,6 +108,13 @@ function OnGUI () {
 					
 					}
 					
+					if(GUILayout.Button("Load Bajor")) {
+						Time.timeScale = 1;
+						dstScene = "Bajor";
+						isLoading = true;
+					
+					}
+					
 					if(GUILayout.Button("Exit"))
 					{
 						Time.timeScale = 1;
