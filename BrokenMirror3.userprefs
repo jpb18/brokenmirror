@@ -1,13 +1,10 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\camera\testReturn.js">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\ship\shipTriggers.js">
     <Files>
-      <File FileName="Assets\Scripts\ship\shipHealth.js" Line="48" Column="45" />
-      <File FileName="Assets\Scripts\camera\testReturn.js" Line="113" Column="24" />
+      <File FileName="Assets\Scripts\ship\shipTriggers.js" Line="16" Column="12" />
       <File FileName="Assets\Scripts\ship\swapPrototype.js" Line="34" Column="41" />
       <File FileName="Assets\Scripts\ship\shipTarget.js" Line="62" Column="32" />
-      <File FileName="Assets\Scripts\effects\AnimateTiledTexture.cs" Line="67" Column="70" />
-      <File FileName="Assets\SpaceUnity\Editor\SU_SpaceSceneConstructionKitEditor.cs" Line="1284" Column="28" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
