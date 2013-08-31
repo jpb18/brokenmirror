@@ -1,7 +1,7 @@
 ﻿#pragma strict
 
 class SaveShip {
-	
+
 	class ShipInfo { //general ship info
 		var Name : String;
 		var Faction : int;
@@ -21,10 +21,12 @@ class SaveShip {
 		var upgrades : GameObject[];
 	}
 	
+	
 	var shipPrefab : GameObject;
 	var shipInfo : ShipInfo;
 	var shipHealth : ShipHealth;
 	var shipInv : ShipInventory;
+	
 	
 }
 

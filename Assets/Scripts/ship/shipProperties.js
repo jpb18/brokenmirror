@@ -65,12 +65,23 @@ var combatStatus : ShipCombatStatus;
 
 function Update() {
 
+	//change red alert status
+
 	if (Input.GetAxis("RedAlert") && Time.time >= combatStatus.lastRedPress + combatStatus.timeInt && playerProps.isPlayer)
 	{
 		combatStatus.isRedAlert = !combatStatus.isRedAlert;
 		combatStatus.lastRedPress = Time.time;
 	}
 
+	//update faction info
+	//get script
+	var save_go : GameObject = GameObject.FindGameObjectWithTag("SaveGame");
+	var gen_scr : GeneralInfo = save_go.GetComponent(GeneralInfo);
+	
+	//now get faction info
+	shipInfo.alliedFactions = gen_scr.factionInfo[shipInfo.faction].alliedFactions;
+	shipInfo.hostileFactions = gen_scr.factionInfo[shipInfo.faction].hostileFactions;
+	
 	
 
 }

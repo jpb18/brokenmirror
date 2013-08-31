@@ -6,6 +6,11 @@ class PlayerInfo {
 		
 }
 
+class FactionInfo {
+	var hostileFactions : int[];
+	var alliedFactions : int[];
+
+}
 
 
 enum Dificulty {
@@ -17,6 +22,7 @@ enum Dificulty {
 }
 
 var playerInfo : PlayerInfo;
+var factionInfo : FactionInfo[];
 
 function Start () {
 
