@@ -62,6 +62,7 @@ var shipInfo : ShipInfo;
 var combatStatus : ShipCombatStatus;
 
 
+
 function Update() {
 
 	if (Input.GetAxis("RedAlert") && Time.time >= combatStatus.lastRedPress + combatStatus.timeInt && playerProps.isPlayer)

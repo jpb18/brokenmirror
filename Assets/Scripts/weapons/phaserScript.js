@@ -95,7 +95,7 @@ function flight (ThisTransform : Transform, startPos : Vector3, endPos : Vector3
            	{
            		i = 1;
            	}
-           	Debug.Log(i.ToString() + " : " + hitshield.ToString() + " : " + rate.ToString());
+           	
             yield;
         }
 

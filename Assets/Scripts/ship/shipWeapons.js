@@ -3,7 +3,6 @@
 
 class WeaponSlot {
 	var isEnabled : boolean = false; //checks if the weapon is enabled
-	var slot_num : int; //number (still has no function)
 	var weapon_go : GameObject; //weapon GameObject. It contains the projectile
 	var phaser_point : GameObject; //if the weapon is a beam weapon, it fires from this game object
 	var torpedo_point : GameObject; //if the weapon is a torpedo weapon, it fires from this game object
@@ -35,20 +34,9 @@ enum Volley {
 //bot
 var botWeapon : BotWeapons;
 
-
-//forward weapons
-var weapon1 : WeaponSlot;
-var weapon2 : WeaponSlot;
-var weapon3 : WeaponSlot;
-
-//backward weapons
-var weapon4 : WeaponSlot;
-var weapon5 : WeaponSlot;
-var weapon6 : WeaponSlot;
-
-//side weapons
-var weapon7 : WeaponSlot; //left weapon
-var weapon8 : WeaponSlot; //right weapon
+//Ship weapons
+var weapon : WeaponSlot[];
+var weaponKey : String[] = new String[8];
 
 var shipProps : shipProperties;
 var shipTar : shipTarget;
@@ -73,6 +61,9 @@ function Start () {
 	//get global info
 	var glo_go : GameObject = GameObject.Find("GlobalInfo");
 	globInfo = glo_go.GetComponent(GlobalInfo);
+	
+	//set weapons keys from global info
+	weaponKey = globInfo.weaponKeys;
 
 }
 
@@ -100,86 +91,30 @@ function PlayerFire() {
 	var isRedAlert : boolean = shipProps.combatStatus.isRedAlert;
 	if(isRedAlert)
 	{
-		if (Input.GetAxis("Fire1") && weapon1.isEnabled == true && weapon1.isRange == true && weapon1.isAngle == true) //Player fires weapon 1
+		
+		for(var x : int = 0; x < weapon.Length; x++)
 		{
-			weapon1.isFiring = true;
+			
+			if (Input.GetAxis(weaponKey[x]) && weapon[x].isEnabled == true && weapon[x].isRange == true && weapon[x].isAngle == true) //Player fires weapon 1
+			{
+				
+				weapon[x].isFiring = true;
+			}
 		}
 		
-		if (Input.GetAxis("Fire2") && weapon2.isEnabled == true && weapon2.isRange == true && weapon2.isAngle == true) //Player fires weapon2
-		{
-			weapon2.isFiring = true;
-		}
-		
-		if (Input.GetAxis("Fire3") && weapon3.isEnabled == true && weapon3.isRange == true && weapon3.isAngle == true)
-		{
-			weapon3.isFiring = true;
-		}
-		if (Input.GetAxis("Fire4") && weapon4.isEnabled == true && weapon4.isRange == true && weapon4.isAngle == true)
-		{
-			weapon4.isFiring = true;
-		}
-		if (Input.GetAxis("Fire5") && weapon5.isEnabled == true && weapon5.isRange == true && weapon5.isAngle == true)
-		{
-			weapon5.isFiring = true;
-		}
-		if (Input.GetAxis("Fire6") && weapon6.isEnabled == true && weapon6.isRange == true && weapon6.isAngle == true)
-		{
-			weapon6.isFiring = true;
-		}
-		if (Input.GetAxis("Fire7") && weapon7.isEnabled == true && weapon7.isRange == true && weapon7.isAngle == true)
-		{
-			weapon7.isFiring = true;	
-		}
-		if (Input.GetAxis("Fire8") && weapon8.isEnabled == true && weapon8.isRange == true && weapon8.isAngle == true)
-		{
-			weapon8.isFiring = true;
-		}
 	}
 }
 
 function FireWeapons() {
-	if (weapon1.isFiring) //Player fires weapon 1
+	for(var x : int = 0; x < weapon.Length; x++)
 	{
-		FireWeapon(weapon1, shipTar.target);
-		weapon1.isFiring = false;
+		if (weapon[x].isFiring) //Player fires weapon 1
+		{
+			FireWeapon(weapon[x], shipTar.target);
+			weapon[x].isFiring = false;
+		}
 	}
 	
-	if (weapon2.isFiring) //Player fires weapon2
-	{
-		FireWeapon(weapon2, shipTar.target);
-		weapon2.isFiring = false;
-	}
-	
-	if (weapon3.isFiring)
-	{
-		FireWeapon(weapon3, shipTar.target);
-		weapon3.isFiring = false;	
-	}
-	if (weapon4.isFiring)
-	{
-		FireWeapon(weapon4, shipTar.target);	
-		weapon4.isFiring = false;
-	}
-	if (weapon5.isFiring)
-	{
-		FireWeapon(weapon5, shipTar.target);
-		weapon5.isFiring = false;	
-	}
-	if (weapon6.isFiring)
-	{
-		FireWeapon(weapon6, shipTar.target);	
-		weapon6.isFiring = false;
-	}
-	if (weapon7.isFiring)
-	{
-		FireWeapon(weapon7, shipTar.target);
-		weapon7.isFiring = false;	
-	}
-	if (weapon8.isFiring)
-	{
-		FireWeapon(weapon8, shipTar.target);	
-		weapon8.isFiring = false;
-	}
 
 }
 
@@ -306,46 +241,16 @@ function FirePulse (target : GameObject, origin : GameObject, weapon : GameObjec
 function CheckWeapons() {
 	if (shipTar.target != null)
 	{
-		if(weapon1.isEnabled && weapon1.weapon_go != null)
-		{
-			weapon1.isRange = CheckWeaponRange(weapon1, shipTar.target.transform);
-			weapon1.isAngle = CheckWeaponAngle(weapon1, shipTar.target.transform);
+	
+		for(var x : int = 0; x < weapon.Length; x++)
+		{	
+			if(weapon[x].isEnabled && weapon[x].weapon_go != null)
+			{
+				weapon[x].isRange = CheckWeaponRange(weapon[x], shipTar.target.transform);
+				weapon[x].isAngle = CheckWeaponAngle(weapon[x], shipTar.target.transform);
+			}
 		}
-		if(weapon2.isEnabled && weapon2.weapon_go != null)
-		{
-			weapon2.isRange = CheckWeaponRange(weapon2, shipTar.target.transform);
-			weapon2.isAngle = CheckWeaponAngle(weapon2, shipTar.target.transform);
-		}
-		if(weapon3.isEnabled && weapon3.weapon_go != null)
-		{
-			weapon3.isRange = CheckWeaponRange(weapon3, shipTar.target.transform);
-			weapon3.isAngle = CheckWeaponAngle(weapon3, shipTar.target.transform);
-		}
-		if(weapon4.isEnabled && weapon4.weapon_go != null)
-		{
-			weapon4.isRange = CheckWeaponRange(weapon4, shipTar.target.transform);
-			weapon4.isAngle = CheckWeaponAngle(weapon4, shipTar.target.transform);
-		}
-		if(weapon5.isEnabled && weapon5.weapon_go != null)
-		{
-			weapon5.isRange = CheckWeaponRange(weapon5, shipTar.target.transform);
-			weapon5.isAngle = CheckWeaponAngle(weapon5, shipTar.target.transform);
-		}
-		if(weapon6.isEnabled && weapon6.weapon_go != null)
-		{
-			weapon6.isRange = CheckWeaponRange(weapon6, shipTar.target.transform);
-			weapon6.isAngle = CheckWeaponAngle(weapon6, shipTar.target.transform);
-		}
-		if(weapon7.isEnabled && weapon7.weapon_go != null)
-		{
-			weapon7.isRange = CheckWeaponRange(weapon7, shipTar.target.transform);
-			weapon7.isAngle = CheckWeaponAngle(weapon7, shipTar.target.transform);
-		}
-		if(weapon8.isEnabled && weapon8.weapon_go != null)
-		{
-			weapon8.isRange = CheckWeaponRange(weapon8, shipTar.target.transform);
-			weapon8.isAngle = CheckWeaponAngle(weapon8, shipTar.target.transform);
-		}
+		
 	}
 	
 
@@ -484,49 +389,15 @@ function BotFire() {
 		
 		//process firing
 		yield WaitForSeconds (waitTime);
-		if (weapon1.isEnabled == true && weapon1.isRange == true && weapon1.isAngle == true) //Player fires weapon 1
+		for(var x : int = 0; x < weapon.Length; x++)
 		{
-			FireWeapon(weapon1, shipTar.target);
-			yield WaitForSeconds (waitTime);
+			if (weapon[0].isEnabled == true && weapon[0].isRange == true && weapon[0].isAngle == true) //Player fires weapon 1
+			{
+				FireWeapon(weapon[0], shipTar.target);
+				
+			}
 		}
 		
-		if (weapon2.isEnabled == true && weapon2.isRange == true && weapon2.isAngle == true) //Player fires weapon2
-		{
-			FireWeapon(weapon2, shipTar.target);
-			yield WaitForSeconds (waitTime);
-		}
-		
-		if (weapon3.isEnabled == true && weapon3.isRange == true && weapon3.isAngle == true)
-		{
-			FireWeapon(weapon3, shipTar.target);
-			yield WaitForSeconds (waitTime);	
-		}
-		
-		if ( weapon4.isEnabled == true && weapon4.isRange == true && weapon4.isAngle == true)
-		{
-			FireWeapon(weapon4, shipTar.target);
-			yield WaitForSeconds (waitTime);	
-		}
-		if (weapon5.isEnabled == true && weapon5.isRange == true && weapon5.isAngle == true)
-		{
-			FireWeapon(weapon5, shipTar.target);
-			yield WaitForSeconds (waitTime);	
-		}
-		if (weapon6.isEnabled == true && weapon6.isRange == true && weapon6.isAngle == true)
-		{
-			FireWeapon(weapon6, shipTar.target);
-			yield WaitForSeconds (waitTime);	
-		}
-		if (weapon7.isEnabled == true && weapon7.isRange == true && weapon7.isAngle == true)
-		{
-			FireWeapon(weapon7, shipTar.target);
-			yield WaitForSeconds (waitTime);	
-		}
-		if (weapon8.isEnabled == true && weapon8.isRange == true && weapon8.isAngle == true)
-		{
-			FireWeapon(weapon8, shipTar.target);
-			yield WaitForSeconds (waitTime);	
-		}
 		botWeapon.isFiring = false;
 	}
 	

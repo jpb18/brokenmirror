@@ -86,39 +86,14 @@ function ClickTarget() {
 }
 
 function PressTarget() {
-
-	if (Input.GetAxis("Fire1") && target == null)
+	for(var x : int = 0; x < shipWeps.weapon.Length; x++)
 	{
-		target = FindTarget(gameObject, shipProps);
+		if (Input.GetAxis(shipWeps.weaponKey[x]) && target == null)
+		{
+			target = FindTarget(gameObject, shipProps);
+		}
 	}
-	if (Input.GetAxis("Fire2") && target == null)
-	{
-		target = FindTarget(gameObject, shipProps);
-	}
-	if (Input.GetAxis("Fire3") && target == null)
-	{
-		target = FindTarget(gameObject, shipProps);
-	}
-	if (Input.GetAxis("Fire4") && target == null)
-	{
-		target = FindTarget(gameObject, shipProps);
-	}
-	if (Input.GetAxis("Fire5") && target == null)
-	{
-		target = FindTarget(gameObject, shipProps);
-	}
-	if (Input.GetAxis("Fire6") && target == null)
-	{
-		target = FindTarget(gameObject, shipProps);
-	}
-	if (Input.GetAxis("Fire7") && target == null)
-	{
-		target = FindTarget(gameObject, shipProps);
-	}
-	if (Input.GetAxis("Fire8") && target == null)
-	{
-		target = FindTarget(gameObject, shipProps);
-	}
+	
 
 
 }

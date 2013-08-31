@@ -113,6 +113,8 @@ class WeaponGui {
 	var cargo_area : Rect;
 	var cargo_img : Texture;
 	
+	//Empty button
+	var empty_texture : Texture;
 }
 
 
@@ -422,18 +424,21 @@ function weaponModule() {
 		//Draw Background
 		GUI.DrawTexture(Rect(Weapon.bg_area.x, Weapon.bg_area.y, Weapon.bg_area.width, Weapon.bg_area.height), Weapon.bg_image);
 	
+		//Draw Button background
+		
+		for(var y : int = 0; y < 8; y++) {
+		
+			GUI.DrawTexture(Weapon.weap_area[y], Weapon.empty_texture);
+		
+		}
+		
 		//Draw buttons
-		//Draw frontal weapon buttons
-		CreateWeapButton(shipWeap.weapon1, HudSkin, Weapon.weap_area[0]); //Weapon 1
-		CreateWeapButton(shipWeap.weapon2, HudSkin, Weapon.weap_area[1]); //Weapon 2
-		CreateWeapButton(shipWeap.weapon3, HudSkin, Weapon.weap_area[2]); //Weapon 3
-		//Draw back weapon buttons
-		CreateWeapButton(shipWeap.weapon4, HudSkin, Weapon.weap_area[3]); //Weapon 4
-		CreateWeapButton(shipWeap.weapon5, HudSkin, Weapon.weap_area[4]); //Weapon 5
-		CreateWeapButton(shipWeap.weapon6, HudSkin, Weapon.weap_area[5]); //Weapon 6
-		//Draw lateral weapon buttons
-		CreateWeapButton(shipWeap.weapon7, HudSkin, Weapon.weap_area[6]); //Weapon 7
-		CreateWeapButton(shipWeap.weapon8, HudSkin, Weapon.weap_area[7]); //Weapon 8
+		for(var x : int = 0; x < shipWeap.weapon.Length; x++)
+		{
+			CreateWeapButton(shipWeap.weapon[x], HudSkin, Weapon.weap_area[x]); //Weapon 1
+		}
+		
+	
 		
 		//Draw inventory button and check if its pressed
 		if(GUI.Button(Weapon.inv_area, Weapon.inv_img, HudSkin.button)) {
@@ -683,9 +688,10 @@ function CreateWeapButton(Weapon : WeaponSlot, Skin : GUISkin, Area : Rect) {
 		var weapon_scr : weaponScript = Weapon.weapon_go.GetComponent(weaponScript); //Get weapon script
 		var weapon_img : Texture = weapon_scr.guiInfo.image; //Get weapon GUI Image
 		
+		
 		//Draw button with Area, weapon_img and Skin and check if said button is pressed 
 		if(GUI.Button(Area, weapon_img, Skin.button) && shipProps.combatStatus.isRedAlert) {
-		
+			
 			if(shipTar.target) { //check if there's a target
 		
 				Weapon.isFiring = true; //Set isFiring as true
@@ -727,11 +733,7 @@ function CreateWeapButton(Weapon : WeaponSlot, Skin : GUISkin, Area : Rect) {
 		
 		
 	
-	} else { //else draw empty square in the same place, with the same style
-	
-		GUI.Button(Area, "", Skin.button);
-	
-	}
+	} 
 	
 	//End
 }

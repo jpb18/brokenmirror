@@ -1,12 +1,6 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\ship\shipTriggers.js">
-    <Files>
-      <File FileName="Assets\Scripts\ship\shipTriggers.js" Line="16" Column="12" />
-      <File FileName="Assets\Scripts\ship\swapPrototype.js" Line="34" Column="41" />
-      <File FileName="Assets\Scripts\ship\shipTarget.js" Line="62" Column="32" />
-    </Files>
-  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workbench />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>

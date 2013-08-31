@@ -7,6 +7,8 @@ class WaitingTimes {
 	var hardcore : float = 0.0f;
 }
 
+
+var weaponKeys : String[] = new String[8];
 var waitingTimes : WaitingTimes;
 
 function Start () {
