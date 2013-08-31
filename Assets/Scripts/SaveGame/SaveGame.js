@@ -57,7 +57,7 @@ function PlayerSave() {
 	
 	//and now the inventory part
 	//first get the weapon game objects of each weaponslot
-	var Arr : Array;
+	var Arr : Array = new Array();
 	
 	for(var x : int = 0; x < shipWea.weapon.Length; x++) 
 	{
