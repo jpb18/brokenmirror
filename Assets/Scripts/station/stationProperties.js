@@ -14,6 +14,14 @@ class StationStatus {
 
 }
 
+class StationWeapons {
+
+	var torpedoes : GameObject;
+	var phasers : GameObject;
+	var pulse : GameObject;
+
+}
+
 class StationInfo {
 
 	var faction : int;
@@ -28,6 +36,7 @@ class StationInfo {
 
 var status : StationStatus;
 var info : StationInfo;
+var weapons : StationWeapons;
 
 function Start () {
 
