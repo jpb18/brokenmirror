@@ -74,6 +74,7 @@
      <Compile Include="Assets\Scripts\ship\shipTriggers.js" />
      <Compile Include="Assets\Scripts\ship\shipWeapons.js" />
      <Compile Include="Assets\Scripts\ship\swapPrototype.js" />
+     <Compile Include="Assets\Scripts\station\stationProperties.js" />
      <Compile Include="Assets\Scripts\weapons\phaserScript.js" />
      <Compile Include="Assets\Scripts\weapons\pulseScript.js" />
      <Compile Include="Assets\Scripts\weapons\torpedoScript.js" />
