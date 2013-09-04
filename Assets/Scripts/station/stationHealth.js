@@ -19,7 +19,7 @@ var statProps : stationProperties;
 function Start () {
 
 	//get health properties from stationProperties component
-	statProps : stationProperties = gameObject.GetComponent(stationProperties);
+	statProps = gameObject.GetComponent(stationProperties);
 	health.maxHull = statProps.status.basicHull;
 	health.curHull = health.maxHull;
 	health.maxShield = statProps.status.basicShield;
@@ -42,6 +42,23 @@ function Update () {
 	
 	}
 	
-	//
+	//lets handle shield recharge
+	if(regen.lastHit + regen.timeInt <= Time.time && regen.isRegen == true && health.curShield < health.maxShield) //if those conditions are met
+	{
+		health.curShield += regen.regenRate * Time.deltaTime; //add to curShield
+		
+	}
+	
+	//and here is making the shield visible
+	
+	if(Time.time <= shield.lastHit + shield.showDur && shieldGO.renderer.enabled == true && shield.lastHit != 0) {
+	
+		var totTime : float = shield.showDur + shield.lastHit;
+		var remTime : float = totTime - Time.time;
+		var alpha : float = (1 * remTime)/shield.showDur;
+		shieldGO.renderer.material.color.a = alpha;
+	
+	}
+
 
 }
