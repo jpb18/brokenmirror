@@ -18,29 +18,44 @@ class PlanetInfo { //this class stores all planet information necessary for the 
 
 }
 
+class GuiComponent {
+
+	var image : Texture2D;
+	var position : Rect;
+
+}
+
+class MapGui { //this class stores all information related with the map GUI
+	var map_bg : GuiComponent; //the background information
+
+}
+
 var planets : PlanetInfo[];
+var map : MapGui;
+var isMap : boolean = false;
+
 
 function Start () {
 
 }
 
 function Update () {
+	//in case Map Input is pressed
+	if(Input.GetAxis("Map")) {
+		swapStatus();
+	}
 
 }
 
 function OnGUI () {
-	//check if the map is up on the player ship
-	//first get the save game script to access the FindPlayerShip function
-	var saveScr : SaveGame = GameObject.FindGameObjectWithTag("SaveGame").GetComponent(SaveGame);
-	var playerShip : GameObject = saveScr.FindPlayerShip(); //new we get said ship
-	var playerGui : guiScript = playerShip.GetComponent(guiScript); //new we get the gui script from said ship
-	var isMap : boolean = playerGui.isMap; //now get the value
+	
 	
 	//now we check the isMap value
 	
 	if(isMap) { //if its true, prepare to draw the map
-	
-	
+		//calls the DrawMap function
+		drawMap();	
+		
 	}
 	
 	
@@ -48,3 +63,26 @@ function OnGUI () {
 	
 }
 
+//this function draws the map
+function drawMap () {
+
+	//calculate Rect
+	var areaX : int = (Screen.width - map.map_bg.position.width)/2;
+	var areaY : int = (Screen.height - map.map_bg.position.height)/2;
+	var areaWidth : int = map.map_bg.position.width;
+	var areaHeight : int = map.map_bg.position.height;
+	var AreaRect : Rect = new Rect(areaX, areaY, areaWidth, areaHeight);
+	//Set area
+	GUILayout.BeginArea(AreaRect);
+
+		GUI.DrawTexture(map.map_bg.position, map.map_bg.image);//Draw the background
+
+	//End area
+	GUILayout.EndArea();
+	
+
+}
+
+function swapStatus() {
+	isMap = !isMap;
+}

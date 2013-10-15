@@ -19,7 +19,7 @@ var TopGui : Rect;
 var TargetModule : Rect;
 
 //Gui Elements
-var isMap : boolean = false; //checks if map is up
+
 var isInventory : boolean = false; //checks if inventory is up
 var isCargo : boolean = false; //checks if cargo is up
 var isExpanded : boolean = false; //checks if some elements on the target are expanded
@@ -192,6 +192,7 @@ var shipMov : shipMovement;
 var shipHea : shipHealth;
 var shipWeap : shipWeapons;
 var shipTar : shipTarget;
+var mapInfo : MapInfo;
 
 //Temporary variables
 var tstRtn : testReturn;
@@ -205,7 +206,7 @@ function Start () {
 	shipHea = gameObject.GetComponent(shipHealth);
 	shipWeap = gameObject.GetComponent(shipWeapons);
 	shipTar = gameObject.GetComponent(shipTarget);
-
+	mapInfo = GameObject.FindGameObjectWithTag("MapInfo").GetComponent(MapInfo);
 	//temporary stuff
 	//get main camera
 	var mainCam : GameObject = Camera.main.gameObject;
@@ -338,7 +339,7 @@ function helmModule () {
 		//Map button
 		if(GUI.Button(Rect(Helm.map_area.x, Helm.map_area.y, Helm.map_area.width, Helm.map_area.height), Helm.map_img, HudSkin.button)) {
 			
-			isMap = !isMap;
+			mapInfo.swapStatus();
 		
 		}
 		
