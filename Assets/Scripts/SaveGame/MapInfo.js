@@ -27,6 +27,9 @@ class GuiComponent {
 
 class MapGui { //this class stores all information related with the map GUI
 	var map_bg : GuiComponent; //the background information
+	var close_bt : GuiComponent; //closing button
+	
+	var skin : GUISkin;
 
 }
 
@@ -71,11 +74,20 @@ function drawMap () {
 	var areaY : int = (Screen.height - map.map_bg.position.height)/2;
 	var areaWidth : int = map.map_bg.position.width;
 	var areaHeight : int = map.map_bg.position.height;
-	var AreaRect : Rect = new Rect(areaX, areaY, areaWidth, areaHeight);
+	var areaRect : Rect = new Rect(areaX, areaY, areaWidth, areaHeight);
 	//Set area
-	GUILayout.BeginArea(AreaRect);
+	GUILayout.BeginArea(areaRect);
 
 		GUI.DrawTexture(map.map_bg.position, map.map_bg.image);//Draw the background
+		
+		
+		//create close button
+		var buttonX : int = areaWidth - map.close_bt.position.width;
+		var buttonY : int = areaHeight - map.close_bt.position.height;
+		var buttonWidth : int = map.close_bt.position.width;
+		var buttonHeight : int = map.close_bt.position.height;
+		var buttonRect : Rect = new Rect(buttonX, buttonY, buttonWidth, buttonHeight);
+		
 
 	//End area
 	GUILayout.EndArea();

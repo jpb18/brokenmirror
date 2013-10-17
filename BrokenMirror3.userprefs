@@ -1,10 +1,10 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\menus\guiScript.js">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\SaveGame\MapInfo.js">
     <Files>
-      <File FileName="Assets\Scripts\SaveGame\MapInfo.js" Line="45" Column="16" />
-      <File FileName="Assets\Scripts\SaveGame\SaveGame.js" Line="101" Column="1" />
-      <File FileName="Assets\Scripts\menus\guiScript.js" Line="342" Column="25" />
+      <File FileName="Assets\Scripts\SaveGame\MapInfo.js" Line="90" Column="3" />
+      <File FileName="Assets\Scripts\SaveGame\SaveGame.js" Line="78" Column="1" />
+      <File FileName="Assets\Scripts\menus\guiScript.js" Line="13" Column="10" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
