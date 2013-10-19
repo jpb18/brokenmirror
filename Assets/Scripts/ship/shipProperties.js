@@ -83,5 +83,14 @@ function Update() {
 	shipInfo.hostileFactions = gen_scr.factionInfo[shipInfo.faction].hostileFactions;
 	
 	
+	//map status
+	//in case Map Input is pressed
+	if(Input.GetAxis("Map") && playerProps.isPlayer) {
+		//get permanent game object
+		var perm : GameObject = GameObject.FindGameObjectWithTag("MapInfo");
+		var mapInfo : MapInfo = perm.GetComponent(MapInfo);
+		mapInfo.swapStatus();
+	}
+	
 
 }

@@ -22,6 +22,7 @@ class GuiComponent {
 
 	var image : Texture2D;
 	var position : Rect;
+	var text : String;
 
 }
 
@@ -43,10 +44,7 @@ function Start () {
 }
 
 function Update () {
-	//in case Map Input is pressed
-	if(Input.GetAxis("Map")) {
-		swapStatus();
-	}
+	
 
 }
 
@@ -82,12 +80,17 @@ function drawMap () {
 		
 		
 		//create close button
-		var buttonX : int = areaWidth - map.close_bt.position.width;
-		var buttonY : int = areaHeight - map.close_bt.position.height;
+		var padX : int = 2;
+		var padY : int = 3;
+		var buttonX : int = areaWidth - map.close_bt.position.width - padX;
+		var buttonY : int = areaHeight - map.close_bt.position.height - padY;
 		var buttonWidth : int = map.close_bt.position.width;
 		var buttonHeight : int = map.close_bt.position.height;
-		var buttonRect : Rect = new Rect(buttonX, buttonY, buttonWidth, buttonHeight);
 		
+		var buttonRect : Rect = new Rect(buttonX, buttonY, buttonWidth, buttonHeight);
+		if(GUI.Button(buttonRect, map.close_bt.text, map.skin.GetStyle("CloseMap"))) {
+			swapStatus();
+		}
 
 	//End area
 	GUILayout.EndArea();
