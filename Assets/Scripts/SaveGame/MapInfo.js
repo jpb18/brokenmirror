@@ -3,11 +3,14 @@
 class PlanetInfo { //this class stores all planet information necessary for the map
 	var isEnabled : boolean;
 	var name : String;
+	var faction : int;
 	var scene : String;
 	var description : String;
 	var image : Texture2D;
 	var cood : PlanetCood;
 	var defenseForce : SaveShip[];
+	var hasPlayerVisit : boolean = false;
+	var isColonized : boolean = false;
 	
 	class PlanetCood {
 		
@@ -24,6 +27,18 @@ class GuiComponent {
 	var position : Rect;
 	var text : String;
 
+}
+
+class MapButtons {
+	var buttonRect : Rect;
+	var ally : Texture2D;
+	var enemy : Texture2D;
+	var neutral : Texture2D;
+	var own : Texture2D;
+	var empty : Texture2D;
+	var never : Texture2D;
+	
+	
 }
 
 class MapGui { //this class stores all information related with the map GUI
@@ -78,7 +93,9 @@ function drawMap () {
 
 		GUI.DrawTexture(map.map_bg.position, map.map_bg.image);//Draw the background
 		
+		//draw the buttons
 		
+	
 		//create close button
 		var padX : int = 2;
 		var padY : int = 3;
@@ -95,6 +112,68 @@ function drawMap () {
 	//End area
 	GUILayout.EndArea();
 	
+
+}
+
+/**
+*This function creates the planet buttons on the star map
+*planet represents the planet information
+*button represents the button set being used
+*mapRect contains the area dimensions
+*faction contains the player faction information
+*this should output several buttons on the GUI
+*/
+
+function CreatePlanetButton(planet : PlanetInfo, buttons : MapButtons, mapRect : Rect, factionInfo : FactionInfo, faction : int) {
+	var useTexture : Texture2D;
+	
+	//first check if planet has been visited by player
+	if(!planet.hasPlayerVisit) {
+		useTexture = buttons.never;
+	}
+	else if(!planet.isColonized) { //check if the player is colonized
+		useTexture = buttons.empty;
+	}
+	else if(CheckArrayValue(planet.faction, factionInfo.hostileFactions)){ //if planet is enemy
+		useTexture = buttons.enemy;
+	}
+	else if(CheckArrayValue(planet.faction, factionInfo.alliedFactions)) { //if planet is ally
+		useTexture = buttons.ally;
+	}
+	else if(faction == planet.faction) { //if it belongs to your faction
+		useTexture = buttons.own;
+	}
+	else { //if its neutral
+		useTexture = buttons.neutral;
+	}
+	
+	//prepare the Rect
+	var CoodX : int = (mapRect.width/2 + planet.cood.x) - (buttons.buttonRect.width/2);
+	var CoodY : int = (mapRect.height/2 + planet.cood.y) - (buttons.buttonRect.height/2);
+	
+	var butRect : Rect = new Rect(CoodX, CoodY, buttons.buttonRect.width, buttons.buttonRect.height);
+	
+	//now its the button
+	GUI.Button(butRect, useTexture, map.skin.GetStyle("ButtonMap"));
+	
+	
+
+}
+
+function CheckArrayValue(desValue : int, array : int[]) : boolean {
+
+	var belongs : boolean = false;
+	
+	for(var val : int in array) {
+	
+		if (desValue == val)
+		{
+			belongs = true;
+		}
+	
+	}
+	
+	return belongs;
 
 }
 
