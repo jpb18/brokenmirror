@@ -154,7 +154,11 @@ function CreatePlanetButton(planet : PlanetInfo, buttons : MapButtons, mapRect :
 	var butRect : Rect = new Rect(CoodX, CoodY, buttons.buttonRect.width, buttons.buttonRect.height);
 	
 	//now its the button
-	GUI.Button(butRect, useTexture, map.skin.GetStyle("ButtonMap"));
+	if(GUI.Button(butRect, useTexture, map.skin.GetStyle("ButtonMap"))) {
+	
+		goWarp(planet.scene);
+	
+	}
 	
 	
 
@@ -179,4 +183,23 @@ function CheckArrayValue(desValue : int, array : int[]) : boolean {
 
 function swapStatus() {
 	isMap = !isMap;
+}
+
+/**
+*This function changes scene, and eventualy will play the warp animation,
+*It accepts the destiny String as an argument
+*/
+
+function goWarp(destiny : String) {
+
+	//play anymation (future)
+	
+	//load new scene
+	//save game first
+	var save_obj : GameObject = GameObject.FindGameObjectWithTag("SaveGame");
+	var save_scr : SaveGame = save_obj.GetComponent(SaveGame);
+	save_scr.Save();
+	//load level
+	Application.LoadLevel(destiny);
+
 }
