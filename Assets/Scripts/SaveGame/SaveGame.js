@@ -76,7 +76,7 @@ function PlayerSave() {
 
 }
 
-function FindPlayerShip() : GameObject {
+static function FindPlayerShip() : GameObject {
 
 	var allShips : GameObject[] = GameObject.FindGameObjectsWithTag("Ship"); //Find all ships
 	var playerShip : GameObject; //set the return variable

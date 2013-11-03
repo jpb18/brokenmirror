@@ -45,6 +45,10 @@ class MapGui { //this class stores all information related with the map GUI
 	var map_bg : GuiComponent; //the background information
 	var close_bt : GuiComponent; //closing button
 	
+	//map buttons
+	var buttons : MapButtons;
+	
+	
 	var skin : GUISkin;
 
 }
@@ -54,7 +58,11 @@ var map : MapGui;
 var isMap : boolean = false;
 
 
+
+
 function Start () {
+
+	
 
 }
 
@@ -94,6 +102,24 @@ function drawMap () {
 		GUI.DrawTexture(map.map_bg.position, map.map_bg.image);//Draw the background
 		
 		//draw the buttons
+		
+		//get the player ship
+		var playerShip : GameObject = SaveGame.FindPlayerShip();
+		var faction : int = playerShip.GetComponent(shipProperties).shipInfo.faction; //and the faction
+		
+		//update faction info
+		//get script
+		var save_go : GameObject = GameObject.FindGameObjectWithTag("SaveGame");
+		var gen_scr : GeneralInfo = save_go.GetComponent(GeneralInfo);
+		
+		//now get faction info
+		var factionInfo : FactionInfo = gen_scr.factionInfo[faction];
+		
+		//print the buttons		
+		for(var x : int = 0; x < planets.Length; x++) {
+			CreatePlanetButton(planets[x], map.buttons, map.map_bg.position, factionInfo, faction);
+		}
+		
 		
 	
 		//create close button
@@ -155,7 +181,7 @@ function CreatePlanetButton(planet : PlanetInfo, buttons : MapButtons, mapRect :
 	
 	//now its the button
 	if(GUI.Button(butRect, useTexture, map.skin.GetStyle("ButtonMap"))) {
-	
+		
 		goWarp(planet.scene);
 	
 	}
@@ -191,7 +217,9 @@ function swapStatus() {
 */
 
 function goWarp(destiny : String) {
-
+	//map off
+	swapStatus();
+	
 	//play anymation (future)
 	
 	//load new scene
@@ -200,6 +228,9 @@ function goWarp(destiny : String) {
 	var save_scr : SaveGame = save_obj.GetComponent(SaveGame);
 	save_scr.Save();
 	//load level
-	Application.LoadLevel(destiny);
 
+	var go : GameObject = GameObject.FindGameObjectWithTag("LoadScene");
+	var scr : LoadScene = go.GetComponent(LoadScene);
+	scr.LoadScene(destiny);
+	
 }
