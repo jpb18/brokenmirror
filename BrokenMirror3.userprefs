@@ -1,6 +1,15 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\SaveGame\MapInfo.js">
+    <Files>
+      <File FileName="Assets\Scripts\SaveGame\MapInfo.js" Line="20" Column="3" />
+      <File FileName="Assets\Scripts\ship\shipProperties.js" Line="67" Column="1" />
+      <File FileName="Assets\Scripts\SaveGame\GeneralInfo.js" Line="33" Column="2" />
+      <File FileName="Assets\Scripts\SaveGame\SaveGame.js" Line="101" Column="1" />
+      <File FileName="Assets\Scripts\camera\testReturn.js" Line="133" Column="3" />
+      <File FileName="Assets\Scripts\SaveGame\LoadScene.js" Line="16" Column="2" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
