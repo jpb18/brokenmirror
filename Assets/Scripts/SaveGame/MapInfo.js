@@ -215,10 +215,11 @@ function DrawMouseOver(button : Rect, mouseover : OverRect) {
 		
 		//construct texture rect
 		var CoodX : int = button.x;
-		var CoodY : int = button.y;
+		var CoodY : int = button.y - mouseover.position.height;
+		var overRect : Rect = new Rect(CoodX, CoodY, mouseover.position.width, mouseover.position.height);
 		
 		//prepare to draw
-		GUI.DrawTexture(mouseover.position, mouseover.bg_image);
+		GUI.DrawTexture(overRect, mouseover.bg_image);
 	
 	}
 
