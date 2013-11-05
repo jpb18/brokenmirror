@@ -1,9 +1,9 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\SaveGame\LoadScene.js">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\SaveGame\MapInfo.js">
     <Files>
+      <File FileName="Assets\Scripts\SaveGame\MapInfo.js" Line="218" Column="29" />
       <File FileName="Assets\Scripts\menus\mainMenu.js" Line="82" Column="1" />
-      <File FileName="Assets\Scripts\SaveGame\MapInfo.js" Line="1" Column="1" />
       <File FileName="Assets\Scripts\ship\shipProperties.js" Line="67" Column="1" />
       <File FileName="Assets\Scripts\SaveGame\GeneralInfo.js" Line="33" Column="2" />
       <File FileName="Assets\Scripts\SaveGame\SaveGame.js" Line="101" Column="1" />

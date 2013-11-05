@@ -41,12 +41,23 @@ class MapButtons {
 	
 }
 
+class OverRect {
+	var position : Rect;
+	var bg_image : Texture2D;
+	
+	
+
+}
+
 class MapGui { //this class stores all information related with the map GUI
 	var map_bg : GuiComponent; //the background information
 	var close_bt : GuiComponent; //closing button
 	
 	//map buttons
 	var buttons : MapButtons;
+	
+	//mouse over
+	var mouseOver : OverRect;
 	
 	
 	var skin : GUISkin;
@@ -57,7 +68,7 @@ var planets : PlanetInfo[];
 var map : MapGui;
 var isMap : boolean = false;
 
-
+private var areaRect : Rect;
 
 
 function Start () {
@@ -95,7 +106,7 @@ function drawMap () {
 	var areaY : int = (Screen.height - map.map_bg.position.height)/2;
 	var areaWidth : int = map.map_bg.position.width;
 	var areaHeight : int = map.map_bg.position.height;
-	var areaRect : Rect = new Rect(areaX, areaY, areaWidth, areaHeight);
+	areaRect = new Rect(areaX, areaY, areaWidth, areaHeight);
 	//Set area
 	GUILayout.BeginArea(areaRect);
 
@@ -186,9 +197,33 @@ function CreatePlanetButton(planet : PlanetInfo, buttons : MapButtons, mapRect :
 	
 	}
 	
+	//var globalRect : Rect = new Rect(CoodX + areaRect.x, CoodY + areaRect.y, buttons.buttonRect.width, buttons.buttonRect.height);
+	
+	DrawMouseOver(butRect, map.mouseOver);
+	
 	
 
 }
+
+/**
+*This function draws a box when the mouse is over the button
+*
+*/
+function DrawMouseOver(button : Rect, mouseover : OverRect) {
+	//check if the mouse is over the button
+	if(button.Contains(Event.current.mousePosition)) {
+		
+		//construct texture rect
+		var CoodX : int = button.x;
+		var CoodY : int = button.y;
+		
+		//prepare to draw
+		GUI.DrawTexture(mouseover.position, mouseover.bg_image);
+	
+	}
+
+}
+
 
 function CheckArrayValue(desValue : int, array : int[]) : boolean {
 
