@@ -79,7 +79,7 @@ var loadDestiny : String;
 function OnGUI() {
 
 	//Draw Background
-	GUI.DrawTexture(Rect(0,0, Screen.width, Screen.height), bgImg, bgMode);
+	//GUI.DrawTexture(Rect(0,0, Screen.width, Screen.height), bgImg, bgMode);
 	
 	//Draw Version Text
 	GUI.Label(Rect(Screen.width - VerCoodX, VerCoodY, VerWidth, VerHeight), VerText, VerStyle);

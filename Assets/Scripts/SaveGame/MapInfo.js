@@ -68,31 +68,52 @@ var planets : PlanetInfo[];
 var map : MapGui;
 var isMap : boolean = false;
 
+
+
+
 private var areaRect : Rect;
+private var isWarp : boolean = false;
+private var goWhere : String = "";
 
 
-function Start () {
 
-	
-
-}
-
-function Update () {
-	
-
-}
 
 function OnGUI () {
 	
 	
 	//now we check the isMap value
 	
-	if(isMap) { //if its true, prepare to draw the map
+	if(isMap && !isWarp) { //if its true, prepare to draw the map
 		//calls the DrawMap function
 		drawMap();	
 		
 	}
 	
+	
+	if(isWarp) {
+		isWarp = false;
+		swapStatus();
+		Time.timeScale = 0;
+		//play anymation (future)
+		
+		//load new scene
+		//show splash screen
+		var go : GameObject = GameObject.FindGameObjectWithTag("LoadScene");
+		var scr : LoadScene = go.GetComponent(LoadScene);
+		scr.showScreen();
+		
+		Time.timeScale = 1;
+		//save game first
+		var save_obj : GameObject = GameObject.FindGameObjectWithTag("SaveGame");
+		var save_scr : SaveGame = save_obj.GetComponent(SaveGame);
+	 	save_scr.Save();
+		//load level
+	
+		
+		
+		scr.LoadScene(goWhere);
+	
+	}
 	
 	
 	
@@ -129,6 +150,14 @@ function drawMap () {
 		//print the buttons		
 		for(var x : int = 0; x < planets.Length; x++) {
 			CreatePlanetButton(planets[x], map.buttons, map.map_bg.position, factionInfo, faction);
+		}
+		
+		//prepare the mouseovers
+		for(x = 0; x < planets.Length; x++) {
+		
+			var butRect : Rect = prepButRect(map.map_bg.position, planets[x], map.buttons);
+			DrawMouseOver(butRect, map.mouseOver);
+			
 		}
 		
 		
@@ -185,21 +214,19 @@ function CreatePlanetButton(planet : PlanetInfo, buttons : MapButtons, mapRect :
 	}
 	
 	//prepare the Rect
-	var CoodX : int = (mapRect.width/2 + planet.cood.x) - (buttons.buttonRect.width/2);
-	var CoodY : int = (mapRect.height/2 + planet.cood.y) - (buttons.buttonRect.height/2);
-	
-	var butRect : Rect = new Rect(CoodX, CoodY, buttons.buttonRect.width, buttons.buttonRect.height);
+	var butRect : Rect = prepButRect(mapRect, planet, buttons);
 	
 	//now its the button
 	if(GUI.Button(butRect, useTexture, map.skin.GetStyle("ButtonMap"))) {
 		
-		goWarp(planet.scene);
+		isWarp = true;
+		goWhere = planet.scene;
 	
 	}
 	
 	//var globalRect : Rect = new Rect(CoodX + areaRect.x, CoodY + areaRect.y, buttons.buttonRect.width, buttons.buttonRect.height);
 	
-	DrawMouseOver(butRect, map.mouseOver);
+	
 	
 	
 
@@ -259,14 +286,29 @@ function goWarp(destiny : String) {
 	//play anymation (future)
 	
 	//load new scene
+	//show splash screen
+	var go : GameObject = GameObject.FindGameObjectWithTag("LoadScene");
+	var scr : LoadScene = go.GetComponent(LoadScene);
+	scr.showScreen();
+	
 	//save game first
 	var save_obj : GameObject = GameObject.FindGameObjectWithTag("SaveGame");
 	var save_scr : SaveGame = save_obj.GetComponent(SaveGame);
-	save_scr.Save();
+ 	save_scr.Save();
 	//load level
 
-	var go : GameObject = GameObject.FindGameObjectWithTag("LoadScene");
-	var scr : LoadScene = go.GetComponent(LoadScene);
+	
+	
 	scr.LoadScene(destiny);
 	
+}
+
+//Esta funçao calcula as dimensoes e posicao do butao
+function prepButRect(mapRect : Rect, planet : PlanetInfo, buttons : MapButtons) : Rect {
+		var CoodX : int = (mapRect.width/2 + planet.cood.x) - (buttons.buttonRect.width/2);
+		var CoodY : int = (mapRect.height/2 + planet.cood.y) - (buttons.buttonRect.height/2);
+	
+		var butRect : Rect = new Rect(CoodX, CoodY, buttons.buttonRect.width, buttons.buttonRect.height);
+		return butRect;
+
 }

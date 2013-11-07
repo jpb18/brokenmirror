@@ -3,7 +3,7 @@
 var isPause : boolean = false;
 var lastClick : float;
 var clickInt : float = 0.2f;
-var loadImage : Texture;
+
 var dstScene : String;
 var isLoading : boolean;
 
@@ -132,6 +132,7 @@ function OnGUI () {
 	{
 		var go : GameObject = GameObject.FindGameObjectWithTag("LoadScene");
 		var scr : LoadScene = go.GetComponent(LoadScene);
+		scr.showScreen();
 		scr.LoadScene(dstScene);
 		
 		
