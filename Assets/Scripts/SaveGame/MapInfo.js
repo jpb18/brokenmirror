@@ -45,6 +45,9 @@ class OverRect {
 	var position : Rect;
 	var bg_image : Texture2D;
 	
+	var planet_label : Rect;
+	
+	
 	
 
 }
@@ -156,7 +159,7 @@ function drawMap () {
 		for(x = 0; x < planets.Length; x++) {
 		
 			var butRect : Rect = prepButRect(map.map_bg.position, planets[x], map.buttons);
-			DrawMouseOver(butRect, map.mouseOver);
+			DrawMouseOver(butRect, map.mouseOver, planets[x]);
 			
 		}
 		
@@ -236,7 +239,7 @@ function CreatePlanetButton(planet : PlanetInfo, buttons : MapButtons, mapRect :
 *This function draws a box when the mouse is over the button
 *
 */
-function DrawMouseOver(button : Rect, mouseover : OverRect) {
+function DrawMouseOver(button : Rect, mouseover : OverRect, planet : PlanetInfo) {
 	//check if the mouse is over the button
 	if(button.Contains(Event.current.mousePosition)) {
 		
@@ -246,8 +249,12 @@ function DrawMouseOver(button : Rect, mouseover : OverRect) {
 		var overRect : Rect = new Rect(CoodX, CoodY, mouseover.position.width, mouseover.position.height);
 		
 		//prepare to draw
-		GUI.DrawTexture(overRect, mouseover.bg_image);
-	
+		GUILayout.BeginArea(overRect);
+			GUI.DrawTexture(Rect(0,0, mouseover.position.width, mouseover.position.height),mouseover.bg_image);
+			//Show planet name
+			GUI.Label(mouseover.planet_label, planet.name, map.skin.GetStyle("PlanetOver"));
+		
+		GUILayout.EndArea();
 	}
 
 }
