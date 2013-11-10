@@ -4,6 +4,8 @@ var image : Texture;
 var show : boolean = false;
 
 
+
+
 function LoadScene(destiny : String) {
 	
 	var save_obj : GameObject = GameObject.FindGameObjectWithTag("SaveGame");
@@ -11,6 +13,8 @@ function LoadScene(destiny : String) {
 	save_scr.Save();
 	
 	Application.LoadLevel(destiny);
+	
+	
 	
 	
 	

@@ -208,6 +208,9 @@ function Start () {
 	mapInfo = GameObject.FindGameObjectWithTag("MapInfo").GetComponent(MapInfo);
 	loadScene = GameObject.FindGameObjectWithTag("LoadScene").GetComponent(LoadScene);
 	
+	//reset loadScene status
+	loadScene.show = false;
+	
 	
 
 }

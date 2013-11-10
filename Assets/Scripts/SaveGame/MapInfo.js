@@ -45,9 +45,10 @@ class OverRect {
 	var position : Rect;
 	var bg_image : Texture2D;
 	
+	//labels
 	var planet_label : Rect;
-	
-	
+	var faction_label : Rect;
+	var race_label : Rect;
 	
 
 }
@@ -230,6 +231,16 @@ function DrawMouseOver(button : Rect, mouseover : OverRect, planet : PlanetInfo)
 			GUI.DrawTexture(Rect(0,0, mouseover.position.width, mouseover.position.height),mouseover.bg_image);
 			
 			GUI.Label(mouseover.planet_label, planet.name, map.skin.GetStyle("PlanetOver")); //Show planet name
+			
+			//Get faction info
+			var facInfo : FactionInfo = GameObject.FindGameObjectWithTag("SaveGame").GetComponent(GeneralInfo).factionInfo[planet.faction];
+			var facName : String = facInfo.factionName;
+			
+			GUI.Label(mouseover.faction_label, facName, map.skin.GetStyle("FactionOver")); //Show planet faction
+			
+			var facRace : String = facInfo.factionRace;
+			
+			GUI.Label(mouseover.race_label, facRace, map.skin.GetStyle("FactionOver"));// Show planet master race
 			
 		
 		GUILayout.EndArea();
