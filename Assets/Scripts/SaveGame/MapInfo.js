@@ -71,12 +71,13 @@ var planets : PlanetInfo[];
 var map : MapGui;
 var isMap : boolean = false;
 
-
-
+//set warp speed
+var warpTime : float = 3.0f;
+var warpInc : float = 750.0f;
+var warpWait : float = 1.0f;;
 
 private var areaRect : Rect;
-private var isWarp : boolean = false;
-private var goWhere : String = "";
+
 
 
 
@@ -86,37 +87,14 @@ function OnGUI () {
 	
 	//now we check the isMap value
 	
-	if(isMap && !isWarp) { //if its true, prepare to draw the map
+	if(isMap) { //if its true, prepare to draw the map
 		//calls the DrawMap function
 		drawMap();	
 		
 	}
 	
 	
-	if(isWarp) {
-		isWarp = false;
-		swapStatus();
-		Time.timeScale = 0;
-		//play anymation (future)
-		
-		//load new scene
-		//show splash screen
-		var go : GameObject = GameObject.FindGameObjectWithTag("LoadScene");
-		var scr : LoadScene = go.GetComponent(LoadScene);
-		scr.showScreen();
-		
-		Time.timeScale = 1;
-		//save game first
-		var save_obj : GameObject = GameObject.FindGameObjectWithTag("SaveGame");
-		var save_scr : SaveGame = save_obj.GetComponent(SaveGame);
-	 	save_scr.Save();
-		//load level
 	
-		
-		
-		scr.LoadScene(goWhere);
-	
-	}
 	
 	
 	
@@ -222,8 +200,7 @@ function CreatePlanetButton(planet : PlanetInfo, buttons : MapButtons, mapRect :
 	//now its the button
 	if(GUI.Button(butRect, useTexture, map.skin.GetStyle("ButtonMap"))) {
 		
-		isWarp = true;
-		goWhere = planet.scene;
+		goWarp(planet.scene);
 	
 	}
 	
@@ -251,8 +228,9 @@ function DrawMouseOver(button : Rect, mouseover : OverRect, planet : PlanetInfo)
 		//prepare to draw
 		GUILayout.BeginArea(overRect);
 			GUI.DrawTexture(Rect(0,0, mouseover.position.width, mouseover.position.height),mouseover.bg_image);
-			//Show planet name
-			GUI.Label(mouseover.planet_label, planet.name, map.skin.GetStyle("PlanetOver"));
+			
+			GUI.Label(mouseover.planet_label, planet.name, map.skin.GetStyle("PlanetOver")); //Show planet name
+			
 		
 		GUILayout.EndArea();
 	}
@@ -290,7 +268,29 @@ function goWarp(destiny : String) {
 	//map off
 	swapStatus();
 	
-	//play anymation (future)
+	//save game first
+	var save_obj : GameObject = GameObject.FindGameObjectWithTag("SaveGame");
+	var save_scr : SaveGame = save_obj.GetComponent(SaveGame);
+ 	save_scr.Save();
+	
+	//find player ship
+	
+	var playerShip : GameObject = save_scr.FindPlayerShip();
+	
+	//play warp anymation
+	//play sound first (future) and wait 1.0 seconds
+	
+	WaitForSeconds(warpWait);
+	
+	var warpDur : float = Time.time + warpTime;
+	while(Time.time < warpDur) {
+		
+		playerShip.rigidbody.velocity.z += warpInc * Time.deltaTime;
+	
+		yield;
+	
+	}
+	
 	
 	//load new scene
 	//show splash screen
@@ -298,10 +298,7 @@ function goWarp(destiny : String) {
 	var scr : LoadScene = go.GetComponent(LoadScene);
 	scr.showScreen();
 	
-	//save game first
-	var save_obj : GameObject = GameObject.FindGameObjectWithTag("SaveGame");
-	var save_scr : SaveGame = save_obj.GetComponent(SaveGame);
- 	save_scr.Save();
+	
 	//load level
 
 	

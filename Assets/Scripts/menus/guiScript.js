@@ -193,9 +193,8 @@ var shipHea : shipHealth;
 var shipWeap : shipWeapons;
 var shipTar : shipTarget;
 var mapInfo : MapInfo;
+var loadScene : LoadScene;
 
-//Temporary variables
-var tstRtn : testReturn;
 
 
 
@@ -207,18 +206,15 @@ function Start () {
 	shipWeap = gameObject.GetComponent(shipWeapons);
 	shipTar = gameObject.GetComponent(shipTarget);
 	mapInfo = GameObject.FindGameObjectWithTag("MapInfo").GetComponent(MapInfo);
-	//temporary stuff
-	//get main camera
-	var mainCam : GameObject = Camera.main.gameObject;
-	//get testReturn script
-	tstRtn = mainCam.GetComponent(testReturn);
+	loadScene = GameObject.FindGameObjectWithTag("LoadScene").GetComponent(LoadScene);
+	
 	
 
 }
 
 function OnGUI () {
 
-	if(shipProps.playerProps.isPlayer && !tstRtn.isLoading) //2nd part is temporary
+	if(shipProps.playerProps.isPlayer && !loadScene.show) //2nd part is temporary
 	{
 		BotGUI();
 		TopGUI();

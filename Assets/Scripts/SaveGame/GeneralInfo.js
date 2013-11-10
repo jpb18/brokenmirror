@@ -7,6 +7,7 @@ class PlayerInfo {
 }
 
 class FactionInfo {
+	var factionName : String;
 	var hostileFactions : int[];
 	var alliedFactions : int[];
 
