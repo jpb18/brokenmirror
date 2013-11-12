@@ -7,6 +7,7 @@ class SaveShip {
 		var Faction : int;
 		var isPlayer : boolean;
 		var isRedAlert : boolean;
+		var strenght : int;
 	
 	}
 	
@@ -24,13 +25,89 @@ class SaveShip {
 	
 	var shipPrefab : GameObject;
 	var shipInfo : ShipInfo;
-	var shipHealth : ShipHealth;
+	var shipHea : ShipHealth;
 	var shipInv : ShipInventory;
+	
+	
+	
+	//this function returns the ship stored here
+	function getShip() : GameObject {
+		var ship : GameObject = shipPrefab;
+			
+		//input information into
+		var shipProps : shipProperties = ship.GetComponent(shipProperties);
+		shipProps.playerProps.isPlayer = shipInfo.isPlayer;
+		shipProps.shipInfo.shipName = shipInfo.Name;
+		shipProps.shipInfo.faction = shipInfo.Faction;
+		shipProps.combatStatus.isRedAlert = shipInfo.isRedAlert;
+		
+		//input ship health info
+		var shipHealth : shipHealth = ship.GetComponent(shipHealth);
+		shipHealth.shipHealth.health = shipHea.curHull;
+		shipHealth.shipHealth.shields = shipHea.curShield;
+		
+		//get ship weapons
+		var shipWeap : shipWeapons = ship.GetComponent(shipWeapons);
+		var weapons : GameObject[] = shipInv.weapons;
+		for(var x : int = 0; x < weapons.Length; x++) {
+			
+			shipWeap.weapon[x].weapon_go = weapons[x];
+			
+		}
+		
+		return ship;
+	
+	}
+	
+	//this function stores the ship here
+	function setShip(ship : GameObject) {
+	
+		//now lets fill the information
+		//first get the scripts
+		var shipProps : shipProperties = ship.GetComponent(shipProperties);
+		var shipHeal : shipHealth = ship.GetComponent(shipHealth);
+		var shipWea : shipWeapons = ship.GetComponent(shipWeapons);
+		
+		//now fill the ship info part
+		shipInfo.Name =  shipProps.shipInfo.shipName;
+		shipInfo.Faction = shipProps.shipInfo.faction;
+		shipInfo.isPlayer = shipProps.playerProps.isPlayer;
+		shipInfo.isRedAlert = shipProps.combatStatus.isRedAlert;
+		shipInfo.strenght = shipProps.shipProps.shipStrenght;
+		
+		
+		//now fill the ship health part
+		shipHea.curHull = shipHeal.shipHealth.health;
+		shipHea.curShield = shipHeal.shipHealth.shields;
+		
+		//and now the inventory part
+		//first get the weapon game objects of each weaponslot
+		var Arr : Array = new Array();
+		
+		for(var x : int = 0; x < shipWea.weapon.Length; x++) 
+		{
+			Arr.Push(shipWea.weapon[x].weapon_go);
+		}
+		
+		var newWeapons : GameObject[] = Arr.ToBuiltin(GameObject) as GameObject[];
+		//now place it
+		shipInv.weapons = newWeapons;
+		
+		//now get load a prefab for this ship
+		shipPrefab = Resources.Load(ship.name);
+		
+	}
+	
 	
 	
 }
 
 var playerShip : SaveShip; //player ship info
+
+
+
+
+static final var CLONE_NUM : int = 7; //number of chars in "(Clone)"
 
 
 function Save() {
@@ -40,43 +117,12 @@ function Save() {
 function PlayerSave() {
 
 	var playShip : GameObject  = FindPlayerShip(); //first get the player GameObject
-	
-	//now lets fill the information
-	//first get the scripts
-	var shipProps : shipProperties = playShip.GetComponent(shipProperties);
-	var shipHea : shipHealth = playShip.GetComponent(shipHealth);
-	var shipWea : shipWeapons = playShip.GetComponent(shipWeapons);
-	
-	//now fill the ship info part
-	playerShip.shipInfo.Name =  shipProps.shipInfo.shipName;
-	playerShip.shipInfo.Faction = shipProps.shipInfo.faction;
-	playerShip.shipInfo.isPlayer = true;
-	playerShip.shipInfo.isRedAlert = shipProps.combatStatus.isRedAlert;
-	
-	//now fill the ship health part
-	playerShip.shipHealth.curHull = shipHea.shipHealth.health;
-	playerShip.shipHealth.curShield = shipHea.shipHealth.shields;
-	
-	//and now the inventory part
-	//first get the weapon game objects of each weaponslot
-	var Arr : Array = new Array();
-	
-	for(var x : int = 0; x < shipWea.weapon.Length; x++) 
-	{
-		Arr.Push(shipWea.weapon[x].weapon_go);
-	}
-	
-	var newWeapons : GameObject[] = Arr.ToBuiltin(GameObject) as GameObject[];
-	//now place it
-	playerShip.shipInv.weapons = newWeapons;
-	
-	//now get load a prefab for this ship
-	playerShip.shipPrefab = Resources.Load(playShip.name);
+	playerShip.setShip(playShip);
 	  
 
 }
 
-static function FindPlayerShip() : GameObject {
+public static function FindPlayerShip() : GameObject {
 
 	var allShips : GameObject[] = GameObject.FindGameObjectsWithTag("Ship"); //Find all ships
 	var playerShip : GameObject; //set the return variable
@@ -98,3 +144,12 @@ static function FindPlayerShip() : GameObject {
 
 }
 
+
+//pre: last 7 letter must be "(Clone)"
+
+public static function RemoveClone(name : String) : String {
+
+		//remove last 7 characters of name
+		return name.Substring(0, name.Length - CLONE_NUM);
+
+}

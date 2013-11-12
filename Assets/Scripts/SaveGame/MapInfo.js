@@ -8,7 +8,7 @@ class PlanetInfo { //this class stores all planet information necessary for the 
 	var description : String;
 	var image : Texture2D;
 	var cood : PlanetCood;
-	var defenseForce : SaveShip[];
+	var defenseFleet : SaveShip[];
 	var hasPlayerVisit : boolean = false;
 	var isColonized : boolean = false;
 	
@@ -16,6 +16,23 @@ class PlanetInfo { //this class stores all planet information necessary for the 
 		
 		var x : int;
 		var y : int;
+	
+	}
+	
+	
+	//This function gets the global planet strenght
+	function getStrenght() : int {
+		var strenght : int = 0;
+		//get fleet strenght
+		for(var x : int = 0; x < defenseFleet.Length; x++) {
+			strenght += defenseFleet[x].shipInfo.strenght;
+		
+		}
+		
+		//get starbase strenght (future)
+		
+		return strenght;
+		
 	
 	}
 

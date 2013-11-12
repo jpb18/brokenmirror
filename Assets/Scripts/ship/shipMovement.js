@@ -25,6 +25,14 @@ class MovementProperties {
 
 }
 
+//warp deceleration variables
+private var isWarp = true;
+private var isWarping = false;
+private static final var WARP_SPEED : float = 9000.0f;
+private static final var FULL_STOP : float = 0.0f;
+private static final var LOG_CONST : float = 10.0f;
+var start : SceneStart;
+
 
 function Start () {
 
@@ -35,11 +43,16 @@ function Start () {
 
 function Update () {
 	var isPlayer : boolean = properties.playerProps.isPlayer;
-	if (isPlayer)
+	if (isPlayer && !isWarp)
 	{
 		shipPlayer_speed();
 		shipPlayer_movement();
 		
+	}
+	
+	if(isWarp && !isWarping) {
+		isWarping = true;
+		StartCoroutine(warpDecel());
 	}
 	
 }
@@ -155,3 +168,29 @@ function FullStop (currentSpeed : float, acceleration : float)
 
 }
 
+
+//this function controls de deceleration of the ship
+//its a coroutine
+function warpDecel() {
+	
+	//calc distance
+	var distance : float = Vector3.Distance(start.getSpawn(), start.getWarp());
+	
+	while(rigidbody.velocity.z > FULL_STOP) {
+	
+		//get the distance between the ship and the warpStop point
+		var dist1 : float = Vector3.Distance(transform.position, start.getWarp());
+		
+	
+		var x : float = (dist1 * LOG_CONST)/distance;	//calc le X
+		var speed : float = WARP_SPEED * Mathf.Log10(x); //calculate the speed
+		
+		rigidbody.velocity.z = speed;
+		
+		yield;
+	
+	}
+	
+	isWarp = false;
+
+}
