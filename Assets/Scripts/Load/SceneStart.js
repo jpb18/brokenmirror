@@ -2,8 +2,9 @@
 //its supposed to be placed ON THE PLANET
 
 #pragma strict
-var spawnCood : Vector3; //Player spawn coordinates
-var warpStop : Vector3; //Spot where the ship goes full stop
+var minRadius : float;
+var maxRadius : float;
+
 
 
 
@@ -29,16 +30,14 @@ function playerStart() {
 	//get ship
 	var playerShip : GameObject = save_scr.playerShip.getShip();
 	//spawn game object looking at the planet
-	playerShip = Instantiate(playerShip, fixCoods(spawnCood), Quaternion.identity);
+	playerShip = Instantiate(playerShip, fixCoods(genSpawn(minRadius, maxRadius, transform)), Quaternion.identity);
 	playerShip.transform.LookAt(transform.position);
 	
 	//sanitize name
 	playerShip.name = save_scr.RemoveClone(playerShip.name);
 	
 	
-	//set warp stop point
-	var shipMov : shipMovement = playerShip.GetComponent(shipMovement);
-	shipMov.start = this;
+
 	
 	//set camera
 	var cam : GameObject = Camera.main.gameObject;
@@ -57,12 +56,20 @@ private function fixCoods(cood : Vector3) {
 	return transform.position + cood;
 }
 
-public function getSpawn() {
 
-	return fixCoods(spawnCood);
 
-}
 
-public function getWarp() {
-	return fixCoods(warpStop);
+//this method generates a random spawn point inside a sphere
+
+static function genSpawn(min : float, max : float, trans : Transform) : Vector3 {
+	var res : Vector3 = new Vector3(0,0,0);
+
+	do {
+	
+		res = Random.insideUnitSphere * max;
+	
+	} while(Vector3.Distance(res, trans.position) < min);
+	
+	return res;	
+
 }

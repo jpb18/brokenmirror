@@ -288,7 +288,7 @@ function swapStatus() {
 }
 
 /**
-*This function changes scene, and eventualy will play the warp animation,
+*This function changes scene, and will play the warp animation,
 *It accepts the destiny String as an argument
 */
 
@@ -307,14 +307,14 @@ function goWarp(destiny : String) {
 	
 	//play warp anymation
 	//play sound first (future) and wait 1.0 seconds
-	
+	disableAllColliders(playerShip); //first disableAllColliders
 	WaitForSeconds(warpWait);
 	
 	var warpDur : float = Time.time + warpTime;
 	while(Time.time < warpDur) {
 		
-		playerShip.rigidbody.velocity.z += warpInc * Time.deltaTime;
-	
+		playerShip.rigidbody.velocity += playerShip.transform.forward * warpInc * Time.deltaTime;
+		
 		yield;
 	
 	}
@@ -342,5 +342,16 @@ function prepButRect(mapRect : Rect, planet : PlanetInfo, buttons : MapButtons) 
 	
 		var butRect : Rect = new Rect(CoodX, CoodY, buttons.buttonRect.width, buttons.buttonRect.height);
 		return butRect;
+
+}
+
+function disableAllColliders(go : GameObject) {
+
+	var parentTrans = go.transform ;
+	for(var x : Transform in parentTrans){
+		if(x.GetComponent(Collider)) {
+			x.collider.isTrigger = true ;
+		}
+	}
 
 }
