@@ -109,3 +109,10 @@ function OnCollisionEnter (hit: Collision) {
 	}
 
 }
+
+
+//pre: target != null
+function setTarget(target : GameObject) {
+	this.target = target;
+
+}

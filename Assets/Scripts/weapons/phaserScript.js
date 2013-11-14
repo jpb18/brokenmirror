@@ -200,3 +200,10 @@ function OnTriggerExit(hit : Collider) {
 	}
 
 }
+
+
+//@pre target != null
+function setTarget(target : GameObject) {
+
+	this.target = target;
+}

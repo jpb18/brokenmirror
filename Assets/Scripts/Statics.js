@@ -1,0 +1,71 @@
+﻿#pragma strict
+
+//this method finds a suitable target for the game object that calls it
+static function FindTarget(origin : GameObject, range : float, enemyList : int[]) : GameObject {
+
+	var gameObjs : GameObject[] = FindObjectsOfType(GameObject);
+	var closest : GameObject;
+	
+	for(var go : GameObject in gameObjs) {
+	
+		if(Vector3.Distance(origin.transform.position, go.transform.position) <= range) {
+			
+			if (go.transform.parent == null) //check if it's parent GO
+			{
+				if(go != origin) //check if GO is diferent than origin
+				{
+					if (go.tag == "Ship") //check if GO is a ship 
+					{
+					
+						//Get ships properties script and faction
+						var ship_props : shipProperties = go.GetComponent(shipProperties);
+						var ship_faction : int = ship_props.shipInfo.faction;
+												
+						if(isEnemy(ship_faction, enemyList))
+						{
+							if(closest == null) //if there's no go in closest
+							{
+								closest = go;
+							}
+							else //if there is
+							{
+								//check if the new go is closer than the older one
+								if (Vector3.Distance(origin.transform.position, closest.transform.position) >= Vector3.Distance(origin.transform.position, go.transform.position))
+								{
+									closest = go;
+								}
+							}
+						}
+										
+					}
+					else if (go.tag == "Station")
+					{
+					
+						//put station targeting code here
+					
+					}
+				}
+			}
+		
+		}
+	
+	}
+
+	return closest;
+}
+
+
+//this method checks if the faction is in the enemy list
+static function isEnemy(faction : int, enemyList : int[]) : boolean {
+	var enemy : boolean = false;
+	var x : int = 0;
+	while(x < enemyList.Length && !enemy) {
+		if(faction == enemyList[x]) {
+			enemy = true;
+		}
+		
+		x++;
+	}
+	return enemy;
+
+}
