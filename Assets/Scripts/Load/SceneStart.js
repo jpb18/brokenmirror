@@ -5,19 +5,27 @@
 var minRadius : float;
 var maxRadius : float;
 
-
-
-
-
-
-
 function Start () {
 	playerStart();
+	spawnDefenseFleet();
 }
 
-//this function spawns the planets defense force
+//this function spawns the planets defense fleet
 function spawnDefenseFleet() {
-
+	
+	//first lets get the planet fleet
+	var mapScr : MapInfo = GameObject.FindGameObjectWithTag("MapInfo").GetComponent(MapInfo);
+	var planet : PlanetInfo = mapScr.findPlanet(EditorApplication.currentScene);
+	
+	var fleet : SaveShip[] = planet.getFleet();
+	
+	//now lets spawn it!
+	for(var x : int = 0; x < fleet.length; x++) {
+		
+		Instantiate(fleet[x].getShip(), fixCoods(genSpawn(minRadius, maxRadius, transform)), Random.rotation);
+		
+	}
+	
 
 }
 

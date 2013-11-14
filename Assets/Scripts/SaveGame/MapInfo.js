@@ -9,6 +9,7 @@ class PlanetInfo { //this class stores all planet information necessary for the 
 	var image : Texture2D;
 	var cood : PlanetCood;
 	var defenseFleet : SaveShip[];
+	
 	var hasPlayerVisit : boolean = false;
 	var isColonized : boolean = false;
 	
@@ -35,6 +36,20 @@ class PlanetInfo { //this class stores all planet information necessary for the 
 		
 	
 	}
+	
+	//this method return the defense fleet present on the planet
+	function getFleet() : SaveShip[] {
+	
+		return defenseFleet;
+	
+	}
+	
+	//this method checks if this scene is the wished scene
+	function isScene(scene : String) : boolean {
+	
+		return scene.Equals(this.scene);
+	 
+	} 
 
 }
 
@@ -307,7 +322,7 @@ function goWarp(destiny : String) {
 	
 	//play warp anymation
 	//play sound first (future) and wait 1.0 seconds
-	disableAllColliders(playerShip); //first disableAllColliders
+	//disableAllColliders(playerShip); //first disableAllColliders
 	WaitForSeconds(warpWait);
 	
 	var warpDur : float = Time.time + warpTime;
@@ -335,7 +350,7 @@ function goWarp(destiny : String) {
 	
 }
 
-//Esta funçao calcula as dimensoes e posicao do butao
+//This function calculates the button position
 function prepButRect(mapRect : Rect, planet : PlanetInfo, buttons : MapButtons) : Rect {
 		var CoodX : int = (mapRect.width/2 + planet.cood.x) - (buttons.buttonRect.width/2);
 		var CoodY : int = (mapRect.height/2 + planet.cood.y) - (buttons.buttonRect.height/2);
@@ -345,13 +360,26 @@ function prepButRect(mapRect : Rect, planet : PlanetInfo, buttons : MapButtons) 
 
 }
 
-function disableAllColliders(go : GameObject) {
 
-	var parentTrans = go.transform ;
-	for(var x : Transform in parentTrans){
-		if(x.GetComponent(Collider)) {
-			x.collider.isTrigger = true ;
+
+//this function finds a planet
+function findPlanet(scene : String) : PlanetInfo {
+
+	var planet :  PlanetInfo;
+	
+	var x : int = 0;
+	while(x < planets.Length && planet == null) {
+		if(planets[x].isScene(scene)) {
+			
+			planet = planets[x];
+		
 		}
+		
+		x++;
+	
 	}
+	
+	return planet;
+	
 
 }

@@ -1,64 +1,107 @@
 ﻿#pragma strict
 
-class StationHealth {
+var hull : float;
+var maxHull : float;
+var shield : float;
+var maxShield : float;
+var shieldDissipation : float;
+var shieldRegeneration : float;
 
-	var maxHull : float;
-	var curHull : float;
-	var maxShield : float;
-	var curShield : float;
+var shieldTime : float;
+var shieldObject : GameObject;
 
-}
+var regenInterval : float;
+var lastHit : float;
 
-var health : StationHealth; //this class contains the health info of the station
-var shield : ShieldsShow; //this class helps control the shield effect
-var regen : ShieldRegeneration; //this class helps control the shield regeneration
-var shieldGO : GameObject; //this variable contains the shield game object
-var explosion : GameObject; //this variable contains the explosion game object;
-var statProps : stationProperties; 
 
+
+/**
+* @pre maxHull > 0, maxShield > 0
+*/
 function Start () {
+	hull = maxHull;
+	shield = maxShield;
+}
 
-	//get health properties from stationProperties component
-	statProps = gameObject.GetComponent(stationProperties);
-	health.maxHull = statProps.status.basicHull;
-	health.curHull = health.maxHull;
-	health.maxShield = statProps.status.basicShield;
-	health.curShield = health.maxShield;
+//checks if there's shield
+function hasShield() : boolean {
+	return shield > 0;
+}
+
+//check if there's hull
+function hasHull() : boolean {
+	return hull > 0;
+}
+
+//Damages the ship
+function getDamage(damage : float, isEnergy : boolean) {
+
+	if(hasShield()) {
+		getShieldDamage(damage, isEnergy);
+	} else {
+		getHullDamage(damage);
+	}
 	
+	lastHit = Time.time;
+	
+}
+
+//this method reduces shield integrity
+//@pre hasShield == true
+private function getShieldDamage(damage : float, isEnergy : boolean) {
+	
+	if(isEnergy) {
+		damage -= shieldDissipation;
+	}
+	
+	if(shield >= damage) {
+		shield -= damage;
+	} else {
+		shield = 0;
+	}
+	
+	StartCoroutine(lightShield());
+	
+}
+
+//this method reduces hull integrity
+//@pre hasHull == true, hasShield == false
+private function getHullDamage(damage  : float) {
+	hull -= damage;
 
 }
 
-function Update () {
-
-	//lets update health information here
-	health.maxHull = statProps.status.basicHull;
-	health.maxShield = statProps.status.basicShield;
+//this method lights up the shield
+//@pre hasShield == true
+private function lightShield() {
+	var i : float = 0;
 	
-	//lets check if station dies here
-	if(health.curHull <= 0) {
+	
+	while(i < shieldTime) {
+		var remTime : float = shieldTime - i;	
 		
-		Instantiate(explosion, transform.position, transform.rotation);//first instanteate an explosion
-		Destroy(gameObject); //then destroy the gameObject
-	
-	}
-	
-	//lets handle shield recharge
-	if(regen.lastHit + regen.timeInt <= Time.time && regen.isRegen == true && health.curShield < health.maxShield) //if those conditions are met
-	{
-		health.curShield += regen.regenRate * Time.deltaTime; //add to curShield
+		var alpha : float = (1 * remTime)/shieldTime;
+		shieldObject.renderer.material.color.a = alpha;
 		
+		i += Time.deltaTime;
+		
+		yield;
 	}
 	
-	//and here is making the shield visible
 	
-	if(Time.time <= shield.lastHit + shield.showDur && shieldGO.renderer.enabled == true && shield.lastHit != 0) {
-	
-		var totTime : float = shield.showDur + shield.lastHit;
-		var remTime : float = totTime - Time.time;
-		var alpha : float = (1 * remTime)/shield.showDur;
-		shieldGO.renderer.material.color.a = alpha;
-	
-	}
+}
 
+//this method checks if the shield can regen
+function canRegen() : boolean {
+	
+	return (lastHit + regenInterval <= Time.time && shield <= maxShield);
+	
+}
 
+//this method regenerates the shield
+//@pre canRegen == true
+function shieldRegen() {
+	
+	shield += shieldRegeneration * Time.deltaTime;
+	
 }
