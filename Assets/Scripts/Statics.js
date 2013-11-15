@@ -1,4 +1,5 @@
-﻿#pragma strict
+﻿import System.Collections.Generic;
+#pragma strict
 
 //this method finds a suitable target for the game object that calls it
 static function FindTarget(origin : GameObject, range : float, enemyList : int[]) : GameObject {
@@ -67,5 +68,24 @@ static function isEnemy(faction : int, enemyList : int[]) : boolean {
 		x++;
 	}
 	return enemy;
+
+}
+
+//this method resizes an array
+//this overflow is for the WeaponPoints class
+//pre: size > 0
+static function resizeArray(array : WeaponPoints[], size : int) : WeaponPoints[] {
+
+	var tmp : Array = new Array(size);
+	
+	for(var x : int = 0; x < array.Length; x++) {
+	
+		tmp.Push(array[x]);
+	
+	}
+	
+	
+	return tmp.ToBuiltin(WeaponPoints) as WeaponPoints[];
+
 
 }

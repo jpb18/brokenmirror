@@ -1,13 +1,13 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\station\WeaponPoints.js">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\station\StationWeapons.js">
     <Files>
+      <File FileName="Assets\Scripts\station\StationWeapons.js" Line="19" Column="2" />
+      <File FileName="Assets\Scripts\Statics.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\station\WeaponPoints.js" Line="13" Column="22" />
       <File FileName="Assets\Scripts\weapons\weaponScript.js" Line="44" Column="2" />
-      <File FileName="Assets\Scripts\station\WeaponPoints.js" Line="12" Column="23" />
-      <File FileName="Assets\Scripts\station\StationWeapons.js" Line="3" Column="1" />
       <File FileName="Assets\Scripts\ship\shipTarget.js" Line="105" Column="9" />
       <File FileName="Assets\Scripts\ship\shipProperties.js" Line="68" Column="27" />
-      <File FileName="Assets\Scripts\Statics.js" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
