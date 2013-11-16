@@ -13,6 +13,7 @@ var shieldObject : GameObject;
 var regenInterval : float;
 var lastHit : float;
 
+var explosion : GameObject;
 
 
 /**
@@ -104,4 +105,14 @@ function shieldRegen() {
 	
 	shield += shieldRegeneration * Time.deltaTime;
 	
+}
+
+//this method kills the station
+//pre object == gameObject, hasHull() == false
+function die(object : GameObject) {
+
+	Instantiate(explosion, object.transform.position, object.transform.rotation);
+	Destroy(object);
+
+
 }

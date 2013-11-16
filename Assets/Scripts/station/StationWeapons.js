@@ -67,8 +67,11 @@ public function fire (weaponNum : int, type : WeaponType) {
 }
 
 //this method makes the weapon search for a new target
+//pre 0 <= weaponNum < getLength()
 public function scan (weaponNum : int, type : WeaponType, enemyList : int[]) {
-
+	
+	
+	
 	switch(type) {
 		case WeaponType.beam:
 			if(!phaserPoints[weaponNum].hasTarget()) {
@@ -87,5 +90,25 @@ public function scan (weaponNum : int, type : WeaponType, enemyList : int[]) {
 		
 	
 	}
+
+}
+
+//this method returns the length of the WeaponPoints arrays
+public function getLength(type : WeaponType) : int {
+	var length : int = 0;
+	
+	switch (type) {
+		case WeaponType.beam: 
+			length = phaserPoints.length;
+			break;
+		case WeaponType.torpedo:
+			length = torpedoPoints.length;
+			break;
+		case WeaponType.pulse:
+			length = pulsePoints.length;
+			break;
+	}
+	
+	return length;
 
 }

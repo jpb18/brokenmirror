@@ -79,6 +79,7 @@
      <Compile Include="Assets\Scripts\ship\shipWeapons.js" />
      <Compile Include="Assets\Scripts\ship\swapPrototype.js" />
      <Compile Include="Assets\Scripts\station\Health.js" />
+     <Compile Include="Assets\Scripts\station\Station.js" />
      <Compile Include="Assets\Scripts\station\StationWeapons.js" />
      <Compile Include="Assets\Scripts\station\WeaponPoints.js" />
      <Compile Include="Assets\Scripts\weapons\phaserScript.js" />
