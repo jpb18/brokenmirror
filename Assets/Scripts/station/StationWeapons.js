@@ -2,9 +2,11 @@
 
 var phaser : GameObject;
 var torpedo : GameObject;
+var pulse : GameObject;
 
 private var phaserPoints : WeaponPoints[];
 private var torpedoPoints : WeaponPoints[];
+private var pulsePoints : WeaponPoints[];
 
 
 function Start () {
@@ -15,9 +17,14 @@ function Start () {
 	//set torpedoes points
 	setWeaponSystem(torpedoPoints, "Torpedoes", torpedo);
 	
+	//set pulse points
+	setWeaponSystem(pulsePoints, "Pulse", pulse);
+	
 
 }
 
+
+//this method sets the weapon systems of the station
 private function setWeaponSystem(system : WeaponPoints[], tag : String, weapon : GameObject){
 	//set phaser points
 	var systems : GameObject[] = gameObject.FindGameObjectsWithTag(tag);
@@ -34,6 +41,51 @@ private function setWeaponSystem(system : WeaponPoints[], tag : String, weapon :
 
 }
 
-function Update () {
+//this method fires the weapons on each slot
+public function fire (weaponNum : int, type : WeaponType) {
+
+	switch(type) {
+	
+		case WeaponType.beam:
+			if(phaserPoints[weaponNum].canFire()) {
+				phaserPoints[weaponNum].fire();
+			}
+			break;
+		case WeaponType.torpedo:
+			if(torpedoPoints[weaponNum].canFire()) {
+				torpedoPoints[weaponNum].fire();
+			}
+			break;
+		case WeaponType.pulse:
+			if(pulsePoints[weaponNum].canFire()) {
+				pulsePoints[weaponNum].fire();
+			}
+	
+	}
+	
+
+}
+
+//this method makes the weapon search for a new target
+public function scan (weaponNum : int, type : WeaponType, enemyList : int[]) {
+
+	switch(type) {
+		case WeaponType.beam:
+			if(!phaserPoints[weaponNum].hasTarget()) {
+				phaserPoints[weaponNum].scan(enemyList);
+			}
+			break;
+		case WeaponType.torpedo:
+			if(!torpedoPoints[weaponNum].hasTarget()) {
+				torpedoPoints[weaponNum].scan(enemyList);
+			}
+			break;
+		case WeaponType.pulse:
+			if(!pulsePoints[weaponNum].hasTarget()) {
+				pulsePoints[weaponNum].scan(enemyList);
+			}
+		
+	
+	}
 
 }

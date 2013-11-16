@@ -1,6 +1,6 @@
 ﻿#pragma strict
 
-public class WeaponPoints extends MonoBehaviour {
+public class WeaponPoints extends MonoBehaviour { //added this so I could use the constructor
 
 	private var point : GameObject;
 	private var weapon : GameObject;
@@ -27,15 +27,15 @@ public class WeaponPoints extends MonoBehaviour {
 		var script : weaponScript = weapon.GetComponent(weaponScript);
 		
 		var cd : int = script.getCooldown();
-		var range : boolean = script.isRange(point, target);
+		
 			
-		return (target != null && Time.time >= lastShot + cd && weapon != null && range);
+		return (hasTarget() && Time.time >= lastShot + cd && weapon != null);
 	
 	}
 	
 	//this method fires the weapon
 	//@pre canFire() == true
-	public function fire(target : GameObject) {
+	public function fire() {
 	
 		var weapon : GameObject = Instantiate(weapon, point.transform.position, Quaternion.identity);
 		weapon.GetComponent(weaponScript).setTarget(target);
@@ -45,8 +45,25 @@ public class WeaponPoints extends MonoBehaviour {
 	//this function scans for a target inside its targeting radius
 	//@pre target != null
 	public function scan(enemyList : int[]) {
-		var range : int = weapon.GetComponent(weaponScript).getRange();
-		target = Statics.FindTarget(point, range, enemyList);
+		
+		target = Statics.FindTarget(point, getRange(), enemyList);
+	
+	}
+	
+	//this method returns the range of the weapon
+	//pre weapon != null	
+	private function getRange() {
+		return weapon.GetComponent(weaponScript).getRange();
+	
+	}
+	
+	//this method checks if there's a target in range
+	//pre weapon != nul && target != null
+	public function hasTarget() {
+	
+		var distance : int = Vector3.Distance(point.transform.position, target.transform.position);
+	
+		return target != null && distance > getRange();
 	
 	}
 
