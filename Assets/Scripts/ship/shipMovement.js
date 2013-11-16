@@ -35,7 +35,7 @@ var spawnTime : float;
 
 
 
-function Awake () {
+function Start () {
 
 	properties = gameObject.GetComponent(shipProperties);
 	

@@ -42,7 +42,7 @@ function getCooldown() : float {
 			break;
 		case WeaponType.pulse:
 			cd = gameObject.GetComponent(pulseScript).cooldown;
-			
+			Debug.Log("is here");
 	
 	}
 	

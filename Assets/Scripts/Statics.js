@@ -80,7 +80,7 @@ static function resizeArray(array : WeaponPoints[], size : int) : WeaponPoints[]
 	
 	for(var x : int = 0; x < array.Length; x++) {
 	
-		tmp.Push(array[x]);
+		tmp.Add(array[x]);
 	
 	}
 	

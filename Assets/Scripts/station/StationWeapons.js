@@ -1,18 +1,20 @@
 ﻿#pragma strict
+import System.Collections.Generic;
+
 
 var phaser : GameObject;
 var torpedo : GameObject;
 var pulse : GameObject;
 
-private var phaserPoints : WeaponPoints[];
-private var torpedoPoints : WeaponPoints[];
-private var pulsePoints : WeaponPoints[];
+var phaserPoints : List.<WeaponPoints>;
+var torpedoPoints : List.<WeaponPoints>;
+var pulsePoints : List.<WeaponPoints>;
 
 
 function Start () {
 
 	//set phaser points
-	setWeaponSystem(phaserPoints, "Phasers", phaser);
+	setWeaponSystem(phaserPoints, "Phaser", phaser);
 	
 	//set torpedoes points
 	setWeaponSystem(torpedoPoints, "Torpedoes", torpedo);
@@ -25,18 +27,14 @@ function Start () {
 
 
 //this method sets the weapon systems of the station
-private function setWeaponSystem(system : WeaponPoints[], tag : String, weapon : GameObject){
+private function setWeaponSystem(system : List.<WeaponPoints>, tag : String, weapon : GameObject){
 	//set phaser points
 	var systems : GameObject[] = gameObject.FindGameObjectsWithTag(tag);
 	
-	//resize array
-	system = Statics.resizeArray(system, systems.Length);
-	
-	//now set its values
 	for(var x : int = 0; x < systems.Length; x++) {
-	
-		system[x] = new WeaponPoints(systems[x], weapon);
-	
+		var newComp : WeaponPoints = gameObject.AddComponent(WeaponPoints);
+		newComp.WeaponPoint(systems[x], weapon);
+		system.Add(newComp);
 	}
 
 }
@@ -99,13 +97,14 @@ public function getLength(type : WeaponType) : int {
 	
 	switch (type) {
 		case WeaponType.beam: 
-			length = phaserPoints.length;
+			
+			length = phaserPoints.Count;
 			break;
 		case WeaponType.torpedo:
-			length = torpedoPoints.length;
+			length = torpedoPoints.Count;
 			break;
 		case WeaponType.pulse:
-			length = pulsePoints.length;
+			length = pulsePoints.Count;
 			break;
 	}
 	

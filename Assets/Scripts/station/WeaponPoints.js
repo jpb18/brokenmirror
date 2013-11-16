@@ -2,13 +2,13 @@
 
 public class WeaponPoints extends MonoBehaviour { //added this so I could use the constructor
 
-	private var point : GameObject;
-	private var weapon : GameObject;
-	private var lastShot : float;
-	private var target : GameObject;
+	var point : GameObject;
+	var weapon : GameObject;
+	var lastShot : float;
+	var target : GameObject;
 	
 	//this is the constructor
-	public function WeaponPoints (point : GameObject, weapon : GameObject) {
+	public function WeaponPoint (point : GameObject, weapon : GameObject) {
 	
 		this.point = point;
 		this.weapon = weapon;
@@ -18,6 +18,8 @@ public class WeaponPoints extends MonoBehaviour { //added this so I could use th
 		
 	
 	}
+	
+	
 	
 	//this checks if the weapon can fire
 	//pre: point != null
@@ -36,7 +38,7 @@ public class WeaponPoints extends MonoBehaviour { //added this so I could use th
 	//this method fires the weapon
 	//@pre canFire() == true
 	public function fire() {
-	
+		
 		var weapon : GameObject = Instantiate(weapon, point.transform.position, Quaternion.identity);
 		weapon.GetComponent(weaponScript).setTarget(target);
 	
@@ -58,12 +60,14 @@ public class WeaponPoints extends MonoBehaviour { //added this so I could use th
 	}
 	
 	//this method checks if there's a target in range
-	//pre weapon != nul && target != null
+	
 	public function hasTarget() {
+		var distance : int = 0;
+		if(target) {
+			 Vector3.Distance(point.transform.position, target.transform.position);
+		}
 	
-		var distance : int = Vector3.Distance(point.transform.position, target.transform.position);
-	
-		return target != null && distance > getRange();
+		return target == null && distance <= getRange();
 	
 	}
 
