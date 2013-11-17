@@ -207,3 +207,9 @@ function setTarget(target : GameObject) {
 
 	this.target = target;
 }
+
+//this method sets the origin
+//pre origin != null
+function setOrigin(origin : GameObject) {
+	this.origin = origin;
+}

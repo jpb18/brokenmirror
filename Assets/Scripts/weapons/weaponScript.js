@@ -42,7 +42,7 @@ function getCooldown() : float {
 			break;
 		case WeaponType.pulse:
 			cd = gameObject.GetComponent(pulseScript).cooldown;
-			Debug.Log("is here");
+			
 	
 	}
 	
@@ -80,6 +80,13 @@ function isRange(origin : GameObject, target : GameObject) : boolean {
 
 }
 
+//this method check if the target is inside the firing arc
+function isAngle(origin : GameObject, target : GameObject) : boolean {
+
+	return Vector3.Angle(origin.transform.position, target.transform.position) <= firingAngle/2;
+
+}
+
 
 //this method set the weapon target
 //@pre target != null
@@ -96,4 +103,23 @@ function setTarget(target : GameObject) {
 			
 	
 	}
+}
+
+//this method sets the weapon origin point
+//@pre origin != null
+function setOrigin(origin : GameObject) {
+
+	switch(type) {
+		case WeaponType.beam:
+			gameObject.GetComponent(phaserScript).setOrigin(origin);
+			break;
+		case WeaponType.torpedo:
+			gameObject.GetComponent(torpedoScript).setOrigin(origin);
+			break;
+		case WeaponType.pulse:
+			gameObject.GetComponent(pulseScript).setOrigin(origin);
+	
+	}
+
+
 }

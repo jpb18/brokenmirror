@@ -139,7 +139,13 @@ function OnCollisionEnter (hit: Collision) {
 
 }
 
+//this method set the target
 //pre: target != null
 function setTarget(target : GameObject) {
 	this.target = target;
+}
+//this method sets the origin
+//pre origin != null
+function setOrigin(origin : GameObject) {
+	this.origin = origin;
 }

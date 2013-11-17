@@ -130,10 +130,7 @@ function OnGUI () {
 	
 	if(isLoading)
 	{
-		var go : GameObject = GameObject.FindGameObjectWithTag("LoadScene");
-		var scr : LoadScene = go.GetComponent(LoadScene);
-		scr.showScreen();
-		scr.LoadScene(dstScene);
+		Application.LoadLevel(dstScene);
 		
 		
 	

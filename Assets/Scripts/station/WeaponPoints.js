@@ -31,7 +31,7 @@ public class WeaponPoints extends MonoBehaviour { //added this so I could use th
 		var cd : int = script.getCooldown();
 		
 			
-		return (hasTarget() && Time.time >= lastShot + cd && weapon != null);
+		return ( hasAngle() && hasTarget() && Time.time >= lastShot + cd && weapon != null);
 	
 	}
 	
@@ -41,6 +41,8 @@ public class WeaponPoints extends MonoBehaviour { //added this so I could use th
 		
 		var weapon : GameObject = Instantiate(weapon, point.transform.position, Quaternion.identity);
 		weapon.GetComponent(weaponScript).setTarget(target);
+		weapon.GetComponent(weaponScript).setOrigin(point);
+		lastShot = Time.time;
 	
 	}
 	
@@ -63,11 +65,20 @@ public class WeaponPoints extends MonoBehaviour { //added this so I could use th
 	
 	public function hasTarget() {
 		var distance : int = 0;
+		
 		if(target) {
 			 Vector3.Distance(point.transform.position, target.transform.position);
+			
 		}
 	
-		return target == null && distance <= getRange();
+		return target != null && distance <= getRange();
+	
+	}
+	
+	//this method checks if the target is inside the weapon angle
+	public function hasAngle() {
+	
+		return weapon.GetComponent(weaponScript).isAngle(point, target);
 	
 	}
 

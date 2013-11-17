@@ -14,19 +14,25 @@ var pulsePoints : List.<WeaponPoints>;
 function Start () {
 
 	//set phaser points
-	setWeaponSystem(phaserPoints, "Phaser", phaser);
-	
+	if(phaser != null)
+	{
+		setWeaponSystem(phaserPoints, "Phaser", phaser);
+	}
 	//set torpedoes points
-	setWeaponSystem(torpedoPoints, "Torpedoes", torpedo);
 	
+	if(torpedo != null) {
+		setWeaponSystem(torpedoPoints, "Torpedoes", torpedo);
+	}
 	//set pulse points
-	setWeaponSystem(pulsePoints, "Pulse", pulse);
-	
+	if(pulse != null) {
+		setWeaponSystem(pulsePoints, "Pulse", pulse);
+	}
 
 }
 
 
 //this method sets the weapon systems of the station
+//pre weapon != null
 private function setWeaponSystem(system : List.<WeaponPoints>, tag : String, weapon : GameObject){
 	//set phaser points
 	var systems : GameObject[] = gameObject.FindGameObjectsWithTag(tag);
@@ -72,17 +78,17 @@ public function scan (weaponNum : int, type : WeaponType, enemyList : int[]) {
 	
 	switch(type) {
 		case WeaponType.beam:
-			if(!phaserPoints[weaponNum].hasTarget()) {
+			if(phaser != null && !phaserPoints[weaponNum].hasTarget()) {
 				phaserPoints[weaponNum].scan(enemyList);
 			}
 			break;
 		case WeaponType.torpedo:
-			if(!torpedoPoints[weaponNum].hasTarget()) {
+			if(torpedo != null && !torpedoPoints[weaponNum].hasTarget()) {
 				torpedoPoints[weaponNum].scan(enemyList);
 			}
 			break;
 		case WeaponType.pulse:
-			if(!pulsePoints[weaponNum].hasTarget()) {
+			if(pulse != null && !pulsePoints[weaponNum].hasTarget()) {
 				pulsePoints[weaponNum].scan(enemyList);
 			}
 		
