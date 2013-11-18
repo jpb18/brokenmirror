@@ -1,12 +1,13 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\station\WeaponPoints.js">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\menus\guiScript.js">
     <Files>
+      <File FileName="Assets\Scripts\menus\guiScript.js" Line="224" Column="1" />
       <File FileName="Assets\Scripts\weapons\pulseScript.js" Line="124" Column="2" />
       <File FileName="Assets\Scripts\station\Health.js" Line="114" Column="68" />
       <File FileName="Assets\Scripts\station\Station.js" Line="37" Column="2" />
       <File FileName="Assets\Scripts\station\StationWeapons.js" Line="54" Column="7" />
-      <File FileName="Assets\Scripts\station\WeaponPoints.js" Line="44" Column="54" />
+      <File FileName="Assets\Scripts\station\WeaponPoints.js" Line="45" Column="2" />
       <File FileName="Assets\Scripts\weapons\weaponScript.js" Line="120" Column="58" />
       <File FileName="Assets\Scripts\camera\testReturn.js" Line="133" Column="33" />
       <File FileName="Assets\Scripts\weapons\phaserScript.js" Line="215" Column="2" />
