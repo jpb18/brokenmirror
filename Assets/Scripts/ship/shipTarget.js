@@ -37,6 +37,14 @@ function Update () {
 
 }
 
+function getTarget() : GameObject {
+	return target;
+}
+
+function setTarget(target : GameObject) {
+	this.target = target;
+}
+
 function BotRedAlert() {
 
 	if(!target) {
