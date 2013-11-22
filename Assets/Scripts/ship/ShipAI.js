@@ -189,3 +189,4 @@ function setTarget(target : GameObject) {
 function isWarpReady() : boolean {
 	return Time.time > arriveTime + presenceTime;
 }
+

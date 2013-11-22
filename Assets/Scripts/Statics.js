@@ -89,3 +89,24 @@ static function resizeArray(array : WeaponPoints[], size : int) : WeaponPoints[]
 
 
 }
+
+//this function returns the speed of target object
+//pre target != null
+static function getSpeed(target : GameObject) : float {
+
+	return target.rigidbody.velocity.z;
+
+}
+
+//this function checks if the own ship is slower than the target ship
+//pre target != null && own != null
+static function isSlower(target : GameObject, own : GameObject) : boolean {
+
+	return getSpeed(own) < getSpeed(target);
+
+}
+
+//this function checks if the own ship is faster than the target ship
+static function isFaster(target : GameObject, own : GameObject) : boolean {
+	return getSpeed(own) > getSpeed(target);
+}

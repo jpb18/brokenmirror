@@ -76,9 +76,9 @@ function shipPlayer_speed () {
 	if(Input.GetAxis("ShipSpeed") > 0 && !isChanging)
 	{
 		
-		if (speedStatus < movProps.maxStatus )
+		if (!isAtMax())
 		{
-			speedStatus += shipAcceleration * Time.deltaTime;
+			increaseSpeed();
 			
 		}
 		
@@ -88,9 +88,9 @@ function shipPlayer_speed () {
 	else if (Input.GetAxis("ShipSpeed") < 0 && !isChanging)
 	{
 		
-		if (speedStatus > movProps.minStatus)
+		if (!isAtMin())
 		{
-			speedStatus -= shipAcceleration * Time.deltaTime;
+			decreaseSpeed();
 			
 		}
 	}
@@ -179,4 +179,40 @@ function FullStop (currentSpeed : float, acceleration : float)
 
 }
 
+//this function increases the speed of the ship
+//pre !isAtMax()
+function increaseSpeed() {
+	speedStatus += properties.movement.acceleration * Time.deltaTime;
+
+}
+
+//this function decreses the speed of the ship
+//pre !isAtMin()
+function decreaseSpeed() {
+	speedStatus -= properties.movement.acceleration * Time.deltaTime;
+}
+
+//this function checks if the ship is at its max speed
+function isAtMax() : boolean {
+
+	return speedStatus >= movProps.maxStatus;
+
+}
+
+//this function checks if the ship is at is min speed
+function isAtMin() : boolean {
+	return speedStatus <= movProps.minStatus;
+}
+
+//this function matches the ship speed with the target speed
+function matchSpeed(target : GameObject) {
+
+	if(Statics.isSlower(target, gameObject)) {
+		increaseSpeed();
+	}
+	else if(Statics.isFaster(target, gameObject)) {
+		decreaseSpeed();
+	}
+
+}
 
