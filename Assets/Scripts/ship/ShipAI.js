@@ -19,10 +19,15 @@ var defenseStation : float;
 var defenseShip : float;
 var arriveTime : float;
 var presenceTime : float = 180.0f; //3 minutes
+
+//other scripts
 var target : shipTarget;
 var triggers : shipTriggers;
 var props : shipProperties;
+var move : shipMovement;
 
+//other variables
+var faceAngle : float = 1;
 
 
 function Start () {
@@ -30,6 +35,7 @@ function Start () {
 	triggers = gameObject.GetComponent(shipTriggers);
 	target = gameObject.GetComponent(shipTarget);
 	props = gameObject.GetComponent(shipProperties);
+	move = gameObject.GetComponent(shipMovement);
 	arriveTime = Time.time;
 
 }
@@ -98,6 +104,7 @@ function hasHostileShip() : boolean {
 
 //checks if the ship is in follow distance from game object
 //pre target == leader, target != null
+//pre target.transform.tag == "Ship"
 function isFollowDistance(target : GameObject) : boolean {
 	var distance : float = Vector3.Distance(target.transform.position, transform.position);
 	return distance <= followDistance;
@@ -105,6 +112,7 @@ function isFollowDistance(target : GameObject) : boolean {
 
 //checks if the ship is too close to another one
 //pre target != null
+//pre target.transform.tag == "Ship"
 function isTooClose(target : GameObject) : boolean {
 
 	var distance : float = Vector3.Distance(target.transform.position, transform.position);
@@ -155,6 +163,7 @@ function setDefence() {
 }
 
 //this function sets the ship leader
+//pre leader.transform.tag == "Ship"
 function setLeader(leader : GameObject) {
 	this.leader = leader;
 	defence = false;
@@ -186,7 +195,56 @@ function setTarget(target : GameObject) {
 }
 
 //this function checks if the ship is ready to go to warp
+//pre isMerchant()
 function isWarpReady() : boolean {
 	return Time.time > arriveTime + presenceTime;
 }
+
+//this functions gets the forward speed of a target ship
+//pre target.transform.tag == "Ship"
+function getSpeed(target : GameObject) : float{
+	return target.rigidbody.velocity.z;
+
+}
+
+//this function checks if our ship is slower than the target ship
+//pre target.transform.tag == "Ship"
+function isSlower(target : GameObject) : boolean {
+	return getSpeed(target) > getSpeed(gameObject);
+}
+
+//this function checks if our ship is faster than the target ship
+//pre target.transform.tag == "Ship"
+function isFaster(target : GameObject) : boolean {
+	return getSpeed(target) < getSpeed(gameObject);
+}
+
+//this function attempts to match the ship speed with its target
+//pre target.transform.tag == "Ship"
+function matchSpeed(target : GameObject) {//pre target.transform.tag == "Ship"//pre leader.transform.tag == "Ship"return getSpeed(target) > getSpeed(gameObject);
+	
+	if(isSlower(target)) {
+		move.increaseSpeed();
+	} 
+	else if (isFaster(target)) {
+		move.decreaseSpeed();
+	}
+	
+
+}
+
+//this function checks if the ship is looking at target
+//pre target.transform.tag == "Ship"
+function isLookingAt(target : GameObject) {
+	
+	return Vector3.Angle(gameObject.transform.position, target.gameObject.position) < faceAngle
+		
+}
+
+//this function makes the ship look at target
+//pre target.transform.tag == "Ship"
+function LookAt(target : GameObject) {
+
+}
+
 
