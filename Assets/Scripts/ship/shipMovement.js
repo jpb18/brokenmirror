@@ -240,3 +240,17 @@ function turnRight() {
 function turnLeft() {
 	transform.Rotate(Vector3(0, -shipAgility(), 0));
 }
+
+//AI Function: Rotates the ship right
+function rotRight() {
+	transform.Rotate(Vector3(0,0, shipAgility()));
+	
+}
+
+//AI Function: Rotates the ship left
+function rotLeft() {
+transform.Rotate(Vector3(0,0, -shipAgility()));
+	
+}
+
+

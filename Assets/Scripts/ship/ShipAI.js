@@ -236,14 +236,111 @@ function matchSpeed(target : GameObject) {//pre target.transform.tag == "Ship"//
 //this function checks if the ship is looking at target
 //pre target.transform.tag == "Ship"
 function isLookingAt(target : GameObject) {
+
+	var targetDir = target.position - transform.position;
+	var forward = transform.forward;
 	
-	return Vector3.Angle(gameObject.transform.position, target.transform.position) < faceAngle;
+	var angle = Vector3.Angle(targetDir, forward);
+	
+	return angle < faceAngle;
 		
 }
 
 //this function makes the ship look at target
 //pre target.transform.tag == "Ship"
 function LookAt(target : GameObject) {
+	AlignX(target);
+	AlignY(target);
+	AlignZ(target);
 
 }
 
+//this function returns the angle between two vectors
+function SignedAngle(a: Vector3, b: Vector3){
+  var angle = Vector3.Angle(a, b); // calculate angle
+  // assume the sign of the cross product's Y component:
+  return angle * Mathf.Sign(Vector3.Cross(a, b).y);
+}
+
+//this function check if a value is negatve
+function isNeg(dir : float) : boolean {
+	return dir < 0;
+}
+
+
+//this function checks if a value is positive
+function isPos(dir : float) : boolean {
+	return dir > 0;
+}
+
+//this function aligns the ship to the target ship on X
+//pre target.transform.tag == "Ship"
+function AlignX(target : GameObject)  {
+	var a : Vector3 = transform.position * transform.forward;
+	var b : Vector3 = target.transform.position;
+	
+	a.y = 0;
+	b.y = 0;
+	
+	var dir : float = SignedAngle(a, b);
+	
+	if(isNeg(dir)) {
+		move.turnDown();
+	}
+	else if(isPos(dir)) {
+		move.turnUp();
+	}
+
+}
+
+//this function aligns the ship to the target ship on Y
+//pre target.transform.tag == "Ship"
+function AlignY(target : GameObject)  {
+	var a : Vector3 = transform.position * transform.forward;
+	var b : Vector3 = target.transform.position;
+	
+	a.x = 0;
+	b.x = 0;
+	
+	var dir : float = SignedAngle(a, b);
+	
+	if(isNeg(dir)) {
+		move.turnDown();
+	}
+	else if(isPos(dir)) {
+		move.turnUp();
+	}
+
+}
+
+//this function aligns the ship to the target ship on Z
+//pre target.transform.tag == "Ship"
+function AlignZ(target : GameObject) {
+
+	if(target.transform.rotation.z > transform.rotation.z) {
+		move.rotLeft();
+	}
+	else if (target.transform.rotation.z > transform.rotation.z) {
+		move.rotRight();
+	}
+
+
+}
+
+//this function makes the ship follow target
+//pre target.transform.tag == "Ship"
+function follow(target : GameObject) {
+	if(!isLookingAt(target)) {
+		LookAt(target);
+	}
+	
+	if(isTooClose(target)) {
+		move.decreaseSpeed();
+	}
+	else if(!isFollowDistance(target)) {
+		move.increaseSpeed();
+	}
+	else {
+		move.matchSpeed(target);
+	}
+}
