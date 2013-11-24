@@ -2,8 +2,8 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\ship\ShipAI.js">
     <Files>
-      <File FileName="Assets\Scripts\ship\ShipAI.js" Line="221" Column="1" />
-      <File FileName="Assets\Scripts\ship\shipMovement.js" Line="24" Column="1" />
+      <File FileName="Assets\Scripts\ship\ShipAI.js" Line="240" Column="70" />
+      <File FileName="Assets\Scripts\ship\shipMovement.js" Line="226" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

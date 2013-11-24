@@ -117,7 +117,7 @@ function shipPlayer_movement () {
 	
 	
 	
-		var shipAgility : float = properties.movement.agility * Time.deltaTime;
+		var shipAgility : float = shipAgility();
 		
 		//get axis input
 		var inputHor : float = Input.GetAxis("Horizontal");
@@ -130,6 +130,9 @@ function shipPlayer_movement () {
 	
 }
 
+function shipAgility() : float {
+	return properties.movement.agility * Time.deltaTime;
+}
 
 function FullStop (currentSpeed : float, acceleration : float)
 {
@@ -216,3 +219,24 @@ function matchSpeed(target : GameObject) {
 
 }
 
+//AI Function: Turns the ship up
+function turnUp() {
+
+	transform.Rotate(Vector3(shipAgility(),0,0));
+
+}
+
+//AI Function: Turns the ship down
+function turnDown() {
+	transform.Rotate(Vector3(-shipAgility(), 0, 0));
+}
+
+//AI Function:  Turns the ship right
+function turnRight() {
+	transform.Rotate(Vector3(0, shipAgility(), 0));
+}
+
+//AI Function: Turns the ship left
+function turnLeft() {
+	transform.Rotate(Vector3(0, -shipAgility(), 0));
+}

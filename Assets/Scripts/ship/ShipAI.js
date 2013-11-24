@@ -27,7 +27,7 @@ var props : shipProperties;
 var move : shipMovement;
 
 //other variables
-var faceAngle : float = 1;
+var faceAngle : float = 1.0f;
 
 
 function Start () {
@@ -237,7 +237,7 @@ function matchSpeed(target : GameObject) {//pre target.transform.tag == "Ship"//
 //pre target.transform.tag == "Ship"
 function isLookingAt(target : GameObject) {
 	
-	return Vector3.Angle(gameObject.transform.position, target.gameObject.position) < faceAngle
+	return Vector3.Angle(gameObject.transform.position, target.transform.position) < faceAngle;
 		
 }
 
@@ -246,5 +246,4 @@ function isLookingAt(target : GameObject) {
 function LookAt(target : GameObject) {
 
 }
-
 
