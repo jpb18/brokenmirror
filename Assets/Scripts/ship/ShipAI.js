@@ -41,8 +41,21 @@ function Start () {
 }
 
 function Update () {
+	if(!props.playerProps.isPlayer)
+	{
+		if(hasLeader()) {
+		
+			if(getFormation() == formation.close) {
+				
+				follow(leader);			
+			}
+			
+		
+		}
+	}
 
 }
+
 
 //this function checks if there's a leader
 function hasLeader() : boolean {
@@ -237,7 +250,7 @@ function matchSpeed(target : GameObject) {//pre target.transform.tag == "Ship"//
 //pre target.transform.tag == "Ship"
 function isLookingAt(target : GameObject) {
 
-	var targetDir = target.position - transform.position;
+	var targetDir = target.transform.position - transform.position;
 	var forward = transform.forward;
 	
 	var angle = Vector3.Angle(targetDir, forward);
@@ -251,16 +264,12 @@ function isLookingAt(target : GameObject) {
 function LookAt(target : GameObject) {
 	AlignX(target);
 	AlignY(target);
-	AlignZ(target);
+	
 
 }
 
-//this function returns the angle between two vectors
-function SignedAngle(a: Vector3, b: Vector3){
-  var angle = Vector3.Angle(a, b); // calculate angle
-  // assume the sign of the cross product's Y component:
-  return angle * Mathf.Sign(Vector3.Cross(a, b).y);
-}
+
+
 
 //this function check if a value is negatve
 function isNeg(dir : float) : boolean {
@@ -276,19 +285,16 @@ function isPos(dir : float) : boolean {
 //this function aligns the ship to the target ship on X
 //pre target.transform.tag == "Ship"
 function AlignX(target : GameObject)  {
-	var a : Vector3 = transform.position * transform.forward;
-	var b : Vector3 = target.transform.position;
+	var v3 : Vector3 = transform.InverseTransformPoint(target.transform.position);
 	
-	a.y = 0;
-	b.y = 0;
 	
-	var dir : float = SignedAngle(a, b);
 	
-	if(isNeg(dir)) {
-		move.turnDown();
+	if(isNeg(v3.x)) {
+		move.turnRight();
 	}
-	else if(isPos(dir)) {
-		move.turnUp();
+	else if(isPos(v3.x)) {
+		
+		move.turnLeft();
 	}
 
 }
@@ -296,19 +302,14 @@ function AlignX(target : GameObject)  {
 //this function aligns the ship to the target ship on Y
 //pre target.transform.tag == "Ship"
 function AlignY(target : GameObject)  {
-	var a : Vector3 = transform.position * transform.forward;
-	var b : Vector3 = target.transform.position;
+	var v3 : Vector3 = transform.InverseTransformPoint(target.transform.position);
 	
-	a.x = 0;
-	b.x = 0;
-	
-	var dir : float = SignedAngle(a, b);
-	
-	if(isNeg(dir)) {
-		move.turnDown();
-	}
-	else if(isPos(dir)) {
+	if(isNeg(v3.y)) {
 		move.turnUp();
+		
+	}
+	else if(isPos(v3.y)) {
+		move.turnDown();
 	}
 
 }
@@ -331,14 +332,19 @@ function AlignZ(target : GameObject) {
 //pre target.transform.tag == "Ship"
 function follow(target : GameObject) {
 	if(!isLookingAt(target)) {
+		
 		LookAt(target);
 	}
 	
 	if(isTooClose(target)) {
-		move.decreaseSpeed();
+		if(!move.isAtMin()) {
+			move.decreaseSpeed();
+		}
 	}
 	else if(!isFollowDistance(target)) {
-		move.increaseSpeed();
+		if(!move.isAtMax()) {
+			move.increaseSpeed();
+		}
 	}
 	else {
 		move.matchSpeed(target);

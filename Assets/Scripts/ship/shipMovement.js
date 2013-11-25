@@ -66,11 +66,17 @@ function Update () {
 		
 	}
 	
+	var shipSpeed : float = properties.movement.impulseSpeed * Time.deltaTime;
+	
+	var SpeedChange : float = speedStatus * shipSpeed;
+	
+	rigidbody.velocity = transform.forward * SpeedChange;
+	
 }
 
 //this function controls the ship speed
 function shipPlayer_speed () {
-	var shipSpeed : float = properties.movement.impulseSpeed * Time.deltaTime;
+	
 	var shipAcceleration : float = properties.movement.acceleration;
 	
 	if(Input.GetAxis("ShipSpeed") > 0 && !isChanging)
@@ -105,9 +111,7 @@ function shipPlayer_speed () {
 	
 	
 	
-	var SpeedChange : float = speedStatus * shipSpeed;
 	
-	rigidbody.velocity = transform.forward * SpeedChange;
 	
 
 
