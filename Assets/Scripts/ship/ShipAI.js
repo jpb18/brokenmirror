@@ -290,11 +290,11 @@ function AlignX(target : GameObject)  {
 	
 	
 	if(isNeg(v3.x)) {
-		move.turnRight();
+		move.turnLeft();
 	}
 	else if(isPos(v3.x)) {
 		
-		move.turnLeft();
+		move.turnRight();
 	}
 
 }
@@ -304,12 +304,14 @@ function AlignX(target : GameObject)  {
 function AlignY(target : GameObject)  {
 	var v3 : Vector3 = transform.InverseTransformPoint(target.transform.position);
 	
+	
+	
 	if(isNeg(v3.y)) {
-		move.turnUp();
+		move.turnDown();
 		
 	}
 	else if(isPos(v3.y)) {
-		move.turnDown();
+		move.turnUp();
 	}
 
 }

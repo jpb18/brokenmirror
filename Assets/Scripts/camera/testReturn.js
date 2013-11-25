@@ -115,6 +115,13 @@ function OnGUI () {
 					
 					}
 					
+					if(GUILayout.Button("Load TestBot")) {
+						Time.timeScale = 1;
+						dstScene = "testeBot";
+						isLoading = true;
+					
+					}
+					
 					if(GUILayout.Button("Exit"))
 					{
 						Time.timeScale = 1;

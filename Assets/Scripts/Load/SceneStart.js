@@ -15,7 +15,7 @@ function spawnDefenseFleet() {
 	
 	//first lets get the planet fleet
 	var mapScr : MapInfo = GameObject.FindGameObjectWithTag("MapInfo").GetComponent(MapInfo);
-	var planet : PlanetInfo = mapScr.findPlanet(EditorApplication.currentScene);
+	var planet : PlanetInfo = mapScr.findPlanet(Application.loadedLevelName);
 	
 	var fleet : SaveShip[] = planet.getFleet();
 	

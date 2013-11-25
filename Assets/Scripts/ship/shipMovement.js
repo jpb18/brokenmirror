@@ -213,12 +213,16 @@ function isAtMin() : boolean {
 
 //this function matches the ship speed with the target speed
 function matchSpeed(target : GameObject) {
-
-	if(Statics.isSlower(target, gameObject)) {
-		increaseSpeed();
-	}
-	else if(Statics.isFaster(target, gameObject)) {
-		decreaseSpeed();
+	var shipAcceleration : float = properties.movement.acceleration;
+	if(Mathf.Sqrt(Mathf.Pow(speedStatus, 2)) > shipAcceleration * Time.deltaTime) {
+		if(Statics.isSlower(target, gameObject)) {
+			increaseSpeed();
+		}
+		else if(Statics.isFaster(target, gameObject)) {
+			decreaseSpeed();
+		}
+	} else {
+		speedStatus = 0;
 	}
 
 }
@@ -226,13 +230,13 @@ function matchSpeed(target : GameObject) {
 //AI Function: Turns the ship up
 function turnUp() {
 
-	transform.Rotate(Vector3(shipAgility(),0,0));
+	transform.Rotate(Vector3(-shipAgility(),0,0));
 
 }
 
 //AI Function: Turns the ship down
 function turnDown() {
-	transform.Rotate(Vector3(-shipAgility(), 0, 0));
+	transform.Rotate(Vector3(shipAgility(), 0, 0));
 }
 
 //AI Function:  Turns the ship right
@@ -247,13 +251,13 @@ function turnLeft() {
 
 //AI Function: Rotates the ship right
 function rotRight() {
-	transform.Rotate(Vector3(0,0, shipAgility()));
+	transform.Rotate(Vector3(0,0, -shipAgility()));
 	
 }
 
 //AI Function: Rotates the ship left
 function rotLeft() {
-transform.Rotate(Vector3(0,0, -shipAgility()));
+transform.Rotate(Vector3(0,0, shipAgility()));
 	
 }
 
