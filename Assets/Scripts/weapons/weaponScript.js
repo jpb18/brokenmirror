@@ -29,6 +29,11 @@ function Update () {
 
 }
 
+///<summary>Gets the weapon type</summary>
+function getType() : WeaponType {
+	return type;
+}
+
 //this method gets the weapon cooldown
 function getCooldown() : float {
 	var cd : float = 0.0f;

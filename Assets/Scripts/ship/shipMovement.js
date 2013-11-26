@@ -216,10 +216,14 @@ function matchSpeed(target : GameObject) {
 	var shipAcceleration : float = properties.movement.acceleration;
 	if(Mathf.Sqrt(Mathf.Pow(speedStatus, 2)) > shipAcceleration * Time.deltaTime) {
 		if(Statics.isSlower(target, gameObject)) {
-			increaseSpeed();
+			if(!isAtMax()) {
+				increaseSpeed();
+			}
 		}
 		else if(Statics.isFaster(target, gameObject)) {
-			decreaseSpeed();
+			if(!isAtMin()) {
+				decreaseSpeed();
+			}
 		}
 	} else {
 		speedStatus = 0;

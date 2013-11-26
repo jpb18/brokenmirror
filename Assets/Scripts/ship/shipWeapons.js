@@ -102,6 +102,15 @@ function PlayerFire() {
 			}
 		}
 		
+		if(Input.GetAxis("EnergyAll")) {
+			setAllFire(WeaponType.beam);
+			setAllFire(WeaponType.pulse);
+		}
+		
+		if(Input.GetAxis("ProjectileAll")) {
+			setAllFire(WeaponType.torpedo);
+		}
+		
 	}
 }
 
@@ -402,5 +411,22 @@ function BotFire() {
 	}
 	
 		
+
+}
+
+///<summary>Sets all weapons of a certain type to fire</summary> 
+///<param name="type">type of the weapon to set</param>
+///<pre> type == WeaponType</pre> 
+function setAllFire(type : WeaponType) {
+	
+	for(var x : int = 0; x < weapon.Length; x++) {
+		var weapon_go : GameObject = weapon[x].weapon_go;
+		var type_go : WeaponType = weapon_go.GetComponent(weaponScript).getType();
+		if(type == type_go && weapon[x].isEnabled == true && weapon[x].isRange == true && weapon[x].isAngle == true) {
+			weapon[x].isFiring = true;	
+		} 
+		
+		
+	}
 
 }

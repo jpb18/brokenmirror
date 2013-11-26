@@ -119,8 +119,8 @@ function hasHostileShip() : boolean {
 //pre target == leader, target != null
 //pre target.transform.tag == "Ship"
 function isFollowDistance(target : GameObject) : boolean {
-	var distance : float = Vector3.Distance(target.transform.position, transform.position);
-	return distance <= followDistance;
+	var distance : float = (target.transform.position - transform.position).sqrMagnitude;
+	return distance <= (followDistance * followDistance);
 }
 
 //checks if the ship is too close to another one
@@ -128,8 +128,8 @@ function isFollowDistance(target : GameObject) : boolean {
 //pre target.transform.tag == "Ship"
 function isTooClose(target : GameObject) : boolean {
 
-	var distance : float = Vector3.Distance(target.transform.position, transform.position);
-	return distance <= minDistance;
+	var distance : float = (target.transform.position - transform.position).sqrMagnitude;
+	return distance <= (minDistance * minDistance);
 
 }
 
@@ -262,8 +262,9 @@ function isLookingAt(target : GameObject) {
 //this function makes the ship look at target
 //pre target.transform.tag == "Ship"
 function LookAt(target : GameObject) {
-	AlignX(target);
-	AlignY(target);
+	var v3 : Vector3 = transform.InverseTransformPoint(target.transform.position);
+	AlignX(v3);
+	AlignY(v3);
 	
 
 }
@@ -271,28 +272,19 @@ function LookAt(target : GameObject) {
 
 
 
-//this function check if a value is negatve
-function isNeg(dir : float) : boolean {
-	return dir < 0;
-}
 
-
-//this function checks if a value is positive
-function isPos(dir : float) : boolean {
-	return dir > 0;
-}
 
 //this function aligns the ship to the target ship on X
 //pre target.transform.tag == "Ship"
-function AlignX(target : GameObject)  {
-	var v3 : Vector3 = transform.InverseTransformPoint(target.transform.position);
+function AlignX(target : Vector3)  {
 	
 	
 	
-	if(isNeg(v3.x)) {
+	
+	if(target.x < 0) {
 		move.turnLeft();
 	}
-	else if(isPos(v3.x)) {
+	else if(target.x > 0) {
 		
 		move.turnRight();
 	}
@@ -301,16 +293,16 @@ function AlignX(target : GameObject)  {
 
 //this function aligns the ship to the target ship on Y
 //pre target.transform.tag == "Ship"
-function AlignY(target : GameObject)  {
-	var v3 : Vector3 = transform.InverseTransformPoint(target.transform.position);
+function AlignY(target : Vector3)  {
 	
 	
 	
-	if(isNeg(v3.y)) {
+	
+	if(target.y < 0) {
 		move.turnDown();
 		
 	}
-	else if(isPos(v3.y)) {
+	else if(target.y > 0) {
 		move.turnUp();
 	}
 
