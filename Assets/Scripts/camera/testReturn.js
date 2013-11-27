@@ -122,6 +122,13 @@ function OnGUI () {
 					
 					}
 					
+					if(GUILayout.Button("Load TestMenu")) {
+						Time.timeScale = 1;
+						dstScene = "SpaceScene";
+						isLoading = true;
+					
+					}
+					
 					if(GUILayout.Button("Exit"))
 					{
 						Time.timeScale = 1;
