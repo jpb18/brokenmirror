@@ -52,6 +52,11 @@ function playerStart() {
 	var cam_scr = cam.GetComponent(MouseOrbit);
 	cam_scr.target = playerShip.transform;
 	
+	//set new message
+	var show : ShowMessage = GameObject.FindGameObjectWithTag("ShowMessage").GetComponent(ShowMessage);
+	var map : MapInfo = GameObject.FindGameObjectWithTag("MapInfo").GetComponent(MapInfo);
+	show.AddMessage(map.buildSceneLoadMessage());
+	
 
 }
 

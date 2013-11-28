@@ -52,7 +52,8 @@ var moveTime : float;
 var skin : GUISkin;
 var view : ViewProps;
 var messageProps : MessageProps;
-var isTest : boolean;
+var isGame : boolean = false;
+var loadScene : LoadScene;
 
 class ViewProps {
 	var width : int;
@@ -100,14 +101,15 @@ class MessageProps {
 }
 
 function Start () {
-	AddMessage("Welcome to the game!");
-	if(isTest) {
-		StartCoroutine(test());
-	}
+	loadScene = GameObject.FindGameObjectWithTag("LoadScene").GetComponent(LoadScene);
 }
 
 function OnGUI () {
-	drawMessageWindow();
+
+
+	if(isGame  && !loadScene.show) {
+		drawMessageWindow();
+	}
 }
 
 ///<summary>This method adds a new message to the list</summary>
@@ -153,6 +155,10 @@ function drawMessage(message : Message) {
 ///<summary>This method clears the message history</summary>
 function clearHistory() {
 	messages = new List.<Message>();
+}
+
+function setGame() {
+	isGame = !isGame;
 }
 
 private function test() {

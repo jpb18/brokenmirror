@@ -383,3 +383,11 @@ function findPlanet(scene : String) : PlanetInfo {
 	
 
 }
+
+function buildSceneLoadMessage() : String {
+	var curScene : String = Application.loadedLevelName;
+	var planet : PlanetInfo = findPlanet(curScene);
+	var message : String = "You've arrived at " + planet.name + ".";	
+	return message;
+
+}

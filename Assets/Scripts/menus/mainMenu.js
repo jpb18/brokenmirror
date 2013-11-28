@@ -142,17 +142,22 @@ function PlayMenu () {
 		//Write title label
 		GUI.Label(Rect(playTitleX, playTitleY, playTitleW, playTitleH), "Select Dificulty", playTitleStyle);
 		
+		//get show message script
+		var show : ShowMessage = GameObject.FindGameObjectWithTag("ShowMessage").GetComponent(ShowMessage);
+		
 		//Easy button
 		if(GUI.Button(Rect(difEasy.CoodX, difEasy.CoodY, difEasy.width, difEasy.height), "Easy", difEasy.Style)) {
 			isLoading = true;
 			loadDestiny = "Earth";
+			show.setGame();
 		
 		}
 		
 		//Normal button
 		if(GUI.Button(Rect(difNormal.CoodX, difNormal.CoodY, difNormal.width, difNormal.height), "Normal", difNormal.Style)) {
-		isLoading = true;
+			isLoading = true;
 			loadDestiny = "Earth";
+			show.setGame();
 		}
 		
 		//Hard button
@@ -160,6 +165,7 @@ function PlayMenu () {
 			
 			isLoading = true;
 			loadDestiny = "Earth";
+			show.setGame();
 		}
 		
 		//Return Main Menu button

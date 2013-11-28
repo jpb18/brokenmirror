@@ -153,3 +153,6 @@ public static function RemoveClone(name : String) : String {
 		return name.Substring(0, name.Length - CLONE_NUM);
 
 }
+
+
+
