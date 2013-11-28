@@ -12,6 +12,7 @@ class WeaponSlot {
 	var isRange : boolean = false; //checks if the target is in range
 	var isFiring : boolean = false; //checks if the weapon is firing
 	var lastReload : float; //total time it took for the last reload
+	var hasChild : boolean; //checks if the pulse point has aditional child objects
 	
 }
 
@@ -47,12 +48,20 @@ var torpVolley : Volley = Volley.one;
 var volleyWait : float = 0.2f;
 var torpLimit : int = 10;
 
+var blastMode : boolean = true; //if true, fires all pulse at the same time. If not, fires in a ciclic pattern
+var blastChange : float;
+var blastWait : float = 0.2f;
+
+var show : ShowMessage;
+var load : LoadScene;
 
 
 function Start () {
 
 	shipProps = gameObject.GetComponent(shipProperties);
 	shipTar = gameObject.GetComponent(shipTarget);
+	show = GameObject.FindGameObjectWithTag("ShowMessage").GetComponent(ShowMessage);
+	load = GameObject.FindGameObjectWithTag("LoadScene").GetComponent(LoadScene);
 	
 	//get general info
 	var gen_go : GameObject = GameObject.Find("SaveGame");
@@ -82,6 +91,10 @@ function Update () {
 		}
 	}
 	CheckWeapons();
+	
+	if(Input.GetAxis("SwapPulse") && blastChange + blastWait < Time.time && show.isGame && !load.show) {
+		swapBlast();
+	}
 
 }
 
@@ -178,7 +191,11 @@ function FireWeapon (weapon : WeaponSlot, target : GameObject) {
 					else if (weapon_sc.type == WeaponType.pulse) //if its a pulse weapon
 					{
 						origin = weapon.pulse_point;
-						StartCoroutine(FirePulse(target, origin, weapon_go));
+						if(blastMode) {
+							StartCoroutine(FirePulse(target, origin, weapon));
+						} else {
+							StartCoroutine(FireAlternatePulse(target, origin, weapon));
+						}
 						var cd3 : float = weapon_go.GetComponent(pulseScript).cooldown;
 						weapon.nextShot = Time.time + cd3 * shipProps.shipModifiers.reloadSpeed;
 						weapon.lastReload = cd3 * shipProps.shipModifiers.reloadSpeed;
@@ -224,19 +241,33 @@ function FireTorpedo (target : GameObject, origin : GameObject, weapon : GameObj
 
 }
 
-function FirePulse (target : GameObject, origin : GameObject, weapon : GameObject) {
+function FirePulse (target : GameObject, origin : GameObject, weapon : WeaponSlot) {
 
-	var ps1 : pulseScript = weapon.GetComponent(pulseScript);
+	var ps1 : pulseScript = weapon.weapon_go.GetComponent(pulseScript);
 	var volley : int = ps1.volleys;
 	var timeInt : float = ps1.timeInt;
-
+	var pulse : GameObject;
+	var ps : pulseScript;
 	for (var x : int = 0; x < volley; x++)
-	{
-		var pulse : GameObject = Instantiate(weapon, origin.transform.position, origin.transform.rotation);
-		var ps : pulseScript = pulse.GetComponent(pulseScript);
+	{	
+		if(weapon.hasChild) {
+			for(var point : GameObject in weapon.pulse_point) {
+				pulse = Instantiate(weapon.weapon_go, point.transform.position, point.transform.rotation);
+				ps = pulse.GetComponent(pulseScript);
+			
+				ps.target = target;
+				ps.origin = origin.transform.parent.parent.gameObject;
+			
+				
+			}
+		}
+		else {
+			pulse  = Instantiate(weapon.weapon_go, origin.transform.position, origin.transform.rotation);
+			 ps = pulse.GetComponent(pulseScript);
 		
-		ps.target = target;
-		ps.origin = origin.transform.parent.parent.gameObject;
+			ps.target = target;
+			ps.origin = origin.transform.parent.parent.gameObject;
+		}
 		
 		yield WaitForSeconds(timeInt);
 	
@@ -245,6 +276,41 @@ function FirePulse (target : GameObject, origin : GameObject, weapon : GameObjec
 
 }
 
+function FireAlternatePulse(target : GameObject, origin : GameObject, weapon : WeaponSlot) {
+	
+	if(weapon.hasChild) {
+		
+		var ps1 : pulseScript = weapon.weapon_go.GetComponent(pulseScript);
+		var timeInt : float = ps1.timeInt;
+			
+		for(var point : GameObject in weapon.pulse_point) {
+			var pulse : GameObject = Instantiate(weapon.weapon_go, point.transform.position, point.transform.rotation);
+			var ps : pulseScript = pulse.GetComponent(pulseScript);
+		
+			ps.target = target;
+			ps.origin = origin.transform.parent.parent.gameObject;
+		
+			yield WaitForSeconds(timeInt/countChild(weapon.pulse_point.transform));
+		}
+		
+	}
+	
+}
+
+
+
+private function countChild(a : Transform) {
+	
+		var childCount : int = 0;
+        for(var b : Transform in a)
+        {
+            
+            childCount ++;
+            
+        }
+        return childCount;
+	
+}
 
 //this function checks if the weapons are ready to fire
 function CheckWeapons() {
@@ -429,4 +495,22 @@ function setAllFire(type : WeaponType) {
 		
 	}
 
+}
+
+
+function swapBlast() {
+	blastMode = !blastMode;
+	var mode : String;
+	if(blastMode) {
+		mode = "blast";		
+	} else {
+		mode = "alternate";		
+	}
+	
+	var message : String = "Pulse weapons are now set in " + mode + " mode";
+	var show : ShowMessage = GameObject.FindGameObjectWithTag("ShowMessage").GetComponent(ShowMessage);
+	show.AddMessage(message);
+	
+	blastChange = Time.time;
+	
 }

@@ -1,4 +1,5 @@
-﻿#pragma strict
+﻿import System.Collections.Generic;
+#pragma strict
 
 class SaveShip {
 
@@ -28,7 +29,9 @@ class SaveShip {
 	var shipHea : ShipHealth;
 	var shipInv : ShipInventory;
 	
-	
+	function SaveShip(ship : GameObject) {
+		setShip(ship);
+	}
 	
 	//this function returns the ship stored here
 	function getShip() : GameObject {
@@ -102,13 +105,87 @@ class SaveShip {
 	
 }
 
+class Fleet {
+	
+	var ships : List.<SaveShip>;
+	var formation : Formation = Formation.standard;
+	
+	function getShip(ship : int) : GameObject {
+	
+		return this.ships[ship].getShip();
+	
+	}
+	
+	function clearList() {
+		this.ships.Clear();
+	}
+	
+	function setShip(ship : GameObject) {
+		this.ships.Add(new SaveShip(ship));
+	}
+	
+	function changeFormation() {
+		switch(this.formation) {
+			case Formation.close:
+				formation = Formation.standard;
+				break;
+			case Formation.standard:
+				formation = Formation.loose;
+				break;
+			case Formation.loose:
+				formation = formation.close;
+				break;
+		}
+	}
+	
+	function getFormation () : String {
+		var text : String = "";
+		switch(this.formation) {
+			case Formation.close:
+				text = "close";
+				break;
+			case Formation.standard:
+				text = "standard";
+				break;
+			case Formation.loose:
+				text = "loose";
+				break;
+		}
+	
+		return text;
+	}
+	
+	function getSize() : int {
+		return ships.Count;
+	}
+	
+
+}
+
 var playerShip : SaveShip; //player ship info
+var playerFleet : Fleet; //player escort fleet
 
+var changedFormation : float = 0.0f;
+var pressWait : float = 0.2f;
 
+var show : ShowMessage;
+var load : LoadScene;
 
 
 static final var CLONE_NUM : int = 7; //number of chars in "(Clone)"
 
+function Start() {
+	show = GameObject.FindGameObjectWithTag("ShowMessage").GetComponent(ShowMessage);
+	load = GameObject.FindGameObjectWithTag("LoadScene").GetComponent(LoadScene);
+}
+
+function Update() {
+	if(Input.GetAxis("Formation") && changedFormation + pressWait < Time.time && show.isGame && !load.show) {
+		changeFormation(playerFleet);
+		changedFormation = Time.time;
+	}
+
+}
 
 function Save() {
 	PlayerSave(); //first save the player ship
@@ -122,10 +199,27 @@ function PlayerSave() {
 
 }
 
+function SavePlayerFleet() {
+	playerFleet.clearList();
+	var playShip : GameObject = FindPlayerShip();
+	var ships : GameObject[] = GameObject.FindGameObjectsWithTag("Ship");
+	
+	for(var ship : GameObject in ships) {
+		var ai : ShipAI = ship.GetComponent(ShipAI);
+		if(ai.leader == playShip) {
+			playerFleet.setShip(ship);
+		}
+		
+	
+	}
+	
+}
+
 public static function FindPlayerShip() : GameObject {
 
 	var allShips : GameObject[] = GameObject.FindGameObjectsWithTag("Ship"); //Find all ships
 	var playerShip : GameObject; //set the return variable
+	var found : boolean = false;
 	
 	for (var ship : GameObject in allShips) { //loop through all ships in search of the player ship
 		
@@ -133,6 +227,7 @@ public static function FindPlayerShip() : GameObject {
 		if(shipPros.playerProps.isPlayer) { //check if its player
 		
 			playerShip = ship; //set player ship var
+			found = true;
 		
 		}
 		
@@ -152,6 +247,18 @@ public static function RemoveClone(name : String) : String {
 		//remove last 7 characters of name
 		return name.Substring(0, name.Length - CLONE_NUM);
 
+}
+
+function changeFormation(fleet : Fleet) {
+	fleet.changeFormation();
+	var message : String = "Fleet is now in " + fleet.getFormation() + " formation.";	
+	
+	//set new message
+	var show : ShowMessage = GameObject.FindGameObjectWithTag("ShowMessage").GetComponent(ShowMessage);
+	var map : MapInfo = GameObject.FindGameObjectWithTag("MapInfo").GetComponent(MapInfo);
+	show.AddMessage(message);
+	
+	
 }
 
 

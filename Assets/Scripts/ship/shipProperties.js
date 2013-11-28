@@ -61,7 +61,8 @@ var shipModifiers : ShipModifiers;
 var shipInfo : ShipInfo;
 var combatStatus : ShipCombatStatus;
 
-
+var lastMap : float;
+var waitMap : float = 0.2f;
 
 function Update() {
 
@@ -85,11 +86,12 @@ function Update() {
 	
 	//map status
 	//in case Map Input is pressed
-	if(Input.GetAxis("Map") && playerProps.isPlayer) {
+	if(Input.GetAxis("Map") && playerProps.isPlayer && lastMap + waitMap < Time.time) {
 		//get permanent game object
 		var perm : GameObject = GameObject.FindGameObjectWithTag("MapInfo");
 		var mapInfo : MapInfo = perm.GetComponent(MapInfo);
 		mapInfo.swapStatus();
+		lastMap = Time.time;
 	}
 	
 

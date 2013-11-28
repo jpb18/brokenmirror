@@ -4,10 +4,16 @@
 #pragma strict
 var minRadius : float;
 var maxRadius : float;
+var playerSpawn : Vector3;
+var playerDir : Quaternion;
+
+var botMinRadius : float = 2.0f;
+var botMaxRadius : float = 8.0f;
 
 function Start () {
 	playerStart();
 	spawnDefenseFleet();
+	spawnPlayerFleet();
 }
 
 //this function spawns the planets defense fleet
@@ -22,7 +28,7 @@ function spawnDefenseFleet() {
 	//now lets spawn it!
 	for(var x : int = 0; x < fleet.length; x++) {
 		
-		Instantiate(fleet[x].getShip(), fixCoods(genSpawn(minRadius, maxRadius, transform)), Random.rotation);
+		Instantiate(fleet[x].getShip(), genSpawn(minRadius, maxRadius, transform.position), Random.rotation);
 		
 	}
 	
@@ -38,8 +44,10 @@ function playerStart() {
 	//get ship
 	var playerShip : GameObject = save_scr.playerShip.getShip();
 	//spawn game object looking at the planet
-	playerShip = Instantiate(playerShip, fixCoods(genSpawn(minRadius, maxRadius, transform)), Quaternion.identity);
+	playerSpawn = genSpawn(minRadius, maxRadius, transform.position);
+	playerShip = Instantiate(playerShip, playerSpawn , Quaternion.identity);
 	playerShip.transform.LookAt(transform.position);
+	playerDir = playerShip.transform.rotation;
 	
 	//sanitize name
 	playerShip.name = save_scr.RemoveClone(playerShip.name);
@@ -60,28 +68,35 @@ function playerStart() {
 
 }
 
+function spawnPlayerFleet() {
+	//get fleet info from SaveGame
+	var save_scr : SaveGame = GameObject.FindGameObjectWithTag("SaveGame").GetComponent(SaveGame);
+	var size : int = save_scr.playerFleet.getSize();
+	var shipSpawn : Vector3 = Vector3.zero;
+	var botShip : GameObject;
+	for(var x : int = 0; x < size; x++) {
+		shipSpawn = genSpawn(botMinRadius, botMaxRadius, playerSpawn);
+		botShip = Instantiate(save_scr.playerFleet.getShip(x), shipSpawn, playerDir);
+		botShip.name = save_scr.RemoveClone(botShip.name);
+		
+	}
 
+	
 
-
-//this method fixes the coordinates so its relative to the game object
-
-private function fixCoods(cood : Vector3) {
-	return transform.position + cood;
 }
 
 
 
+//this method generates a random spawn point inside a sphere with the center in trans
 
-//this method generates a random spawn point inside a sphere
-
-static function genSpawn(min : float, max : float, trans : Transform) : Vector3 {
+static function genSpawn(min : float, max : float, trans : Vector3) : Vector3 {
 	var res : Vector3 = new Vector3(0,0,0);
 
 	do {
 	
-		res = Random.insideUnitSphere * max;
+		res = trans + Random.insideUnitSphere * max;
 	
-	} while(Vector3.Distance(res, trans.position) < min);
+	} while(Vector3.Distance(res, trans) < min);
 	
 	return res;	
 
