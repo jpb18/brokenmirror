@@ -4,6 +4,7 @@
 var type : WeaponType;
 var firingAngle : float;
 var guiInfo : GuiInfo;
+var altRate : float;
 
 enum WeaponType {
 	beam,
@@ -79,8 +80,8 @@ function getRange() : float {
 
 //this method checks if the target is in range
 function isRange(origin : GameObject, target : GameObject) : boolean {
-
-	return (Vector3.Distance(origin.transform.position, target.transform.position) <= getRange());
+	var range : float = getRange();
+	return ((origin.transform.position - target.transform.position).sqrMagnitude <= range * range);
 
 
 }

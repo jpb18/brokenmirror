@@ -1,6 +1,44 @@
 ﻿import System.Collections.Generic;
 #pragma strict
 
+
+///<summary>This searches for all ships in enemy list</summary>
+///<param name="enemyList">List with all enemy faction ids</param>
+///<param name="origin">object searching</param>
+///<pre>enemyList != null && origin != null</pre>
+static function findAllEnemyShips(enemyList : int[], origin : GameObject) : GameObject[] {
+	var gameObjs : GameObject[] = GameObject.FindGameObjectsWithTag("Ship");
+	var enemies : List.<GameObject> = new List.<GameObject>();
+	
+	for(var go : GameObject in gameObjs) {
+		
+			
+			if (go.transform.parent == null) //check if it's parent GO
+			{
+				if(go != origin) //check if GO is diferent than origin
+				{
+					if (go.tag == "Ship") //check if GO is a ship 
+					{
+					
+						//Get ships properties script and faction
+						var ship_props : shipProperties = go.GetComponent(shipProperties);
+						var ship_faction : int = ship_props.shipInfo.faction;
+												
+						if(isEnemy(ship_faction, enemyList))
+						{
+							enemies.Add(go);
+						}
+					}
+				}
+			}
+		}
+	
+	
+	return enemies.ToArray();
+	
+	
+}
+
 //this method finds a suitable target for the game object that calls it
 static function FindTarget(origin : GameObject, range : float, enemyList : int[]) : GameObject {
 
@@ -9,7 +47,7 @@ static function FindTarget(origin : GameObject, range : float, enemyList : int[]
 	
 	for(var go : GameObject in gameObjs) {
 	
-		if(Vector3.Distance(origin.transform.position, go.transform.position) <= range) {
+		if((origin.transform.position - go.transform.position).sqrMagnitude <= range * range) {
 			
 			if (go.transform.parent == null) //check if it's parent GO
 			{
@@ -31,7 +69,7 @@ static function FindTarget(origin : GameObject, range : float, enemyList : int[]
 							else //if there is
 							{
 								//check if the new go is closer than the older one
-								if (Vector3.Distance(origin.transform.position, closest.transform.position) >= Vector3.Distance(origin.transform.position, go.transform.position))
+								if ((origin.transform.position - closest.transform.position).sqrMagnitude >= (origin.transform.position - go.transform.position).sqrMagnitude)
 								{
 									closest = go;
 								}

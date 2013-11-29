@@ -6,6 +6,9 @@ public class WeaponPoints extends MonoBehaviour { //added this so I could use th
 	var weapon : GameObject;
 	var lastShot : float;
 	var target : GameObject;
+	var targetCache : GameObject[];
+	var lastScan : float;
+	var scanTime : float = 20.0f;
 	
 	//this is the constructor
 	public function WeaponPoint (point : GameObject, weapon : GameObject) {
@@ -14,7 +17,6 @@ public class WeaponPoints extends MonoBehaviour { //added this so I could use th
 		this.weapon = weapon;
 		target = null;
 		lastShot = 0;
-		
 		
 	
 	}
@@ -56,30 +58,43 @@ public class WeaponPoints extends MonoBehaviour { //added this so I could use th
 	
 	//this method returns the range of the weapon
 	//pre weapon != null	
-	private function getRange() {
+	private function getRange() : float {
 		return weapon.GetComponent(weaponScript).getRange();
 	
 	}
 	
 	//this method checks if there's a target in range
 	
-	public function hasTarget() {
-		var distance : int = 0;
+	public function hasTarget() : boolean {
+		var has : boolean = false;
 		
 		if(target) {
-			 Vector3.Distance(point.transform.position, target.transform.position);
-			
+			var distance : float = (point.transform.position - target.transform.position).sqrMagnitude;
+			var range : float = getRange();
+			has = distance <= range * range;
 		}
-	
-		return target != null && distance <= getRange();
+		
+		return has;
 	
 	}
 	
 	//this method checks if the target is inside the weapon angle
-	public function hasAngle() {
-	
-		return weapon.GetComponent(weaponScript).isAngle(point, target);
-	
+	public function hasAngle() : boolean {
+		var has : boolean = false;
+		if(target) {
+		 has = weapon.GetComponent(weaponScript).isAngle(point, target);
+		}
+		return has;
 	}
+	
+	///<summary>This caches all enemies in the scene</summary>
+	///<param name="enemyList">List of enemy factions</param>
+	public function searchEnemies(enemyList : int[]) {
+		
+		targetCache = Statics.findAllEnemyShips(enemyList, gameObject);
+		
+	}
+	
+	
 
 }
