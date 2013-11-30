@@ -5,9 +5,9 @@ import System.Collections.Generic;
 class WeaponSlot {
 	var isEnabled : boolean = false; //checks if the weapon is enabled
 	var weapon_go : GameObject; //weapon GameObject. It contains the projectile
-	var phaser_point : Transform; //if the weapon is a beam weapon, it fires from this game object
-	var torpedo_point : Transform; //if the weapon is a torpedo weapon, it fires from this game object
-	var pulse_point : Transform; //if the weapon is a pulse weapon, it fires from this game object
+	var phaser_point : GameObject; //if the weapon is a beam weapon, it fires from this game object
+	var torpedo_point : GameObject; //if the weapon is a torpedo weapon, it fires from this game object
+	var pulse_point : GameObject; //if the weapon is a pulse weapon, it fires from this game object
 	var nextShot : float; //time to fire again
 	var lastReload : float;
 	var isFiring : boolean = false; //checks if the weapon is firing
@@ -21,20 +21,20 @@ class WeaponSlot {
 	///<summary>Checks if current weapon point has children</summary>
 	///<pre>isEnabled</pre>
 	function hasChild() : boolean {
-		return getPoint().childCount > 0;
+		return getPoint().transform.childCount > 0;
 		
 		
 	}
 	
 	///<summary>Returns child objects for the weapon</summary>
 	///<pre>hasChild()</pre>
-	function returnChild() : List.<Transform> {
+	function returnChild() : List.<GameObject> {
 		
-		var point : Transform = this.getPoint();
+		var point : GameObject = this.getPoint();
 		
-		var list : List.<Transform>;
+		var list : List.<GameObject>;
 		
-		for(var trans : Transform in point) {
+		for(var trans : GameObject in point) {
 			
 			list.Add(trans);
 			
@@ -65,8 +65,8 @@ class WeaponSlot {
 	
 	///<summary>Gets weapon point</summary>
 	///<pre>isEnabled</pre>
-	function getPoint() : Transform {
-		var point : Transform;
+	function getPoint() : GameObject {
+		var point : GameObject;
 		
 		switch(getType()) {
 			case WeaponType.beam:
@@ -99,69 +99,12 @@ class WeaponSlot {
 	///<param name="target">target object</param>
 	///<pre>target != null</pre>
 	function canFire(target : GameObject) : boolean {
+		
 		return this.calcAngle(target) && this.calcRange(target) && isEnabled && nextShot < Time.time;
 	}
 	
-	///<summary>Fires the weapon</summary>
-	///<param name="target">target object</param>
-	///<param name="isBlast">is firing in blasts?</param>
-	///<pre>target != null</pre>
-	///<pre>canFire()</pre>
-	function fire(target : GameObject, isBlast : boolean, volley : int) {
-		var cooldown : float = weapon_go.GetComponent(weaponScript).getCooldown();
-		var rate : float = weapon_go.GetComponent(weaponScript).altRate;
-		isFiring = false;
-		nextShot = Time.time + (cooldown * volley);
-		if(isBlast) {
-			if(hasChild()) {
-				for(var i : int; i < volley; i++) {
-					for(var trans : Transform in returnChild()) {
-						FireWeapon(target, trans);
-					}
-					yield WaitForSeconds(cooldown);	
-				}
-			} else {
-				for(var z : int; z < volley; z++) {
-					FireWeapon(target, getPoint());
-					yield WaitForSeconds(cooldown);	
-				}
-			}
-			
-		} else {
-			if(hasChild()) {
-				for(var x : int; x < volley; x++) {
-					for(var trans : Transform in returnChild()) {
-						FireWeapon(target, trans);
-						yield WaitForSeconds(rate);
-					}
-					yield WaitForSeconds(cooldown);	
-				}
-			} else {
-				for(var a : int; a < volley; a++) {
-					FireWeapon(target, getPoint());
-					yield WaitForSeconds(cooldown);	
-				}
-			}
-		}
-		
-		
-		
-	}
 	
 	
-	
-	///<summary>Fires any weapon</summary>
-	///<param name="target">target object</param>
-	///<param name="origin">point of origin</param>
-	///<pre>target != null</pre>
-	///<pre>canFire()</pre>
-	private function FireWeapon(target : GameObject, origin : Transform) {
-		var weapon : GameObject = GameObject.Instantiate(this.weapon_go, origin.position, origin.rotation);
-		var ws : weaponScript = weapon.GetComponent(weaponScript);
-		
-		ws.setTarget(target);
-		ws.setOrigin(origin.gameObject);
-	}
 	
 	///<summary>Set the weapon to fire</summary>
 	///<pre>canFire()</pre>
@@ -192,7 +135,7 @@ var botWeapon : BotWeapons;
 
 //Ship weapons
 var weapon : WeaponSlot[];
-var weaponKey : String[] = new String[8];
+
 
 var shipProps : shipProperties;
 var shipTar : shipTarget;
@@ -219,15 +162,14 @@ function Start () {
 	load = GameObject.FindGameObjectWithTag("LoadScene").GetComponent(LoadScene);
 	
 	//get general info
-	var gen_go : GameObject = GameObject.Find("SaveGame");
+	var gen_go : GameObject = GameObject.FindGameObjectWithTag("SaveGame");
 	genInfo = gen_go.GetComponent(GeneralInfo);
 	
 	//get global info
-	var glo_go : GameObject = GameObject.Find("GlobalInfo");
+	var glo_go : GameObject = GameObject.FindGameObjectWithTag("GlobalInfo");
 	globInfo = glo_go.GetComponent(GlobalInfo);
 	
-	//set weapons keys from global info
-	weaponKey = globInfo.weaponKeys;
+
 
 }
 
@@ -237,6 +179,10 @@ function Update () {
 	{
 		PlayerFire();
 		FireWeapons();
+		
+		if(Input.GetAxis("SwapPulse") && blastChange + blastWait < Time.time && show.isGame && !load.show) {
+			swapBlast();
+		}	
 	}
 	else
 	{
@@ -247,9 +193,7 @@ function Update () {
 	}
 	
 	
-	if(Input.GetAxis("SwapPulse") && blastChange + blastWait < Time.time && show.isGame && !load.show) {
-		swapBlast();
-	}
+	
 
 }
 
@@ -262,10 +206,10 @@ function PlayerFire() {
 		
 		for(var x : int = 0; x < weapon.Length; x++)
 		{
+			var key : String = "Fire" + (x+1);
 			
-			if (Input.GetAxis(weaponKey[x]) && weapon[x].canFire(shipTar.target)) //Player fires weapon 1
+			if (Input.GetAxis(key) && weapon[x].canFire(shipTar.target)) //Player fires weapon 1
 			{
-				
 				weapon[x].setFire();
 			}
 		}
@@ -287,7 +231,7 @@ function FireWeapons() {
 	{
 		if (weapon[x].isFiring) //Player fires weapon 1
 		{
-			FireWeapon(weapon[x], shipTar.target);
+			StartCoroutine(fire(weapon[x], shipTar.target,blastMode, volleyTimes()));
 			
 		}
 	}
@@ -295,12 +239,7 @@ function FireWeapons() {
 
 }
 
-function FireWeapon (weapon : WeaponSlot, target : GameObject) {
-	
 
-	weapon.fire(target,blastMode, volleyTimes());
-
-}
 
 function volleyTimes() : int {
 	var times : int = 0;
@@ -348,9 +287,9 @@ function BotFire() {
 		yield WaitForSeconds (waitTime);
 		for(var x : int = 0; x < weapon.Length; x++)
 		{
-			if (weapon[0].canFire(shipTar.target)) //Player fires weapon 1
+			if (weapon[x].canFire(shipTar.target)) //Player fires weapon 1
 			{
-				FireWeapon(weapon[0], shipTar.target);
+					StartCoroutine(fire(weapon[x], shipTar.target,blastMode, volleyTimes()));
 				
 			}
 		}
@@ -396,3 +335,65 @@ function swapBlast() {
 	blastChange = Time.time;
 	
 }
+
+///<summary>Fires the weapon</summary>
+	///<param name="target">target object</param>
+	///<param name="isBlast">is firing in blasts?</param>
+	///<pre>target != null</pre>
+	///<pre>weapon.canFire()</pre>
+function fire(weapon : WeaponSlot, target : GameObject, isBlast : boolean, volley : int) {
+		
+		var cooldown : float = weapon.weapon_go.GetComponent(weaponScript).getCooldown();
+		var rate : float = weapon.weapon_go.GetComponent(weaponScript).altRate;
+		weapon.isFiring = false;
+		weapon.nextShot = Time.time + (cooldown * volley);
+		if(isBlast) {
+			if(weapon.hasChild()) {
+				for(var i : int; i < volley; i++) {
+					for(var trans : GameObject in weapon.returnChild()) {
+						FireWeapon(weapon, target, trans);
+					}
+					yield WaitForSeconds(cooldown);	
+				}
+			} else {
+				for(var z : int; z < volley; z++) {
+					FireWeapon(weapon, target, weapon.getPoint());
+					yield WaitForSeconds(cooldown);	
+				}
+			}
+			
+		} else {
+			if(weapon.hasChild()) {
+				for(var x : int; x < volley; x++) {
+					for(var trans : GameObject in weapon.returnChild()) {
+						FireWeapon(weapon, target, trans);
+						yield WaitForSeconds(rate);
+					}
+					yield WaitForSeconds(cooldown);	
+				}
+			} else {
+				for(var a : int; a < volley; a++) {
+					FireWeapon(weapon, target, weapon.getPoint());
+					yield WaitForSeconds(cooldown);	
+				}
+			}
+		}
+		
+		
+		
+	}
+	
+	
+	
+	///<summary>Fires any weapon</summary>
+	///<param name="target">target object</param>
+	///<param name="origin">point of origin</param>
+	///<pre>target != null</pre>
+	///<pre>weapon.canFire()</pre>
+	private function FireWeapon(weaponS : WeaponSlot, target : GameObject, origin : GameObject) {
+		var weapon : GameObject = GameObject.Instantiate(weaponS.weapon_go, origin.transform.position, origin.transform.rotation);
+		var ws : weaponScript = weapon.GetComponent(weaponScript);
+		
+		ws.setTarget(target);
+		ws.setOrigin(origin);
+	}

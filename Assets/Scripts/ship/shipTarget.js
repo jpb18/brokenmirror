@@ -11,6 +11,10 @@ var shipWeps : shipWeapons;
 
 var repeatClick : boolean = false;
 
+//these vars are for bots
+var nextSearch : float;
+var searchTime : float = 4.0f;
+
 
 
 function Start () {
@@ -21,7 +25,7 @@ function Start () {
 }
 
 function Update () {
-
+	
 	if(shipProps.playerProps.isPlayer == true)
 	{
 		ClickTarget();
@@ -31,6 +35,11 @@ function Update () {
 	{
 		botFunction();
 		BotRedAlert();
+	}
+	if(target != null) {
+		if(!target.activeSelf) {
+			target = null;
+		}
 	}
 	
 	
@@ -46,8 +55,8 @@ function setTarget(target : GameObject) {
 }
 
 function BotRedAlert() {
-
-	if(!target) {
+	
+	if(target != null) {
 		
 		shipProps.combatStatus.isRedAlert = false;
 	
@@ -96,7 +105,8 @@ function ClickTarget() {
 function PressTarget() {
 	for(var x : int = 0; x < shipWeps.weapon.Length; x++)
 	{
-		if (Input.GetAxis(shipWeps.weaponKey[x]) && target == null)
+		var key : String = "Fire" + (x+1);
+		if (Input.GetAxis(key) && target == null)
 		{
 			target = FindTarget(gameObject, shipProps);
 		}
@@ -116,14 +126,15 @@ function FindTarget(origin : GameObject, shipProps : shipProperties) : GameObjec
 
 
 function botFunction() {
-
-	if(target == null)
-	{
-	
-		target = FindTarget(gameObject, shipProps);
+	if(target != null) {
+		if(!target.activeSelf && Time.time > nextSearch)
+		{
 		
+			target = FindTarget(gameObject, shipProps);
+			nextSearch = Time.time + Random.value * searchTime;
+			
+		}
 	}
-	
 }
 
 

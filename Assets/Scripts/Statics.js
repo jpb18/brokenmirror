@@ -13,7 +13,7 @@ static function findAllEnemyShips(enemyList : int[], origin : GameObject) : Game
 	for(var go : GameObject in gameObjs) {
 		
 			
-			if (go.transform.parent == null) //check if it's parent GO
+			if (go.transform.parent == null && go.activeSelf) //check if it's parent GO
 			{
 				if(go != origin) //check if GO is diferent than origin
 				{
@@ -46,7 +46,7 @@ static function FindTarget(origin : GameObject, range : float, enemyList : int[]
 	var closest : GameObject;
 	
 	for(var go : GameObject in gameObjs) {
-	
+		if(go.activeSelf) {
 		if((origin.transform.position - go.transform.position).sqrMagnitude <= range * range) {
 			
 			if (go.transform.parent == null) //check if it's parent GO
@@ -88,6 +88,7 @@ static function FindTarget(origin : GameObject, range : float, enemyList : int[]
 		
 		}
 	
+	}
 	}
 
 	return closest;

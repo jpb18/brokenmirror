@@ -7,8 +7,8 @@ public class WeaponPoints extends MonoBehaviour { //added this so I could use th
 	var lastShot : float;
 	var target : GameObject;
 	var targetCache : GameObject[];
-	var lastScan : float;
-	var scanTime : float = 20.0f;
+	var nextScan : float;
+	var scanTime : float = 5.0f;
 	
 	//this is the constructor
 	public function WeaponPoint (point : GameObject, weapon : GameObject) {
@@ -52,7 +52,16 @@ public class WeaponPoints extends MonoBehaviour { //added this so I could use th
 	//@pre target != null
 	public function scan(enemyList : int[]) {
 		
-		target = Statics.FindTarget(point, getRange(), enemyList);
+		if(Time.time > this.nextScan) {
+			
+			this.searchEnemies(enemyList);
+			
+			
+		}
+		
+		if(targetCache.Length > 0) {
+			target = this.pickClosest();
+		}
 	
 	}
 	
@@ -92,9 +101,30 @@ public class WeaponPoints extends MonoBehaviour { //added this so I could use th
 	public function searchEnemies(enemyList : int[]) {
 		
 		targetCache = Statics.findAllEnemyShips(enemyList, gameObject);
+		nextScan = Time.time + Random.value * scanTime;
 		
 	}
 	
+	///<summary>This picks the closest game object in cache as a target</summary>
+	///<pre>targetCache.Length > 0</pre>
+	
+	public function pickClosest() : GameObject{
+		
+		var closest : GameObject = targetCache[0];
+		
+		for(var x : int = 1; x < targetCache.Length; x++) {
+			
+			var distance1 : float = (closest.transform.position - transform.position).sqrMagnitude;
+			var distance2 : float = (targetCache[x].transform.position - transform.position).sqrMagnitude;
+			
+			if(distance2 < distance1) {
+				closest = targetCache[x];
+			}
+			
+		}
+		
+		return closest;
+	}
 	
 
 }

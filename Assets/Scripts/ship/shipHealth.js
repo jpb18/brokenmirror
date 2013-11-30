@@ -106,7 +106,7 @@ function Die () {
 	if (shipHealth.health <= 0)
 	{
 		Instantiate(explosion, transform.position, transform.rotation);
-		Destroy(gameObject);
+		gameObject.SetActive(false);
 		
 		
 	}
