@@ -21,6 +21,8 @@ function Start () {
 
 	shipProps = gameObject.GetComponent(shipProperties);
 	shipWeps = gameObject.GetComponent(shipWeapons);
+	
+	
 
 }
 

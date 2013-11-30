@@ -84,7 +84,7 @@ function OnTriggerEnter(hit : Collider) {
 				var isRedAlert : boolean = hitGO.GetComponent(shipProperties).combatStatus.isRedAlert;
 				
 				if(isRedAlert) {
-					Debug.Log("shield:" + hitGO.name);
+					
 					var hitHS : shipHealth = hitGO.GetComponent(shipHealth);
 					var shields = hitHS.shipHealth.shields;
 					if(shields > 0)
@@ -115,9 +115,12 @@ function OnTriggerEnter(hit : Collider) {
 
 }
 
+
+
+
 function OnCollisionEnter (hit: Collision) {
 
-	Debug.Log("hull:" + hit.transform.name);
+	
 	if(hit.transform.gameObject != origin && effect.hasExploded == false)
 	{
 		
@@ -147,5 +150,5 @@ function setTarget(target : GameObject) {
 //this method sets the origin
 //pre origin != null
 function setOrigin(origin : GameObject) {
-	this.origin = origin;
+	this.origin = origin.transform.parent.parent.parent.gameObject;
 }
