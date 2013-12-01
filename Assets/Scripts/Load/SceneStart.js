@@ -10,6 +10,8 @@ var playerDir : Quaternion;
 var botMinRadius : float = 2.0f;
 var botMaxRadius : float = 8.0f;
 
+var playerShip : GameObject;
+
 function Start () {
 	playerStart();
 	spawnDefenseFleet();
@@ -42,7 +44,7 @@ function playerStart() {
 	//get player info from SaveGame
 	var save_scr : SaveGame = GameObject.FindGameObjectWithTag("SaveGame").GetComponent(SaveGame);
 	//get ship
-	var playerShip : GameObject = save_scr.playerShip.getShip();
+	playerShip = save_scr.playerShip.getShip();
 	//spawn game object looking at the planet
 	playerSpawn = genSpawn(minRadius, maxRadius, transform.position);
 	playerShip = Instantiate(playerShip, playerSpawn , Quaternion.identity);
@@ -70,6 +72,7 @@ function playerStart() {
 
 function spawnPlayerFleet() {
 	//get fleet info from SaveGame
+	
 	var save_scr : SaveGame = GameObject.FindGameObjectWithTag("SaveGame").GetComponent(SaveGame);
 	var size : int = save_scr.playerFleet.getSize();
 	var shipSpawn : Vector3 = Vector3.zero;
@@ -78,6 +81,7 @@ function spawnPlayerFleet() {
 		shipSpawn = genSpawn(botMinRadius, botMaxRadius, playerSpawn);
 		botShip = Instantiate(save_scr.playerFleet.getShip(x), shipSpawn, playerDir);
 		botShip.name = save_scr.RemoveClone(botShip.name);
+		botShip.GetComponent(ShipAI).setLeader(playerShip);
 		
 	}
 

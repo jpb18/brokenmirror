@@ -1,7 +1,7 @@
 ﻿import System.Collections.Generic;
 #pragma strict
 
-class SaveShip {
+class SaveShip extends System.Object {
 
 	class ShipInfo { //general ship info
 		var Name : String;
@@ -9,18 +9,37 @@ class SaveShip {
 		var isPlayer : boolean;
 		var isRedAlert : boolean;
 		var strenght : int;
+		
+		function ShipInfo() {
+			Name = "";
+			Faction = 0;
+			isPlayer = false;
+			isRedAlert = false;
+			strenght = 0;
+		}
 	
 	}
 	
 	class ShipHealth { //ship health information
 		var curHull : float;
 		var curShield : float;
+		
+		function ShipHealth() {
+			curHull = 0;
+			curShield = 0;
+		}
 	
 	}
 
 	class ShipInventory { //ship inventory information
 		var weapons : GameObject[];
 		var upgrades : GameObject[];
+		
+		function ShipInventory() {
+			weapons = new GameObject[0];
+			upgrades = new GameObject[0];
+		}
+		
 	}
 	
 	
@@ -29,8 +48,12 @@ class SaveShip {
 	var shipHea : ShipHealth;
 	var shipInv : ShipInventory;
 	
-	function SaveShip(ship : GameObject) {
-		setShip(ship);
+	function SaveShip() {
+		shipInfo = new ShipInfo();
+		shipHea = new ShipHealth();
+		shipInv = new ShipInventory();
+		shipPrefab = null;
+		
 	}
 	
 	//this function returns the ship stored here
@@ -105,7 +128,7 @@ class SaveShip {
 	
 }
 
-class Fleet {
+class Fleet extends System.Object{
 	
 	var ships : List.<SaveShip>;
 	var formation : Formation = Formation.standard;
@@ -121,7 +144,9 @@ class Fleet {
 	}
 	
 	function setShip(ship : GameObject) {
-		this.ships.Add(new SaveShip(ship));
+		var newShip : SaveShip = new SaveShip();
+		newShip.setShip(ship);
+		this.ships.Add(newShip);
 	}
 	
 	function changeFormation() {
@@ -136,7 +161,12 @@ class Fleet {
 				formation = formation.close;
 				break;
 		}
+		
+		
+		
 	}
+	
+	
 	
 	function getFormation () : String {
 		var text : String = "";
@@ -171,6 +201,7 @@ var pressWait : float = 0.2f;
 var show : ShowMessage;
 var load : LoadScene;
 
+var playShip : GameObject;
 
 static final var CLONE_NUM : int = 7; //number of chars in "(Clone)"
 
@@ -189,11 +220,12 @@ function Update() {
 
 function Save() {
 	PlayerSave(); //first save the player ship
+	SavePlayerFleet(); //then its fleet
 }
 
 function PlayerSave() {
 
-	var playShip : GameObject  = FindPlayerShip(); //first get the player GameObject
+	playShip = FindPlayerShip(); //first get the player GameObject
 	playerShip.setShip(playShip);
 	  
 
@@ -201,13 +233,14 @@ function PlayerSave() {
 
 function SavePlayerFleet() {
 	playerFleet.clearList();
-	var playShip : GameObject = FindPlayerShip();
-	var ships : GameObject[] = GameObject.FindGameObjectsWithTag("Ship");
 	
-	for(var ship : GameObject in ships) {
+	for(var ship : GameObject in GameObject.FindGameObjectsWithTag("Ship")) {
+		if(ship != playShip) {
 		var ai : ShipAI = ship.GetComponent(ShipAI);
-		if(ai.leader == playShip) {
-			playerFleet.setShip(ship);
+			
+			if(ai.leader == this.playShip) {
+				playerFleet.setShip(ship);
+			}
 		}
 		
 	
@@ -217,17 +250,17 @@ function SavePlayerFleet() {
 
 public static function FindPlayerShip() : GameObject {
 
-	var allShips : GameObject[] = GameObject.FindGameObjectsWithTag("Ship"); //Find all ships
-	var playerShip : GameObject; //set the return variable
-	var found : boolean = false;
 	
-	for (var ship : GameObject in allShips) { //loop through all ships in search of the player ship
+	var playerShip : GameObject; //set the return variable
+	
+	
+	for (var ship : GameObject in  GameObject.FindGameObjectsWithTag("Ship")) { //loop through all ships in search of the player ship
 		
 		var shipPros : shipProperties = ship.GetComponent(shipProperties); //get ship properties script
 		if(shipPros.playerProps.isPlayer) { //check if its player
 		
 			playerShip = ship; //set player ship var
-			found = true;
+			
 		
 		}
 		
@@ -254,8 +287,6 @@ function changeFormation(fleet : Fleet) {
 	var message : String = "Fleet is now in " + fleet.getFormation() + " formation.";	
 	
 	//set new message
-	var show : ShowMessage = GameObject.FindGameObjectWithTag("ShowMessage").GetComponent(ShowMessage);
-	var map : MapInfo = GameObject.FindGameObjectWithTag("MapInfo").GetComponent(MapInfo);
 	show.AddMessage(message);
 	
 	
