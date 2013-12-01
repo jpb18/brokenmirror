@@ -90,25 +90,24 @@ function OnTriggerEnter (hit : Collider) {
 	//if the phaser object hits a ships shield
 	if (hit.tag == "Shields" && !hitshield)
 	{
-		if(hit.transform.parent.parent.gameObject && origin.transform.parent.parent.parent.parent.gameObject) {
-			if(hit.transform.parent.parent.gameObject != origin.transform.parent.parent.parent.parent.gameObject)
+		var go1 : GameObject = hit.transform.parent.parent.gameObject;
+		var go2 : GameObject = origin.transform.parent.parent.parent.parent.gameObject;
+		if(go1 && go2) {
+			if(go1 != go2)
 			{
 			
-				if (hit.transform.parent.parent.gameObject.tag == "Ship")
+				if (go1.tag == "Ship")
 				{
 				
 					//checks the target red alert status
-					var isRedAlert : boolean = hit.transform.parent.parent.gameObject.GetComponent(shipProperties).combatStatus.isRedAlert;
+					var isRedAlert : boolean = go1.GetComponent(shipProperties).combatStatus.isRedAlert;
 					if(isRedAlert)
 					{
-						var healthSC : shipHealth = hit.transform.parent.parent.gameObject.GetComponent(shipHealth);
+						var healthSC : shipHealth = go1.GetComponent(shipHealth);
 						
 						if(healthSC.shipHealth.shields > 0)
 						{
-							
-							
-							
-							
+														
 							healthSC.shipHealth.shields -= damage;
 							//make shield show up
 							healthSC.shieldShow.lastHit = Time.time;
