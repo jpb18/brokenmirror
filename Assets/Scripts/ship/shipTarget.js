@@ -48,6 +48,10 @@ function Update () {
 
 }
 
+function hasTarget() : boolean {
+	return target;
+}
+
 function getTarget() : GameObject {
 	return target;
 }

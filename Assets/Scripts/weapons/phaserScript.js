@@ -8,7 +8,7 @@ var range : float;
 var target : GameObject;
 var origin : GameObject;
 
-var beam_renderer : GameObject;
+var line_renderer : LineRenderer;
 
 var standard_cd : float = 5.0f;
 
@@ -35,11 +35,23 @@ function Start () {
 
 function Update () {
 	
+	//delete the projectile when its time
+	if (Time.time >= spawnTime + durTime)
+	{
+		Destroy(gameObject);
+	}
 	
-	deletePhaser();
-	CheckPTargetAndOrigin();
-	designLine();
+	//check if target and origin still exist
+	if(!target && !origin)
+	{
+		Destroy(gameObject);
+	}
 	
+	//draw the line
+	line_renderer.SetPosition(0, origin.transform.position);
+	line_renderer.SetPosition(1, gameObject.transform.position);
+	
+	//make the phaser move
 	if(!hitshield && !hitHull) {
     	transform.LookAt(target.transform.position);
 		rigidbody.velocity = speed * transform.forward;
@@ -49,14 +61,7 @@ function Update () {
 
 }
 
-function designLine () {
 
-	var line_renderer : LineRenderer = beam_renderer.GetComponent(LineRenderer);
-	line_renderer.SetPosition(0, origin.transform.position);
-	line_renderer.SetPosition(1, gameObject.transform.position);
-
-
-}
 
 //calculates the distance between the origin and the target
 function OnCollisionEnter (hit : Collision) {
@@ -127,21 +132,7 @@ function OnTriggerEnter (hit : Collider) {
 
 }
 
-function deletePhaser () {
-	if (Time.time >= spawnTime + durTime)
-	{
-		gameObject.SetActive(false);
-	}
 
-}
-
-function CheckPTargetAndOrigin() {
-	if(!target || !origin)
-	{
-		gameObject.SetActive(false);
-	}
-
-}
 
 function OnTriggerExit(hit : Collider) {
 	if(hit.tag == "Shields" && gameObject.layer == LayerMask.NameToLayer("PhaserStart"))

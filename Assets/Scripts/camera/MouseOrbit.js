@@ -34,16 +34,41 @@ function Start () {
 function LateUpdate () {
 	if (target) {
 		//obtain red alert status
-		/*var go : GameObject = target.gameObject;
-		var script : playerShip = go.GetComponent(playerShip);
-		var red_alert = script.isRedAlert;
 		
+		var go : GameObject = target.gameObject;
+		var red_alert : boolean = go.GetComponent(shipProperties).combatStatus.isRedAlert;
+		var hasTarget : boolean = go.GetComponent(shipTarget).hasTarget();
 	
-		if(red_alert == false) //check if red alert isn't activated or if the ship is forward firing and the rotation key is pressed
-		{*/
+		if(!red_alert && !hasTarget) //check if red alert isn't activated or the ship doesn't have any target
+		{
 		
-			
-				if(Input.GetAxis("camSpace")) //Check status of "camSpace" Input Axis
+			camScript();
+				
+	    } else if(red_alert && !hasTarget) {
+	    
+	    	camScript();
+	    }
+	    else
+	    {	
+	    	 //Check if the script has a target
+	    		
+			        	x += Input.GetAxis("Mouse X") * xSpeed * 0.02;
+			        	y -= Input.GetAxis("Mouse Y") * ySpeed * 0.02;
+			        	y = ClampAngle(y, yMinLimit, yMaxLimit);
+			        	rotation = Quaternion.Euler(y, x, 0); //update rotation
+			        	 position = rotation * Vector3(0.0, 0.0, -distance) + target.position; //update camera position
+			        	 transform.rotation = rotation; //rotate
+			        	  transform.position = position;
+	    	
+	    	
+    	}
+    }
+    
+}
+
+function camScript() {
+
+	if(Input.GetAxis("camSpace")) //Check status of "camSpace" Input Axis
 				{
 					Screen.showCursor = false; //Hide mouse cursor
 				}
@@ -106,23 +131,7 @@ function LateUpdate () {
 			    	}
 			    }
 		    
-	    /*}
-	    else
-	    {	
-	    	 //Check if the script has a target
-	    		
-			        	x += Input.GetAxis("Mouse X") * xSpeed * 0.02;
-			        	y -= Input.GetAxis("Mouse Y") * ySpeed * 0.02;
-			        	y = ClampAngle(y, yMinLimit, yMaxLimit);
-			        	rotation = Quaternion.Euler(y, x, 0); //update rotation
-			        	 position = rotation * Vector3(0.0, 0.0, -distance) + target.position; //update camera position
-			        	 transform.rotation = rotation; //rotate
-			        	  transform.position = position;
-	    	
-	    	
-    	}*/
-    }
-    
+
 }
 
 static function ClampAngle (angle : float, min : float, max : float) {
