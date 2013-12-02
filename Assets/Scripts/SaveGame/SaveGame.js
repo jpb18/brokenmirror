@@ -200,6 +200,7 @@ var pressWait : float = 0.2f;
 
 var show : ShowMessage;
 var load : LoadScene;
+var start : SceneStart;
 
 var playShip : GameObject;
 
@@ -208,11 +209,12 @@ static final var CLONE_NUM : int = 7; //number of chars in "(Clone)"
 function Start() {
 	show = GameObject.FindGameObjectWithTag("ShowMessage").GetComponent(ShowMessage);
 	load = GameObject.FindGameObjectWithTag("LoadScene").GetComponent(LoadScene);
+	start = GameObject.FindGameObjectWithTag("SceneStart").GetComponent(SceneStart);
 }
 
 function Update() {
 	if(Input.GetAxis("Formation") && changedFormation + pressWait < Time.time && show.isGame && !load.show) {
-		changeFormation(playerFleet);
+		changeFormation(playerFleet, start.playerFleet);
 		changedFormation = Time.time;
 	}
 
@@ -274,7 +276,6 @@ public static function FindPlayerShip() : GameObject {
 
 
 //pre: last 7 letter must be "(Clone)"
-
 public static function RemoveClone(name : String) : String {
 
 		//remove last 7 characters of name
@@ -282,14 +283,24 @@ public static function RemoveClone(name : String) : String {
 
 }
 
-function changeFormation(fleet : Fleet) {
+function changeFormation(fleet : Fleet, squad : List.<GameObject>) {
 	fleet.changeFormation();
 	var message : String = "Fleet is now in " + fleet.getFormation() + " formation.";	
+	
+	setFleetFormation(fleet.formation, squad);
 	
 	//set new message
 	show.AddMessage(message);
 	
 	
+}
+
+function setFleetFormation (formation : Formation, fleet : List.<GameObject>) {
+	
+	for(var ship in fleet) {
+		ship.GetComponent(ShipAI).formation = formation;
+	}
+
 }
 
 

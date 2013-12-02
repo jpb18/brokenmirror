@@ -1,4 +1,5 @@
-﻿//this class controls the scene loading
+﻿import System.Collections.Generic;
+//this class controls the scene loading
 //its supposed to be placed ON THE PLANET
 
 #pragma strict
@@ -11,11 +12,24 @@ var botMinRadius : float = 2.0f;
 var botMaxRadius : float = 8.0f;
 
 var playerShip : GameObject;
+var playerFleet : List.<GameObject>;
+var defenseFleet : List.<GameObject>;
+
 
 function Start () {
+	//set SaveGame start
+	GameObject.FindGameObjectWithTag("SaveGame").GetComponent(SaveGame).start = this;
+	
+
 	playerStart();
 	spawnDefenseFleet();
 	spawnPlayerFleet();
+	
+	
+	//set new message
+	var show : ShowMessage = GameObject.FindGameObjectWithTag("ShowMessage").GetComponent(ShowMessage);
+	var map : MapInfo = GameObject.FindGameObjectWithTag("MapInfo").GetComponent(MapInfo);
+	show.AddMessage(map.buildSceneLoadMessage());
 }
 
 //this function spawns the planets defense fleet
@@ -26,11 +40,13 @@ function spawnDefenseFleet() {
 	var planet : PlanetInfo = mapScr.findPlanet(Application.loadedLevelName);
 	
 	var fleet : SaveShip[] = planet.getFleet();
-	
+	var ship : GameObject;
 	//now lets spawn it!
 	for(var x : int = 0; x < fleet.length; x++) {
 		
-		Instantiate(fleet[x].getShip(), genSpawn(minRadius, maxRadius, transform.position), Random.rotation);
+		ship = Instantiate(fleet[x].getShip(), genSpawn(minRadius, maxRadius, transform.position), Random.rotation);
+		defenseFleet.Add(ship);
+		
 		
 	}
 	
@@ -62,14 +78,12 @@ function playerStart() {
 	var cam_scr = cam.GetComponent(MouseOrbit);
 	cam_scr.target = playerShip.transform;
 	
-	//set new message
-	var show : ShowMessage = GameObject.FindGameObjectWithTag("ShowMessage").GetComponent(ShowMessage);
-	var map : MapInfo = GameObject.FindGameObjectWithTag("MapInfo").GetComponent(MapInfo);
-	show.AddMessage(map.buildSceneLoadMessage());
+	
 	
 
 }
 
+//spawn the player fleet
 function spawnPlayerFleet() {
 	//get fleet info from SaveGame
 	
@@ -82,6 +96,7 @@ function spawnPlayerFleet() {
 		botShip = Instantiate(save_scr.playerFleet.getShip(x), shipSpawn, playerDir);
 		botShip.name = save_scr.RemoveClone(botShip.name);
 		botShip.GetComponent(ShipAI).setLeader(playerShip);
+		playerFleet.Add(botShip);
 		
 	}
 
