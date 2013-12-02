@@ -43,16 +43,45 @@ function Start () {
 function Update () {
 	if(!props.playerProps.isPlayer)
 	{
-		if(hasLeader()) {
-		
-			if(getFormation() == formation.close) {
-				
-				follow(leader);			
-			}
-			
-		
-		}
+		botFunction();
 	}
+
+}
+
+function botFunction() {
+	if(hasLeader()) {
+		leaderFunction();	
+	}
+}
+
+function leaderFunction () {
+	
+	if(formation == Formation.close) {
+				follow(leader);			
+	} else if(formation == Formation.standard) {
+		if(hasTarget() && isInRange(getTarget().transform.position)) {
+		
+		} else {
+			follow(leader);
+		}
+		
+	} else {
+		if(hasTarget()) {
+		
+		} else {
+			follow(leader);
+		}
+	
+	}
+
+}
+
+
+
+//this function checks if the target position is inside range
+function isInRange(target : Vector3) {
+	
+	return (transform.position - target).sqrMagnitude <= interceptRange * interceptRange;
 
 }
 
@@ -326,7 +355,6 @@ function AlignZ(target : GameObject) {
 //pre target.transform.tag == "Ship"
 function follow(target : GameObject) {
 	if(!isLookingAt(target)) {
-		
 		LookAt(target);
 	}
 	

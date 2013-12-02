@@ -209,7 +209,7 @@ static final var CLONE_NUM : int = 7; //number of chars in "(Clone)"
 function Start() {
 	show = GameObject.FindGameObjectWithTag("ShowMessage").GetComponent(ShowMessage);
 	load = GameObject.FindGameObjectWithTag("LoadScene").GetComponent(LoadScene);
-	start = GameObject.FindGameObjectWithTag("SceneStart").GetComponent(SceneStart);
+	
 }
 
 function Update() {
