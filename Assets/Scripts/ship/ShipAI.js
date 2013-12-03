@@ -1,7 +1,7 @@
 ﻿#pragma strict
 //lets start by creating some enumerations
 enum Formation {close, standard, loose}
-enum ShipType {Frigate, AttackShip, Cruiser, BattleShip}
+enum ShipType {Frigate, AttackShip, Cruiser, BattleShip, Boss}
 
 
 //now le variables
@@ -25,6 +25,7 @@ var target : shipTarget;
 var triggers : shipTriggers;
 var props : shipProperties;
 var move : shipMovement;
+var weapons : shipWeapons;
 
 //other variables
 var faceAngle : float = 1.0f;
@@ -36,6 +37,7 @@ function Start () {
 	target = gameObject.GetComponent(shipTarget);
 	props = gameObject.GetComponent(shipProperties);
 	move = gameObject.GetComponent(shipMovement);
+	weapons = gameObject.GetComponent(shipWeapons);
 	arriveTime = Time.time;
 
 }
@@ -60,14 +62,14 @@ function leaderFunction () {
 				follow(leader);			
 	} else if(formation == Formation.standard) {
 		if(hasTarget() && isInRange(getTarget().transform.position)) {
-		
+			intercept(getTarget());
 		} else {
 			follow(leader);
 		}
 		
 	} else {
 		if(hasTarget()) {
-		
+			intercept(getTarget());
 		} else {
 			follow(leader);
 		}
@@ -371,4 +373,43 @@ function follow(target : GameObject) {
 	else {
 		move.matchSpeed(target);
 	}
+}
+
+//controls the intercept order
+function intercept(target : GameObject) {
+	if(isWeaponRange(target)) {
+		attack(target);
+	} else {
+		follow(target);
+	}
+
+}
+
+//this function makes the ship take a fire barrage stance
+function barrage(target : GameObject) {
+	
+	if(!isLookingAt(target)) {
+		LookAt(target);
+	}
+
+}
+
+//this function controls the attack order
+
+function attack(target : GameObject) {
+	if(type == ShipType.AttackShip) {
+	
+	} else if (type == ShipType.BattleShip) {
+		barrage(target);
+	} else if (type == ShipType.Frigate || type == ShipType.Cruiser) {
+	
+	} else {
+	
+	}
+	
+}
+
+//this checks if any of the weapons is in range
+function isWeaponRange(target : GameObject) : boolean {
+	return weapons.hasWeaponInRange(target);
 }

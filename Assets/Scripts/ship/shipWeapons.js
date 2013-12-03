@@ -397,3 +397,14 @@ function fire(weapon : WeaponSlot, target : GameObject, isBlast : boolean, volle
 		ws.setTarget(target);
 		ws.setOrigin(origin);
 	}
+	
+	function hasWeaponInRange(target : GameObject) : boolean {
+		var range : boolean = false;
+	
+		for(var weap in weapon) {
+			range = weap.calcRange(target);
+		}
+	
+		return range;
+	}
+	
