@@ -26,13 +26,14 @@ var triggers : shipTriggers;
 var props : shipProperties;
 var move : shipMovement;
 var weapons : shipWeapons;
+var general : GeneralInfo;
 
 //other variables
 var faceAngle : float = 1.0f;
 
 
 function Start () {
-
+	general = GameObject.FindGameObjectWithTag("SaveGame").GetComponent(GeneralInfo);
 	triggers = gameObject.GetComponent(shipTriggers);
 	target = gameObject.GetComponent(shipTarget);
 	props = gameObject.GetComponent(shipProperties);
@@ -130,7 +131,7 @@ function hasShip() : boolean {
 function hasHostileShip() : boolean {
 	var isHostile : boolean = false;
 	var ships : GameObject[] = GameObject.FindGameObjectsWithTag("Ship");
-	var hostileList : int[] = props.shipInfo.hostileFactions;
+	var hostileList : int[] = general.factionInfo[props.shipInfo.faction].hostileFactions;
 	
 	for(var go : GameObject in ships && !isHostile) {
 		var faction : int = go.GetComponent(shipProperties).shipInfo.faction;

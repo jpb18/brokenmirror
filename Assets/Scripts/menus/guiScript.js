@@ -194,12 +194,13 @@ var shipWeap : shipWeapons;
 var shipTar : shipTarget;
 var mapInfo : MapInfo;
 var loadScene : LoadScene;
+var general : GeneralInfo;
 
 
 
 
 function Start () {
-
+	general = GameObject.FindGameObjectWithTag("SaveGame").GetComponent(GeneralInfo);
 	shipProps = gameObject.GetComponent(shipProperties);
 	shipMov = gameObject.GetComponent(shipMovement);
 	shipHea = gameObject.GetComponent(shipHealth);
@@ -578,8 +579,8 @@ function targetModule() {
 				//Now the orb part
 				//get the player ship faction and faction information
 				var playerFaction : int = shipProps.shipInfo.faction;
-				var playerAllies : int[] = shipProps.shipInfo.alliedFactions;
-				var playerEnemies : int[] = shipProps.shipInfo.hostileFactions;
+				var playerAllies : int[] = general.factionInfo[playerFaction].alliedFactions;
+				var playerEnemies : int[] = general.factionInfo[playerFaction].hostileFactions;
 				
 				//obtain the target faction
 				var tarFaction : int;

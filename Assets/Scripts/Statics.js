@@ -42,7 +42,7 @@ static function findAllEnemyShips(enemyList : int[], origin : GameObject) : Game
 //this method finds a suitable target for the game object that calls it
 static function FindTarget(origin : GameObject, range : float, enemyList : int[]) : GameObject {
 
-	var gameObjs : GameObject[] = FindObjectsOfType(GameObject);
+	var gameObjs : GameObject[] = findAllEnemyShips(enemyList, origin);
 	var closest : GameObject;
 	var originPosition : Vector3 = origin.transform.position;
 	
@@ -61,21 +61,20 @@ static function FindTarget(origin : GameObject, range : float, enemyList : int[]
 						var ship_props : shipProperties = go.GetComponent(shipProperties);
 						var ship_faction : int = ship_props.shipInfo.faction;
 												
-						if(isEnemy(ship_faction, enemyList))
+						
+						if(closest == null) //if there's no go in closest
 						{
-							if(closest == null) //if there's no go in closest
+							closest = go;
+						}
+						else //if there is
+						{
+							//check if the new go is closer than the older one
+							if ((originPosition - closest.transform.position).sqrMagnitude >= (origin.transform.position - go.transform.position).sqrMagnitude)
 							{
 								closest = go;
 							}
-							else //if there is
-							{
-								//check if the new go is closer than the older one
-								if ((originPosition - closest.transform.position).sqrMagnitude >= (origin.transform.position - go.transform.position).sqrMagnitude)
-								{
-									closest = go;
-								}
-							}
 						}
+						
 										
 					}
 					else if (go.tag == "Station")

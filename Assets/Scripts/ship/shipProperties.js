@@ -41,8 +41,7 @@ class ShipModifiers {
 class ShipInfo {
 
 	var faction : int;
-	var hostileFactions : int[];
-	var alliedFactions : int[];
+	
 	
 	var targetImg : Texture; //this image will appear on the player gui
 	var shipClass : String; //this contains the ship class
@@ -74,14 +73,7 @@ function Update() {
 		combatStatus.lastRedPress = Time.time;
 	}
 
-	//update faction info
-	//get script
-	var save_go : GameObject = GameObject.FindGameObjectWithTag("SaveGame");
-	var gen_scr : GeneralInfo = save_go.GetComponent(GeneralInfo);
 	
-	//now get faction info
-	shipInfo.alliedFactions = gen_scr.factionInfo[shipInfo.faction].alliedFactions;
-	shipInfo.hostileFactions = gen_scr.factionInfo[shipInfo.faction].hostileFactions;
 	
 	
 	//map status

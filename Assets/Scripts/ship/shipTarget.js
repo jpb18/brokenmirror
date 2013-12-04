@@ -6,7 +6,7 @@ var lastClick : float;
 var clickInt : float = 0.2f;
 
 var shipProps : shipProperties;
-
+var general : GeneralInfo;
 var shipWeps : shipWeapons;
 
 var repeatClick : boolean = false;
@@ -21,6 +21,7 @@ function Start () {
 
 	shipProps = gameObject.GetComponent(shipProperties);
 	shipWeps = gameObject.GetComponent(shipWeapons);
+	general = GameObject.FindGameObjectWithTag("SaveGame").GetComponent(GeneralInfo);
 	
 	
 
@@ -125,7 +126,7 @@ function PressTarget() {
 function FindTarget(origin : GameObject, shipProps : shipProperties) : GameObject {
 
 
-	var enemyList : int[] = shipProps.shipInfo.hostileFactions;
+	var enemyList : int[] = general.factionInfo[shipProps.shipInfo.faction].hostileFactions;
 	return Statics.FindTarget(origin, Mathf.Infinity, enemyList);
 
 }
