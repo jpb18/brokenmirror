@@ -378,6 +378,7 @@ function follow(target : GameObject) {
 
 //controls the intercept order
 function intercept(target : GameObject) {
+	
 	if(isWeaponRange(target)) {
 		attack(target);
 	} else {
