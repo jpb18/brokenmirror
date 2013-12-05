@@ -380,6 +380,9 @@ function follow(target : GameObject) {
 function intercept(target : GameObject) {
 	
 	if(isWeaponRange(target)) {
+		if(!move.isStop() && !move.isChanging) { 
+			move.fullStop();
+		}
 		attack(target);
 	} else {
 		follow(target);

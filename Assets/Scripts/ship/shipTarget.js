@@ -59,7 +59,7 @@ function setTarget(target : GameObject) {
 
 function BotRedAlert() {
 	
-	if(target != null) {
+	if(!target) {
 		
 		shipProps.combatStatus.isRedAlert = false;
 	

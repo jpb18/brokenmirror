@@ -64,6 +64,8 @@ function LateUpdate () {
     	}
     }
     
+    calcDistance();
+    
 }
 
 function camScript() {
@@ -107,7 +109,13 @@ function camScript() {
 			    	Debug.LogError("The script has no target");
 			    }
 			    
-			    if(Input.GetAxis("camZoom") > 0)
+			   
+		    
+
+}
+
+function calcDistance() {
+	 if(Input.GetAxis("camZoom") > 0)
 			    {
 			    	if (distance < maxDistance)
 			    	{
@@ -130,8 +138,6 @@ function camScript() {
 			    		distance = minDistance;
 			    	}
 			    }
-		    
-
 }
 
 static function ClampAngle (angle : float, min : float, max : float) {
