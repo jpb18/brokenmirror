@@ -112,6 +112,8 @@ class WeaponSlot {
 		isFiring = true;
 	}
 	
+	
+	
 }
 
 class BotWeapons {
@@ -346,7 +348,9 @@ function fire(weapon : WeaponSlot, target : GameObject, isBlast : boolean, volle
 		var cooldown : float = weapon.weapon_go.GetComponent(weaponScript).getCooldown();
 		var rate : float = weapon.weapon_go.GetComponent(weaponScript).altRate;
 		weapon.isFiring = false;
-		weapon.nextShot = Time.time + (cooldown * volley);
+		weapon.lastReload = cooldown * volley;
+		weapon.nextShot = Time.time + weapon.lastReload;
+		
 		if(isBlast) {
 			if(weapon.hasChild()) {
 				for(var i : int; i < volley; i++) {

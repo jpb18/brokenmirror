@@ -89,7 +89,7 @@ function isRange(origin : GameObject, target : GameObject) : boolean {
 //this method check if the target is inside the firing arc
 function isAngle(origin : GameObject, target : GameObject) : boolean {
 
-	return Vector3.Angle(origin.transform.position, target.transform.position) <= firingAngle/2;
+	return Vector3.Angle(target.transform.position - origin.transform.position, origin.transform.forward) <= firingAngle/2;
 
 }
 

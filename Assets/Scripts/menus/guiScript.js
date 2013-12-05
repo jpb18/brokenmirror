@@ -478,7 +478,11 @@ function torpedoModule() {
 		
 		//Draw 3x modifier button
 		if(GUI.Button(Torpedo.area_3x, "x3", HudSkin.button)) {
-			shipWeap.torpVolley = Volley.three;
+			if(shipWeap.torpVolley != Volley.three) {
+				shipWeap.torpVolley = Volley.three;
+			} else {
+				shipWeap.torpVolley = Volley.one;
+			}
 		
 		}
 		
@@ -498,7 +502,11 @@ function torpedoModule() {
 	
 		//5x modifier button
 		if(GUI.Button(Torpedo.area_5x, "x5", HudSkin.button)) {
-			shipWeap.torpVolley = Volley.five;
+			if(shipWeap.torpVolley != Volley.five) {
+				shipWeap.torpVolley = Volley.five;
+			} else {
+				shipWeap.torpVolley = Volley.one;
+			}
 		}
 		
 		//if its selected, draw a overlay over it
@@ -514,7 +522,12 @@ function torpedoModule() {
 		
 		//8x modifier button
 		if(GUI.Button(Torpedo.area_8x, "x8", HudSkin.button)) {
-			shipWeap.torpVolley = Volley.eight;
+			
+			if(shipWeap.torpVolley != Volley.eight) {
+				shipWeap.torpVolley = Volley.eight;
+			} else {
+				shipWeap.torpVolley = Volley.one;
+			}
 		}
 		
 		//if its selected, draw a overlay over it
@@ -709,7 +722,7 @@ function CreateWeapButton(Weapon : WeaponSlot, Skin : GUISkin, Area : Rect) {
 		
 		//If weapon is reloading, draw overlay
 		if(Time.time < Weapon.nextShot) {
-		
+			
 			//Calculate size
 			//Get total reload time and time remaining
 			var totalReload : float = Weapon.lastReload;
