@@ -39,11 +39,7 @@ function Update () {
 		botFunction();
 		BotRedAlert();
 	}
-	if(target != null) {
-		if(!target.activeSelf) {
-			target = null;
-		}
-	}
+
 	
 	
 
@@ -133,8 +129,8 @@ function FindTarget(origin : GameObject, shipProps : shipProperties) : GameObjec
 
 
 function botFunction() {
-	if(target != null) {
-		if(!target.activeSelf && Time.time > nextSearch)
+	if(target == null) {
+		if(Time.time > nextSearch)
 		{
 		
 			target = FindTarget(gameObject, shipProps);
