@@ -380,9 +380,6 @@ function follow(target : GameObject) {
 function intercept(target : GameObject) {
 	
 	if(isWeaponRange(target)) {
-		if(!move.isStop() && !move.isChanging) { 
-			move.fullStop();
-		}
 		attack(target);
 	} else {
 		follow(target);
@@ -391,13 +388,40 @@ function intercept(target : GameObject) {
 }
 
 //this function makes the ship take a fire barrage stance
+//it'll sto
 function barrage(target : GameObject) {
+	
+	if(!move.isStop() && !move.isChanging) { 
+			move.fullStop();
+	}
 	
 	if(!isLookingAt(target)) {
 		LookAt(target);
 	}
 
 }
+
+//this function makes the ship "hunt" the hostile ship
+//It'll make the ship continuously orbit its target at 1/2 of minimum weapons range
+function predator(target : GameObject) {
+	if(isWeaponRange(target)) {
+		if(!isShowingSide(target)) {
+			if(isLeft(target)) {
+				move.turnRight();	
+			} else {
+				move.turnLeft();
+			}
+		
+		}
+		
+		
+			
+	} else {
+		follow(target);
+	}
+
+}
+
 
 //this function controls the attack order
 
@@ -407,8 +431,8 @@ function attack(target : GameObject) {
 	} else if (type == ShipType.BattleShip) {
 		barrage(target);
 	} else if (type == ShipType.Frigate || type == ShipType.Cruiser) {
-	
-	} else {
+		predator(target);
+	} else { //future boss stuff
 	
 	}
 	
@@ -418,3 +442,21 @@ function attack(target : GameObject) {
 function isWeaponRange(target : GameObject) : boolean {
 	return weapons.hasWeaponInRange(target);
 }
+
+//this checks if the ship its showing the target any of its sides
+function isShowingSide(target : GameObject) : boolean {
+	var from : Vector3 = target.transform.position - transform.position;
+	var to : Vector3 = transform.forward;
+	var angle : float = Vector3.Angle(from, to);
+	return angle <= 90 + faceAngle/2 && angle >= 90 - faceAngle;
+	
+}
+
+//this checks if the target is at the left
+function isLeft(target : GameObject) : boolean {
+	var v3 : Vector3 = transform.InverseTransformPoint(target.transform.position);
+	return v3.x < 0;
+
+}
+
+
