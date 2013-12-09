@@ -30,6 +30,7 @@ var general : GeneralInfo;
 
 //other variables
 var faceAngle : float = 1.0f;
+var isClearing : boolean = false;
 
 
 function Start () {
@@ -397,6 +398,7 @@ function barrage(target : GameObject) {
 	
 	if(!isLookingAt(target)) {
 		LookAt(target);
+		isClearing = false;
 	}
 
 }
@@ -406,7 +408,8 @@ function barrage(target : GameObject) {
 function predator(target : GameObject) {
 	if(isWeaponRange(target)) {
 		if(!isShowingSide(target)) {
-			if(isLeft(target)) {
+			var v3 : Vector3 = transform.InverseTransformPoint(target.transform.position);
+			if(isLeft(v3)) {
 				move.turnRight();	
 			} else {
 				move.turnLeft();
@@ -418,6 +421,9 @@ function predator(target : GameObject) {
 			
 	} else {
 		follow(target);
+		
+		
+		
 	}
 
 }
@@ -427,7 +433,7 @@ function predator(target : GameObject) {
 
 function attack(target : GameObject) {
 	if(type == ShipType.AttackShip) {
-	
+		AttackRun(target);
 	} else if (type == ShipType.BattleShip) {
 		barrage(target);
 	} else if (type == ShipType.Frigate || type == ShipType.Cruiser) {
@@ -453,10 +459,43 @@ function isShowingSide(target : GameObject) : boolean {
 }
 
 //this checks if the target is at the left
-function isLeft(target : GameObject) : boolean {
-	var v3 : Vector3 = transform.InverseTransformPoint(target.transform.position);
-	return v3.x < 0;
+function isLeft(target : Vector3) : boolean {
+	
+	return target.x < 0;
 
 }
 
+//this checks if the target is in front
+function isFront(target : Vector3) : boolean {
+	return target.z > 0;
+}
+
+//This function controls the Attack Run made by attack ships like the Defiant, B'rel, etc
+//When its called, it checks if its "diving"... If so, it will Look At the target
+//if not, it will get away from the target until it leaves weapon range
+//the status is restarted after that
+function AttackRun(target : GameObject) {
+	if(isTooClose(target)) {
+		isClearing = true;
+	}
+
+	if(isClearing) {
+		
+		LookAway(target);
+	}
+
+}
+
+//this function makes the ship Look Away from the target
+function LookAway(target : GameObject) {
+	var v3 : Vector3 = transform.InverseTransformPoint(target.transform.position);
+	if(isFront(v3)) {
+		if(isLeft(v3)) {
+			move.turnRight();
+		} else {
+			move.turnLeft();
+		}
+	}
+	
+}
 
