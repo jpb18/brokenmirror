@@ -5,7 +5,7 @@
 	<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
 	<ProductVersion>10.0.20506</ProductVersion>
 	<SchemaVersion>2.0</SchemaVersion>
-	<ProjectGuid>{3A1CB058-F5DC-EEFB-F001-6473DB56802A}</ProjectGuid>
+	<ProjectGuid>{9C6482AB-1AF3-21C8-26B8-C321E61885AD}</ProjectGuid>
 	<OutputType>Library</OutputType>
 	<AppDesignerFolder>Properties</AppDesignerFolder>
 	<RootNamespace></RootNamespace>
@@ -77,8 +77,9 @@
      <None Include="Assets\Scripts\atm_scat.shader" />
      <None Include="Assets\Scripts\shaders\cloudShadder.shader" />
      <None Include="Assets\Models\Ships\Klingon\bird of prey\K_TNG_KVORT_VoxelizerDebug.txt" />
-     <None Include="Assets\Space Shooter\Info.txt" />
+     <None Include="Assets\Presets\Weapons\Torpedoes\Space Shooter\Info.txt" />
      <None Include="Assets\Lightbeam\Documentation\Readme.txt" />
+     <None Include="Assets\Space Shooter\Info.txt" />
      <None Include="Assets\Scripts\shaders\EmissionShader.shader" />
      <None Include="Assets\Scripts\shaders\PlanetShadder.shader" />
  <Reference Include="UnityEditor.Graphs">
@@ -102,13 +103,13 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
-      <Project>{113F043A-CF17-4AB5-C358-9EB0A69CF3FB}</Project>      <Name>Assembly-CSharp-firstpass</Name>    </ProjectReference>
+      <Project>{EAC44D7B-79C0-441D-175C-89488A076EC9}</Project>      <Name>Assembly-CSharp-firstpass</Name>    </ProjectReference>
     <ProjectReference Include="Assembly-UnityScript-firstpass.unityproj">
-      <Project>{D6A9AD66-C875-B445-7282-5AEC03CBB40D}</Project>      <Name>Assembly-UnityScript-firstpass</Name>    </ProjectReference>
+      <Project>{6F04B92E-CDFA-0C1A-D688-52B986B3CAE1}</Project>      <Name>Assembly-UnityScript-firstpass</Name>    </ProjectReference>
     <ProjectReference Include="Assembly-CSharp.csproj">
-      <Project>{60C0C803-3350-4496-03BF-8022A434702B}</Project>      <Name>Assembly-CSharp</Name>    </ProjectReference>
+      <Project>{506655A1-D0E3-0BD0-7BAF-19D04EDA46A2}</Project>      <Name>Assembly-CSharp</Name>    </ProjectReference>
     <ProjectReference Include="Assembly-UnityScript.unityproj">
-      <Project>{8C87686C-9627-A5CB-84F2-4970B6EBB455}</Project>      <Name>Assembly-UnityScript</Name>    </ProjectReference>
+      <Project>{63F68FCC-4857-A5F1-ADD4-A9C2D3194F87}</Project>      <Name>Assembly-UnityScript</Name>    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

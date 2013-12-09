@@ -5,7 +5,7 @@
 	<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
 	<ProductVersion>10.0.20506</ProductVersion>
 	<SchemaVersion>2.0</SchemaVersion>
-	<ProjectGuid>{D6A9AD66-C875-B445-7282-5AEC03CBB40D}</ProjectGuid>
+	<ProjectGuid>{6F04B92E-CDFA-0C1A-D688-52B986B3CAE1}</ProjectGuid>
 	<OutputType>Library</OutputType>
 	<AppDesignerFolder>Properties</AppDesignerFolder>
 	<RootNamespace></RootNamespace>
@@ -83,8 +83,9 @@
      <None Include="Assets\Scripts\atm_scat.shader" />
      <None Include="Assets\Scripts\shaders\cloudShadder.shader" />
      <None Include="Assets\Models\Ships\Klingon\bird of prey\K_TNG_KVORT_VoxelizerDebug.txt" />
-     <None Include="Assets\Space Shooter\Info.txt" />
+     <None Include="Assets\Presets\Weapons\Torpedoes\Space Shooter\Info.txt" />
      <None Include="Assets\Lightbeam\Documentation\Readme.txt" />
+     <None Include="Assets\Space Shooter\Info.txt" />
      <None Include="Assets\Scripts\shaders\EmissionShader.shader" />
      <None Include="Assets\Scripts\shaders\PlanetShadder.shader" />
   </ItemGroup>

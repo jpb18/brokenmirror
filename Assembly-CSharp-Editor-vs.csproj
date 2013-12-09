@@ -5,7 +5,7 @@
 	<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
 	<ProductVersion>10.0.20506</ProductVersion>
 	<SchemaVersion>2.0</SchemaVersion>
-	<ProjectGuid>{3A1CB058-F5DC-EEFB-F001-6473DB56802A}</ProjectGuid>
+	<ProjectGuid>{9C6482AB-1AF3-21C8-26B8-C321E61885AD}</ProjectGuid>
 	<OutputType>Library</OutputType>
 	<AppDesignerFolder>Properties</AppDesignerFolder>
 	<RootNamespace></RootNamespace>
@@ -77,8 +77,9 @@
      <None Include="Assets\Scripts\atm_scat.shader" />
      <None Include="Assets\Scripts\shaders\cloudShadder.shader" />
      <None Include="Assets\Models\Ships\Klingon\bird of prey\K_TNG_KVORT_VoxelizerDebug.txt" />
-     <None Include="Assets\Space Shooter\Info.txt" />
+     <None Include="Assets\Presets\Weapons\Torpedoes\Space Shooter\Info.txt" />
      <None Include="Assets\Lightbeam\Documentation\Readme.txt" />
+     <None Include="Assets\Space Shooter\Info.txt" />
      <None Include="Assets\Scripts\shaders\EmissionShader.shader" />
      <None Include="Assets\Scripts\shaders\PlanetShadder.shader" />
  <Reference Include="Assembly-UnityScript-firstpass">
@@ -108,9 +109,9 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Assembly-CSharp-firstpass-vs.csproj">
-      <Project>{113F043A-CF17-4AB5-C358-9EB0A69CF3FB}</Project>      <Name>Assembly-CSharp-firstpass-vs</Name>    </ProjectReference>
+      <Project>{EAC44D7B-79C0-441D-175C-89488A076EC9}</Project>      <Name>Assembly-CSharp-firstpass-vs</Name>    </ProjectReference>
     <ProjectReference Include="Assembly-CSharp-vs.csproj">
-      <Project>{60C0C803-3350-4496-03BF-8022A434702B}</Project>      <Name>Assembly-CSharp-vs</Name>    </ProjectReference>
+      <Project>{506655A1-D0E3-0BD0-7BAF-19D04EDA46A2}</Project>      <Name>Assembly-CSharp-vs</Name>    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
