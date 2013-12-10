@@ -24,6 +24,11 @@ var launched : float; //launch time
 var isSpread : boolean = false; //checks if the torpedo is already a spread
 
 function Start () {
+	if(target)
+	{	
+		transform.LookAt(target.transform);
+	}
+
 	rigidbody.velocity = status.speed * transform.forward * Time.deltaTime;
 	launched = Time.time;
 }
@@ -59,10 +64,7 @@ function calc_range() {
 
 function HomeIn() {
 	rigidbody.velocity = status.speed * transform.forward * Time.deltaTime;
-	if(target)
-	{	
-		transform.LookAt(target.transform);
-	}
+	
 
 }
 
