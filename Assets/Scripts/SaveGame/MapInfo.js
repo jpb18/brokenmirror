@@ -319,6 +319,9 @@ function goWarp(destiny : String) {
 	//find player ship
 	
 	var playerShip : GameObject = save_scr.FindPlayerShip();
+	var warpParticles : GameObject = playerShip.FindGameObjectWithTag("Warp");
+	var particles : ParticleSystem = warpParticles.GetComponent(ParticleSystem);
+	particles.Play();
 	
 	//play warp anymation
 	//play sound first (future) and wait 1.0 seconds
