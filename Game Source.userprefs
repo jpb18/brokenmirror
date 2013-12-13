@@ -1,8 +1,11 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\camera\testReturn.js">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\menus\ShowMessage.js">
     <Files>
       <File FileName="Assets\Scripts\camera\testReturn.js" Line="52" Column="11" />
+      <File FileName="Assets\Scripts\menus\mainMenu.js" Line="159" Column="24" />
+      <File FileName="Assets\Scripts\Load\SceneStart.js" Line="30" Column="64" />
+      <File FileName="Assets\Scripts\menus\ShowMessage.js" Line="111" Column="18" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
