@@ -1,9 +1,8 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\weapons\torpedoScript.js">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\camera\testReturn.js">
     <Files>
-      <File FileName="Assets\Scripts\weapons\torpedoScript.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\weapons\weaponScript.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\camera\testReturn.js" Line="52" Column="11" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

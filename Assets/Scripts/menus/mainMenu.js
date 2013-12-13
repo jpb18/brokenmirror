@@ -148,7 +148,7 @@ function PlayMenu () {
 		//Easy button
 		if(GUI.Button(Rect(difEasy.CoodX, difEasy.CoodY, difEasy.width, difEasy.height), "Easy", difEasy.Style)) {
 			isLoading = true;
-			loadDestiny = "Earth";
+			loadDestiny = "Start";
 			show.setGame();
 		
 		}
@@ -156,7 +156,7 @@ function PlayMenu () {
 		//Normal button
 		if(GUI.Button(Rect(difNormal.CoodX, difNormal.CoodY, difNormal.width, difNormal.height), "Normal", difNormal.Style)) {
 			isLoading = true;
-			loadDestiny = "Earth";
+			loadDestiny = "Start";
 			show.setGame();
 		}
 		
@@ -164,7 +164,7 @@ function PlayMenu () {
 		if(GUI.Button(Rect(difHard.CoodX, difHard.CoodY, difHard.width, difHard.height), "Hard", difHard.Style)) {
 			
 			isLoading = true;
-			loadDestiny = "Earth";
+			loadDestiny = "Start";
 			show.setGame();
 		}
 		
