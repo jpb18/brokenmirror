@@ -239,9 +239,12 @@ function SavePlayerFleet() {
 	for(var ship : GameObject in GameObject.FindGameObjectsWithTag("Ship")) {
 		if(ship != playShip) {
 		var ai : ShipAI = ship.GetComponent(ShipAI);
-			
-			if(ai.leader == this.playShip) {
-				playerFleet.setShip(ship);
+			if(ai) {
+				if(ai.leader == this.playShip) {
+					playerFleet.setShip(ship);
+				}
+			} else {
+				Debug.LogWarning("Ai Script not set in " + ship.name);
 			}
 		}
 		
