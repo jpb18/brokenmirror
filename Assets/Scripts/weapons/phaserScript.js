@@ -29,11 +29,12 @@ function Start () {
 
 	spawnTime = Time.time;
 	
-	
+	transform.LookAt(target.transform.position);
+	rigidbody.velocity = speed * transform.forward;
 
 }
 
-function Update () {
+function FixedUpdate () {
 	
 	//delete the projectile when its time
 	if (Time.time >= spawnTime + durTime)
@@ -51,13 +52,12 @@ function Update () {
 	line_renderer.SetPosition(0, origin.transform.position);
 	line_renderer.SetPosition(1, gameObject.transform.position);
 	
-	//make the phaser move
-	if(!hitshield && !hitHull) {
-    	transform.LookAt(target.transform.position);
-		rigidbody.velocity = speed * transform.forward;
-	} else {
-		rigidbody.velocity = Vector3.zero;
-	}
+	
+  	//stop the phaser once it hits something
+  	if(hitHull || hitshield) {
+  		rigidbody.velocity = Vector3.zero;
+  	}
+  	
 
 }
 
@@ -80,8 +80,7 @@ function OnCollisionEnter (hit : Collision) {
 				
 				healthSC.shipHealth.health -= damage - propScript.shipHealth.armor;
 				healthSC.shieldRegen.lastHit = Time.time;
-				
-				
+								
 				
 				hitHull = true;
 			
@@ -95,7 +94,7 @@ function OnTriggerEnter (hit : Collider) {
 	//if the phaser object hits a ships shield
 	if (hit.tag == "Shields" && !hitshield)
 	{
-		var go1 : GameObject = hit.transform.parent.parent.gameObject;
+		var go1 : GameObject = hit.transform.parent.gameObject;
 		var go2 : GameObject = origin.transform.parent.parent.parent.parent.gameObject;
 		if(go1 && go2) {
 			if(go1 != go2)
