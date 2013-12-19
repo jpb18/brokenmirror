@@ -1,3 +1,4 @@
+import System.Collections.Generic;
 #pragma strict
 
 class ship_Health {
@@ -28,8 +29,8 @@ var shieldRegen : ShieldRegeneration;
 var properties : shipProperties;
 var triggers : shipTriggers;
 var explosion : GameObject;
-var smokeTrails : GameObject[];
-var plasmaParticles : GameObject[];
+var smokeTrails : List.<GameObject>;
+var plasmaParticles : List.<GameObject>;
 var shield : GameObject;
 
 
@@ -48,23 +49,19 @@ function Start () {
 	shipHealth.shields = shipHealth.maxShields;
 	
 	
-	//get smoke trails
-	
-	smokeTrails = gameObject.FindGameObjectsWithTag("Smoke");
-	
-	for(var smoke : GameObject in smokeTrails)
-	{
-		smoke.GetComponent(TrailRenderer).enabled = false;
-	
+	//get smoke trails 
+	var smokeGOs : GameObject[] = GameObject.FindGameObjectsWithTag("Smoke");
+	for(var smoke : GameObject in smokeGOs) {
+		if(smoke.transform.parent.parent.parent.gameObject == gameObject) {
+			smokeTrails.Add(smoke);
+		}
 	}
-	
-	//get plasma particles
-	plasmaParticles = gameObject.FindGameObjectsWithTag("plasma");
-	
-	for(var plasma : GameObject in plasmaParticles)
-	{
-		
-		plasma.particleSystem.Stop();
+	//and plasma particles
+	var plasmaGOs : GameObject[] = GameObject.FindGameObjectsWithTag("plasma");
+	for(var plasma : GameObject in plasmaGOs) {
+		if(plasma.transform.parent.parent.parent.gameObject == gameObject) {
+			plasmaParticles.Add(plasma);
+		}
 	}
 	
 
