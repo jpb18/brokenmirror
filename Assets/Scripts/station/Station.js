@@ -4,6 +4,7 @@ var health : Health;
 var weapon : StationWeapons;
 var factionInfo : FactionInfo;
 var faction : int = -1;
+var rotation : Vector3;
 
 function Start () {
 	//get station weapons script
@@ -17,7 +18,7 @@ function Update () {
 	scan();
 	fire();
 	life();
-	
+	transform.Rotate(rotation);
 
 }
 
