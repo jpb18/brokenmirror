@@ -43,7 +43,7 @@ function FixedUpdate () {
 	}
 	
 	//check if target and origin still exist
-	if(!target && !origin)
+	if(!target || !origin)
 	{
 		Destroy(gameObject);
 	}

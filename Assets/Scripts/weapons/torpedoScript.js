@@ -77,7 +77,7 @@ function OnTriggerEnter(hit : Collider) {
 	//check if it's a shield trigger
 	if(hit.tag == "Shields" && effect.hasExploded == false)
 	{
-		var hitGO : GameObject = hit.transform.parent.parent.transform.gameObject;
+		var hitGO : GameObject = hit.transform.parent.parent.gameObject;
 		if(hitGO != origin)
 		{
 			if (hitGO.tag == "Ship")

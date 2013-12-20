@@ -104,6 +104,10 @@ class WeaponSlot {
 	}
 	
 	
+	///<summary>Returns weapon range</summary>
+	function getRange() {
+		return weapon_go.GetComponent(weaponScript).getRange();
+	}
 	
 	
 	///<summary>Set the weapon to fire</summary>
@@ -402,13 +406,41 @@ function fire(weapon : WeaponSlot, target : GameObject, isBlast : boolean, volle
 		ws.setOrigin(origin);
 	}
 	
+	///<summary>Checks if any of the weapons is in range</summary>
 	function hasWeaponInRange(target : GameObject) : boolean {
 		var range : boolean = false;
 	
-		for(var weap in weapon) {
-			range = weap.calcRange(target);
+		for(var x : int = 0; x < weapon.Length && !range; x++) {
+			range = weapon[x].calcRange(target);
 		}
 	
 		return range;
+	}
+	
+	///<summary>Checks if the shortest range weapon is in range</summary>
+	function isShortestInRange(target : GameObject) : boolean {
+		var shortWeapon : WeaponSlot = getShortestWeapon();
+		var range : float = shortWeapon.getRange();
+		var distance : float = (transform.position - target.transform.position).sqrMagnitude;
+		return distance <= range * range;
+		
+		
+	}
+	
+	///<summary>Gets shortest range weapon</summary>
+	private function getShortestWeapon() : WeaponSlot {
+		var shortWeapon : WeaponSlot = null;
+		for(var weap in weapon) {
+			if(!shortWeapon) {
+				shortWeapon = weap;
+			}
+			else if(weap.getRange() < shortWeapon.getRange()) {
+				shortWeapon = weap;
+			}
+		
+		}
+		
+		return shortWeapon;
+	
 	}
 	

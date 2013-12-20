@@ -406,7 +406,7 @@ function barrage(target : GameObject) {
 //this function makes the ship "hunt" the hostile ship
 //It'll make the ship continuously orbit its target at 1/2 of minimum weapons range
 function predator(target : GameObject) {
-	if(isWeaponRange(target)) {
+	if(isShortestWeaponInRange(target)) {
 		if(!isShowingSide(target)) {
 			var v3 : Vector3 = transform.InverseTransformPoint(target.transform.position);
 			if(isLeft(v3)) {
@@ -421,9 +421,7 @@ function predator(target : GameObject) {
 			
 	} else {
 		follow(target);
-		
-		
-		
+						
 	}
 
 }
@@ -447,6 +445,11 @@ function attack(target : GameObject) {
 //this checks if any of the weapons is in range
 function isWeaponRange(target : GameObject) : boolean {
 	return weapons.hasWeaponInRange(target);
+}
+
+//this checks if the shortest weapon is in range
+function isShortestWeaponInRange(target : GameObject) : boolean {
+	return weapons.isShortestInRange(target);
 }
 
 //this checks if the ship its showing the target any of its sides
