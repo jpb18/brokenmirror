@@ -319,9 +319,22 @@ function goWarp(destiny : String) {
 	//find player ship
 	
 	var playerShip : GameObject = save_scr.FindPlayerShip();
-	var warpParticles : GameObject = playerShip.FindGameObjectWithTag("Warp");
-	var particles : ParticleSystem = warpParticles.GetComponent(ParticleSystem);
-	particles.Play();
+	
+	//set particle system
+	var warpParticles : GameObject[] = GameObject.FindGameObjectsWithTag("Warp");
+	var warp : GameObject;
+	for(var particle : GameObject in warpParticles) {
+		if(particle.transform.parent.gameObject == playerShip) {
+			warp = particle;
+		}
+	}
+	
+	if(warp) {
+		var particles : ParticleSystem = warp.GetComponent(ParticleSystem);
+		particles.Play();
+	} else {
+		Debug.LogWarning("Check Warp Particle system in " + playerShip.name);
+	}
 	
 	//play warp anymation
 	//play sound first (future) and wait 1.0 seconds
