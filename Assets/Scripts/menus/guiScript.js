@@ -168,14 +168,113 @@ class TargetGui {
 	var hull_area : Rect;
 	var hull_img : Texture;
 	
+	
+	var expand : TargetExpand;
+
+}
+
+
+class TargetExpand {
 	//expand area
 	var exp_area : Rect;
 	
+	//expanding checks
+	var isExpanded : boolean = false;
+	var isMoving : boolean = false;
+	
+	//dispacement
+	var displace : int;
+	var time : float = 2.0f;
+	
 	//expand button
 	var exp_bt_area : Rect;
-	var exp_img : Texture;
+	var hudSkin : GUISkin;
 	
-	//
+	//area to be expanded
+	var toBeExpanded_Area : Rect;
+	var bgImage : Texture;
+	
+	var scanButton : Rect;
+	var hailButton : Rect;
+	
+	
+	
+	//pre: exp_img != null && exp_bt_area != null
+	//this draws the button
+	function DrawButton() : boolean {
+		
+		return GUI.Button(exp_bt_area, "", this.hudSkin.GetStyle("ExpandButton"));
+			
+	
+	}
+	
+	//this draws the panel
+	function DrawPanel() {
+		GUILayout.BeginArea(toBeExpanded_Area);
+		
+			GUI.DrawTexture(Rect(0,0, toBeExpanded_Area.width, toBeExpanded_Area.height), bgImage, ScaleMode.ScaleToFit);
+			
+			GUI.Button(scanButton, "Scan", hudSkin.GetStyle("TacticalButton"));
+			GUI.Button(hailButton, "Hail", hudSkin.GetStyle("TacticalButton"));
+		
+		
+		GUILayout.EndArea();
+	
+	
+	}
+	
+	//this will check if it can expand
+	function canExpand() : boolean {
+		return !isExpanded && !isMoving;
+	}
+	
+	function canRetract() : boolean {
+		return isExpanded && !isMoving;
+	}
+	
+	//this will expand the panel
+	//pre canExpand()
+	function expand() {
+		isMoving = true;
+		
+		var i : float = 0;
+		var rate : float = 1/time;
+		var moveRate : float = displace/time;
+		
+		while(i < 1) {
+			i += Time.deltaTime * rate;
+			toBeExpanded_Area.x -= moveRate * Time.deltaTime;
+			yield;
+		
+		}
+				
+		isMoving = false;	
+		isExpanded = true;
+	}
+	
+	//this will recoil the panel
+	//pre canRetract()
+	function retract() {
+		isMoving = true;
+		
+		var i : float = 0;
+		var rate : float = 1/time;
+		var moveRate : float = displace/time;
+		
+		while(i < 1) {
+			i += Time.deltaTime * rate;
+			toBeExpanded_Area.x += moveRate * Time.deltaTime;
+			yield;
+		
+		}
+				
+		isMoving = false;	
+		isExpanded = false;
+	
+	}
+	
+	
+	
 	
 
 }
@@ -571,15 +670,19 @@ function targetModule() {
 			
 			//Expand Area
 			
-			GUILayout.BeginArea(Target.exp_area);
+			GUILayout.BeginArea(Target.expand.exp_area);
 			
 			
-				
-			
+				//Draw panel		
+				Target.expand.DrawPanel(); 
+															
 				//Expand button
-				if(GUI.Button(Target.exp_bt_area, "", HudSkin.GetStyle("ExpandButton"))) {
-				
-							
+				if(Target.expand.DrawButton()) {
+					if(Target.expand.canExpand()) {
+						StartCoroutine(Target.expand.expand());
+					} else if(Target.expand.canRetract()) {
+						StartCoroutine(Target.expand.retract());
+					}
 				
 				}
 			
@@ -676,6 +779,7 @@ function targetModule() {
 				//start by shield
 				GUI.DrawTexture(Rect(Target.shield_area.x, Target.shield_area.y, shieldWidth, Target.shield_area.height), Target.shield_img);
 				GUI.DrawTexture(Rect(Target.hull_area.x, Target.hull_area.y, hullWidth, Target.hull_area.height), Target.hull_img);
+				
 				
 				
 			
