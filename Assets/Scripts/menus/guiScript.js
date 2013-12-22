@@ -209,13 +209,16 @@ class TargetExpand {
 	}
 	
 	//this draws the panel
-	function DrawPanel() {
+	function DrawPanel(target : GameObject, player : GameObject, comm : CommDialogue) {
 		GUILayout.BeginArea(toBeExpanded_Area);
 		
 			GUI.DrawTexture(Rect(0,0, toBeExpanded_Area.width, toBeExpanded_Area.height), bgImage, ScaleMode.ScaleToFit);
 			
 			GUI.Button(scanButton, "Scan", hudSkin.GetStyle("TacticalButton"));
-			GUI.Button(hailButton, "Hail", hudSkin.GetStyle("TacticalButton"));
+			if(GUI.Button(hailButton, "Hail", hudSkin.GetStyle("TacticalButton"))) {
+				comm.open(target, player);
+			
+			}
 		
 		
 		GUILayout.EndArea();
@@ -279,11 +282,147 @@ class TargetExpand {
 
 }
 
+class CommDialogue  {
+
+	var isOpen : boolean;
+	var target : GameObject;
+	var player : GameObject;
+	private var targetProps : shipProperties;
+	
+	var window : Rect; //window rect
+	
+	//background area
+	var area : Rect;
+	var bg_img : Texture;
+		
+	//buttons
+	var trade_area : Rect;
+	var board_area : Rect;
+	var command_area : Rect;
+	var close_area : Rect;
+	
+	//labels
+	var name_label : Rect;
+	var message_label : Rect;
+	var icon_label : Rect;
+	
+	var skin : GUISkin;
+	
+	function DrawWindow() {
+		if(isOpen && target){
+			window = GUI.Window(0, window, DrawDialogue, "", GUIStyle.none);
+		}
+	
+	}
+	
+	
+	function DrawDialogue(windowID : int) {
+		GUILayout.BeginArea(area);
+			GUI.DrawTexture(area, bg_img); //draw background
+			
+			//Draw the buttons			
+			GUI.Button(trade_area, "Trade", this.skin.GetStyle("CommButton"));
+			GUI.Button(board_area, "Board", this.skin.GetStyle("CommButton"));
+			
+			//Check if the ship is owned by the player. if so, draw the button
+			if(targetProps.shipInfo.faction == 0) {
+				if(GUI.Button(command_area, "Command", this.skin.GetStyle("CommButton"))) {
+					
+					swapShip(target, player);
+					
+				}
+			}
+			
+			if(GUI.Button(close_area, "X", this.skin.GetStyle("CloseComm"))) {
+				close();
+			}
+			
+			//Draw the ship icon
+			GUI.DrawTexture(icon_label, getTexture());
+			
+			//Labels the ship name
+			GUI.Label(name_label, getName(), skin.label);
+			
+			
+			//Labels the message
+			var message : String = "Hey Boss!\n This String here is just for testing the message box of the comm system!";
+			GUI.Label(message_label, message, skin.GetStyle("MessageComm"));  
+			
+			
+		GUILayout.EndArea();
+		GUI.DragWindow();
+	}
+	
+	//this gets the target icon texture
+	private function getTexture() : Texture {
+		var text : Texture;
+	
+		if(target.tag == "Ship") {
+			text = targetProps.shipInfo.targetImg;
+		}
+		//add other targets here later on
+		
+		return text;
+	
+	}
+	
+	//this gets the target name
+	private function getName() : String {
+		var name : String;
+		
+		if(target.tag == "Ship") {
+			name = targetProps.shipInfo.shipName;
+		}
+		
+		return name;
+	
+	}
+	
+	function close() {
+		isOpen = false;
+		target = null;
+		player = null;
+		window.x = Screen.width/2 - window.width/2;
+		window.y = Screen.height/2 - window.height/2;
+	}
+	
+	function open(target : GameObject, player : GameObject) {
+		close();
+		isOpen = true;
+		this.target = target;
+		this.player = player;
+		targetProps = target.GetComponent(shipProperties);
+	}
+	
+	//this script swaps the ship
+	//pre target != null && player != null
+	function swapShip(target : GameObject, player : GameObject) {
+		player.GetComponent(shipProperties).playerProps.isPlayer = false;
+		targetProps.playerProps.isPlayer = true;
+		
+		//now change camera target
+		var camScript : MouseOrbit = Camera.main.GetComponent(MouseOrbit);
+		camScript.target = target.transform;
+		
+		target.GetComponent(shipTarget).target = null;
+		player.GetComponent(shipTarget).repeatClick = false;
+		
+	}
+	
+	
+
+
+}
+//fixed
 var Helm : HelmGui;
 var Health : HealthGui;
 var Weapon : WeaponGui;
 var Torpedo : TorpedoGui;
 var Target : TargetGui;
+
+//windows
+var commWindow : CommDialogue;
+
 
 //External Scripts
 var shipProps : shipProperties;
@@ -317,6 +456,7 @@ function Start () {
 
 function OnGUI () {
 
+	//fixed gui stuff
 	if(shipProps.playerProps.isPlayer && !loadScene.show) //2nd part is temporary
 	{
 		BotGUI();
@@ -324,7 +464,9 @@ function OnGUI () {
 	
 	}
 	
-		
+	//windows
+	commWindow.DrawWindow();
+	
 
 }
 
@@ -674,7 +816,7 @@ function targetModule() {
 			
 			
 				//Draw panel		
-				Target.expand.DrawPanel(); 
+				Target.expand.DrawPanel(shipTar.target, gameObject, commWindow); 
 															
 				//Expand button
 				if(Target.expand.DrawButton()) {
