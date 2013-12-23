@@ -331,6 +331,8 @@ class CommDialogue  {
 					swapShip(target, player);
 					
 				}
+			} else {
+				GUI.Button(command_area, "", this.skin.GetStyle("CommButton"));
 			}
 			
 			if(GUI.Button(close_area, "X", this.skin.GetStyle("CloseComm"))) {
