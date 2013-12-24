@@ -415,6 +415,47 @@ class CommDialogue  {
 
 
 }
+
+class RadarLabel {
+	var bg : Texture2D;
+	var size : Vector2;
+	var label_name : Rect;
+	var label_class : Rect;
+	private var target : GameObject;
+	private var shipProps : shipProperties;
+	var skin : GUISkin;
+	
+	//this draws the label
+	//pre: target != null && position.z > 0
+	function Draw(position : Vector3) {
+		GUILayout.BeginArea(Rect(position.x, convertBotToTop(position.y) - size.y, size.x, size.y));
+			GUI.DrawTexture(Rect(0,0, size.x, size.y), bg);
+			
+			var name : String = shipProps.shipInfo.shipName;
+			var shipClass : String = shipProps.shipInfo.shipClass;
+			
+			GUI.Label(label_name, name, skin.GetStyle("MessageComm"));
+			GUI.Label(label_class, shipClass, skin.GetStyle("MessageComm"));
+		GUILayout.EndArea();
+		
+		
+	}
+	
+	//this sets the label
+	//pre: target != null
+	function Set(target : GameObject) {
+		this.target = target;
+		shipProps = target.GetComponent(shipProperties);
+	}
+	
+	
+	private function convertBotToTop(y : int) : int {
+		return Screen.height - y;
+	}
+	
+
+}
+
 //fixed
 var Helm : HelmGui;
 var Health : HealthGui;
@@ -424,6 +465,9 @@ var Target : TargetGui;
 
 //windows
 var commWindow : CommDialogue;
+
+//labels
+var radarLabel : RadarLabel;
 
 
 //External Scripts
@@ -436,7 +480,8 @@ var mapInfo : MapInfo;
 var loadScene : LoadScene;
 var general : GeneralInfo;
 
-
+//main camara
+var mainCam : Camera;
 
 
 function Start () {
@@ -449,9 +494,15 @@ function Start () {
 	mapInfo = GameObject.FindGameObjectWithTag("MapInfo").GetComponent(MapInfo);
 	loadScene = GameObject.FindGameObjectWithTag("LoadScene").GetComponent(LoadScene);
 	
+	
 	//reset loadScene status
 	loadScene.show = false;
 	
+	//set radar label
+	radarLabel.Set(gameObject);
+	
+	//get main camera
+	mainCam = Camera.main;
 	
 
 }
@@ -464,10 +515,20 @@ function OnGUI () {
 		BotGUI();
 		TopGUI();
 	
-	}
+	} 
 	
 	//windows
 	commWindow.DrawWindow();
+	
+	//non player labels
+	if(!shipProps.playerProps.isPlayer) 
+	{
+		var pos : Vector3 = mainCam.WorldToScreenPoint(transform.position);
+		if(pos.z > 0) {
+			radarLabel.Draw(pos);
+		}
+		
+	}
 	
 
 }
