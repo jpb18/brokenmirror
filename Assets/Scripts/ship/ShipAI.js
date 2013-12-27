@@ -55,7 +55,21 @@ function Update () {
 function botFunction() {
 	if(hasLeader()) {
 		leaderFunction();	
+	} else if (defence) {
+		defenseFunction();
 	}
+}
+
+function defenseFunction () {
+
+	if(hasTarget()) {
+		intercept(getTarget());
+	} else if (hasStation()){
+		//put defend station function here	
+	} else {
+		//put patrol function here
+	}
+
 }
 
 function leaderFunction () {
