@@ -60,74 +60,74 @@ function OnGUI () {
 											
 					}
 					
-					if(GUILayout.Button("Load Earth"))
-					{
-						
-						Time.timeScale = 1;
-						
-						dstScene = "Earth";
-						isLoading = true;
-						
-					}
-					
-					if(GUILayout.Button("Load Alpha Centauri"))
-					{
-						Time.timeScale = 1;
-						
-						dstScene = "AlphaCentauri";
-						isLoading = true;
-						
-					}
-					
-					if(GUILayout.Button("Load Andoria"))
-					{
-						Time.timeScale = 1;
-						
-						dstScene = "Andoria";
-						isLoading = true;
-					}
-					
-					if(GUILayout.Button("Load Tygokor"))
-					{
-						Time.timeScale = 1;
-						
-						dstScene = "Tygokor";
-						isLoading = true;
-					}
-					
-					if(GUILayout.Button("Load Vulcan")) {
-						Time.timeScale = 1;
-						dstScene = "Vulcan";
-						isLoading = true;
-					}
-					
-					if(GUILayout.Button("Load Romulus/Remus")) {
-						Time.timeScale = 1;
-						dstScene = "Romulus_Remus";
-						isLoading = true;
-					
-					}
-					
-					if(GUILayout.Button("Load Bajor")) {
-						Time.timeScale = 1;
-						dstScene = "Bajor";
-						isLoading = true;
-					
-					}
-					
-					if(GUILayout.Button("Load TestBot")) {
-						Time.timeScale = 1;
-						dstScene = "testeBot";
-						isLoading = true;
-					
-					}
-					
-					if(GUILayout.Button("Load TestMenu")) {
-						Time.timeScale = 1;
-						dstScene = "SpaceScene";
-						isLoading = true;
-					
-					}
+//					if(GUILayout.Button("Load Earth"))
+//					{
+//						
+//						Time.timeScale = 1;
+//						
+//						dstScene = "Earth";
+//						isLoading = true;
+//						
+//					}
+//					
+//					if(GUILayout.Button("Load Alpha Centauri"))
+//					{
+//						Time.timeScale = 1;
+//						
+//						dstScene = "AlphaCentauri";
+//						isLoading = true;
+//						
+//					}
+//					
+//					if(GUILayout.Button("Load Andoria"))
+//					{
+//						Time.timeScale = 1;
+//						
+//						dstScene = "Andoria";
+//						isLoading = true;
+//					}
+//					
+//					if(GUILayout.Button("Load Tygokor"))
+//					{
+//						Time.timeScale = 1;
+//						
+//						dstScene = "Tygokor";
+//						isLoading = true;
+//					}
+//					
+//					if(GUILayout.Button("Load Vulcan")) {
+//						Time.timeScale = 1;
+//						dstScene = "Vulcan";
+//						isLoading = true;
+//					}
+//					
+//					if(GUILayout.Button("Load Romulus/Remus")) {
+//						Time.timeScale = 1;
+//						dstScene = "Romulus_Remus";
+//						isLoading = true;
+//					
+//					}
+//					
+//					if(GUILayout.Button("Load Bajor")) {
+//						Time.timeScale = 1;
+//						dstScene = "Bajor";
+//						isLoading = true;
+//					
+//					}
+//					
+//					if(GUILayout.Button("Load TestBot")) {
+//						Time.timeScale = 1;
+//						dstScene = "testeBot";
+//						isLoading = true;
+//					
+//					}
+//					
+//					if(GUILayout.Button("Load TestMenu")) {
+//						Time.timeScale = 1;
+//						dstScene = "SpaceScene";
+//						isLoading = true;
+//					
+//					}
 					
 					if(GUILayout.Button("Exit"))
 					{
