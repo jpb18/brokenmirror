@@ -32,6 +32,11 @@ var general : GeneralInfo;
 var faceAngle : float = 1.0f;
 var isClearing : boolean = false;
 
+var patrolPoint : Vector3;
+var isPatroling : boolean = false;
+var patrolDistance : float = 10.0f;
+var patrolRange : float = 1000.0f;
+
 
 function Start () {
 	general = GameObject.FindGameObjectWithTag("SaveGame").GetComponent(GeneralInfo);
@@ -65,9 +70,9 @@ function defenseFunction () {
 	if(hasTarget()) {
 		intercept(getTarget());
 	} else if (hasStation()){
-		//put defend station function here	
+		defend(getStation());
 	} else {
-		//put patrol function here
+		patrol();
 	}
 
 }
@@ -163,19 +168,17 @@ function hasHostileShip() : boolean {
 
 
 //checks if the ship is in follow distance from game object
-//pre target == leader, target != null
-//pre target.transform.tag == "Ship"
-function isFollowDistance(target : GameObject) : boolean {
-	var distance : float = (target.transform.position - transform.position).sqrMagnitude;
+function isFollowDistance(target : Vector3) : boolean {
+	var distance : float = (target - transform.position).sqrMagnitude;
 	return distance <= (followDistance * followDistance);
 }
 
 //checks if the ship is too close to another one
 //pre target != null
 //pre target.transform.tag == "Ship"
-function isTooClose(target : GameObject) : boolean {
+function isTooClose(target : Vector3) : boolean {
 
-	var distance : float = (target.transform.position - transform.position).sqrMagnitude;
+	var distance : float = (target - transform.position).sqrMagnitude;
 	return distance <= (minDistance * minDistance);
 
 }
@@ -295,9 +298,9 @@ function matchSpeed(target : GameObject) {//pre target.transform.tag == "Ship"//
 
 //this function checks if the ship is looking at target
 //pre target.transform.tag == "Ship"
-function isLookingAt(target : GameObject) {
+function isLookingAt(target : Vector3) : boolean {
 
-	var targetDir = target.transform.position - transform.position;
+	var targetDir = target - transform.position;
 	var forward = transform.forward;
 	
 	var angle = Vector3.Angle(targetDir, forward);
@@ -308,8 +311,8 @@ function isLookingAt(target : GameObject) {
 
 //this function makes the ship look at target
 //pre target.transform.tag == "Ship"
-function LookAt(target : GameObject) {
-	var v3 : Vector3 = transform.InverseTransformPoint(target.transform.position);
+function LookAt(target : Vector3) {
+	var v3 : Vector3 = transform.InverseTransformPoint(target);
 	AlignX(v3);
 	AlignY(v3);
 	
@@ -372,16 +375,17 @@ function AlignZ(target : GameObject) {
 //this function makes the ship follow target
 //pre target.transform.tag == "Ship"
 function follow(target : GameObject) {
-	if(!isLookingAt(target)) {
-		LookAt(target);
+	var pos : Vector3 = target.transform.position;
+	if(!isLookingAt(pos)) {
+		LookAt(pos);
 	}
 	
-	if(isTooClose(target)) {
+	if(isTooClose(pos)) {
 		if(!move.isAtMin()) {
 			move.decreaseSpeed();
 		}
 	}
-	else if(!isFollowDistance(target)) {
+	else if(!isFollowDistance(pos)) {
 		if(!move.isAtMax()) {
 			move.increaseSpeed();
 		}
@@ -390,6 +394,9 @@ function follow(target : GameObject) {
 		move.matchSpeed(target);
 	}
 }
+
+
+
 
 //controls the intercept order
 function intercept(target : GameObject) {
@@ -410,8 +417,10 @@ function barrage(target : GameObject) {
 			move.fullStop();
 	}
 	
-	if(!isLookingAt(target)) {
-		LookAt(target);
+	var pos : Vector3 = target.transform.position;
+	
+	if(!isLookingAt(pos)) {
+		LookAt(pos);
 		isClearing = false;
 	}
 
@@ -492,7 +501,7 @@ function isFront(target : Vector3) : boolean {
 //if not, it will get away from the target until it leaves weapon range
 //the status is restarted after that
 function AttackRun(target : GameObject) {
-	if(isTooClose(target)) {
+	if(isTooClose(target.transform.position)) {
 		isClearing = true;
 	}
 
@@ -516,3 +525,94 @@ function LookAway(target : GameObject) {
 	
 }
 
+///<summary>function containing the defensive behaviour - guard something</summary>
+///<param name="target">Object to be defended</param>
+function defend(target : GameObject) {
+	if(target.tag == "Station") {
+		defendStation(target);
+	} else {
+		defendShip(target);
+	}
+
+
+}
+
+///<summary>This function controls the defend station position</summary>
+///<param name="target">Object to be defended</param>
+function defendStation (target : GameObject) {
+	if((transform.position - target.transform.position).sqrMagnitude > (defenseStation * defenseStation)) {
+		follow(target);
+	
+	} //if it doesn't enter, it must hold position in the perimeter
+
+}
+
+///<summary>This function controls the defend ship stance</summary>
+///<param name="target">Object to be defended</param>
+function defendShip (target : GameObject) {
+	if((transform.position - target.transform.position).sqrMagnitude > (defenseShip * defenseShip)) {
+		follow(target);
+	}
+
+}
+
+///<summary>This function obtains an ally station in the scene</summary>
+function getStation() : GameObject {
+	var station : GameObject;
+	
+	var stations : GameObject[] = GameObject.FindGameObjectsWithTag("Station");
+	
+	var r : float = Random.value;
+	var num : int = (stations.length - 1) * r;
+	
+	station = stations[num];
+		
+	return station;
+}
+
+
+///<summary>This function makes the ship go on patrol</summary>
+function patrol() {
+	
+	if(!isPatroling) {
+		patrolPoint = genPoint(patrolRange);
+		isPatroling = true;
+	}
+	
+	if(isPatroling) {
+		if((patrolPoint - transform.position).sqrMagnitude > patrolDistance * patrolDistance) {
+			goToPoint(patrolPoint);		
+		}
+	
+	
+	}
+
+}
+
+
+///<summary>This function generates a patrol destination for the ship. Center is the scene start</summary>
+///<param name="radius">Radius of the patrol sphere</param>
+function genPoint(radius : float) : Vector3{
+	
+	var startScene : GameObject = GameObject.FindGameObjectWithTag("SceneStart");
+	
+	var point : Vector3 = Random.insideUnitSphere * radius;
+	
+	return point + startScene.transform.position;
+
+}
+
+///<summary>This makes the ship go to a certain point</summary>
+///<param name="point">Destination point</param>
+function goToPoint(point : Vector3) {
+	if(!isLookingAt(point)) {
+		LookAt(point);
+	}
+	
+	if(!move.isAtMax()) {
+		move.increaseSpeed();
+	
+	}
+			
+
+}
