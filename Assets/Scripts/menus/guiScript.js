@@ -1014,17 +1014,23 @@ function CreateWeapButton(Weapon : WeaponSlot, Skin : GUISkin, Area : Rect) {
 		
 		//Draw button with Area, weapon_img and Skin and check if said button is pressed 
 		if(GUI.Button(Area, weapon_img, Skin.button) && shipProps.combatStatus.isRedAlert) {
-			
-			if(shipTar.target) { //check if there's a target
 		
-				Weapon.isFiring = true; //Set isFiring as true
 			
-			} else { //if there isn't, find one and set isFiring as true after
+				if(shipTar.target) { //check if there's a target
+					if(Weapon.canFire(shipTar.target)) {//check if weapon can fire
+						Weapon.isFiring = true; //Set isFiring as true
+					}
+				
+				} else { //if there isn't, find one and set isFiring as true after
+				
+					shipTar.target = shipTar.FindTarget(gameObject, shipProps); //Find target 
+					
+					if(Weapon.canFire(shipTar.target)) {//check if weapon can fire
+						Weapon.isFiring = true; //Set isFiring as true
+					}
+				
+				}
 			
-				shipTar.target = shipTar.FindTarget(gameObject, shipProps); //Find target 
-				Weapon.isFiring = true; //Set isFiring as true
-			
-			}
 			
 		
 		}

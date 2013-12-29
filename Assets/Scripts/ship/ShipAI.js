@@ -21,30 +21,40 @@ var arriveTime : float;
 var presenceTime : float = 180.0f; //3 minutes
 
 //other scripts
-var target : shipTarget;
-var triggers : shipTriggers;
-var props : shipProperties;
-var move : shipMovement;
-var weapons : shipWeapons;
-var general : GeneralInfo;
+private var target : shipTarget;
+private var triggers : shipTriggers;
+private var props : shipProperties;
+private var move : shipMovement;
+private var weapons : shipWeapons;
+private var general : GeneralInfo;
+private var message : ShowMessage;
+private var shipProps : shipProperties;
 
 //other variables
 var faceAngle : float = 1.0f;
 var isClearing : boolean = false;
 
+//patrol variables
 var patrolPoint : Vector3;
 var isPatroling : boolean = false;
 var patrolDistance : float = 10.0f;
 var patrolRange : float = 1000.0f;
 
+//message
+var hailMsg : String = "You're being hailed by ";
+
+//docking vars
+var dockTarget : GameObject;
 
 function Start () {
 	general = GameObject.FindGameObjectWithTag("SaveGame").GetComponent(GeneralInfo);
+	message = GameObject.FindGameObjectWithTag("ShowMessage").GetComponent(ShowMessage);
 	triggers = gameObject.GetComponent(shipTriggers);
 	target = gameObject.GetComponent(shipTarget);
 	props = gameObject.GetComponent(shipProperties);
 	move = gameObject.GetComponent(shipMovement);
 	weapons = gameObject.GetComponent(shipWeapons);
+	shipProps = gameObject.GetComponent(shipProperties);
 	arriveTime = Time.time;
 
 }
@@ -62,6 +72,8 @@ function botFunction() {
 		leaderFunction();	
 	} else if (defence) {
 		defenseFunction();
+	} else if (merchant) {
+		merchantFunction();
 	}
 }
 
@@ -99,6 +111,25 @@ function leaderFunction () {
 
 }
 
+
+function merchantFunction () {
+	if(hasStation()) {
+		if(!dockTarget || dockTarget.tag == "Ship") {
+			dockTarget = getStation();
+		} else {
+			dock(dockTarget);
+		}
+	
+	} else if(hasShip()) {
+		if(!dockTarget || dockTarget.tag == "Station") {
+			dockTarget = getShip();
+		} else {
+			dock(dockTarget);
+		}
+	
+	}
+
+}
 
 
 //this function checks if the target position is inside range
@@ -614,5 +645,52 @@ function goToPoint(point : Vector3) {
 	
 	}
 			
+
+}
+
+///<summary>This function makes the ship dock with the target</summary>
+///<param name="target">Object to dock</param>
+function dock(target : GameObject) {
+	var distance : float = (transform.position - target.transform.position).sqrMagnitude;
+	if(target.tag == "Station") {
+		if(distance > dockStation * dockStation) {
+			follow(target);
+		}
+			
+	} else if (target.tag == "Ship"){
+		if(distance > dockShip * dockShip) {
+			follow(target);
+		}
+		
+		if(target.GetComponent(shipProperties).playerProps.isPlayer) {
+			hailPlayer();
+		}
+		
+	}
+
+}
+
+///<summary>This function will hail the player</summary>
+///<pre>Only used when hailing the player</pre>
+function hailPlayer() {
+	message.AddMessage(hailMsg + shipProps.shipInfo.shipName);
+}
+
+
+///<summary>This function will pick a random ship from the system</summary>
+function getShip() {
+	var ships : GameObject[] = GameObject.FindGameObjectsWithTag("Ship");
+	var rnd : int = Random.value * (ships.length - 1);
+	return ships[rnd];
+	
+}
+
+///<summary>This function will make the ship head towards the planet and stop once its in orbit</summary>
+function orbit() {
+	if(!triggers.triggerProps.isOrbit) {
+		var planet : GameObject = GameObject.FindGameObjectWithTag("MainPlanet");
+		follow(planet);
+	}
+
 
 }
