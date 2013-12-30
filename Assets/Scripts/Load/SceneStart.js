@@ -15,11 +15,12 @@ var playerShip : GameObject;
 var playerFleet : List.<GameObject>;
 var defenseFleet : List.<GameObject>;
 
+private var save_scr : SaveGame;
 
 function Start () {
 	//set SaveGame start
-	GameObject.FindGameObjectWithTag("SaveGame").GetComponent(SaveGame).start = this;
-	
+	save_scr = GameObject.FindGameObjectWithTag("SaveGame").GetComponent(SaveGame);
+	save_scr.start = this;
 
 	playerStart();
 	spawnDefenseFleet();
@@ -46,6 +47,8 @@ function spawnDefenseFleet() {
 		
 		ship = Instantiate(fleet[x].getShip(), genSpawn(minRadius, maxRadius, transform.position), Random.rotation);
 		defenseFleet.Add(ship);
+		ship.GetComponent(ShipAI).setDefence();
+		ship.name = save_scr.RemoveClone(ship.name);
 		
 		
 	}
@@ -57,8 +60,7 @@ function spawnDefenseFleet() {
 //this function spawns the player
 function playerStart() {
 	
-	//get player info from SaveGame
-	var save_scr : SaveGame = GameObject.FindGameObjectWithTag("SaveGame").GetComponent(SaveGame);
+	
 	//get ship
 	playerShip = save_scr.playerShip.getShip();
 	//spawn game object looking at the planet
@@ -87,7 +89,7 @@ function playerStart() {
 function spawnPlayerFleet() {
 	//get fleet info from SaveGame
 	
-	var save_scr : SaveGame = GameObject.FindGameObjectWithTag("SaveGame").GetComponent(SaveGame);
+	
 	var size : int = save_scr.playerFleet.getSize();
 	var shipSpawn : Vector3 = Vector3.zero;
 	var botShip : GameObject;
