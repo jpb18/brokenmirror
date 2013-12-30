@@ -161,12 +161,3 @@ function setGame() {
 	isGame = !isGame;
 }
 
-private function test() {
-	var x : int = 0;
-	while(true) {
-		AddMessage(x.ToString());
-		x++;
-		yield WaitForSeconds(2);
-	}
-
-}

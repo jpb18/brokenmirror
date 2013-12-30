@@ -74,6 +74,8 @@ function botFunction() {
 		defenseFunction();
 	} else if (merchant) {
 		merchantFunction();
+	} else {
+		freeShip();
 	}
 }
 
@@ -127,7 +129,16 @@ function merchantFunction () {
 			dock(dockTarget);
 		}
 	
+	} else {
+		orbit();
 	}
+
+}
+
+function freeShip() {
+	if(hasHostileShip() || hasHostileStation()) {
+		intercept(getTarget());
+	} 
 
 }
 
@@ -184,8 +195,9 @@ function hasHostileShip() : boolean {
 	var ships : GameObject[] = GameObject.FindGameObjectsWithTag("Ship");
 	var hostileList : int[] = general.factionInfo[props.shipInfo.faction].hostileFactions;
 	
-	for(var go : GameObject in ships && !isHostile) {
-		var faction : int = go.GetComponent(shipProperties).shipInfo.faction;
+	for(var x : int = 0; x < ships.Length && !isHostile; x++) {
+	
+		var faction : int = ships[x].GetComponent(shipProperties).shipInfo.faction;
 		if(Statics.isEnemy(faction, hostileList)) {
 			isHostile = true;
 		}	
@@ -197,6 +209,23 @@ function hasHostileShip() : boolean {
 
 }
 
+///<summary>Checks if there're any hostile stations</summary>
+function hasHostileStation() : boolean {
+	var isHostile : boolean = false;
+	var ships : GameObject[] = GameObject.FindGameObjectsWithTag("Station");
+	var hostileList : int[] = general.factionInfo[props.shipInfo.faction].hostileFactions;
+	
+	for(var x : int = 0; x < ships.Length && !isHostile; x++) {
+	
+		var faction : int = ships[x].GetComponent(shipProperties).shipInfo.faction;
+		if(Statics.isEnemy(faction, hostileList)) {
+			isHostile = true;
+		}	
+				
+	}
+	
+	return isHostile;
+}
 
 //checks if the ship is in follow distance from game object
 function isFollowDistance(target : Vector3) : boolean {
@@ -561,7 +590,7 @@ function LookAway(target : GameObject) {
 function defend(target : GameObject) {
 	if(target.tag == "Station") {
 		defendStation(target);
-	} else {
+	} else if (target.tag == "Ship") {
 		defendShip(target);
 	}
 
@@ -574,7 +603,11 @@ function defendStation (target : GameObject) {
 	if((transform.position - target.transform.position).sqrMagnitude > (defenseStation * defenseStation)) {
 		follow(target);
 	
-	} //if it doesn't enter, it must hold position in the perimeter
+	} else {
+		if(!move.isStop()) {
+			move.fullStop();
+		}
+	}//if it doesn't enter, it must hold position in the perimeter
 
 }
 
@@ -583,7 +616,11 @@ function defendStation (target : GameObject) {
 function defendShip (target : GameObject) {
 	if((transform.position - target.transform.position).sqrMagnitude > (defenseShip * defenseShip)) {
 		follow(target);
-	}
+	} else {
+		if(!move.isStop()) {
+			move.fullStop();
+		}
+	}//if it doesn't enter, it must hold position in the perimeter
 
 }
 
@@ -655,11 +692,19 @@ function dock(target : GameObject) {
 	if(target.tag == "Station") {
 		if(distance > dockStation * dockStation) {
 			follow(target);
+		} else {
+			if(!move.isStop()) {
+				move.fullStop();			
+			}
 		}
 			
 	} else if (target.tag == "Ship"){
 		if(distance > dockShip * dockShip) {
 			follow(target);
+		} else {
+			if(!move.isStop()) {
+				move.fullStop();			
+			}
 		}
 		
 		if(target.GetComponent(shipProperties).playerProps.isPlayer) {
@@ -690,6 +735,10 @@ function orbit() {
 	if(!triggers.triggerProps.isOrbit) {
 		var planet : GameObject = GameObject.FindGameObjectWithTag("MainPlanet");
 		follow(planet);
+	} else {
+		if(!move.isStop()) {
+			move.fullStop();
+		}	
 	}
 
 

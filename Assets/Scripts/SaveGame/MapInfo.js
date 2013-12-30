@@ -111,9 +111,15 @@ var warpWait : float = 1.0f;;
 
 private var areaRect : Rect;
 
+private var message : ShowMessage;
 
 
 
+function Start() {
+
+	message = GameObject.FindGameObjectWithTag("ShowMessage").GetComponent(ShowMessage);
+
+}
 
 function OnGUI () {
 	
@@ -232,8 +238,11 @@ function CreatePlanetButton(planet : PlanetInfo, buttons : MapButtons, mapRect :
 	
 	//now its the button
 	if(GUI.Button(butRect, useTexture, map.skin.GetStyle("ButtonMap"))) {
-		
-		goWarp(planet.scene);
+		if(!planet.isScene(Application.loadedLevelName)){
+			goWarp(planet.scene);
+		} else {
+			message.AddMessage("Already in the system");
+		}
 	
 	}
 	
