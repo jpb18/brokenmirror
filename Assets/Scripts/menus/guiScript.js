@@ -310,7 +310,9 @@ class CommDialogue  {
 	
 	function DrawWindow() {
 		if(isOpen && target){
-			window = GUI.Window(0, window, DrawDialogue, "", GUIStyle.none);
+			if(target.tag == "Ship") {
+				window = GUI.Window(0, window, DrawDialogue, "", GUIStyle.none);
+			}
 		}
 	
 	}
@@ -422,7 +424,9 @@ class RadarLabel {
 	var label_name : Rect;
 	var label_class : Rect;
 	private var target : GameObject;
-	private var shipProps : shipProperties;
+	private var name : String;
+	private var className : String;
+	
 	var skin : GUISkin;
 	
 	//this draws the label
@@ -431,11 +435,9 @@ class RadarLabel {
 		GUILayout.BeginArea(Rect(position.x, convertBotToTop(position.y) - size.y, size.x, size.y));
 			GUI.DrawTexture(Rect(0,0, size.x, size.y), bg);
 			
-			var name : String = shipProps.shipInfo.shipName;
-			var shipClass : String = shipProps.shipInfo.shipClass;
 			
 			GUI.Label(label_name, name, skin.GetStyle("MessageComm"));
-			GUI.Label(label_class, shipClass, skin.GetStyle("MessageComm"));
+			GUI.Label(label_class, className, skin.GetStyle("MessageComm"));
 		GUILayout.EndArea();
 		
 		
@@ -445,7 +447,16 @@ class RadarLabel {
 	//pre: target != null
 	function Set(target : GameObject) {
 		this.target = target;
-		shipProps = target.GetComponent(shipProperties);
+		if(target.tag == "Ship") {
+			var shipProps : shipProperties = target.GetComponent(shipProperties);
+			name = shipProps.shipInfo.shipName;
+			className = shipProps.shipInfo.shipClass;
+		} else if(target.tag == "Station") {
+			var station : StationInterface = target.GetComponent(StationInterface);
+			name = station.stName;
+			className = station.stClass;
+		
+		}
 	}
 	
 	
@@ -458,7 +469,7 @@ class RadarLabel {
 
 //fixed
 var Helm : HelmGui;
-var Health : HealthGui;
+var health : HealthGui;
 var Weapon : WeaponGui;
 var Torpedo : TorpedoGui;
 var Target : TargetGui;
@@ -674,7 +685,7 @@ function healthModule() {
 	
 		//Health Bars
 		//Hull Background
-		GUI.DrawTexture(Rect(Health.hull_area.x, Health.hull_area.y, Health.hull_area.width, Health.hull_area.height), Health.hull_bg);
+		GUI.DrawTexture(Rect(health.hull_area.x, health.hull_area.y, health.hull_area.width, health.hull_area.height), health.hull_bg);
 		
 		//Calculate foreground transparency
 		var hullColor : Color = Color.white;
@@ -684,12 +695,12 @@ function healthModule() {
 		GUI.color = hullColor; //sets transparency
 		
 		//Hull Foreground
-		GUI.DrawTexture(Rect(Health.hull_fg_area.x, Health.hull_fg_area.y, Health.hull_fg_area.width, Health.hull_fg_area.height), Health.hull_fg);
+		GUI.DrawTexture(Rect(health.hull_fg_area.x, health.hull_fg_area.y, health.hull_fg_area.width, health.hull_fg_area.height), health.hull_fg);
 		
 		GUI.color = Color.white; //sets back to default
 	
 		//Shield Backgroound
-		GUI.DrawTexture(Rect(Health.shield_area.x, Health.shield_area.y, Health.shield_area.width, Health.shield_area.height), Health.shield_bg);  
+		GUI.DrawTexture(Rect(health.shield_area.x, health.shield_area.y, health.shield_area.width, health.shield_area.height), health.shield_bg);  
 		
 		//Calculate foreground transparency
 		var shieldColor : Color = Color.white;
@@ -699,21 +710,21 @@ function healthModule() {
 		GUI.color = shieldColor; //sets transparent
 		
 		//Shield Foreground
-		GUI.DrawTexture(Rect(Health.shield_fg_area.x, Health.shield_fg_area.y, Health.shield_fg_area.width, Health.shield_fg_area.height), Health.shield_fg);
+		GUI.DrawTexture(Rect(health.shield_fg_area.x, health.shield_fg_area.y, health.shield_fg_area.width, health.shield_fg_area.height), health.shield_fg);
 		
 		GUI.color = Color.white; //sets default back
 		
 		//Health Orbs
 		//Draw Background
-		GUI.DrawTexture(Rect(Health.orbs_area.x, Health.orbs_area.y, Health.orbs_area.width, Health.orbs_area.height), Health.orbs_img);
+		GUI.DrawTexture(Rect(health.orbs_area.x, health.orbs_area.y, health.orbs_area.width, health.orbs_area.height), health.orbs_img);
 		
 		
 	
 		//Write hull value
-		GUI.Label(Rect(Health.hull_label_area.x, Health.hull_label_area.y, Health.hull_label_area.width, Health.hull_label_area.height), Mathf.RoundToInt(percHull).ToString() + "%", HudSkin.label);
+		GUI.Label(Rect(health.hull_label_area.x, health.hull_label_area.y, health.hull_label_area.width, health.hull_label_area.height), Mathf.RoundToInt(percHull).ToString() + "%", HudSkin.label);
 	
 		//Write shield value
-		GUI.Label(Rect(Health.shield_label_area.x, Health.shield_label_area.y, Health.shield_label_area.width, Health.shield_label_area.height), Mathf.RoundToInt(percShield).ToString() + "%", HudSkin.GetStyle("ShieldLabel"));
+		GUI.Label(Rect(health.shield_label_area.x, health.shield_label_area.y, health.shield_label_area.width, health.shield_label_area.height), Mathf.RoundToInt(percShield).ToString() + "%", HudSkin.GetStyle("ShieldLabel"));
 	
 	GUILayout.EndArea();
 
@@ -911,6 +922,11 @@ function targetModule() {
 					var targetScript : shipProperties = shipTar.target.GetComponent(shipProperties);
 					tarFaction = targetScript.shipInfo.faction;						
 				
+				} else if (shipTar.target.tag == "Station") {
+					
+					var station : Station = shipTar.target.GetComponent(Station);
+					tarFaction = station.faction;
+				
 				}
 				
 				//Now lets select the orb in question
@@ -943,13 +959,17 @@ function targetModule() {
  				var shipName : String;
 				
 				if(shipTar.target.tag == "Ship") { //if it's a ship
-				
+									
 					
-					var tarShipProps : shipProperties = shipTar.target.GetComponent(shipProperties); //get ship properties script
-					tarImage = tarShipProps.shipInfo.targetImg; //get image
-					shipClass = tarShipProps.shipInfo.shipClass; //get class
-					shipName = tarShipProps.shipInfo.shipName; //get name
+					tarImage = targetScript.shipInfo.targetImg; //get image
+					shipClass = targetScript.shipInfo.shipClass; //get class
+					shipName = targetScript.shipInfo.shipName; //get name
 				
+				} else if(shipTar.target.tag == "Station") {
+					var stationI : StationInterface = shipTar.target.GetComponent(StationInterface);
+					tarImage = stationI.image;
+					shipClass = stationI.stClass;
+					shipName = stationI.stName;
 				}
 				
 				//Now draw the texture
@@ -975,6 +995,13 @@ function targetModule() {
 					shield = healthTarget.shipHealth.shields; // get shields
 					maxShield = healthTarget.shipHealth.maxShields; //get max shields
 				
+				} else if (shipTar.target.tag == "Station") {
+					var stationH : Health = shipTar.target.GetComponent(Health);
+					hull = stationH.hull;
+					maxHull = stationH.maxHull;
+					shield = stationH.shield;
+					maxShield = stationH.maxShield;
+					
 				}
 				
 				//lets get the width of those bars

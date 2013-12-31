@@ -217,7 +217,7 @@ function hasHostileStation() : boolean {
 	
 	for(var x : int = 0; x < ships.Length && !isHostile; x++) {
 	
-		var faction : int = ships[x].GetComponent(shipProperties).shipInfo.faction;
+		var faction : int = ships[x].GetComponent(Station).faction;
 		if(Statics.isEnemy(faction, hostileList)) {
 			isHostile = true;
 		}	
@@ -604,7 +604,7 @@ function defendStation (target : GameObject) {
 		follow(target);
 	
 	} else {
-		if(!move.isStop()) {
+		if(!move.isStop() && !move.isChanging) {
 			move.fullStop();
 		}
 	}//if it doesn't enter, it must hold position in the perimeter
@@ -617,7 +617,7 @@ function defendShip (target : GameObject) {
 	if((transform.position - target.transform.position).sqrMagnitude > (defenseShip * defenseShip)) {
 		follow(target);
 	} else {
-		if(!move.isStop()) {
+		if(!move.isStop() && !move.isChanging) {
 			move.fullStop();
 		}
 	}//if it doesn't enter, it must hold position in the perimeter
@@ -693,7 +693,7 @@ function dock(target : GameObject) {
 		if(distance > dockStation * dockStation) {
 			follow(target);
 		} else {
-			if(!move.isStop()) {
+			if(!move.isStop() && !move.isChanging) {
 				move.fullStop();			
 			}
 		}
@@ -702,7 +702,7 @@ function dock(target : GameObject) {
 		if(distance > dockShip * dockShip) {
 			follow(target);
 		} else {
-			if(!move.isStop()) {
+			if(!move.isStop() && !move.isChanging) {
 				move.fullStop();			
 			}
 		}
