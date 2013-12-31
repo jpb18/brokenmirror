@@ -409,6 +409,7 @@ class CommDialogue  {
 		camScript.target = target.transform;
 		
 		target.GetComponent(shipTarget).target = null;
+		target.GetComponent(shipTarget).target = null;
 		player.GetComponent(shipTarget).repeatClick = false;
 		
 	}

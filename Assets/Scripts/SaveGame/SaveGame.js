@@ -138,6 +138,7 @@ class Fleet extends System.Object{
 		return this.ships[ship].getShip();
 	
 	}
+
 	
 	function clearList() {
 		this.ships.Clear();

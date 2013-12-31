@@ -11,6 +11,7 @@ class FactionInfo {
 	var factionRace : String;
 	var hostileFactions : int[];
 	var alliedFactions : int[];
+	var invasionFleet : List.<GameObject>;
 	
 	function getInfo() : FactionInfo {
 		

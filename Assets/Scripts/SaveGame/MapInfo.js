@@ -1,4 +1,5 @@
-﻿#pragma strict
+﻿import System.Collections.Generic;
+#pragma strict
 
 class PlanetInfo { //this class stores all planet information necessary for the map
 	var isEnabled : boolean;
@@ -9,6 +10,7 @@ class PlanetInfo { //this class stores all planet information necessary for the 
 	var image : Texture2D;
 	var cood : PlanetCood;
 	var defenseFleet : SaveShip[];
+	var stations : List.<SaveStation>;
 	
 	var hasPlayerVisit : boolean = false;
 	var isColonized : boolean = false;
@@ -99,6 +101,68 @@ class MapGui { //this class stores all information related with the map GUI
 	var skin : GUISkin;
 
 }
+
+class SaveStation extends System.Object{
+	//basic info
+	var name : String;
+	var faction : int;
+	var position : Vector3;
+	
+	//commerce
+	var weapons : List.<GameObject>;
+	var ships : List.<GameObject>;
+	var	stations : List.<GameObject>;
+	
+	//prefab
+	var prefab : GameObject;
+	
+	//this function sets the station information
+	//pre station.tag == "Station"
+	function setStation(station : GameObject) {
+		//set position
+		position = station.transform.position;
+		
+		//set name, weapons, ships and stations
+		var statI : StationInterface = station.GetComponent(StationInterface);
+		name = statI.stName;
+		weapons = statI.weapons;
+		ships = statI.ships;
+		stations = statI.stations;
+		
+		//set faction
+		var statS : Station = station.GetComponent(Station);
+		faction = statS.faction;
+		
+		//set prefab
+		prefab = Resources.Load(station.name);
+	
+	}
+	
+	//this function returns a station
+	function getStation() : GameObject {
+		var station : GameObject = prefab;
+		
+		//set position
+		station.transform.position = position;
+		
+		//set name, weapons, ships and stations
+		var statI : StationInterface = station.GetComponent(StationInterface);
+		statI.stName = name;
+		statI.weapons = weapons;
+		statI.ships = ships;
+		statI.stations = stations;
+		
+		//set faction
+		var statS : Station = station.GetComponent(Station);
+		statS.faction = faction;
+		
+		return station;
+	}
+
+
+}
+
+
 
 var planets : PlanetInfo[];
 var map : MapGui;
