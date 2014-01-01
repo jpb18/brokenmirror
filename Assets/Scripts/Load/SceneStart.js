@@ -202,7 +202,7 @@ function setInvasion() {
 		toBeSpawned = setFleet(general.getFactionInfo(factionToSpawn).invasionFleet);
 		spawnTime = Time.time + spawnEnemy;
 		isInvasion = true;
-		message.AddMessage(invasionMessage1 + general.getFactionInfo(planet.faction).getInfo().factionName + invasionMessage2 + spawnEnemy.ToString() + invasionMessage3);
+		message.AddMessage(invasionMessage1 + general.getFactionInfo(factionToSpawn).getInfo().factionName + invasionMessage2 + spawnEnemy.ToString() + invasionMessage3);
 	
 	}
 
@@ -221,7 +221,7 @@ function spawnInvasion () {
 	
 	for(var ship : GameObject in toBeSpawned) {
 		if(ship != leader) {
-			var s : GameObject = Instantiate(ship, genSpawn(botMinRadius, botMaxRadius, leader.transform.position);, leader.transform.rotation);
+			var s : GameObject = Instantiate(ship, genSpawn(botMinRadius, botMaxRadius, leader.transform.position), leader.transform.rotation);
 						
 			//set faction
 			var props : shipProperties = s.GetComponent(shipProperties);
