@@ -36,6 +36,7 @@ private var factionToSpawn : int;
 var invasionMessage1 : String = "Incoming fleet from ";
 var invasionMessage2 : String = ". ETA: ";
 var invasionMessage3 : String = " seconds.";
+var arriveMessage : String = "Hostile fleet has arrived.";
 var fleetSize : int;
 
 
@@ -213,23 +214,62 @@ function setInvasion() {
 //this method will spawn an invasion fleet
 function spawnInvasion () {
 
+	//first spawn the leader
+	var leader : GameObject = spawnLeader(toBeSpawned);
+	
+	
+	
 	for(var ship : GameObject in toBeSpawned) {
-		
-		var s : GameObject = Instantiate(ship, genSpawn(minRadius, maxRadius, transform.position), Quaternion.identity);
-		s.transform.LookAt(transform.position);
-		
-		//set faction
-		var props : shipProperties = s.GetComponent(shipProperties);
-		props.shipInfo.faction = factionToSpawn;
-		
-		//remove clone
-		s.name = save_scr.RemoveClone(s.name);
+		if(ship != leader) {
+			var s : GameObject = Instantiate(ship, genSpawn(botMinRadius, botMaxRadius, leader.transform.position);, leader.transform.rotation);
+						
+			//set faction
+			var props : shipProperties = s.GetComponent(shipProperties);
+			props.shipInfo.faction = factionToSpawn;
+			
+			//set leader
+			var ai : ShipAI = s.GetComponent(ShipAI);
+			ai.leader = leader;
+			
+			//remove clone
+			s.name = save_scr.RemoveClone(s.name);
+		}
 	
 	}
-	
+	message.AddMessage(arriveMessage);
 	isInvaded = true;
 
 }
+
+
+function spawnLeader(fleet : List.<GameObject>) : GameObject {
+	var leader : GameObject = fleet[0];
+	
+	for(var x : int = 1; x < fleet.Count; x++) {
+		var curStr : float = leader.GetComponent(shipProperties).shipProps.shipStrenght;
+		var nxStr : float = fleet[x].GetComponent(shipProperties).shipProps.shipStrenght;
+		
+		if(curStr < nxStr) {
+			leader = fleet[x];
+		
+		}
+			
+	}
+	
+	leader = Instantiate(leader, genSpawn(minRadius, maxRadius, transform.position), Quaternion.identity);
+	leader.transform.LookAt(transform.position);
+	
+	//set faction
+	var props : shipProperties = leader.GetComponent(shipProperties);
+	props.shipInfo.faction = factionToSpawn;
+	
+	//remove clone
+	leader.name = save_scr.RemoveClone(leader.name);
+	
+	
+	return leader;
+}
+
 
 //this method sets an invading fleet
 function setFleet(fleetSetup : List.<GameObject>) : List.<GameObject> {

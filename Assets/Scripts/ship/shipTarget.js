@@ -33,6 +33,7 @@ function Update () {
 	{
 		ClickTarget();
 		PressTarget();
+		cancelTarget();
 	}
 	else
 	{
@@ -140,4 +141,10 @@ function botFunction() {
 	}
 }
 
+function cancelTarget() {
 
+	if(Input.GetAxis("CancelLock")) {
+		target = null;
+	}
+
+}
