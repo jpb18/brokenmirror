@@ -420,10 +420,14 @@ class CommDialogue  {
 }
 
 class RadarLabel {
-	var bg : Texture2D;
+	var own_bg : Texture2D;
+	var ally_bg : Texture2D;
+	var enemy_bg : Texture2D;
+	var neutral_bg : Texture2D;
 	var size : Vector2;
 	var label_name : Rect;
 	var label_class : Rect;
+	var label_dist : Rect;
 	private var target : GameObject;
 	private var name : String;
 	private var className : String;
@@ -432,13 +436,14 @@ class RadarLabel {
 	
 	//this draws the label
 	//pre: target != null && position.z > 0
-	function Draw(position : Vector3) {
+	function Draw(position : Vector3, player : GameObject, general : GeneralInfo) {
 		GUILayout.BeginArea(Rect(position.x, convertBotToTop(position.y) - size.y, size.x, size.y));
-			GUI.DrawTexture(Rect(0,0, size.x, size.y), bg);
+			GUI.DrawTexture(Rect(0,0, size.x, size.y), getTexture(player, general));
 			
 			
 			GUI.Label(label_name, name, skin.GetStyle("MessageComm"));
 			GUI.Label(label_class, className, skin.GetStyle("MessageComm"));
+			GUI.Label(label_dist, "Distance: " + getDistance(player).ToString() + "KM", skin.GetStyle("MessageComm"));
 		GUILayout.EndArea();
 		
 		
@@ -464,6 +469,73 @@ class RadarLabel {
 	private function convertBotToTop(y : int) : int {
 		return Screen.height - y;
 	}
+	
+	private function getFaction(obj : GameObject) : int {
+		var faction : int;
+		
+		if(obj.tag == "Ship") {
+			
+			faction = obj.GetComponent(shipProperties).shipInfo.faction;
+		
+		} else if(obj.tag == "Station") {
+			
+			faction = obj.GetComponent(Station).faction;
+		
+		}
+	
+		return faction;
+	}
+	
+	function getTexture(player : GameObject, general : GeneralInfo) : Texture2D {
+		var texture : Texture2D;
+		
+	
+		//get faction info
+		var ownFac : int = getFaction(target);
+		var plaFac : int = getFaction(player);
+		
+		var ownInfo : FactionInfo = general.getFactionInfo(ownFac);
+		
+		
+		if(ownFac == plaFac) { //check if it owns
+			texture = own_bg;		
+		} else if(CheckArrayValue(plaFac, ownInfo.alliedFactions)) { //check if its ally
+			texture = ally_bg;
+		} else if(CheckArrayValue(plaFac, ownInfo.hostileFactions)) { //check if its enemy
+			texture = enemy_bg;
+		} else {
+			texture = neutral_bg;	
+		}
+		
+		
+		return texture;
+	
+	}
+	
+	function getDistance(player : GameObject) : int {
+		
+		return Vector3.Distance(target.transform.position, player.transform.position);
+	
+	}
+	
+	//this function will check if a certain element belongs in 1 array
+	private function CheckArrayValue(desValue : int, array : int[]) : boolean {
+
+		var belongs : boolean = false;
+		
+		for(var val : int in array) {
+		
+			if (desValue == val)
+			{
+				belongs = true;
+			}
+		
+		}
+		
+		return belongs;
+
+	}
+	
 	
 
 }
@@ -494,6 +566,7 @@ var general : GeneralInfo;
 
 //main camara
 var mainCam : Camera;
+var camScript : MouseOrbit;
 
 
 function Start () {
@@ -515,7 +588,7 @@ function Start () {
 	
 	//get main camera
 	mainCam = Camera.main;
-	
+	camScript = mainCam.GetComponent(MouseOrbit);
 
 }
 
@@ -535,9 +608,11 @@ function OnGUI () {
 	//non player labels
 	if(!shipProps.playerProps.isPlayer) 
 	{
+		var player : GameObject = camScript.target.gameObject;
+	
 		var pos : Vector3 = mainCam.WorldToScreenPoint(transform.position);
 		if(pos.z > 0) {
-			radarLabel.Draw(pos);
+			radarLabel.Draw(pos, player, general);
 		}
 		
 	}
