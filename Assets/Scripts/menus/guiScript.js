@@ -936,22 +936,22 @@ function targetModule() {
 				{
 					orbTexture = Target.orb_owned_color; //give owned color
 				}
-				else if (CheckArrayValue(playerFaction, playerAllies)) //check if it's an ally
+				else if (CheckArrayValue(tarFaction, playerAllies)) //check if it's an ally
 				{
 					orbTexture = Target.orb_ally_color; //give allied color
 				}
-				else if (CheckArrayValue(playerFaction, playerEnemies)) //check if it's an enemy
+				else if (CheckArrayValue(tarFaction, playerEnemies)) //check if it's an enemy
 				{
 					orbTexture = Target.orb_enemy_color; //give enemy color
 				}
 				else //if none of the above
 				{
-					orbTexture = Target.orb_owned_color; //give neutral color
+					orbTexture = Target.orb_neutral_color; //give neutral color
 				}
 				
 				
 				//Draw the texture
-				GUI.DrawTexture(Target.orb_area, Target.orb_enemy_color);
+				GUI.DrawTexture(Target.orb_area, orbTexture);
 				
 				//Now Draw the ship image
 				//First get it from the targeted object

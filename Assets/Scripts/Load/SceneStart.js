@@ -223,9 +223,10 @@ function spawnInvasion () {
 		if(ship != leader) {
 			var s : GameObject = Instantiate(ship, genSpawn(botMinRadius, botMaxRadius, leader.transform.position), leader.transform.rotation);
 						
-			//set faction
+			//set properties
 			var props : shipProperties = s.GetComponent(shipProperties);
 			props.shipInfo.faction = factionToSpawn;
+			props.playerProps.isPlayer = false;
 			
 			//set leader
 			var ai : ShipAI = s.GetComponent(ShipAI);
@@ -259,10 +260,10 @@ function spawnLeader(fleet : List.<GameObject>) : GameObject {
 	leader = Instantiate(leader, genSpawn(minRadius, maxRadius, transform.position), Quaternion.identity);
 	leader.transform.LookAt(transform.position);
 	
-	//set faction
+	//set properties
 	var props : shipProperties = leader.GetComponent(shipProperties);
 	props.shipInfo.faction = factionToSpawn;
-	
+	props.playerProps.isPlayer = false;
 	//remove clone
 	leader.name = save_scr.RemoveClone(leader.name);
 	
