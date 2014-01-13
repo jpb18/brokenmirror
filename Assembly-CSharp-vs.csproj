@@ -62,6 +62,7 @@
      <Compile Include="Assets\Lightbeam\Scripts\EnableDepthTexture.cs" />
      <Compile Include="Assets\Lightbeam\Scripts\Lightbeam.cs" />
      <Compile Include="Assets\Lightbeam\Scripts\LightbeamSettings.cs" />
+     <Compile Include="Assets\Menus\MenuButton.cs" />
      <Compile Include="Assets\Scripts\camera\screenshot.cs" />
      <Compile Include="Assets\Scripts\effects\AnimateTiledTexture.cs" />
      <Compile Include="Assets\SpaceUnity\Scripts\SU_Asteroid.cs" />
