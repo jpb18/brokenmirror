@@ -158,6 +158,6 @@ function clearHistory() {
 }
 
 function setGame() {
-	isGame = !isGame;
+	isGame = true;
 }
 
