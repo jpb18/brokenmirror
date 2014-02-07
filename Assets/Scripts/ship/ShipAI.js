@@ -532,7 +532,7 @@ function isWeaponRange(target : GameObject) : boolean {
 
 //this checks if the shortest weapon is in range
 function isShortestWeaponInRange(target : GameObject) : boolean {
-	return weapons.isShortestInRange(target);
+	return weapons.hasPhaserInRange(target);
 }
 
 //this checks if the ship its showing the target any of its sides

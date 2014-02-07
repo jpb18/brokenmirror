@@ -2,127 +2,285 @@
 import System.Collections.Generic;
 #pragma strict
 
-class WeaponSlot {
-	var isEnabled : boolean = false; //checks if the weapon is enabled
-	var weapon_go : GameObject; //weapon GameObject. It contains the projectile
-	var phaser_point : GameObject; //if the weapon is a beam weapon, it fires from this game object
-	var torpedo_point : GameObject; //if the weapon is a torpedo weapon, it fires from this game object
-	var pulse_point : GameObject; //if the weapon is a pulse weapon, it fires from this game object
-	var nextShot : float; //time to fire again
-	var lastReload : float;
-	var isFiring : boolean = false; //checks if the weapon is firing
+class Phaser {
 	
-	///<summary>Returns current weapon type</summary>
-	///<pre>isEnabled</pre>
-	function getType() : WeaponType {
-		return this.weapon_go.GetComponent(weaponScript).type;
+	var isEnabled : boolean;
+	var phaser : GameObject;
+	var phaserPoint : List.<GameObject>;
+	var lastShot : float;
+	var isFiring : boolean;
+	var duration : float = 1.0f;
+	var hullLayerMask : LayerMask;
+	var shieldLayerMask : LayerMask;
+	
+	function setPhaser(phaser : GameObject) {
+		this.phaser = phaser;	
 	}
 	
-	///<summary>Checks if current weapon point has children</summary>
-	///<pre>isEnabled</pre>
-	function hasChild() : boolean {
-		return getPoint().transform.childCount > 0;
+	///<summary>This will check if the phaser can fire</summary>
+	///<param name="target">Object to be checked (target)</param>
+	function canFire(target : GameObject) : boolean {
 		
 		
+		var isTime : boolean = Time.time >= lastShot + getCooldown();
+		
+		return canRangeAndAngle(target) && !isFiring && isTime && isEnabled;
+	
 	}
 	
-	///<summary>Returns child objects for the weapon</summary>
-	///<pre>hasChild()</pre>
-	function returnChild() : List.<GameObject> {
+	function canRangeAndAngle(target : GameObject) : boolean {
 		
-		var point : GameObject = this.getPoint();
+		var can : boolean = false;
+		var ws : weaponScript = phaser.GetComponent(weaponScript);
 		
-		var list : List.<GameObject>;
-		
-		for(var trans : GameObject in point) {
-			
-			list.Add(trans);
-			
+		for(var x : int = 0; x < phaserPoint.Count && !can; x++) {
+			if(ws.isRange(phaserPoint[x], target) && ws.isAngle(phaserPoint[x], target)) {
+				can = true;			
+			}
 		}
 		
-		return list;
-		
+		return can;
+	
 	}
 	
-	///<summary>checks if the target is in angle</summary>
-	///<param name="target">weapon target</param>
-	///<pre>target != null</pre>
-	///<pre>isEnabled</pre>
-	function calcAngle(target : GameObject) : boolean {
-		
-		return this.weapon_go.GetComponent(weaponScript).isAngle(this.getPoint().gameObject, target);
-	}
 	
-	///<summary>checks if the target is in range</summary>
-	///<param name="target">weapon target</param>
-	///<pre>target != null</pre>
-	///<pre>isEnabled</pre>
-	function calcRange(target : GameObject) : boolean {
-		
-		return this.weapon_go.GetComponent(weaponScript).isRange(this.getPoint().gameObject, target);
-		
-	}
 	
-	///<summary>Gets weapon point</summary>
-	///<pre>isEnabled</pre>
-	function getPoint() : GameObject {
+	
+	///<summary>This will get the closest point where the phaser can fire from. Must check canFire(target) first</summary>
+	///<param name="target">Target GameObject</param>
+	function getPoint(target : GameObject) : GameObject {
 		var point : GameObject;
+		var ws : weaponScript = phaser.GetComponent(weaponScript);
 		
-		switch(getType()) {
-			case WeaponType.beam:
-				point = this.phaser_point;
-				break;
-			case WeaponType.torpedo:
-				point = this.torpedo_point;
-				break;
-			case WeaponType.pulse:
-				point = this.pulse_point;
+		for(var p : GameObject in phaserPoint) {
+			
+			if(!point) {
+				if(ws.isRange(p, target) && ws.isAngle(p, target)) {
+					point = p;
+				}
+			} else {
+				if(ws.isRange(p, target) && ws.isAngle(p, target)) {
+					var o : float = (point.transform.position - target.transform.position).sqrMagnitude;
+					var n : float = (p.transform.position -target.transform.position).sqrMagnitude;					
+					if(n < o) {
+						point = p;
+					}
+				}
+			}
+		
 		}
 		
 		return point;
+	
 	}
 	
-	///<summary>Sets new weapon</summary>
-	///<param name="weapon">weapon to be added</param>
-	function setWeapon(weapon : GameObject) {
-		this.weapon_go = weapon;
-		this.isEnabled = true;
+	///<summary>This will fire the phaser. Must check canFire(target) first. Also, make sure this is started as a coroutine.</summary>
+	///<param name="target">Target GameObject</param>
+	function fire(target : GameObject) {
+		lastShot = Time.time;
+		if(getType() == WeaponType.beam) {
+			fireBeam(target, getPoint(target));
+		}	
+	
 	}
 	
-	///<summary>Removes weapon</summary>
-	function removeWeapon() {
-		this.weapon_go = null;
-		this.isEnabled = false;
-	}
-	
-	///<summary>Checks if the weapon can fire</summary>
-	///<param name="target">target object</param>
-	///<pre>target != null</pre>
-	function canFire(target : GameObject) : boolean {
-		
-		return this.calcAngle(target) && this.calcRange(target) && isEnabled && nextShot < Time.time;
-	}
-	
-	
-	///<summary>Returns weapon range</summary>
-	function getRange() {
-		return weapon_go.GetComponent(weaponScript).getRange();
-	}
-	
-	
-	///<summary>Set the weapon to fire</summary>
-	///<pre>canFire()</pre>
-	function setFire() {
+	function fireBeam(target : GameObject, origin : GameObject) {
+		var rate : float = 1/duration;
+		var i : float = 0;
+		var phaserGO : GameObject;
 		isFiring = true;
+		while (i < 1) {
+			if(target){
+				i += rate * Time.deltaTime; 
+				var or : Vector3 = origin.transform.position;
+				var ta : Vector3 = target.transform.position;
+				var dir : Vector3 = (ta - or).normalized;
+				var hit : RaycastHit;
+				
+				if(hasTargetShield(target)) {
+					phaserGO = fireShields(target, or, dir, hit, phaserGO);
+				} else {
+					phaserGO = fireHull(target, or, dir, hit, phaserGO);
+				}
+			} else {
+				i = 2;
+			}
+			
+			
+			yield;
+		}
+		GameObject.Destroy(phaserGO);
+		isFiring = false;
 	}
 	
+	private function hasTargetShield(target : GameObject) : boolean {
+		var health : shipHealth = target.GetComponent(shipHealth);
+		return health.isShieldUp();
+			
+	}
+	//pre hasTargetShield()
+	private function fireShields(target : GameObject, or : Vector3, dir : Vector3, hit : RaycastHit, phaserGO : GameObject) : GameObject {
+		if(Physics.Raycast(or, dir, hit, getRange(), shieldLayerMask)) {
+				
+		
+				//do phaser logic here
+				//get target health script
+				var ship : GameObject = getParent(hit.transform).gameObject;
+				ship.GetComponent(shipHealth).damageShield(getDamage() * Time.deltaTime);
+				
+				//get hit point
+				var point : Vector3 = hit.point;
+				
+				//draw phaser
+				if(phaserGO == null) {
+					phaserGO = GameObject.Instantiate(phaser);
+					setLastShot();
+				}
+				var line : LineRenderer = phaserGO.GetComponent(phaserScript).line_renderer;
+				line.SetPosition(0, or);
+				line.SetPosition(1, point);
+				
+				
+			}
+			
+			return phaserGO;
 	
+	}
+	
+	private function fireHull(target : GameObject, or : Vector3, dir : Vector3, hit : RaycastHit, phaserGO : GameObject) : GameObject {
+		if(Physics.Raycast(or, dir, hit, getRange(), hullLayerMask)) {
+				
+				//do phaser logic here
+				//get target health script
+				var ship : GameObject = getParent(hit.transform).gameObject;
+				ship.GetComponent(shipHealth).damageHull(getDamage() * Time.deltaTime);
+				
+				//get hit point
+				var point : Vector3 = hit.point;
+				
+				//draw phaser
+				if(phaserGO == null) {
+					phaserGO = GameObject.Instantiate(phaser);
+					setLastShot();
+				}
+				var line : LineRenderer = phaserGO.GetComponent(phaserScript).line_renderer;
+				line.SetPosition(0, or);
+				line.SetPosition(1, point);
+				
+				
+			}
+			
+			return phaserGO;
+	}
+	
+	///<summary>This returns the weapon cooldown</summary>
+	function getCooldown() : float {
+			var ws : weaponScript = phaser.GetComponent(weaponScript);
+		 	return ws.getCooldown();
+	
+	}
+	
+	///<summary>This return the weapon type</summary>
+	function getType() : WeaponType {
+		return phaser.GetComponent(weaponScript).type;
+	}
+	
+	function getRange() : float {
+		return phaser.GetComponent(weaponScript).getRange();	
+	}
+	
+	private function getParent(trans : Transform) : Transform {
+		var par : Transform = trans;
+	
+		while(par.parent) {
+			par = par.parent.transform;
+		}
+		
+		return par;
+	
+	}
+	
+	function getNextShot() : float{
+		return lastShot + getCooldown();	
+	}
+	
+	function getDamage() : float {
+		return phaser.GetComponent(phaserScript).damage;
+	
+	}
+	
+	function setLastShot() : float {
+		lastShot = Time.time;
+	}
 	
 }
 
-class BotWeapons {
+
+class Torpedo {
+	var isEnabled : boolean;
+	var torpedo : GameObject;
+	var torpedoPoint : GameObject;
+	var nextShot : float;
+	var rate : float;
 	
-	var isFiring : boolean = false;
+	function setTorpedo(torpedo : GameObject) {
+		this.torpedo = torpedo;
+	
+	}
+	
+	function canFire(target : GameObject) : boolean {
+		var isTime : boolean = Time.time >= nextShot;
+		var ws : weaponScript = torpedo.GetComponent(weaponScript);
+		return isEnabled && isRange(target) && isAngle(target) && isTime;
+	}
+	
+	function isRange(target : GameObject) : boolean {
+		var ws : weaponScript = torpedo.GetComponent(weaponScript);
+		return ws.isRange(torpedoPoint, target);
+	}
+	
+	function isAngle(target : GameObject) : boolean {
+		var ws : weaponScript = torpedo.GetComponent(weaponScript);
+		return ws.isAngle(torpedoPoint, target);
+	}
+	
+	function fire(target : GameObject, num : int) {
+		
+		nextShot = Time.time + getCooldown() * num;
+		
+		for(var x : int = 0; x < num; x++) {
+			var torp : GameObject = GameObject.Instantiate(torpedo, torpedoPoint.transform.position, torpedoPoint.transform.rotation);
+			var ws : weaponScript = torp.GetComponent(weaponScript);
+			ws.setTarget(target);
+			ws.setOrigin(torpedoPoint);
+			yield WaitForSeconds(rate);
+		}
+	
+	}
+	
+	///<summary>This returns the weapon cooldown</summary>
+	function getCooldown() : float {
+		 return torpedo.GetComponent(weaponScript).getCooldown();
+	
+	}
+	
+	///<summary>This return the weapon type</summary>
+	function getType() : WeaponType {
+		return torpedo.GetComponent(weaponScript).type;
+	}
+	
+	function getRange() : float {
+		return torpedo.GetComponent(weaponScript).getRange();	
+	}
+	
+	function getNextShot() : float{
+		return nextShot;	
+	}
+	
+	function getDamage() : float {
+		return torpedo.GetComponent(phaserScript).damage;
+	
+	}
 
 }
 
@@ -134,313 +292,113 @@ enum Volley {
 
 }
 
+//weapons
+var phaser : Phaser;
+var torp1 : Torpedo;
+var torp2 : Torpedo;
+
+//needed scripts
+var target : shipTarget;
+var properties : shipProperties;
+
+//volley
+var torpVolley : Volley;
 
 
-//bot
-var botWeapon : BotWeapons;
-
-//Ship weapons
-var weapon : WeaponSlot[];
 
 
-var shipProps : shipProperties;
-var shipTar : shipTarget;
-var genInfo : GeneralInfo;
-var globInfo : GlobalInfo;
-
-var torpVolley : Volley = Volley.one;
-var volleyWait : float = 0.2f;
-var torpLimit : int = 10;
-
-var blastMode : boolean = true; //if true, fires all pulse at the same time. If not, fires in a ciclic pattern
-var blastChange : float;
-var blastWait : float = 0.2f;
-
-var show : ShowMessage;
-var load : LoadScene;
-
-
-function Start () {
-
-	shipProps = gameObject.GetComponent(shipProperties);
-	shipTar = gameObject.GetComponent(shipTarget);
-	show = GameObject.FindGameObjectWithTag("ShowMessage").GetComponent(ShowMessage);
-	load = GameObject.FindGameObjectWithTag("LoadScene").GetComponent(LoadScene);
-	
-	//get general info
-	var gen_go : GameObject = GameObject.FindGameObjectWithTag("SaveGame");
-	genInfo = gen_go.GetComponent(GeneralInfo);
-	
-	//get global info
-	var glo_go : GameObject = GameObject.FindGameObjectWithTag("GlobalInfo");
-	globInfo = glo_go.GetComponent(GlobalInfo);
-	
-
+function Start() {
+	target = gameObject.GetComponent(shipTarget);
+	properties = gameObject.GetComponent(shipProperties);
 
 }
 
-function Update () {
-	var isPlayer : boolean = shipProps.playerProps.isPlayer;
-	if (isPlayer)
-	{
-		PlayerFire();
-		FireWeapons();
-		
-		if(Input.GetAxis("SwapPulse") && blastChange + blastWait < Time.time && show.isGame && !load.show) {
-			swapBlast();
-		}	
-	}
-	else
-	{
-		if(!botWeapon.isFiring)
-		{
-			StartCoroutine(BotFire());
-		}
-	}
-	
-	
-	
-
-}
-
-
-function PlayerFire() {
-	//Get red alert mode
-	var isRedAlert : boolean = shipProps.combatStatus.isRedAlert;
-	if(isRedAlert)
-	{
-		
-		for(var x : int = 0; x < weapon.Length; x++)
-		{
-			var key : String = "Fire" + (x+1);
-			
-			if (Input.GetAxis(key) && weapon[x].canFire(shipTar.target)) //Player fires weapon 1
-			{
-				weapon[x].setFire();
-			}
-		}
-		
-		if(Input.GetAxis("EnergyAll")) {
-			setAllFire(WeaponType.beam);
-			setAllFire(WeaponType.pulse);
-		}
-		
-		if(Input.GetAxis("ProjectileAll")) {
-			setAllFire(WeaponType.torpedo);
-		}
-		
-	}
-}
-
-function FireWeapons() {
-	for(var x : int = 0; x < weapon.Length; x++)
-	{
-		if (weapon[x].isFiring) //Player fires weapon 1
-		{
-			StartCoroutine(fire(weapon[x], shipTar.target,blastMode, volleyTimes()));
-			
-		}
-	}
-	
-
-}
-
-
-
-function volleyTimes() : int {
-	var times : int = 0;
-	switch(torpVolley) {
-		case Volley.one: times = 1; break;
-		case Volley.three: times = 3; break;
-		case Volley.five: times = 5; break;
-		case Volley.eight:  times = 8; break;
-		
-		
-	}
-	
-	return times;
-}
-
-
-function BotFire() {
-
-	if(shipTar.target && shipProps.combatStatus.isRedAlert)
-	{
-		botWeapon.isFiring = true;
-		//get waiting time
-		var dificulty : Dificulty = genInfo.playerInfo.gameDificulty;
-		var wait : WaitingTimes = globInfo.waitingTimes;
-		var waitTime : float;
-		
-		if(dificulty == Dificulty.Easy)
-		{
-			waitTime = wait.easy;
-		}
-		else if (dificulty == Dificulty.Medium)
-		{
-			waitTime = wait.medium;
-		}
-		else if (dificulty == Dificulty.Hard)
-		{
-			waitTime = wait.hard;
-		}
-		else if (dificulty == Dificulty.Hardcore)
-		{
-			waitTime = wait.hardcore;
-		}
-		
-		//process firing
-		yield WaitForSeconds (waitTime);
-		for(var x : int = 0; x < weapon.Length; x++)
-		{
-			if (weapon[x].canFire(shipTar.target)) //Player fires weapon 1
-			{
-					StartCoroutine(fire(weapon[x], shipTar.target,blastMode, volleyTimes()));
-				
-			}
-		}
-		
-		botWeapon.isFiring = false;
-	}
-	
-		
-
-}
-
-///<summary>Sets all weapons of a certain type to fire</summary> 
-///<param name="type">type of the weapon to set</param>
-///<pre> type == WeaponType</pre> 
-function setAllFire(type : WeaponType) {
-	
-	for(var x : int = 0; x < weapon.Length; x++) {
-		var weapon_go : GameObject = weapon[x].weapon_go;
-		var type_go : WeaponType = weapon_go.GetComponent(weaponScript).getType();
-		if(type == type_go && weapon[x].canFire(shipTar.target)) {
-			weapon[x].setFire();	
-		} 
-		
-		
-	}
-
-}
-
-
-function swapBlast() {
-	blastMode = !blastMode;
-	var mode : String;
-	if(blastMode) {
-		mode = "blast";		
+function Update() {
+	if(properties.getPlayer()) {
+		playerFire();
 	} else {
-		mode = "alternate";		
+		botFire();
+	}
+
+}
+
+function playerFire() {
+
+	if(Input.GetAxis("Fire1")) {
+		phaserFunction();
 	}
 	
-	var message : String = "Pulse weapons are now set in " + mode + " mode";
-	var show : ShowMessage = GameObject.FindGameObjectWithTag("ShowMessage").GetComponent(ShowMessage);
-	show.AddMessage(message);
+	if(Input.GetAxis("Fire2")) {
+		torpFunction(torp1);
+	}
 	
-	blastChange = Time.time;
+	if(Input.GetAxis("Fire3")) {
+		torpFunction(torp2);
+	}
+	
+
+}
+
+function botFire() {
+	if(target.target) 
+	{
+		phaserFunction();
+		torpFunction(torp1);
+		torpFunction(torp2);
+	}
+}
+
+function phaserFunction() {
+	
+	if(phaser.canFire(target.target)) {
+		StartCoroutine(phaser.fireBeam(target.target, phaser.getPoint(target.target)));	
+	}
 	
 }
 
-///<summary>Fires the weapon</summary>
-	///<param name="target">target object</param>
-	///<param name="isBlast">is firing in blasts?</param>
-	///<pre>target != null</pre>
-	///<pre>weapon.canFire()</pre>
-function fire(weapon : WeaponSlot, target : GameObject, isBlast : boolean, volley : int) {
-		
-		var cooldown : float = weapon.weapon_go.GetComponent(weaponScript).getCooldown();
-		var rate : float = weapon.weapon_go.GetComponent(weaponScript).altRate;
-		weapon.isFiring = false;
-		weapon.lastReload = cooldown * volley;
-		weapon.nextShot = Time.time + weapon.lastReload;
-		
-		if(isBlast) {
-			if(weapon.hasChild()) {
-				for(var i : int; i < volley; i++) {
-					for(var trans : GameObject in weapon.returnChild()) {
-						FireWeapon(weapon, target, trans);
-					}
-					yield WaitForSeconds(cooldown);	
-				}
-			} else {
-				for(var z : int; z < volley; z++) {
-					FireWeapon(weapon, target, weapon.getPoint());
-					yield WaitForSeconds(cooldown);	
-				}
-			}
-			
-		} else {
-			if(weapon.hasChild()) {
-				for(var x : int; x < volley; x++) {
-					for(var trans : GameObject in weapon.returnChild()) {
-						FireWeapon(weapon, target, trans);
-						yield WaitForSeconds(rate);
-					}
-					yield WaitForSeconds(cooldown);	
-				}
-			} else {
-				for(var a : int; a < volley; a++) {
-					FireWeapon(weapon, target, weapon.getPoint());
-					yield WaitForSeconds(cooldown);	
-				}
-			}
-		}
-		
-		
-		
+function hasWeaponInRange(target : GameObject) : boolean {
+
+	return hasPhaserInRange(target) || hasTorpedoInRange(target);
+}
+
+function hasPhaserInRange(target : GameObject) : boolean {
+	return phaser.canRangeAndAngle(target);
+}
+
+function hasTorpedoInRange(target : GameObject) : boolean {
+	return torp1.isRange(target) || torp2.isRange(target);
+
+}
+
+
+function torpFunction(torp : Torpedo) {
+	if(torp.canFire(target.target)) {
+		StartCoroutine(torp.fire(target.target, volleyNum()));
+	}
+
+
+}
+
+function volleyNum() : int {
+	var num: int;
+	
+	switch(torpVolley) {
+		case Volley.three:
+			num = 3;
+		break;
+		case Volley.five: 
+			num = 5;
+		break;
+		case Volley.eight:
+			num = 8;
+		break;
+		default:
+			num = 1;
+	
+	
 	}
 	
 	
-	
-	///<summary>Fires any weapon</summary>
-	///<param name="target">target object</param>
-	///<param name="origin">point of origin</param>
-	///<pre>target != null</pre>
-	///<pre>weapon.canFire()</pre>
-	private function FireWeapon(weaponS : WeaponSlot, target : GameObject, origin : GameObject) {
-		var weapon : GameObject = GameObject.Instantiate(weaponS.weapon_go, origin.transform.position, origin.transform.rotation);
-		var ws : weaponScript = weapon.GetComponent(weaponScript);
-		
-		ws.setTarget(target);
-		ws.setOrigin(origin);
-	}
-	
-	///<summary>Checks if any of the weapons is in range</summary>
-	function hasWeaponInRange(target : GameObject) : boolean {
-		var range : boolean = false;
-	
-		for(var x : int = 0; x < weapon.Length && !range; x++) {
-			range = weapon[x].calcRange(target);
-		}
-	
-		return range;
-	}
-	
-	///<summary>Checks if the shortest range weapon is in range</summary>
-	function isShortestInRange(target : GameObject) : boolean {
-		var shortWeapon : WeaponSlot = getShortestWeapon();
-		var range : float = shortWeapon.getRange();
-		var distance : float = (transform.position - target.transform.position).sqrMagnitude;
-		return distance <= range * range;
-		
-		
-	}
-	
-	///<summary>Gets shortest range weapon</summary>
-	private function getShortestWeapon() : WeaponSlot {
-		var shortWeapon : WeaponSlot = null;
-		for(var weap in weapon) {
-			if(!shortWeapon) {
-				shortWeapon = weap;
-			}
-			else if(weap.getRange() < shortWeapon.getRange()) {
-				shortWeapon = weap;
-			}
-		
-		}
-		
-		return shortWeapon;
-	
-	}
-	
+
+	return num;
+}

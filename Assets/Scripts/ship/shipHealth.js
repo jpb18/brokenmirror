@@ -7,12 +7,30 @@ class ship_Health {
 	var health : float;
 	var maxShields : float;
 	var shields : float;
+	
+	function hasShield() : boolean {
+		return shields > 0;	
+	}
+	
+	//pre hasShield()
+	function shieldDamage(damage : float) {
+		shields -= damage;	
+	}
+	
+	function hullDamage(damage : float) {
+		health -= damage;
+	}
 
 }
 
 class ShieldsShow {
 	var lastHit : float;
 	var showDur : float = 1.0f;
+	
+	function setHit() {
+		lastHit = Time.time;
+	}
+	
 }
 
 class ShieldRegeneration {
@@ -202,3 +220,35 @@ function OnDestroy () {
  
 } 
 
+function isShieldUp() : boolean {
+
+	return shipHealth.hasShield() && properties.getRedAlert();
+}
+
+//pre: isShieldUp()
+function damageShield(damage : float) {
+	shipHealth.shieldDamage(damage);
+
+}
+
+//pre: !isShieldUp()
+function damageHull(damage : float) {
+	shipHealth.hullDamage(damage);
+
+}
+
+//note: there're more conditions to be checked
+function setDamage(damage : float) {
+	//get red alert status
+	var ra : boolean = properties.getRedAlert();
+
+	if(shipHealth.shields - damage > 0 && ra) {
+		shipHealth.shields -= damage;
+		shieldShow.setHit();
+	} else if (shipHealth.shields > 0 && ra) {
+		shipHealth.shields = 0;
+		shieldShow.setHit();
+	} else {
+		shipHealth.health -= damage;
+	}
+}

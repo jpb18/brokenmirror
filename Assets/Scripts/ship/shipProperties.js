@@ -88,3 +88,15 @@ function Update() {
 	
 
 }
+
+
+function getRedAlert() : boolean {
+
+	return combatStatus.isRedAlert;
+
+}
+
+function getPlayer() : boolean {
+	return playerProps.isPlayer;
+
+}

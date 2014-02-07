@@ -825,10 +825,16 @@ function weaponModule() {
 		}
 		
 		//Draw buttons
-		for(var x : int = 0; x < shipWeap.weapon.Length; x++)
-		{
-			CreateWeapButton(shipWeap.weapon[x], HudSkin, Weapon.weap_area[x]); //Weapon 1
-		}
+		//first button - phaser
+		CreateWeapButton(shipWeap.phaser, HudSkin, Weapon.weap_area[0]);
+		
+		//second button - torpedo 1
+		CreateWeapButton(shipWeap.torp1, HudSkin, Weapon.weap_area[1]);
+		
+		//third button - torpedo 2
+		CreateWeapButton(shipWeap.torp1, HudSkin, Weapon.weap_area[1]);
+		
+		
 		
 	
 		
@@ -1100,18 +1106,20 @@ function targetModule() {
 
 }
 
+
 //this function automates the button creation process for the weapons
 //Weapon contains the weapon slot information
 //Skin contains the GUI aspect information
 //Area contains the coordinates and size of the button
-function CreateWeapButton(Weapon : WeaponSlot, Skin : GUISkin, Area : Rect) {
+//Phaser Overflow
+function CreateWeapButton(Weapon : Phaser, Skin : GUISkin, Area : Rect) {
 	//Start
 	
 	//check if weapon is not enabled or is not empty
-	if(Weapon.isEnabled && Weapon.weapon_go) {
+	if(Weapon.isEnabled && Weapon.phaser) {
 	
 		//Get weapon image
-		var weapon_scr : weaponScript = Weapon.weapon_go.GetComponent(weaponScript); //Get weapon script
+		var weapon_scr : weaponScript = Weapon.phaser.GetComponent(weaponScript); //Get weapon script
 		var weapon_img : Texture = weapon_scr.guiInfo.image; //Get weapon GUI Image
 		
 		
@@ -1121,7 +1129,7 @@ function CreateWeapButton(Weapon : WeaponSlot, Skin : GUISkin, Area : Rect) {
 			
 				if(shipTar.target) { //check if there's a target
 					if(Weapon.canFire(shipTar.target)) {//check if weapon can fire
-						Weapon.isFiring = true; //Set isFiring as true
+						Weapon.fire(shipTar.target); //Set isFiring as true
 					}
 				
 				} else { //if there isn't, find one and set isFiring as true after
@@ -1129,7 +1137,7 @@ function CreateWeapButton(Weapon : WeaponSlot, Skin : GUISkin, Area : Rect) {
 					shipTar.target = shipTar.FindTarget(gameObject, shipProps); //Find target 
 					
 					if(Weapon.canFire(shipTar.target)) {//check if weapon can fire
-						Weapon.isFiring = true; //Set isFiring as true
+						Weapon.fire(shipTar.target); //Set isFiring as true
 					}
 				
 				}
@@ -1139,12 +1147,12 @@ function CreateWeapButton(Weapon : WeaponSlot, Skin : GUISkin, Area : Rect) {
 		}
 		
 		//If weapon is reloading, draw overlay
-		if(Time.time < Weapon.nextShot) {
+		if(Time.time < Weapon.getNextShot()) {
 			
 			//Calculate size
 			//Get total reload time and time remaining
-			var totalReload : float = Weapon.lastReload;
-			var remainTime : float = Weapon.nextShot - Time.time;
+			var totalReload : float = Weapon.getCooldown();
+			var remainTime : float = Weapon.getNextShot() - Time.time;
 			
 			//Get overlay height
 			var overHeight : int = GetBarSize(Area.height, totalReload, remainTime);
@@ -1170,6 +1178,77 @@ function CreateWeapButton(Weapon : WeaponSlot, Skin : GUISkin, Area : Rect) {
 	//End
 }
 
+
+//this function automates the button creation process for the weapons
+//Weapon contains the weapon slot information
+//Skin contains the GUI aspect information
+//Area contains the coordinates and size of the button
+//Torpedo Overflow
+function CreateWeapButton(Weapon : Torpedo, Skin : GUISkin, Area : Rect) {
+	//Start
+	
+	//check if weapon is not enabled or is not empty
+	if(Weapon.isEnabled && Weapon.torpedo) {
+	
+		//Get weapon image
+		var weapon_scr : weaponScript = Weapon.torpedo.GetComponent(weaponScript); //Get weapon script
+		var weapon_img : Texture = weapon_scr.guiInfo.image; //Get weapon GUI Image
+		
+		
+		//Draw button with Area, weapon_img and Skin and check if said button is pressed 
+		if(GUI.Button(Area, weapon_img, Skin.button) && shipProps.combatStatus.isRedAlert) {
+		
+			
+				if(shipTar.target) { //check if there's a target
+					if(Weapon.canFire(shipTar.target)) {//check if weapon can fire
+						StartCoroutine(Weapon.fire(shipTar.target, shipWeap.volleyNum())); //Set isFiring as true
+					}
+				
+				} else { //if there isn't, find one and set isFiring as true after
+				
+					shipTar.target = shipTar.FindTarget(gameObject, shipProps); //Find target 
+					
+					if(Weapon.canFire(shipTar.target)) {//check if weapon can fire
+						StartCoroutine(Weapon.fire(shipTar.target, shipWeap.volleyNum())); //Set isFiring as true
+					}
+				
+				}
+			
+			
+		
+		}
+		
+		//If weapon is reloading, draw overlay
+		if(Time.time < Weapon.getNextShot()) {
+			
+			//Calculate size
+			//Get total reload time and time remaining
+			var totalReload : float = Weapon.getCooldown();
+			var remainTime : float = Weapon.getNextShot() - Time.time;
+			
+			//Get overlay height
+			var overHeight : int = GetBarSize(Area.height, totalReload, remainTime);
+			
+			//get size diference
+			var sizeDif : int = Area.height - overHeight;
+		
+			//transparency
+			var overColor : Color = Color.white;
+			overColor.a = 0.75;
+			
+			GUI.color = overColor;
+		
+			GUI.DrawTexture(Rect(Area.x, Area.y + sizeDif, Area.width, overHeight), yellowOver);
+		
+			GUI.color = Color.white;
+		}
+		
+		
+	
+	} 
+	
+	//End
+}
 
 //this function returns the size of a bar in pixels
 function GetBarSize (FullSize : int, MaxValue : float, CurValue : float) : int {

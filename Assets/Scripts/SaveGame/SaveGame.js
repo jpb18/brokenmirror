@@ -32,11 +32,15 @@ class SaveShip extends System.Object {
 	}
 
 	class ShipInventory { //ship inventory information
-		var weapons : GameObject[];
+		var phaser : GameObject;
+		var torp1 : GameObject;
+		var torp2 : GameObject;
 		var upgrades : GameObject[];
 		
 		function ShipInventory() {
-			weapons = new GameObject[0];
+			phaser = null;
+			torp1 = null;
+			torp2 = null;
 			upgrades = new GameObject[0];
 		}
 		
@@ -74,12 +78,9 @@ class SaveShip extends System.Object {
 		
 		//get ship weapons
 		var shipWeap : shipWeapons = ship.GetComponent(shipWeapons);
-		var weapons : GameObject[] = shipInv.weapons;
-		for(var x : int = 0; x < weapons.Length; x++) {
-			
-			shipWeap.weapon[x].weapon_go = weapons[x];
-			
-		}
+		shipWeap.phaser.setPhaser(shipInv.phaser);
+		shipWeap.torp1.setTorpedo(shipInv.torp1);
+		shipWeap.torp2.setTorpedo(shipInv.torp2);
 		
 		return ship;
 	
@@ -108,16 +109,9 @@ class SaveShip extends System.Object {
 		
 		//and now the inventory part
 		//first get the weapon game objects of each weaponslot
-		var Arr : Array = new Array();
-		
-		for(var x : int = 0; x < shipWea.weapon.Length; x++) 
-		{
-			Arr.Push(shipWea.weapon[x].weapon_go);
-		}
-		
-		var newWeapons : GameObject[] = Arr.ToBuiltin(GameObject) as GameObject[];
-		//now place it
-		shipInv.weapons = newWeapons;
+		shipInv.phaser = shipWea.phaser.phaser;
+		shipInv.torp1 = shipWea.torp1.torpedo;
+		shipInv.torp2 = shipWea.torp2.torpedo;
 		
 		//now get load a prefab for this ship
 		shipPrefab = Resources.Load(ship.name);

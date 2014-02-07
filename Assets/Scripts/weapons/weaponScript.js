@@ -81,7 +81,9 @@ function getRange() : float {
 //this method checks if the target is in range
 function isRange(origin : GameObject, target : GameObject) : boolean {
 	var range : float = getRange();
-	return ((origin.transform.position - target.transform.position).sqrMagnitude <= range * range);
+	var or : Vector3 = origin.transform.position;
+	var tar : Vector3 = target.transform.position;
+	return ((or - tar).sqrMagnitude <= range * range);
 
 
 }
@@ -98,9 +100,7 @@ function isAngle(origin : GameObject, target : GameObject) : boolean {
 //@pre target != null
 function setTarget(target : GameObject) {
 	switch(type) {
-		case WeaponType.beam:
-			gameObject.GetComponent(phaserScript).setTarget(target);
-			break;
+		
 		case WeaponType.torpedo:
 			gameObject.GetComponent(torpedoScript).setTarget(target);
 			break;
@@ -116,9 +116,7 @@ function setTarget(target : GameObject) {
 function setOrigin(origin : GameObject) {
 
 	switch(type) {
-		case WeaponType.beam:
-			gameObject.GetComponent(phaserScript).setOrigin(origin);
-			break;
+		
 		case WeaponType.torpedo:
 			gameObject.GetComponent(torpedoScript).setOrigin(origin);
 			break;

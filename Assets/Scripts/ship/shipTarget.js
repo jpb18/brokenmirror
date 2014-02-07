@@ -107,7 +107,7 @@ function ClickTarget() {
 }
 
 function PressTarget() {
-	for(var x : int = 0; x < shipWeps.weapon.Length; x++)
+	for(var x : int = 0; x < 8; x++)
 	{
 		var key : String = "Fire" + (x+1);
 		if (Input.GetAxis(key) && target == null)
