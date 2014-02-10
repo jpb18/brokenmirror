@@ -5,6 +5,8 @@ Project("{4D326C38-4673-9BBE-C904-4948E1FF41A3}") = "BM3", "Assembly-CSharp-firs
 EndProject
 Project("{4D326C38-4673-9BBE-C904-4948E1FF41A3}") = "BM3", "Assembly-CSharp-vs.csproj", "{2C3C30DF-F5A8-1185-A339-BA7B50A4F865}"
 EndProject
+Project("{4D326C38-4673-9BBE-C904-4948E1FF41A3}") = "BM3", "Assembly-CSharp-Editor-vs.csproj", "{59BD0FF7-4EE0-80FE-B1E3-68F2F70B6618}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,11 +21,15 @@ Global
 		{2C3C30DF-F5A8-1185-A339-BA7B50A4F865}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2C3C30DF-F5A8-1185-A339-BA7B50A4F865}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2C3C30DF-F5A8-1185-A339-BA7B50A4F865}.Release|Any CPU.Build.0 = Release|Any CPU
+		{59BD0FF7-4EE0-80FE-B1E3-68F2F70B6618}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{59BD0FF7-4EE0-80FE-B1E3-68F2F70B6618}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{59BD0FF7-4EE0-80FE-B1E3-68F2F70B6618}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{59BD0FF7-4EE0-80FE-B1E3-68F2F70B6618}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
-																																																																																																																																																									GlobalSection(MonoDevelopProperties) = preSolution
+																																																																																																																																																																GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = Assembly-CSharp.csproj
 		Policies = $0
 		$0.TextStylePolicy = $1

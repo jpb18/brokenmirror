@@ -273,4 +273,8 @@ transform.Rotate(Vector3(0,0, shipAgility()));
 	
 }
 
+function setWarp() {
+	isWarp = true;
+
+}
 

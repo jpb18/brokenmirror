@@ -2,7 +2,9 @@
 #pragma strict
 
 class SaveShip extends System.Object {
-
+	
+	var hasBeenSet : boolean = false;
+	
 	class ShipInfo { //general ship info
 		var Name : String;
 		var Faction : int;
@@ -77,10 +79,12 @@ class SaveShip extends System.Object {
 		shipHealth.shipHealth.shields = shipHea.curShield;
 		
 		//get ship weapons
-		var shipWeap : shipWeapons = ship.GetComponent(shipWeapons);
-		shipWeap.phaser.setPhaser(shipInv.phaser);
-		shipWeap.torp1.setTorpedo(shipInv.torp1);
-		shipWeap.torp2.setTorpedo(shipInv.torp2);
+		if(hasBeenSet) {
+			var shipWeap : shipWeapons = ship.GetComponent(shipWeapons);
+			shipWeap.phaser.setPhaser(shipInv.phaser);
+			shipWeap.torp1.setTorpedo(shipInv.torp1);
+			shipWeap.torp2.setTorpedo(shipInv.torp2);
+		}
 		
 		return ship;
 	
@@ -88,7 +92,8 @@ class SaveShip extends System.Object {
 	
 	//this function stores the ship here
 	function setShip(ship : GameObject) {
-	
+		hasBeenSet = true;
+		
 		//now lets fill the information
 		//first get the scripts
 		var shipProps : shipProperties = ship.GetComponent(shipProperties);

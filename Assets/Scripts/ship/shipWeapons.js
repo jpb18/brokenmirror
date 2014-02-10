@@ -20,11 +20,13 @@ class Phaser {
 	///<summary>This will check if the phaser can fire</summary>
 	///<param name="target">Object to be checked (target)</param>
 	function canFire(target : GameObject) : boolean {
+		var can : boolean = false;
+		if(isEnabled && phaser) {
+			var isTime : boolean = Time.time >= lastShot + getCooldown();
+			can = isTime && canRangeAndAngle(target) && !isFiring;
+		}
 		
-		
-		var isTime : boolean = Time.time >= lastShot + getCooldown();
-		
-		return canRangeAndAngle(target) && !isFiring && isTime && isEnabled;
+		return can;
 	
 	}
 	
@@ -141,7 +143,7 @@ class Phaser {
 				line.SetPosition(1, point);
 				
 				
-			}
+			} 
 			
 			return phaserGO;
 	
@@ -229,9 +231,12 @@ class Torpedo {
 	}
 	
 	function canFire(target : GameObject) : boolean {
-		var isTime : boolean = Time.time >= nextShot;
-		var ws : weaponScript = torpedo.GetComponent(weaponScript);
-		return isEnabled && isRange(target) && isAngle(target) && isTime;
+		var can : boolean = false;
+		if(isEnabled && torpedo) {
+			var isTime : boolean = Time.time >= nextShot;
+			can = isRange(target) && isAngle(target) && isTime;
+		}
+		return can;
 	}
 	
 	function isRange(target : GameObject) : boolean {

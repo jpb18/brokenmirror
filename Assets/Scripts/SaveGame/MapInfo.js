@@ -415,6 +415,8 @@ function goWarp(destiny : String) {
 	WaitForSeconds(warpWait);
 	
 	var warpDur : float = Time.time + warpTime;
+	var mov : shipMovement = playerShip.GetComponent(shipMovement);
+	mov.setWarp();
 	while(Time.time < warpDur) {
 		
 		playerShip.rigidbody.velocity += playerShip.transform.forward * warpInc * Time.deltaTime;
