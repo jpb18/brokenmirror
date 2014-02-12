@@ -228,6 +228,7 @@ function isShieldUp() : boolean {
 //pre: isShieldUp()
 function damageShield(damage : float) {
 	shipHealth.shieldDamage(damage);
+	shieldShow.setHit();
 
 }
 
