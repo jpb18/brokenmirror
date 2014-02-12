@@ -68,7 +68,10 @@ function Update () {
 }
 
 function botFunction() {
-	if(hasLeader()) {
+	if(isDanger()) {
+	
+	}
+	else if(hasLeader()) {
 		leaderFunction();	
 	} else if (defence) {
 		defenseFunction();
@@ -79,8 +82,15 @@ function botFunction() {
 	}
 }
 
-function defenseFunction () {
+function dangerFunction () {
+	if(isPlanetDanger()) {
+		planetDanger();
+	} else {
+	
+	}
+}
 
+function defenseFunction () {
 	if(hasTarget()) {
 		intercept(getTarget());
 	} else if (hasStation()){
@@ -252,6 +262,77 @@ function isDanger() : boolean {
 	
 	return triggers.triggerProps.isTurbulence && hitColliders.Length - countColliders(gameObject) > 0;
 
+}
+
+//checks if its in danger because of a planet
+function isPlanetDanger() : boolean {
+	return triggers.triggerProps.isTurbulence;
+}
+
+//this returns the closest ship that's in collision danger
+function getDanger() : GameObject {
+	var danger : GameObject;
+
+	var hitColliders : Collider[] = Physics.OverlapSphere(transform.position, minDistance);
+	var listGO : GameObject[] = new GameObject[hitColliders.Length];
+	
+	for(var x : int = 0; x < hitColliders.Length; x++) {
+		listGO[x] = hitColliders[x].gameObject;
+	}
+	
+	danger = returnClosest(listGO);
+	
+	return danger;
+}
+
+///<summary>This function controls the ships behaviour when in risk of colliding with a planet</summary>
+//pre isPlanetDanger()
+function planetDanger() {
+	var planet : GameObject = getNearestPlanet();
+	
+	if(isPlanetInFront(planet)) {
+		if(isPlanetAtLeft(planet)) {
+			move.turnRight();	
+		} else {
+			move.turnLeft();
+		}
+		
+	}
+	
+
+}
+
+///<summary>This function checks if the planet is in front of the ship</summary>
+//pre planet != null
+function isPlanetInFront(planet : GameObject) : boolean {
+	var v : Vector3 = transform.InverseTransformPoint(planet.transform.position);
+	return v.x > 0;
+
+}
+
+///<summary>This function checks if the planet is at the left of the ship</summary>
+//pre planet != null
+function isPlanetAtLeft(planet : GameObject) : boolean {
+		var v : Vector3 = transform.InverseTransformPoint(planet.transform.position);
+		return v.y < 0;
+ 
+}
+
+private function getNearestPlanet() : GameObject {
+	var planets : GameObject[] = GameObject.FindGameObjectsWithTag("Planet");
+	return returnClosest(planets);
+}
+
+private function returnClosest(list : GameObject[]) : GameObject{
+	var closest : GameObject = list[0];
+
+	for(var x : int = 1; x < list.Length; x++) {
+		if((closest.transform.position - transform.position).sqrMagnitude > (list[x].transform.position - transform.position).sqrMagnitude) {
+			closest = list[x];
+		}
+	}
+
+	return closest;
 }
 
 //this function counts the amount of colliders the target has

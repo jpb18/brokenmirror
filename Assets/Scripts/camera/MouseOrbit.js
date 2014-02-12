@@ -48,17 +48,17 @@ function LateUpdate () {
 	    
 	    	camScript();
 	    }
-	    else
+	    else 
 	    {	
-	    	 //Check if the script has a target
+	    	 camScript();
 	    		
-			        	x += Input.GetAxis("Mouse X") * xSpeed * 0.02;
-			        	y -= Input.GetAxis("Mouse Y") * ySpeed * 0.02;
-			        	y = ClampAngle(y, yMinLimit, yMaxLimit);
-			        	rotation = Quaternion.Euler(y, x, 0); //update rotation
-			        	 position = rotation * Vector3(0.0, 0.0, -distance) + target.position; //update camera position
-			        	 transform.rotation = rotation; //rotate
-			        	  transform.position = position;
+//			        	x += Input.GetAxis("Mouse X") * xSpeed * 0.02;
+//			        	y -= Input.GetAxis("Mouse Y") * ySpeed * 0.02;
+//			        	y = ClampAngle(y, yMinLimit, yMaxLimit);
+//			        	rotation = Quaternion.Euler(y, x, 0); //update rotation
+//			        	 position = rotation * Vector3(0.0, 0.0, -distance) + target.position; //update camera position
+//			        	 transform.rotation = rotation; //rotate
+//			        	  transform.position = position;
 	    	
 	    	
     	}

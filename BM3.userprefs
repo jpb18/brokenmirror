@@ -1,13 +1,12 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\ship\shipWeapons.js">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\weapons\torpedoScript.js">
     <Files>
-      <File FileName="Assets\Scripts\ship\shipWeapons.js" Line="146" Column="6" />
-      <File FileName="Assets\Scripts\Load\SceneStart.js" Line="22" Column="19" />
-      <File FileName="Assets\Scripts\SaveGame\GeneralInfo.js" Line="24" Column="19" />
-      <File FileName="Assets\Scripts\SaveGame\MapInfo.js" Line="400" Column="59" />
-      <File FileName="Assets\Scripts\SaveGame\SaveGame.js" Line="95" Column="21" />
-      <File FileName="Assets\Scripts\ship\shipMovement.js" Line="277" Column="16" />
+      <File FileName="Assets\Scripts\ship\ShipAI.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\camera\MouseOrbit.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\ship\ShipAI.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\ship\shipMovement.js" Line="21" Column="27" />
+      <File FileName="Assets\Scripts\weapons\torpedoScript.js" Line="156" Column="2" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
