@@ -77,7 +77,7 @@ function OnTriggerEnter(hit : Collider) {
 	//check if it's a shield trigger
 	if(hit.tag == "Shields" && effect.hasExploded == false)
 	{
-		var hitGO : GameObject = hit.transform.parent.parent.gameObject;
+		var hitGO : GameObject = getParent(hit.transform).gameObject;
 		if(hitGO != origin)
 		{
 			if (hitGO.tag == "Ship")
@@ -154,3 +154,24 @@ function setTarget(target : GameObject) {
 function setOrigin(origin : GameObject) {
 	this.origin = origin.transform.parent.parent.parent.gameObject;
 }
+
+function getDamage(isShield : boolean) : float {
+	var dmg : float;
+	if(isShield) {
+		dmg = status.shieldDmg;
+	} else {
+		dmg = status.hullDmg;
+	}
+	return dmg;
+}
+
+private function getParent(trans : Transform) : Transform {
+		var par : Transform = trans;
+	
+		while(par.parent) {
+			par = par.parent.transform;
+		}
+		
+		return par;
+	
+	}

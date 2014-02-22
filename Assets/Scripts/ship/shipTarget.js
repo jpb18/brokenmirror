@@ -61,12 +61,19 @@ function setTarget(target : GameObject) {
 function BotRedAlert() {
 	
 	if(!target) {
-		
+		if(shipProps.combatStatus.isRedAlert)
+		{
+			gameObject.GetComponent(shipHealth).showShields();
+		}
 		shipProps.combatStatus.isRedAlert = false;
 	
 	}
 	else
 	{
+		if(!shipProps.combatStatus.isRedAlert)
+		{
+			gameObject.GetComponent(shipHealth).showShields();
+		}
 		shipProps.combatStatus.isRedAlert = true;
 	}
 

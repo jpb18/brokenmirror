@@ -57,6 +57,26 @@ function getCooldown() : float {
 
 }
 
+function getDamage(isShield : boolean) : float {
+	var dmg : float = 0.0f;
+	
+	switch(type) {
+		case WeaponType.beam:
+			dmg = gameObject.GetComponent(phaserScript).damage;
+			break;
+		case WeaponType.torpedo:
+			dmg = gameObject.GetComponent(torpedoScript).getDamage(isShield);
+			break;
+		case WeaponType.pulse:
+			dmg = gameObject.GetComponent(pulseScript).getDamage(isShield);
+			
+	
+	}
+	
+	return dmg;
+
+}
+
 //this method gets the weapon range
 function getRange() : float {
 	var range : float = 0.0f;

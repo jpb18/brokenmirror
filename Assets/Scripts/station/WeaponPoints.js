@@ -1,6 +1,6 @@
 ﻿#pragma strict
 
-public class WeaponPoints extends MonoBehaviour { //added this so I could use the constructor
+public class WeaponPoints extends Object { //added this so I could use the constructor
 
 	var point : GameObject;
 	var weapon : GameObject;
@@ -9,15 +9,20 @@ public class WeaponPoints extends MonoBehaviour { //added this so I could use th
 	var targetCache : GameObject[];
 	var nextScan : float;
 	var scanTime : float = 5.0f;
+	var isFiring : boolean;
+	var duration : float = 1.0f;
+	var hullLayerMask : LayerMask;
+	var shieldLayerMask : LayerMask;
 	
 	//this is the constructor
-	public function WeaponPoint (point : GameObject, weapon : GameObject) {
+	public function WeaponPoints (point : GameObject, weapon : GameObject, hullMask : LayerMask, shieldMask : LayerMask) {
 	
 		this.point = point;
 		this.weapon = weapon;
 		target = null;
 		lastShot = 0;
-		
+		this.hullLayerMask = hullMask;
+		this.shieldLayerMask = shieldMask;
 	
 	}
 	
@@ -39,28 +44,34 @@ public class WeaponPoints extends MonoBehaviour { //added this so I could use th
 	
 	//this method fires the weapon
 	//@pre canFire() == true
-	public function fire() {
+	public function fire(origin : GameObject) {
 		
-		var weapon : GameObject = Instantiate(weapon, point.transform.position, Quaternion.identity);
-		weapon.GetComponent(weaponScript).setTarget(target);
-		weapon.GetComponent(weaponScript).setOrigin(point);
-		lastShot = Time.time;
+		if(getWeaponType() == WeaponType.beam) {
+			fireBeam(target, origin);
+		
+		} else if(getWeaponType() == WeaponType.torpedo) {
+		
+		
+		} else if(getWeaponType() == WeaponType.pulse) {
+		
+		
+		}
 	
 	}
 	
 	//this function scans for a target inside its targeting radius
 	//@pre target != null
-	public function scan(enemyList : int[]) {
+	public function scan(enemyList : int[], origin : GameObject) {
 		
 		if(Time.time > this.nextScan) {
 			
-			this.searchEnemies(enemyList);
+			this.searchEnemies(enemyList, origin);
 			
 			
 		}
 		
 		if(targetCache.Length > 0) {
-			target = this.pickClosest();
+			target = this.pickClosest(origin.transform);
 		}
 	
 	}
@@ -98,9 +109,9 @@ public class WeaponPoints extends MonoBehaviour { //added this so I could use th
 	
 	///<summary>This caches all enemies in the scene</summary>
 	///<param name="enemyList">List of enemy factions</param>
-	public function searchEnemies(enemyList : int[]) {
+	public function searchEnemies(enemyList : int[], origin : GameObject) {
 		
-		targetCache = Statics.findAllEnemyShips(enemyList, gameObject);
+		targetCache = Statics.findAllEnemyShips(enemyList, origin);
 		nextScan = Time.time + Random.value * scanTime;
 		
 	}
@@ -108,14 +119,14 @@ public class WeaponPoints extends MonoBehaviour { //added this so I could use th
 	///<summary>This picks the closest game object in cache as a target</summary>
 	///<pre>targetCache.Length > 0</pre>
 	
-	public function pickClosest() : GameObject{
+	public function pickClosest(origin : Transform) : GameObject{
 		
 		var closest : GameObject = targetCache[0];
 		
 		for(var x : int = 1; x < targetCache.Length; x++) {
 			
-			var distance1 : float = (closest.transform.position - transform.position).sqrMagnitude;
-			var distance2 : float = (targetCache[x].transform.position - transform.position).sqrMagnitude;
+			var distance1 : float = (closest.transform.position - origin.position).sqrMagnitude;
+			var distance2 : float = (targetCache[x].transform.position - origin.position).sqrMagnitude;
 			
 			if(distance2 < distance1) {
 				closest = targetCache[x];
@@ -126,5 +137,128 @@ public class WeaponPoints extends MonoBehaviour { //added this so I could use th
 		return closest;
 	}
 	
+	function getWeaponType() : WeaponType {
+		weapon.GetComponent(weaponScript).getType();
+	
+	}
+	
+	function fireBeam(target : GameObject, origin : GameObject) {
+		var rate : float = 1/duration;
+		var i : float = 0;
+		var phaserGO : GameObject;
+		isFiring = true;
+		while (i < 1) {
+			if(target){
+				i += rate * Time.deltaTime; 
+				var or : Vector3 = origin.transform.position;
+				var ta : Vector3 = target.transform.position;
+				var dir : Vector3 = (ta - or).normalized;
+				var hit : RaycastHit;
+				
+				if(hasTargetShield(target)) {
+					phaserGO = fireShields(target, or, dir, hit, phaserGO);
+				} else {
+					phaserGO = fireHull(target, or, dir, hit, phaserGO);
+				}
+			} else {
+				i = 2;
+			}
+			
+			
+			yield;
+		}
+		GameObject.Destroy(phaserGO);
+		isFiring = false;
+	}
+	
+	private function hasTargetShield(target : GameObject) : boolean {
+		var health : shipHealth = target.GetComponent(shipHealth);
+		return health.isShieldUp();
+			
+	}
+	//pre hasTargetShield()
+	private function fireShields(target : GameObject, or : Vector3, dir : Vector3, hit : RaycastHit, phaserGO : GameObject) : GameObject {
+		if(Physics.Raycast(or, dir, hit, getRange(), shieldLayerMask)) {
+				
+		
+				//do phaser logic here
+				//get target health script
+				var ship : GameObject = getParent(hit.transform).gameObject;
+				ship.GetComponent(shipHealth).damageShield(getDamage(true) * Time.deltaTime);
+				
+				//get hit point
+				var point : Vector3 = hit.point;
+				
+				//draw phaser
+				if(phaserGO == null) {
+					phaserGO = GameObject.Instantiate(weapon);
+					setLastShot();
+				}
+				var line : LineRenderer = phaserGO.GetComponent(phaserScript).line_renderer;
+				line.SetPosition(0, or);
+				line.SetPosition(1, point);
+				
+				
+			} 
+			
+			return phaserGO;
+	
+	}
+	
+	private function fireHull(target : GameObject, or : Vector3, dir : Vector3, hit : RaycastHit, phaserGO : GameObject) : GameObject {
+		if(Physics.Raycast(or, dir, hit, getRange(), hullLayerMask)) {
+				
+				//do phaser logic here
+				//get target health script
+				var ship : GameObject = getParent(hit.transform).gameObject;
+				ship.GetComponent(shipHealth).damageHull(getDamage(false) * Time.deltaTime);
+				
+				//get hit point
+				var point : Vector3 = hit.point;
+				
+				//draw phaser
+				if(phaserGO == null) {
+					phaserGO = GameObject.Instantiate(weapon);
+					setLastShot();
+				}
+				var line : LineRenderer = phaserGO.GetComponent(phaserScript).line_renderer;
+				line.SetPosition(0, or);
+				line.SetPosition(1, point);
+				
+				
+			}
+			
+			return phaserGO;
+	}
+	
+	private function getParent(trans : Transform) : Transform {
+		var par : Transform = trans;
+	
+		while(par.parent) {
+			par = par.parent.transform;
+		}
+		
+		return par;
+	
+	}
+	
+	function getNextShot() : float{
+		return lastShot + getCooldown();	
+	}
+	
+	function getDamage(isShield : boolean) : float {
+		return weapon.GetComponent(weaponScript).getDamage(isShield);
+	
+	}
+	
+	function setLastShot() : float {
+		lastShot = Time.time;
+	}
+	
+	function getCooldown() : float {
+			var ws : weaponScript = weapon.GetComponent(weaponScript);
+		 	return ws.getCooldown();
+	
+	}
 
 }

@@ -10,6 +10,8 @@ var phaserPoints : List.<WeaponPoints>;
 var torpedoPoints : List.<WeaponPoints>;
 var pulsePoints : List.<WeaponPoints>;
 
+var hullMask : LayerMask;
+var shieldMask : LayerMask;
 
 function Start () {
 
@@ -38,8 +40,7 @@ private function setWeaponSystem(system : List.<WeaponPoints>, tag : String, wea
 	var systems : GameObject[] = gameObject.FindGameObjectsWithTag(tag);
 	
 	for(var x : int = 0; x < systems.Length; x++) {
-		var newComp : WeaponPoints = gameObject.AddComponent(WeaponPoints);
-		newComp.WeaponPoint(systems[x], weapon);
+		var newComp : WeaponPoints = new WeaponPoints(systems[x], weapon, hullMask, shieldMask);
 		system.Add(newComp);
 	}
 
@@ -52,17 +53,17 @@ public function fire (weaponNum : int, type : WeaponType) {
 	
 		case WeaponType.beam:
 			if(phaserPoints[weaponNum].canFire()) {
-				phaserPoints[weaponNum].fire();
+				phaserPoints[weaponNum].fire(gameObject);
 			}
 			break;
 		case WeaponType.torpedo:
 			if(torpedoPoints[weaponNum].canFire()) {
-				torpedoPoints[weaponNum].fire();
+				torpedoPoints[weaponNum].fire(gameObject);
 			}
 			break;
 		case WeaponType.pulse:
 			if(pulsePoints[weaponNum].canFire()) {
-				pulsePoints[weaponNum].fire();
+				pulsePoints[weaponNum].fire(gameObject);
 			}
 	
 	}
@@ -79,17 +80,17 @@ public function scan (weaponNum : int, type : WeaponType, enemyList : int[]) {
 	switch(type) {
 		case WeaponType.beam:
 			if(phaser != null && !phaserPoints[weaponNum].hasTarget()) {
-				phaserPoints[weaponNum].scan(enemyList);
+				phaserPoints[weaponNum].scan(enemyList, gameObject);
 			}
 			break;
 		case WeaponType.torpedo:
 			if(torpedo != null && !torpedoPoints[weaponNum].hasTarget()) {
-				torpedoPoints[weaponNum].scan(enemyList);
+				torpedoPoints[weaponNum].scan(enemyList, gameObject);
 			}
 			break;
 		case WeaponType.pulse:
 			if(pulse != null && !pulsePoints[weaponNum].hasTarget()) {
-				pulsePoints[weaponNum].scan(enemyList);
+				pulsePoints[weaponNum].scan(enemyList, gameObject);
 			}
 		
 	

@@ -54,7 +54,7 @@ class ShipInfo {
 //use classes
 var playerProps : ShipPlayerProps;
 var movement : ShipMovementProps;
-var shipHealth : ShipHealthProps;
+var ShipHealth : ShipHealthProps;
 var shipProps : ShipProps;
 var shipModifiers : ShipModifiers;
 var shipInfo : ShipInfo;
@@ -71,6 +71,7 @@ function Update() {
 	{
 		combatStatus.isRedAlert = !combatStatus.isRedAlert;
 		combatStatus.lastRedPress = Time.time;
+		gameObject.GetComponent(shipHealth).showShields();
 	}
 
 	

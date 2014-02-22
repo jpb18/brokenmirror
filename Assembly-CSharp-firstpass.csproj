@@ -53,6 +53,7 @@
      <None Include="Assets\Standard Assets\Projectors\Guidelines.txt" />
      <None Include="Assets\SpaceUnity\_Read Me First.txt" />
      <None Include="Assets\Standard Assets\Projectors\Sources\Shaders\Projector Multiply.shader" />
+     <None Include="Assets\UnityTestTools\LICENSE.txt" />
      <None Include="Assets\Models\Ships\Klingon\bird of prey\K_TNG_BOP_VoxelizerDebug.txt" />
      <None Include="Assets\SpaceUnity\Read First.txt" />
      <None Include="Assets\Lightbeam\Shaders\Lightbeam.shader" />
@@ -62,6 +63,7 @@
      <None Include="Assets\Scripts\shaders\aditive.shader" />
      <None Include="Assets\Lightbeam\Shaders\Lightbeam_Soft.shader" />
      <None Include="Assets\Detonator Explosion Framework\Resources\Detonator\Textures\HeatDistort.shader" />
+     <None Include="Assets\Start-TestResults.xml" />
      <None Include="Assets\Scripts\shaders\shield.shader" />
      <None Include="Assets\Standard Assets\Skyboxes\_skybox info.txt" />
      <None Include="Assets\Models\Ships\Earth\galaxy\galaxy_obj\F_TNG_GALAXY_VoxelizerDebug.txt" />
@@ -72,6 +74,7 @@
      <None Include="Assets\Scripts\shaders\atm_scat.shader" />
      <None Include="Assets\SpaceUnity\Shaders\PlanetSelfIllum.shader" />
      <None Include="Assets\SpaceUnity\Shaders\PlanetStandard.shader" />
+     <None Include="Assets\UnityTestTools\changelog.txt" />
      <None Include="Assets\Lightbeam\Shaders\Lightbeam_Detail.shader" />
      <None Include="Assets\SpaceUnity\Shaders\PlanetAtmosphere.shader" />
      <None Include="Assets\Scripts\atm_scat.shader" />

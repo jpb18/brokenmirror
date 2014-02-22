@@ -59,11 +59,11 @@ function Start () {
 	triggers = gameObject.GetComponent(shipTriggers);
 	
 	//get health stats
-	shipHealth.maxHealth = properties.shipHealth.basicHealth;
+	shipHealth.maxHealth = properties.ShipHealth.basicHealth;
 	shipHealth.health = shipHealth.maxHealth;
 	
 	//get shield stats
-	shipHealth.maxShields = properties.shipHealth.basicShield;
+	shipHealth.maxShields = properties.ShipHealth.basicShield;
 	shipHealth.shields = shipHealth.maxShields;
 	
 	
@@ -111,7 +111,7 @@ function shield_regen() {
 
 function updateHealth () {
 
-	shipHealth.maxHealth = properties.shipHealth.basicHealth;
+	shipHealth.maxHealth = properties.ShipHealth.basicHealth;
 	
 
 }
@@ -235,6 +235,11 @@ function damageShield(damage : float) {
 //pre: !isShieldUp()
 function damageHull(damage : float) {
 	shipHealth.hullDamage(damage);
+
+}
+
+function showShields() {
+	shieldShow.setHit();
 
 }
 

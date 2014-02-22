@@ -1,12 +1,21 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\weapons\torpedoScript.js">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\ship\shipProperties.js">
     <Files>
-      <File FileName="Assets\Scripts\ship\ShipAI.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\camera\MouseOrbit.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\ship\ShipAI.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\ship\shipMovement.js" Line="21" Column="27" />
-      <File FileName="Assets\Scripts\weapons\torpedoScript.js" Line="156" Column="2" />
+      <File FileName="Assets\Scripts\station\StationWeapons.js" Line="43" Column="89" />
+      <File FileName="Assets\Scripts\station\WeaponPoints.js" Line="128" Column="1" />
+      <File FileName="Assets\Scripts\station\Station.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\ship\shipWeapons.js" Line="179" Column="2" />
+      <File FileName="Assets\Scripts\weapons\weaponScript.js" Line="61" Column="25" />
+      <File FileName="Assets\Scripts\weapons\phaserScript.js" Line="25" Column="1" />
+      <File FileName="Assets\Scripts\weapons\pulseScript.js" Line="118" Column="9" />
+      <File FileName="Assets\Scripts\weapons\torpedoScript.js" Line="74" Column="1" />
+      <File FileName="Assets\UnityTestTools\IntegrationTestsFramework\TestRunner\TestRunner.cs" Line="264" Column="1" />
+      <File FileName="Assets\Scripts\ship\ShipAI.js" Line="333" Column="3" />
+      <File FileName="Assets\Scripts\ship\shipHealth.js" Line="114" Column="37" />
+      <File FileName="Assets\Scripts\ship\shipProperties.js" Line="74" Column="53" />
+      <File FileName="Assets\Scripts\ship\shipMovement.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\ship\shipTarget.js" Line="73" Column="7" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

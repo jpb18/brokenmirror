@@ -110,6 +110,15 @@ function OnCollisionEnter (hit: Collision) {
 
 }
 
+function getDamage(isShield : boolean) : float {
+	var dmg : float;
+	if(isShield) {
+		dmg = shieldDmg;
+	} else {
+		dmg = hullDmg;
+	}
+	return dmg;
+}
 
 //pre: target != null
 function setTarget(target : GameObject) {

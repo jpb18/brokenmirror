@@ -339,7 +339,7 @@ private function returnClosest(list : GameObject[]) : GameObject{
 //pre target != null
 private function countColliders(target : GameObject) : int {
 
-	var colliders : Collider[] = target.GetComponentsInChildren(Collider);
+	var colliders : Component[] = target.GetComponentsInChildren(Collider);
 	return colliders.Length;
 
 }
