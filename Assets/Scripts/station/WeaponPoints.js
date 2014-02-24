@@ -38,24 +38,31 @@ public class WeaponPoints extends Object { //added this so I could use the const
 		var cd : int = script.getCooldown();
 		
 			
-		return ( hasAngle() && hasTarget() && Time.time >= lastShot + cd && weapon != null);
+		return (!isFiring && hasAngle() && hasTarget() && Time.time >= lastShot + cd && weapon != null);
 	
 	}
 	
 	//this method fires the weapon
 	//@pre canFire() == true
-	public function fire(origin : GameObject) {
+	public function fire() : IEnumerator{
+		
+		lastShot = Time.time;
 		
 		if(getWeaponType() == WeaponType.beam) {
-			fireBeam(target, origin);
+		
+			fireBeam(target, point);
+		
 		
 		} else if(getWeaponType() == WeaponType.torpedo) {
-		
+			
+			fireTorpedo();
 		
 		} else if(getWeaponType() == WeaponType.pulse) {
 		
 		
 		}
+		
+		
 	
 	}
 	
@@ -138,7 +145,7 @@ public class WeaponPoints extends Object { //added this so I could use the const
 	}
 	
 	function getWeaponType() : WeaponType {
-		weapon.GetComponent(weaponScript).getType();
+		return weapon.GetComponent(weaponScript).getType();
 	
 	}
 	
@@ -194,7 +201,10 @@ public class WeaponPoints extends Object { //added this so I could use the const
 					phaserGO = GameObject.Instantiate(weapon);
 					setLastShot();
 				}
-				var line : LineRenderer = phaserGO.GetComponent(phaserScript).line_renderer;
+				
+				var script : phaserScript = phaserGO.GetComponent(phaserScript);
+				script.setPhaser(getParent(this.point), target);
+				var line : LineRenderer = script.line_renderer;
 				line.SetPosition(0, or);
 				line.SetPosition(1, point);
 				
@@ -221,7 +231,9 @@ public class WeaponPoints extends Object { //added this so I could use the const
 					phaserGO = GameObject.Instantiate(weapon);
 					setLastShot();
 				}
-				var line : LineRenderer = phaserGO.GetComponent(phaserScript).line_renderer;
+				var script : phaserScript = phaserGO.GetComponent(phaserScript);
+				script.setPhaser(getParent(this.point), target);
+				var line : LineRenderer = script.line_renderer;
 				line.SetPosition(0, or);
 				line.SetPosition(1, point);
 				
@@ -242,6 +254,17 @@ public class WeaponPoints extends Object { //added this so I could use the const
 	
 	}
 	
+	private function getParent(trans : GameObject) : GameObject {
+		var par : Transform = trans.transform;
+	
+		while(par.parent) {
+			par = par.parent.transform;
+		}
+		
+		return par.gameObject;
+	
+	}
+	
 	function getNextShot() : float{
 		return lastShot + getCooldown();	
 	}
@@ -259,6 +282,15 @@ public class WeaponPoints extends Object { //added this so I could use the const
 			var ws : weaponScript = weapon.GetComponent(weaponScript);
 		 	return ws.getCooldown();
 	
+	}
+	
+	function fireTorpedo() {
+		
+		var torp : GameObject = GameObject.Instantiate(weapon, point.transform.position, point.transform.rotation);
+		var ws : weaponScript = torp.GetComponent(weaponScript);
+		
+		ws.setTarget(target);
+		ws.setOrigin(point);
 	}
 
 }

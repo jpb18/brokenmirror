@@ -100,9 +100,9 @@ class Phaser {
 				var hit : RaycastHit;
 				
 				if(hasTargetShield(target)) {
-					phaserGO = fireShields(target, or, dir, hit, phaserGO);
+					phaserGO = fireShields(target, origin, or, dir, hit, phaserGO);
 				} else {
-					phaserGO = fireHull(target, or, dir, hit, phaserGO);
+					phaserGO = fireHull(target, origin, or, dir, hit, phaserGO);
 				}
 			} else {
 				i = 2;
@@ -121,7 +121,7 @@ class Phaser {
 			
 	}
 	//pre hasTargetShield()
-	private function fireShields(target : GameObject, or : Vector3, dir : Vector3, hit : RaycastHit, phaserGO : GameObject) : GameObject {
+	private function fireShields(target : GameObject, origin : GameObject, or : Vector3, dir : Vector3, hit : RaycastHit, phaserGO : GameObject) : GameObject {
 		if(Physics.Raycast(or, dir, hit, getRange(), shieldLayerMask)) {
 				
 		
@@ -138,7 +138,9 @@ class Phaser {
 					phaserGO = GameObject.Instantiate(phaser);
 					setLastShot();
 				}
-				var line : LineRenderer = phaserGO.GetComponent(phaserScript).line_renderer;
+				var script : phaserScript = phaserGO.GetComponent(phaserScript);
+				script.setPhaser(origin, target);
+				var line : LineRenderer = script.line_renderer;
 				line.SetPosition(0, or);
 				line.SetPosition(1, point);
 				
@@ -149,7 +151,7 @@ class Phaser {
 	
 	}
 	
-	private function fireHull(target : GameObject, or : Vector3, dir : Vector3, hit : RaycastHit, phaserGO : GameObject) : GameObject {
+	private function fireHull(target : GameObject, origin : GameObject, or : Vector3, dir : Vector3, hit : RaycastHit, phaserGO : GameObject) : GameObject {
 		if(Physics.Raycast(or, dir, hit, getRange(), hullLayerMask)) {
 				
 				//do phaser logic here
@@ -165,7 +167,9 @@ class Phaser {
 					phaserGO = GameObject.Instantiate(phaser);
 					setLastShot();
 				}
-				var line : LineRenderer = phaserGO.GetComponent(phaserScript).line_renderer;
+				var script : phaserScript = phaserGO.GetComponent(phaserScript);
+				script.setPhaser(origin, target);
+				var line : LineRenderer = script.line_renderer;
 				line.SetPosition(0, or);
 				line.SetPosition(1, point);
 				

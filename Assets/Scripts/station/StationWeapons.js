@@ -48,22 +48,24 @@ private function setWeaponSystem(system : List.<WeaponPoints>, tag : String, wea
 
 //this method fires the weapons on each slot
 public function fire (weaponNum : int, type : WeaponType) {
-
-	switch(type) {
 	
+	switch(type) {
+		
 		case WeaponType.beam:
 			if(phaserPoints[weaponNum].canFire()) {
-				phaserPoints[weaponNum].fire(gameObject);
+				StartCoroutine(phaserPoints[weaponNum].fire());
 			}
 			break;
 		case WeaponType.torpedo:
+			
 			if(torpedoPoints[weaponNum].canFire()) {
-				torpedoPoints[weaponNum].fire(gameObject);
+				
+				torpedoPoints[weaponNum].fire();
 			}
 			break;
 		case WeaponType.pulse:
 			if(pulsePoints[weaponNum].canFire()) {
-				pulsePoints[weaponNum].fire(gameObject);
+				pulsePoints[weaponNum].fire();
 			}
 	
 	}
