@@ -540,6 +540,33 @@ class RadarLabel {
 
 }
 
+
+class RedAlertGui {
+	var image : Texture;
+	var timePeriod : float;
+	var areaRect : Rect;
+	var imageRect : Rect;
+	
+	function drawRedAlert(isRedAlert : boolean) {
+		if(isRedAlert) {
+			GUI.color = new Color(1,1,1, getTransparency());
+			
+			GUI.DrawTexture(imageRect, image);
+			
+			GUI.color = Color.white;
+			
+		}
+	}
+	
+	private function getTransparency() : float {
+	
+		return (Mathf.Cos(Time.time * timePeriod)/2) + 0.5f;
+	
+	}
+	
+
+}
+
 //fixed
 var Helm : HelmGui;
 var health : HealthGui;
@@ -553,6 +580,8 @@ var commWindow : CommDialogue;
 //labels
 var radarLabel : RadarLabel;
 
+//redAlert
+var redAlert : RedAlertGui;
 
 //External Scripts
 var shipProps : shipProperties;
@@ -950,13 +979,25 @@ function TopGUI() {
 
 	GUILayout.BeginArea(Rect(Screen.width/2 - TopGui.x/2, TopGui.y, TopGui.width, TopGui.height));
 	
-		targetModule();
-	
+		redAlertModule();
+		targetModule();	
 	
 	GUILayout.EndArea();
 
 
 }
+
+function redAlertModule() {
+
+	GUILayout.BeginArea(redAlert.areaRect);
+	
+		redAlert.drawRedAlert(shipProps.getRedAlert());
+	
+	GUILayout.EndArea();
+	
+
+}
+
 
 //Draws the targetting module of the HUD
 function targetModule() {
