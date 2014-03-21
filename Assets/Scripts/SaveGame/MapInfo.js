@@ -109,9 +109,10 @@ class SaveStation extends System.Object{
 	var position : Vector3;
 	
 	//commerce
-	var weapons : List.<GameObject>;
+	var items : List.<GameObject>;
 	var ships : List.<GameObject>;
-	var	stations : List.<GameObject>;
+	var	plans : List.<GameObject>;
+	var upgrades : List.<GameObject>;
 	
 	//prefab
 	var prefab : GameObject;
@@ -125,9 +126,10 @@ class SaveStation extends System.Object{
 		//set name, weapons, ships and stations
 		var statI : StationInterface = station.GetComponent(StationInterface);
 		name = statI.stName;
-		weapons = statI.weapons;
+		items = statI.items;
 		ships = statI.ships;
-		stations = statI.stations;
+		plans = statI.plans;
+		upgrades = statI.upgrades;
 		
 		//set faction
 		var statS : Station = station.GetComponent(Station);
@@ -148,9 +150,10 @@ class SaveStation extends System.Object{
 		//set name, weapons, ships and stations
 		var statI : StationInterface = station.GetComponent(StationInterface);
 		statI.stName = name;
-		statI.weapons = weapons;
+		statI.items = items;
 		statI.ships = ships;
-		statI.stations = stations;
+		statI.plans = plans;
+		statI.upgrades = upgrades;
 		
 		//set faction
 		var statS : Station = station.GetComponent(Station);

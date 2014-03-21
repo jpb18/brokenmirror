@@ -424,6 +424,12 @@ class RadarLabel {
 	var ally_bg : Texture2D;
 	var enemy_bg : Texture2D;
 	var neutral_bg : Texture2D;
+	
+	var own_small : Texture2D;
+	var ally_small : Texture2D;
+	var enemy_small : Texture2D;
+	var neutral_small : Texture2D;
+	
 	var size : Vector2;
 	var label_name : Rect;
 	var label_class : Rect;
@@ -445,6 +451,14 @@ class RadarLabel {
 			GUI.Label(label_class, className, skin.GetStyle("MessageComm"));
 			GUI.Label(label_dist, "Distance: " + getDistance(player).ToString() + "KM", skin.GetStyle("MessageComm"));
 		GUILayout.EndArea();
+		
+		
+	}
+	
+	//this draws the label if the target its outside the screen
+	//pre target != null && position.z <= 0
+	function drawSmall(position : Vector3, player : GameObject, general : GeneralInfo) {
+		
 		
 		
 	}
@@ -510,6 +524,31 @@ class RadarLabel {
 		
 		return texture;
 	
+	}
+	
+	function getSmallTexture(player : GameObject, general : GeneralInfo) : Texture2D {
+		var texture : Texture2D;
+		
+	
+		//get faction info
+		var ownFac : int = getFaction(target);
+		var plaFac : int = getFaction(player);
+		
+		var ownInfo : FactionInfo = general.getFactionInfo(ownFac);
+		
+		
+		if(ownFac == plaFac) { //check if it owns
+			texture = own_small;		
+		} else if(CheckArrayValue(plaFac, ownInfo.alliedFactions)) { //check if its ally
+			texture = ally_small;
+		} else if(CheckArrayValue(plaFac, ownInfo.hostileFactions)) { //check if its enemy
+			texture = enemy_small;
+		} else {
+			texture = neutral_small;	
+		}
+		
+		
+		return texture;
 	}
 	
 	function getDistance(player : GameObject) : int {

@@ -42,10 +42,11 @@ class ShipInfo {
 
 	var faction : int;
 	
-	
+	var storeImg : Texture;
 	var targetImg : Texture; //this image will appear on the player gui
 	var shipClass : String; //this contains the ship class
 	var shipName : String; //this contains the ship name
+	var shipDescription : String;
 
 }
 
@@ -99,5 +100,20 @@ function getRedAlert() : boolean {
 
 function getPlayer() : boolean {
 	return playerProps.isPlayer;
+
+}
+
+
+function getStoreImage() : Texture {
+	return shipInfo.storeImg;
+}
+
+function getClass() : String {
+	return shipInfo.shipClass;
+
+}
+
+function getDescription() : String {
+	return shipInfo.shipDescription;
 
 }

@@ -35,6 +35,22 @@ function getType() : WeaponType {
 	return type;
 }
 
+function getImage() : Texture {
+
+	return guiInfo.image;
+
+}
+
+function getName() : String {
+	return guiInfo.name;
+
+}
+
+function getDescription() : String {
+	return guiInfo.description;
+
+}
+
 //this method gets the weapon cooldown
 function getCooldown() : float {
 	var cd : float = 0.0f;

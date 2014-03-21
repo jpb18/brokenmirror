@@ -323,6 +323,13 @@ function Start() {
 }
 
 function Update() {
+	if(properties.getRedAlert()) {
+		fire();
+	}
+
+}
+
+function fire() {
 	if(properties.getPlayer()) {
 		playerFire();
 	} else {
