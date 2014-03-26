@@ -211,13 +211,15 @@ class TargetExpand {
 	//this draws the panel
 	function DrawPanel(target : GameObject, player : GameObject, comm : CommDialogue) {
 		GUILayout.BeginArea(toBeExpanded_Area);
-		
 			GUI.DrawTexture(Rect(0,0, toBeExpanded_Area.width, toBeExpanded_Area.height), bgImage, ScaleMode.ScaleToFit);
 			
 			GUI.Button(scanButton, "Scan", hudSkin.GetStyle("TacticalButton"));
 			if(GUI.Button(hailButton, "Hail", hudSkin.GetStyle("TacticalButton"))) {
-				comm.open(target, player);
-			
+				if(target.tag == "Station") {
+					target.GetComponent(StationInterface).openGUI();
+				} else {
+					comm.open(target, player);
+				}
 			}
 		
 		
@@ -312,7 +314,7 @@ class CommDialogue  {
 		if(isOpen && target){
 			if(target.tag == "Ship") {
 				window = GUI.Window(0, window, DrawDialogue, "", GUIStyle.none);
-			}
+			} 
 		}
 	
 	}

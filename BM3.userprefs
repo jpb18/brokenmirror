@@ -1,25 +1,26 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\station\StationGui.js">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\menus\EscMenu.js">
     <Files>
+      <File FileName="Assets\Scripts\menus\EscMenu.js" Line="21" Column="50" />
+      <File FileName="Assets\Scripts\menus\guiScript.js" Line="214" Column="30" />
+      <File FileName="Assets\Scripts\station\StationInterface.js" Line="1" Column="1" />
       <File FileName="Assets\Scripts\station\StationGui.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\station\StationInterface.js" Line="55" Column="4" />
-      <File FileName="Assets\Scripts\station\StationGui.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\menus\guiScript.js" Line="1" Column="1" />
       <File FileName="Assets\Scripts\SaveGame\MapInfo.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\ship\shipProperties.js" Line="44" Column="2" />
-      <File FileName="Assets\Scripts\weapons\weaponScript.js" Line="50" Column="29" />
+      <File FileName="Assets\Scripts\ship\shipProperties.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\menus\ShowMessage.js" Line="1" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
           <Node name="Assembly-UnityScript" expanded="True">
             <Node name="Scripts" expanded="True">
+              <Node name="menus" expanded="True">
+                <Node name="EscMenu.js" selected="True" />
+              </Node>
               <Node name="SaveGame" expanded="True" />
               <Node name="ship" expanded="True" />
-              <Node name="station" expanded="True">
-                <Node name="StationGui.js" selected="True" />
-              </Node>
+              <Node name="station" expanded="True" />
               <Node name="weapons" expanded="True" />
             </Node>
           </Node>

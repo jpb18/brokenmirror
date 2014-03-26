@@ -71,6 +71,7 @@
      <Compile Include="Assets\Scripts\environment\border.js" />
      <Compile Include="Assets\Scripts\environment\planetScript.js" />
      <Compile Include="Assets\Scripts\environment\spaceGeneration.js" />
+     <Compile Include="Assets\Scripts\menus\EscMenu.js" />
      <Compile Include="Assets\Scripts\menus\RangeFinder.js" />
      <Compile Include="Assets\Scripts\menus\ResumeGame.js" />
      <Compile Include="Assets\Scripts\menus\ShowMessage.js" />

@@ -50,7 +50,7 @@ function OnGUI() {
 
 	drawLabel();
 
-	if(gui.isOn) {
+	if(gui.isOn()) {
 		gui.draw();
 	} 
 }
@@ -92,4 +92,8 @@ function getStore(mode : StoreMode) {
 		
 	return res;	
 	
+}
+
+function openGUI () {
+	gui.setOn();
 }

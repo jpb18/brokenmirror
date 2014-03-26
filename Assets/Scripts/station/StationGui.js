@@ -7,10 +7,13 @@ class StationGui {
 	var area : Rect;
 	var si : StationInfo;
 	var ss : StationStore;
+	var sit : StationInt;
 	
 	var skin : GUISkin;
 	private var health : Health;
 	private var info : StationInterface;
+	
+	var close_bt : Rect;
 	
 	function setWindow(health : Health, info : StationInterface) {
 		this.health = health;
@@ -27,6 +30,8 @@ class StationGui {
 		GUILayout.BeginArea(Rect(0,0,area.width, area.height));
 			si.draw(health, info, skin);
 			ss.draw(info, skin);
+			sit.draw(info, skin);
+			drawClose(skin);
 		GUILayout.EndArea();
 		
 		GUI.DragWindow (Rect (0,0,area.width, 20));
@@ -44,7 +49,17 @@ class StationGui {
 	function setOff() {
 		on = false;
 	}
-
+	
+	
+	
+	private function drawClose(skin : GUISkin) : boolean {
+	
+		if(GUI.Button(close_bt, "x", skin.GetStyle("StationClose"))) {
+			setOff();
+		}
+	
+	}
+	
 }
 
 enum StoreMode {
@@ -246,3 +261,60 @@ class StationInfo {
 	
 
 }
+
+enum InteractionsMode {
+	missions,
+	trade,
+	sell,
+	repairs
+
+}
+
+class StationInt {
+
+	var bg_image : Texture;
+	var area : Rect;
+	
+	var bt_missions : Rect;
+	var bt_trade : Rect;
+	var bt_sell : Rect;
+	var bt_repais : Rect;
+	
+	var mode : InteractionsMode;
+	
+	
+	function draw(info : StationInterface, skin : GUISkin) {
+	
+		GUILayout.BeginArea(area);
+			//draw background
+			GUI.DrawTexture(Rect(0,0, area.width, area.height), bg_image);
+			//draw buttons
+			drawButtons(skin);
+	
+		GUILayout.EndArea();
+	}
+	
+	private function drawButtons(skin : GUISkin) {
+		
+		if(GUI.Button(bt_missions, "Missions", skin.GetStyle("StationOptions"))) {
+			mode = InteractionsMode.missions;
+		}
+		
+		if(GUI.Button(bt_trade, "Trade", skin.GetStyle("StationOptions"))) {
+			mode = InteractionsMode.trade;
+		}
+		
+		if(GUI.Button(bt_sell, "Sell", skin.GetStyle("StationOptions"))) {
+			mode = InteractionsMode.sell;
+		}
+		
+		if(GUI.Button(bt_repais, "Repairs", skin.GetStyle("StationOptions"))) {
+			mode = InteractionsMode.repairs;
+		}
+		
+	}
+	
+	
+
+}
+
