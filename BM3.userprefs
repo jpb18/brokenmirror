@@ -1,9 +1,10 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\menus\EscMenu.js">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Menus\MenuScript.js">
     <Files>
-      <File FileName="Assets\Scripts\menus\EscMenu.js" Line="21" Column="50" />
-      <File FileName="Assets\Scripts\menus\guiScript.js" Line="214" Column="30" />
+      <File FileName="Assets\Menus\MenuScript.js" Line="59" Column="16" />
+      <File FileName="Assets\Menus\MenuScript.js" Line="9" Column="1" />
+      <File FileName="Assets\Scripts\menus\guiScript.js" Line="1" Column="1" />
       <File FileName="Assets\Scripts\station\StationInterface.js" Line="1" Column="1" />
       <File FileName="Assets\Scripts\station\StationGui.js" Line="1" Column="1" />
       <File FileName="Assets\Scripts\SaveGame\MapInfo.js" Line="1" Column="1" />
@@ -13,15 +14,14 @@
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
+          <Node name="Assembly-CSharp-firstpass" expanded="True" />
           <Node name="Assembly-UnityScript" expanded="True">
+            <Node name="Menus" expanded="True">
+              <Node name="MenuScript.js" selected="True" />
+            </Node>
             <Node name="Scripts" expanded="True">
-              <Node name="menus" expanded="True">
-                <Node name="EscMenu.js" selected="True" />
-              </Node>
-              <Node name="SaveGame" expanded="True" />
-              <Node name="ship" expanded="True" />
-              <Node name="station" expanded="True" />
-              <Node name="weapons" expanded="True" />
+              <Node name="camera" expanded="True" />
+              <Node name="menus" expanded="True" />
             </Node>
           </Node>
         </State>
