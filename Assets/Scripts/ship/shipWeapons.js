@@ -339,19 +339,19 @@ function fire() {
 }
 
 function playerFire() {
-
-	if(Input.GetAxis("Fire1")) {
-		phaserFunction();
+	if(target.target) {
+		if(Input.GetAxis("Fire1")) {
+			phaserFunction();
+		}
+		
+		if(Input.GetAxis("Fire2")) {
+			torpFunction(torp1);
+		}
+		
+		if(Input.GetAxis("Fire3")) {
+			torpFunction(torp2);
+		}
 	}
-	
-	if(Input.GetAxis("Fire2")) {
-		torpFunction(torp1);
-	}
-	
-	if(Input.GetAxis("Fire3")) {
-		torpFunction(torp2);
-	}
-	
 
 }
 
@@ -382,7 +382,18 @@ function hasPhaserInRange(target : GameObject) : boolean {
 }
 
 function hasTorpedoInRange(target : GameObject) : boolean {
-	return torp1.isRange(target) || torp2.isRange(target);
+	var isTorp1 : boolean = false;
+	var isTorp2 : boolean = false;
+	
+	if(torp1.isEnabled) {
+		isTorp1 = torp1.isRange(target);
+	}
+	
+	if(torp2.isEnabled) {
+		isTorp2 = torp2.isRange(target);
+	}
+
+	return isTorp1 || isTorp2;
 
 }
 

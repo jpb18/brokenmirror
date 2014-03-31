@@ -12,12 +12,14 @@ class StationGui {
 	var skin : GUISkin;
 	private var health : Health;
 	private var info : StationInterface;
+	private var inv : Inventory;
 	
 	var close_bt : Rect;
 	
-	function setWindow(health : Health, info : StationInterface) {
+	function setWindow(health : Health, info : StationInterface, inv : Inventory) {
 		this.health = health;
 		this.info = info;
+		this.inv = inv;
 	}
 		
 	function draw() {
@@ -29,7 +31,7 @@ class StationGui {
 	function window(windowID :int ){
 		GUILayout.BeginArea(Rect(0,0,area.width, area.height));
 			si.draw(health, info, skin);
-			ss.draw(info, skin);
+			ss.draw(info, skin, inv);
 			sit.draw(info, skin);
 			drawClose(skin);
 		GUILayout.EndArea();
@@ -85,7 +87,7 @@ class StationStore {
 	
 	var mode : StoreMode;
 	
-	function draw(info : StationInterface, skin : GUISkin) {
+	function draw(info : StationInterface, skin : GUISkin, inv : Inventory) {
 		GUILayout.BeginArea(area);
 			//Draw background
 			GUI.DrawTexture(Rect(0,0, area.width, area.height), bg_image);
@@ -95,7 +97,7 @@ class StationStore {
 			
 			//Draw Store Buttons
 			var store : List.<GameObject> = info.getStore(mode);
-			storeButtons(store, skin);
+			storeButtons(store, skin, inv);
 			mouseOver(store, skin);
 		
 		GUILayout.EndArea();
@@ -117,24 +119,46 @@ class StationStore {
 		}
 	}
 	
-	private function storeButtons(store : List.<GameObject>, skin : GUISkin) {
+	private function storeButtons(store : List.<GameObject>, skin : GUISkin, inv : Inventory) {
 		
 		
 		
 		for(var i :int = 0; i < store.Count; i++) {
 		
-			storeButton(store[i], store_buttons[i], skin);
+			storeButton(store[i], store_buttons[i], skin, inv);
 		
 		}
 	
 	}
 	
-	private function storeButton(item : GameObject, rect : Rect, skin : GUISkin) {
+	private function storeButton(item : GameObject, rect : Rect, skin : GUISkin, inv : Inventory) {
 			
 		
-		GUI.Button(rect, getImage(item), skin.GetStyle("StoreButton"));
+		if(GUI.Button(rect, getImage(item), skin.GetStyle("StoreButton"))) {
+		
+			buttonAction(inv, item);
+		
+		}
 		
 	
+	}
+	
+	private function buttonAction(inv : Inventory, item : GameObject) {
+	
+		switch(mode) {
+		
+			case StoreMode.items:
+				buyItem(inv, item);
+				break;
+		
+		}
+	
+	}
+	
+	private function buyItem(inv : Inventory, item : GameObject) {
+		if(inv.isFull) {
+			inv.addItem(item);
+		}
 	}
 	
 	private function getImage(item : GameObject) : Texture {

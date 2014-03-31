@@ -3,6 +3,8 @@
 class PlayerInfo {
 	var name : String;
 	var gameDificulty : Dificulty;
+	var allegience : FactionInfo;
+	var empireName : String;
 		
 }
 

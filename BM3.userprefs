@@ -1,27 +1,29 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Menus\MenuScript.js">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\ship\shipWeapons.js">
     <Files>
-      <File FileName="Assets\Menus\MenuScript.js" Line="59" Column="16" />
-      <File FileName="Assets\Menus\MenuScript.js" Line="9" Column="1" />
-      <File FileName="Assets\Scripts\menus\guiScript.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\station\StationInterface.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\station\StationGui.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\SaveGame\MapInfo.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\ship\shipProperties.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\menus\ShowMessage.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\menus\guiScript.js" Line="366" Column="1" />
+      <File FileName="Assets\Scripts\SaveGame\GeneralInfo.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\SaveGame\LoadScene.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\SaveGame\HUDStatus.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\menus\guiScript.js" Line="556" Column="3" />
+      <File FileName="Assets\Scripts\SaveGame\MapInfo.js" Line="194" Column="39" />
+      <File FileName="Assets\Scripts\station\Station.js" Line="6" Column="24" />
+      <File FileName="Assets\Scripts\station\Health.js" Line="60" Column="10" />
+      <File FileName="Assets\Scripts\ship\shipWeapons.js" Line="256" Column="49" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
-          <Node name="Assembly-CSharp-firstpass" expanded="True" />
           <Node name="Assembly-UnityScript" expanded="True">
-            <Node name="Menus" expanded="True">
-              <Node name="MenuScript.js" selected="True" />
-            </Node>
             <Node name="Scripts" expanded="True">
-              <Node name="camera" expanded="True" />
               <Node name="menus" expanded="True" />
+              <Node name="SaveGame" expanded="True" />
+              <Node name="ship" expanded="True">
+                <Node name="shipWeapons.js" selected="True" />
+              </Node>
+              <Node name="station" expanded="True" />
+              <Node name="weapons" expanded="True" />
             </Node>
           </Node>
         </State>

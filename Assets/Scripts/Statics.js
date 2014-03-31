@@ -39,55 +39,122 @@ static function findAllEnemyShips(enemyList : int[], origin : GameObject) : Game
 	
 }
 
+static function findAllEnemyStations(enemyList : int[], origin : GameObject) : GameObject[] {
+	var gameObjs : GameObject[] = GameObject.FindGameObjectsWithTag("Station");
+	var enemies : List.<GameObject> = new List.<GameObject>();
+	
+	for(var go : GameObject in gameObjs) {
+		
+			
+			if (go.transform.parent == null) //check if it's parent GO
+			{
+				if(go != origin) //check if GO is diferent than origin
+				{
+					if (go.tag == "Station") //check if GO is a ship 
+					{
+					
+						//Get ships properties script and faction
+						var props : Station = go.GetComponent(Station);
+						var faction : int = props.faction;
+												
+						if(isEnemy(faction, enemyList))
+						{
+							enemies.Add(go);
+						}
+					}
+				}
+			}
+		}
+	
+	
+	return enemies.ToArray();
+
+
+}
+
 //this method finds a suitable target for the game object that calls it
 static function FindTarget(origin : GameObject, range : float, enemyList : int[]) : GameObject {
 
 	var gameObjs : GameObject[] = findAllEnemyShips(enemyList, origin);
 	var closest : GameObject;
 	var originPosition : Vector3 = origin.transform.position;
-	
-	for(var go : GameObject in gameObjs) {
-		
-		if((originPosition - go.transform.position).sqrMagnitude <= range * range) {
+	if(gameObjs.Length > 0) {
+		for(var go : GameObject in gameObjs) {
 			
-			if (go.transform.parent == null) //check if it's parent GO
-			{
-				if(go != origin) //check if GO is diferent than origin
+			if((originPosition - go.transform.position).sqrMagnitude <= range * range) {
+				
+				if (go.transform.parent == null) //check if it's parent GO
 				{
-					if (go.tag == "Ship") //check if GO is a ship 
+					if(go != origin) //check if GO is diferent than origin
 					{
-					
-						//Get ships properties script and faction
-						var ship_props : shipProperties = go.GetComponent(shipProperties);
-						var ship_faction : int = ship_props.shipInfo.faction;
-												
+						if (go.tag == "Ship") //check if GO is a ship 
+						{
 						
-						if(closest == null) //if there's no go in closest
-						{
-							closest = go;
-						}
-						else //if there is
-						{
-							//check if the new go is closer than the older one
-							if ((originPosition - closest.transform.position).sqrMagnitude >= (origin.transform.position - go.transform.position).sqrMagnitude)
+													
+							if(closest == null) //if there's no go in closest
 							{
 								closest = go;
 							}
+							else //if there is
+							{
+								//check if the new go is closer than the older one
+								if ((originPosition - closest.transform.position).sqrMagnitude >= (origin.transform.position - go.transform.position).sqrMagnitude)
+								{
+									closest = go;
+								}
+							}
+							
+											
 						}
 						
-										
-					}
-					else if (go.tag == "Station")
-					{
-					
-						//put station targeting code here
-					
 					}
 				}
+			
 			}
+		} 
+		}else {
+		
+			gameObjs = findAllEnemyStations(enemyList, origin);
+			
+			if(gameObjs.Length > 0) {
+		for(var go : GameObject in gameObjs) {
+			
+			if((originPosition - go.transform.position).sqrMagnitude <= range * range) {
+				
+				if (go.transform.parent == null) //check if it's parent GO
+				{
+					if(go != origin) //check if GO is diferent than origin
+					{
+						if (go.tag == "Station") //check if GO is a ship 
+						{
+						
+							
+													
+							
+							if(closest == null) //if there's no go in closest
+							{
+								closest = go;
+							}
+							else //if there is
+							{
+								//check if the new go is closer than the older one
+								if ((originPosition - closest.transform.position).sqrMagnitude >= (origin.transform.position - go.transform.position).sqrMagnitude)
+								{
+									closest = go;
+								}
+							}
+							
+											
+						}
+						
+					}
+				}
+			
+			}
+		}
+			
 		
 		}
-	
 	
 	}
 

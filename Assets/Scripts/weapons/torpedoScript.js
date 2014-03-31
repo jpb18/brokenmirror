@@ -82,31 +82,9 @@ function OnTriggerEnter(hit : Collider) {
 		{
 			if (hitGO.tag == "Ship")
 			{
-				//get red alert status
-				var isRedAlert : boolean = hitGO.GetComponent(shipProperties).combatStatus.isRedAlert;
-				
-				if(isRedAlert) {
-					
-					var hitHS : shipHealth = hitGO.GetComponent(shipHealth);
-					var shields = hitHS.shipHealth.shields;
-					if(shields > 0)
-					{
-						effect.hasExploded = true;
-						if(shields >= status.shieldDmg)
-						{
-							hitHS.shipHealth.shields -= status.shieldDmg;
-						}
-						else
-						{
-							hitHS.shipHealth.shields = 0;
-						}
-					
-						hitHS.shieldShow.lastHit = Time.time;
-						hitHS.shieldRegen.lastHit = Time.time;
-						Instantiate(effect.explosion, transform.position, transform.rotation);
-						Destroy(gameObject);
-					}
-				}
+				shipTrigger(hitGO);
+			} else if (hitGO.tag == "Station") {
+				stationTrigger(hitGO);
 			}
 		}
 	
@@ -117,30 +95,95 @@ function OnTriggerEnter(hit : Collider) {
 
 }
 
+private function shipTrigger(hitGO : GameObject)  {
+
+		//get red alert status
+		var isRedAlert : boolean = hitGO.GetComponent(shipProperties).combatStatus.isRedAlert;
+		
+		if(isRedAlert) {
+			
+			var hitHS : shipHealth = hitGO.GetComponent(shipHealth);
+			var shields = hitHS.shipHealth.shields;
+			if(shields > 0)
+			{
+				effect.hasExploded = true;
+				if(shields >= status.shieldDmg)
+				{
+					hitHS.shipHealth.shields -= status.shieldDmg;
+				}
+				else
+				{
+					hitHS.shipHealth.shields = 0;
+				}
+			
+				hitHS.shieldShow.lastHit = Time.time;
+				hitHS.shieldRegen.lastHit = Time.time;
+				Instantiate(effect.explosion, transform.position, transform.rotation);
+				Destroy(gameObject);
+			}
+		}
+
+}
 
 
-
-function OnCollisionEnter (hit: Collision) {
+private function stationTrigger(hitGO : GameObject) {
 
 	
-	if(hit.transform.gameObject != origin && effect.hasExploded == false)
-	{
+
+		var hitHS : Health = hitGO.GetComponent(Health);
 		
-		if(hit.transform.tag == "Ship")
+		if(hitHS.hasShield())
 		{
 			effect.hasExploded = true;
-			var hitHS : shipHealth = hit.gameObject.GetComponent(shipHealth);
-			hitHS.shipHealth.health -= status.hullDmg;
-			hitHS.shieldRegen.lastHit = Time.time;
+					
+			hitHS.getDamage(status.shieldDmg, false);
+			
 			Instantiate(effect.explosion, transform.position, transform.rotation);
 			Destroy(gameObject);
 		}
-		else if(hit.transform.tag == "Torpedoes")
+	
+
+
+
+}
+
+function OnCollisionEnter (hit: Collision) {
+	var go : GameObject = hit.gameObject;
+	Debug.Log(origin.name + "/" + go.name);
+	if(hit != origin && !effect.hasExploded)
+	{		
+		if(go.tag == "Ship")
+		{
+			shipCollision(go);
+		}
+		else if(go.tag == "Station") {
+			stationCollision(go);
+		}
+		else if(go.tag == "Torpedoes")
 		{
 			Destroy(gameObject);
 		}
 			
 	}
+
+}
+
+private function stationCollision(hit : GameObject) {
+	effect.hasExploded = true;
+	var hitHS : Health = hit.GetComponent(Health);
+	hitHS.getDamage(getDamage(false), false);
+	Instantiate(effect.explosion, transform.position, transform.rotation);
+	Destroy(gameObject);
+
+}
+
+private function shipCollision(hit : GameObject) {
+	effect.hasExploded = true;
+	var hitHS : shipHealth = hit.GetComponent(shipHealth);
+	hitHS.shipHealth.health -= getDamage(false);
+	hitHS.shieldRegen.lastHit = Time.time;
+	Instantiate(effect.explosion, transform.position, transform.rotation);
+	Destroy(gameObject);
 
 }
 
@@ -152,7 +195,8 @@ function setTarget(target : GameObject) {
 //this method sets the origin
 //pre origin != null
 function setOrigin(origin : GameObject) {
-	this.origin = origin.transform.parent.parent.parent.gameObject;
+	this.origin = getParent(origin.transform).gameObject;
+	
 }
 
 function getDamage(isShield : boolean) : float {
@@ -167,8 +211,9 @@ function getDamage(isShield : boolean) : float {
 
 private function getParent(trans : Transform) : Transform {
 		var par : Transform = trans;
-	
+		
 		while(par.parent) {
+			
 			par = par.parent.transform;
 		}
 		

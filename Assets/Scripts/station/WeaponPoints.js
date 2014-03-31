@@ -78,7 +78,13 @@ public class WeaponPoints extends Object { //added this so I could use the const
 		}
 		
 		if(targetCache.Length > 0) {
-			target = this.pickClosest(origin.transform);
+			if(!target) {
+				target = this.pickClosest(origin.transform);
+			} else {
+				if(isInRange(target, origin)) {
+					target = this.pickClosest(origin.transform);
+				}
+			}
 		}
 	
 	}
@@ -87,6 +93,12 @@ public class WeaponPoints extends Object { //added this so I could use the const
 	//pre weapon != null	
 	private function getRange() : float {
 		return weapon.GetComponent(weaponScript).getRange();
+	
+	}
+	
+	private function isInRange(target : GameObject, origin : GameObject) : boolean {
+		var rng : float = getRange();
+		return rng * rng <= (target.transform.position - origin.transform.position).sqrMagnitude; 
 	
 	}
 	
@@ -131,12 +143,17 @@ public class WeaponPoints extends Object { //added this so I could use the const
 		var closest : GameObject = targetCache[0];
 		
 		for(var x : int = 1; x < targetCache.Length; x++) {
+			if(!closest) {
 			
-			var distance1 : float = (closest.transform.position - origin.position).sqrMagnitude;
-			var distance2 : float = (targetCache[x].transform.position - origin.position).sqrMagnitude;
-			
-			if(distance2 < distance1) {
 				closest = targetCache[x];
+			
+			}else if(targetCache[x]) {
+				var distance1 : float = (closest.transform.position - origin.position).sqrMagnitude;
+				var distance2 : float = (targetCache[x].transform.position - origin.position).sqrMagnitude;
+				
+				if(distance2 < distance1) {
+					closest = targetCache[x];
+				}
 			}
 			
 		}

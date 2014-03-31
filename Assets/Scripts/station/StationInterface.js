@@ -27,7 +27,8 @@ private var mainCam : Camera;
 private var camScript : MouseOrbit;
 private var general : GeneralInfo;
 private var health : Health;
-
+private var hud : HUDStatus;
+private var inv : Inventory;
 
 
 
@@ -38,7 +39,9 @@ function Start () {
 	camScript = mainCam.GetComponent(MouseOrbit);
 	general = GameObject.FindGameObjectWithTag("SaveGame").GetComponent(GeneralInfo);
 	health  = gameObject.GetComponent(Health);
-	gui.setWindow(health, this);
+	inv = GameObject.FindGameObjectWithTag("SaveGame").GetComponent(Inventory);
+	gui.setWindow(health, this, inv);
+	hud = GameObject.FindGameObjectWithTag("GlobalInfo").GetComponent(HUDStatus);
 	
 }
 
@@ -47,7 +50,11 @@ function Update () {
 }
 
 function OnGUI() {
+	if(hud.isShowingGui()) guiFunction();
+	
+}
 
+function guiFunction() {
 	drawLabel();
 
 	if(gui.isOn()) {
@@ -57,18 +64,20 @@ function OnGUI() {
 
 function drawLabel() {
 	var pos : Vector3 = mainCam.WorldToScreenPoint(transform.position);
-	var player : GameObject = camScript.target.gameObject;
-	if(isOnScreen(pos)) {
-		radar.Draw(pos, player, general);
-	} else {
-	
+	if(camScript.target) {
+		var player : GameObject = camScript.target.gameObject;
+		if(isOnScreen(pos)) {
+			radar.Draw(pos, player, general);
+		} else {
+		
+		}
 	}
 	
 	
 }
 
 function isOnScreen(cood : Vector3) : boolean {
-	return cood.x > 0 && cood.x < 1 && cood.y > 0 && cood.y < 1 && cood.z > 0;
+	return cood.x > 0 && cood.x < Screen.width && cood.y > 0 && cood.y < Screen.height && cood.z > 0;
 }
 
 function getStore(mode : StoreMode) {

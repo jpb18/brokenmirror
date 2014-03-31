@@ -77,8 +77,6 @@ public function fire (weaponNum : int, type : WeaponType) {
 //pre 0 <= weaponNum < getLength()
 public function scan (weaponNum : int, type : WeaponType, enemyList : int[]) {
 	
-	
-	
 	switch(type) {
 		case WeaponType.beam:
 			if(phaser != null && !phaserPoints[weaponNum].hasTarget()) {

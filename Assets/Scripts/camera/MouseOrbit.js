@@ -62,10 +62,34 @@ function LateUpdate () {
 	    	
 	    	
     	}
+    	
+    	calcDistance();
+    	
+    } else {
+    
+    	rotateCam();
+    
     }
     
-    calcDistance();
     
+    
+}
+
+function rotateCam() {
+
+	if(Input.GetAxis("camSpace")) //Check status of "camSpace" Input Axis
+	{
+		//update coordinates
+		x += Input.GetAxis("Mouse X") * xSpeed * 0.02;
+		y -= Input.GetAxis("Mouse Y") * ySpeed * 0.02;
+	}
+
+	y = ClampAngle(y, yMinLimit, yMaxLimit);
+	
+	
+	
+	transform.rotation = Quaternion.Euler(y, x, 0);
+
 }
 
 function camScript() {

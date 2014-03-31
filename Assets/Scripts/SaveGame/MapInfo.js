@@ -179,18 +179,23 @@ var warpWait : float = 1.0f;;
 private var areaRect : Rect;
 
 private var message : ShowMessage;
-
+private var hud : HUDStatus;
 
 
 function Start() {
 
 	message = GameObject.FindGameObjectWithTag("ShowMessage").GetComponent(ShowMessage);
+	hud = GameObject.FindGameObjectWithTag("GlobalInfo").GetComponent(HUDStatus);
 
 }
 
 function OnGUI () {
+		
+	if(hud.isShowingGui()) guiFunction();
 	
-	
+}
+
+function guiFunction() {
 	//now we check the isMap value
 	
 	if(isMap) { //if its true, prepare to draw the map
@@ -198,12 +203,6 @@ function OnGUI () {
 		drawMap();	
 		
 	}
-	
-	
-	
-	
-	
-	
 }
 
 //this function draws the map

@@ -16,13 +16,14 @@ var reentryParticles : GameObject;
 function Start () {
 
 	properties = gameObject.GetComponent(shipProperties);
-	reentryParticles = gameObject.Find("ParticleSystems/reentry_particles");
+	reentryParticles = getReentryParticles();
 	reentryParticles.particleSystem.Play();
 	reentryParticles.particleSystem.enableEmission = false;
 	
 	
 
 }
+
 
 function Update () {
 	reentry();
@@ -82,5 +83,20 @@ function reentry() {
 		reentryParticles.particleSystem.enableEmission = false;
 	}
 
+
+}
+
+function getReentryParticles () : GameObject {
+	var particles : GameObject[] = GameObject.FindGameObjectsWithTag("reentry");
+	var particle : GameObject;
+	
+	for(var part : GameObject in particles) {
+		if(part.transform.parent.parent.gameObject == gameObject) {
+			particle = part;
+		}
+	
+	}
+	
+	return particle;
 
 }

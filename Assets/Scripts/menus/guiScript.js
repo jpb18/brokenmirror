@@ -411,8 +411,10 @@ class CommDialogue  {
 		camScript.target = target.transform;
 		
 		target.GetComponent(shipTarget).target = null;
-		target.GetComponent(shipTarget).target = null;
+		player.GetComponent(shipTarget).target = null;
 		player.GetComponent(shipTarget).repeatClick = false;
+		
+		close();
 		
 	}
 	
@@ -441,6 +443,8 @@ class RadarLabel {
 	private var className : String;
 	
 	var skin : GUISkin;
+	
+	public static final var KM : float = 1000.0f; 
 	
 	//this draws the label
 	//pre: target != null && position.z > 0
@@ -555,7 +559,7 @@ class RadarLabel {
 	
 	function getDistance(player : GameObject) : int {
 		
-		return Vector3.Distance(target.transform.position, player.transform.position);
+		return Vector3.Distance(target.transform.position, player.transform.position) * KM;
 	
 	}
 	
@@ -633,6 +637,7 @@ var shipTar : shipTarget;
 var mapInfo : MapInfo;
 var loadScene : LoadScene;
 var general : GeneralInfo;
+var hud : HUDStatus;
 
 //main camara
 var mainCam : Camera;
@@ -648,7 +653,7 @@ function Start () {
 	shipTar = gameObject.GetComponent(shipTarget);
 	mapInfo = GameObject.FindGameObjectWithTag("MapInfo").GetComponent(MapInfo);
 	loadScene = GameObject.FindGameObjectWithTag("LoadScene").GetComponent(LoadScene);
-	
+	hud = GameObject.FindGameObjectWithTag("GlobalInfo").GetComponent(HUDStatus);
 	
 	//reset loadScene status
 	loadScene.show = false;
@@ -664,8 +669,14 @@ function Start () {
 
 function OnGUI () {
 
+	if(hud.isShowingGui())	guiFunction();
+	
+
+}
+
+function guiFunction() {
 	//fixed gui stuff
-	if(shipProps.playerProps.isPlayer && !loadScene.show) //2nd part is temporary
+	if(shipProps.playerProps.isPlayer)
 	{
 		BotGUI();
 		TopGUI();
@@ -678,16 +689,17 @@ function OnGUI () {
 	//non player labels
 	if(!shipProps.playerProps.isPlayer) 
 	{
-		var player : GameObject = camScript.target.gameObject;
-	
-		var pos : Vector3 = mainCam.WorldToScreenPoint(transform.position);
-		if(pos.z > 0) {
-			radarLabel.Draw(pos, player, general);
+		if(camScript.target) {
+			var player : GameObject = camScript.target.gameObject;
+		
+		
+			var pos : Vector3 = mainCam.WorldToScreenPoint(transform.position);
+			if(pos.z > 0) {
+				radarLabel.Draw(pos, player, general);
+			}
 		}
 		
 	}
-	
-
 }
 
 //Bottom GUI
@@ -902,7 +914,7 @@ function weaponModule() {
 		CreateWeapButton(shipWeap.torp1, HudSkin, Weapon.weap_area[1]);
 		
 		//third button - torpedo 2
-		CreateWeapButton(shipWeap.torp1, HudSkin, Weapon.weap_area[1]);
+		CreateWeapButton(shipWeap.torp2, HudSkin, Weapon.weap_area[2]);
 		
 		
 		
