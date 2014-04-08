@@ -1,43 +1,10 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\ship\shipWeapons.js">
+  <MonoDevelop.Ide.Workspace />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\SaveGame\HUDStatus.js">
     <Files>
-      <File FileName="Assets\Scripts\menus\guiScript.js" Line="366" Column="1" />
-      <File FileName="Assets\Scripts\SaveGame\GeneralInfo.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\SaveGame\LoadScene.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\SaveGame\HUDStatus.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\menus\guiScript.js" Line="556" Column="3" />
-      <File FileName="Assets\Scripts\SaveGame\MapInfo.js" Line="194" Column="39" />
-      <File FileName="Assets\Scripts\station\Station.js" Line="6" Column="24" />
-      <File FileName="Assets\Scripts\station\Health.js" Line="60" Column="10" />
-      <File FileName="Assets\Scripts\ship\shipWeapons.js" Line="256" Column="49" />
+      <File FileName="Assets\Scripts\menus\ShowMessage.js" Line="112" Column="34" />
+      <File FileName="Assets\Scripts\SaveGame\HUDStatus.js" Line="10" Column="1" />
     </Files>
-    <Pads>
-      <Pad Id="ProjectPad">
-        <State expanded="True">
-          <Node name="Assembly-UnityScript" expanded="True">
-            <Node name="Scripts" expanded="True">
-              <Node name="menus" expanded="True" />
-              <Node name="SaveGame" expanded="True" />
-              <Node name="ship" expanded="True">
-                <Node name="shipWeapons.js" selected="True" />
-              </Node>
-              <Node name="station" expanded="True" />
-              <Node name="weapons" expanded="True" />
-            </Node>
-          </Node>
-        </State>
-      </Pad>
-      <Pad Id="ClassPad">
-        <State expanded="True" selected="True" />
-      </Pad>
-      <Pad Id="MonoDevelop.Debugger.WatchPad">
-        <State />
-      </Pad>
-      <Pad Id="MonoDevelop.NUnit.TestPad">
-        <State expanded="True" selected="True" />
-      </Pad>
-    </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />

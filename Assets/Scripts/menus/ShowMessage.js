@@ -54,6 +54,7 @@ var view : ViewProps;
 var messageProps : MessageProps;
 var isGame : boolean = false;
 var loadScene : LoadScene;
+var hud : HUDStatus;
 
 class ViewProps {
 	var width : int;
@@ -102,12 +103,13 @@ class MessageProps {
 
 function Start () {
 	loadScene = GameObject.FindGameObjectWithTag("LoadScene").GetComponent(LoadScene);
+	hud = GameObject.FindGameObjectWithTag("GlobalInfo").GetComponent(HUDStatus);
 }
 
 function OnGUI () {
 
 
-	if(isGame  && !loadScene.show) {
+	if(isGame  && hud.isShowingGui()) {
 		drawMessageWindow();
 	}
 }
