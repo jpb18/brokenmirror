@@ -117,3 +117,11 @@ function getDescription() : String {
 	return shipInfo.shipDescription;
 
 }
+
+function getName() : String {
+	return shipInfo.shipName;
+}
+
+function getFaction() : int {
+	return shipInfo.faction;
+}

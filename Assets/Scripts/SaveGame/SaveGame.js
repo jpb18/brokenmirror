@@ -1,7 +1,7 @@
 ﻿import System.Collections.Generic;
 #pragma strict
 
-class SaveShip extends System.Object {
+class SaveShip{
 	
 	var hasBeenSet : boolean = false;
 	
@@ -64,7 +64,7 @@ class SaveShip extends System.Object {
 	
 	//this function returns the ship stored here
 	function getShip() : GameObject {
-		var ship : GameObject = shipPrefab;
+		var ship : GameObject = GameObject.Instantiate(shipPrefab);
 			
 		//input information into
 		var shipProps : shipProperties = ship.GetComponent(shipProperties);
@@ -204,6 +204,8 @@ var start : SceneStart;
 
 var playShip : GameObject;
 
+var rangeToAutoCommand : int = 50.0f;
+
 static final var CLONE_NUM : int = 7; //number of chars in "(Clone)"
 
 function Start() {
@@ -213,11 +215,21 @@ function Start() {
 }
 
 function Update() {
+	changeFormation();
+	
+	if(Input.GetAxis("NearbyFleet")) {
+		makeNearFleet();
+	}
+	
+	
+
+}
+
+function changeFormation() {
 	if(Input.GetAxis("Formation") && changedFormation + pressWait < Time.time && show.isGame && !load.show) {
 		changeFormation(playerFleet, start.playerFleet);
 		changedFormation = Time.time;
 	}
-
 }
 
 function Save() {
@@ -304,6 +316,30 @@ function setFleetFormation (formation : Formation, fleet : List.<GameObject>) {
 		ship.GetComponent(ShipAI).formation = formation;
 	}
 
+}
+
+function makeNearFleet() {
+	
+	//lets start by getting the player ship
+	var player : GameObject = FindPlayerShip();
+
+	//now by getting all ships nearby that are owned by the player
+	var ships : GameObject[] = Statics.getNearbyOwnedShips(player.transform.position, rangeToAutoCommand, 0);
+	
+	//now lets set all ships to follow the player
+	for(var ship : GameObject in ships) {
+		
+		ship.GetComponent(ShipAI).setLeader(player);
+		Debug.Log("Gets here" + ship.GetComponent(shipProperties).getName());
+	}
+	
+	//and now set the new list in the fleet
+	playerFleet.clearList();
+	for(var ship : GameObject in ships) {
+		playerFleet.setShip(ship);
+	}
+	
+	
 }
 
 

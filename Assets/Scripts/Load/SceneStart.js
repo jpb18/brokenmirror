@@ -89,7 +89,9 @@ function spawnDefenseFleet() {
 	//now lets spawn it!
 	for(var x : int = 0; x < fleet.length; x++) {
 		
-		ship = Instantiate(fleet[x].getShip(), genSpawn(minRadius, maxRadius, transform.position), Random.rotation);
+		ship = fleet[x].getShip();
+		ship.transform.position =  genSpawn(minRadius, maxRadius, transform.position);
+		ship.transform.rotation = Random.rotation;
 		defenseFleet.Add(ship);
 		ship.GetComponent(ShipAI).setDefence();
 		ship.name = save_scr.RemoveClone(ship.name);
@@ -108,14 +110,13 @@ function playerStart() {
 	//get ship
 	playerShip = save_scr.playerShip.getShip();
 	//spawn game object looking at the planet
-	playerSpawn = genSpawn(minRadius, maxRadius, transform.position);
-	playerShip = Instantiate(playerShip, playerSpawn , Quaternion.identity);
+	playerShip.transform.position = genSpawn(minRadius, maxRadius, transform.position);
+	playerShip.transform.rotation = Quaternion.identity;
 	playerShip.transform.LookAt(transform.position);
 	playerDir = playerShip.transform.rotation;
 	
 	//sanitize name
 	playerShip.name = save_scr.RemoveClone(playerShip.name);
-	
 	
 
 	
@@ -139,7 +140,9 @@ function spawnPlayerFleet() {
 	var botShip : GameObject;
 	for(var x : int = 0; x < size; x++) {
 		shipSpawn = genSpawn(botMinRadius, botMaxRadius, playerSpawn);
-		botShip = Instantiate(save_scr.playerFleet.getShip(x), shipSpawn, playerDir);
+		botShip = save_scr.playerFleet.getShip(x);
+		botShip.transform.rotation = playerDir;
+		botShip.transform.position = shipSpawn;
 		botShip.name = save_scr.RemoveClone(botShip.name);
 		botShip.GetComponent(ShipAI).setLeader(playerShip);
 		playerFleet.Add(botShip);
