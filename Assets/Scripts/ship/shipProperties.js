@@ -32,6 +32,7 @@ class ShipHealthProps {
 
 class ShipProps {
 	var shipStrenght : float; //this var contains the ship strenght... Used in AI, and calculating fleet and planet strenght
+	
 }
 
 class ShipModifiers {
@@ -60,9 +61,14 @@ var shipProps : ShipProps;
 var shipModifiers : ShipModifiers;
 var shipInfo : ShipInfo;
 var combatStatus : ShipCombatStatus;
+var cam : MouseOrbit;
 
 var lastMap : float;
 var waitMap : float = 0.2f;
+
+function Start() {
+	cam = Camera.main.gameObject.GetComponent(MouseOrbit);
+}
 
 function Update() {
 
@@ -103,6 +109,12 @@ function getPlayer() : boolean {
 
 }
 
+function setPlayer(isPlayer : boolean) {
+	playerProps.isPlayer = isPlayer;
+	
+	
+
+}
 
 function getStoreImage() : Texture {
 	return shipInfo.storeImg;
@@ -125,3 +137,4 @@ function getName() : String {
 function getFaction() : int {
 	return shipInfo.faction;
 }
+

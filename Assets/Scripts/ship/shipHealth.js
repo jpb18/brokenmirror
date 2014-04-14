@@ -42,6 +42,7 @@ class ShieldRegeneration {
 }
 
 var shipHealth : ship_Health;
+var escape : shipEscapePods;
 var shieldShow : ShieldsShow;
 var shieldRegen : ShieldRegeneration;
 var properties : shipProperties;
@@ -82,6 +83,9 @@ function Start () {
 		}
 	}
 	
+	//get escape pod script
+	escape = gameObject.GetComponent(shipEscapePods);
+	
 
 }
 
@@ -120,12 +124,41 @@ function Die () {
 
 	if (shipHealth.health <= 0)
 	{
+		instantiatePods();
 		Instantiate(explosion, transform.position, transform.rotation);
 		Destroy(gameObject);
 		
 		
 	}
 	
+
+}
+
+function instantiatePods() {
+	var isPlayer : boolean = properties.getPlayer();
+	if(!escape.isEscapePod()) {
+		while(escape.hasEscapePod()) {
+			var pos : Vector3 = calculatePosition(transform.position, 1.0f);
+			var obj : GameObject = escape.instantiateEscapePod(pos, Random.rotation);
+			if(isPlayer) {
+				obj.GetComponent(shipProperties).setPlayer(isPlayer);
+				Camera.main.GetComponent(MouseOrbit).target = obj.transform;
+				isPlayer = false;
+			}
+		}
+	}
+
+}
+
+function calculatePosition(position : Vector3, drift : float) : Vector3{
+
+	var v : Vector3 = Random.insideUnitSphere;
+	
+	for(var i : int = 0;  i < 3; i++) {
+		v[i] = v[i] * drift;
+	}
+	
+	return v + position;
 
 }
 
