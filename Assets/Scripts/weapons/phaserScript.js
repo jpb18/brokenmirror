@@ -15,6 +15,7 @@ var target : GameObject;
 
 
 function Update() {
+	changeSoundFocus();
 	if(!origin || !target) {
 		Destroy(gameObject);
 	
@@ -31,6 +32,10 @@ function setRenderer(origin : Vector3, target : Vector3) {
 	line_renderer.SetPosition(0, origin);
 	line_renderer.SetPosition(0, target);
 
+}
+
+function changeSoundFocus() {
+	transform.position = origin.transform.position;
 }
 
 

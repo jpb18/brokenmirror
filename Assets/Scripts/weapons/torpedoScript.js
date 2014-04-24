@@ -23,15 +23,7 @@ var origin : GameObject; //origin ship
 var launched : float; //launch time
 var isSpread : boolean = false; //checks if the torpedo is already a spread
 
-function Start () {
-	if(target)
-	{	
-		transform.LookAt(target.transform);
-	}
 
-	rigidbody.velocity = status.speed * transform.forward * Time.deltaTime;
-	launched = Time.time;
-}
 
 function FixedUpdate () {
 	
@@ -69,7 +61,25 @@ function HomeIn() {
 }
 
 
+function OnEnable() {
+	var audio : AudioSource = gameObject.GetComponent(AudioSource);
+	audio.Play();
+	
+	
+	if(target)
+	{	
+		transform.LookAt(target.transform);
+	}
 
+
+	rigidbody.velocity = status.speed * transform.forward * Time.deltaTime;
+	
+	launched = Time.time;
+	effect.hasExploded = false;
+	
+	
+	
+}
 
 
 function OnTriggerEnter(hit : Collider) {
@@ -185,6 +195,10 @@ private function shipCollision(hit : GameObject) {
 	Instantiate(effect.explosion, transform.position, transform.rotation);
 	Destroy(gameObject);
 
+}
+
+function Destroy(obj : GameObject) {
+	obj.SetActive(false);
 }
 
 //this method set the target

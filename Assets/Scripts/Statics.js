@@ -236,3 +236,5 @@ static function getNearbyOwnedShips(own : Vector3, range : float, faction : int)
 	return returnList.ToArray();
 
 } 
+
+

@@ -57,6 +57,7 @@
      <Compile Include="Assets\Scripts\Load\SceneStart.js" />
      <Compile Include="Assets\Scripts\Load\dontDestroy.js" />
      <Compile Include="Assets\Scripts\Load\sceneSwapper.js" />
+     <Compile Include="Assets\Scripts\Pooler\ObjectPooler.js" />
      <Compile Include="Assets\Scripts\SaveGame\GeneralInfo.js" />
      <Compile Include="Assets\Scripts\SaveGame\HUDStatus.js" />
      <Compile Include="Assets\Scripts\SaveGame\Inventory.js" />

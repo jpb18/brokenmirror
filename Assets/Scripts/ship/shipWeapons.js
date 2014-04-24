@@ -258,10 +258,13 @@ class Torpedo {
 		nextShot = Time.time + getCooldown() * num;
 		
 		for(var x : int = 0; x < num; x++) {
-			var torp : GameObject = GameObject.Instantiate(torpedo, torpedoPoint.transform.position, torpedoPoint.transform.rotation);
+			var torp : GameObject = getPooledWeapon();
+			
+			torp.transform.position = torpedoPoint.transform.position;
 			var ws : weaponScript = torp.GetComponent(weaponScript);
 			ws.setTarget(target);
 			ws.setOrigin(torpedoPoint);
+			torp.SetActive(true);
 			yield WaitForSeconds(rate);
 		}
 	
@@ -288,6 +291,21 @@ class Torpedo {
 	
 	function getDamage() : float {
 		return torpedo.GetComponent(phaserScript).damage;
+	
+	}
+	
+	function getPooledWeapon() : GameObject {
+		var pools : GameObject[] = GameObject.FindGameObjectsWithTag("Pooler");
+		var pool : GameObject = null;
+		var i : int = 0;
+		while(i < pools.Length && pool == null) {
+			if(pools[i].GetComponent(ObjectPooler).equals(torpedo)) {
+				pool = pools[i];
+			}
+			i++;
+		}
+		
+		return pool.GetComponent(ObjectPooler).getObject();
 	
 	}
 
