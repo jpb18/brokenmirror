@@ -54,7 +54,7 @@ class StationGui {
 	
 	
 	
-	private function drawClose(skin : GUISkin) : boolean {
+	private function drawClose(skin : GUISkin) {
 	
 		if(GUI.Button(close_bt, "x", skin.GetStyle("StationClose"))) {
 			setOff();
@@ -156,7 +156,7 @@ class StationStore {
 	}
 	
 	private function buyItem(inv : Inventory, item : GameObject) {
-		if(inv.isFull) {
+		if(!inv.isFull()) {
 			inv.addItem(item);
 		}
 	}

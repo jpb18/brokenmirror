@@ -31,7 +31,7 @@ function Update() {
 	parent.LookAt(mainCam.transform.position);
 	
 	//set renderer
-	renderer.active = !shipProps.playerProps.isPlayer;
+	renderer.enabled = !shipProps.playerProps.isPlayer;
 	
 	
 

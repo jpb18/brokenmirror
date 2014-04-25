@@ -18,7 +18,7 @@ private function hasObjectAvailable() : boolean {
 	var has : boolean = false;
 	var i : int = 0;
 	while(i < number && !has) {
-		has = objects[i].activeInHierarchy;	
+		has = !objects[i].activeInHierarchy;	
 		i++;
 	}
 	

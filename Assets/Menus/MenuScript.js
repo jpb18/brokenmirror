@@ -54,7 +54,7 @@ function getMouseOver() {
 }
 
 function setMouseOver(i : int) {
-	if(!rolls[i].active) {
+	if(!rolls[i].activeInHierarchy) {
 		hideRoll();
 		rolls[i].SetActive(true);
 		lights[i].SetActive(true);
@@ -93,6 +93,8 @@ function FixedUpdate() {
 			//get show message script
 			var show : ShowMessage = GameObject.FindGameObjectWithTag("ShowMessage").GetComponent(ShowMessage);
 			show.setGame();
+			var music : PlaybackScript = GameObject.FindGameObjectWithTag("OST").GetComponent(PlaybackScript);
+			music.startPlaying();
 			Application.LoadLevel ("Start");
 	}
 

@@ -21,7 +21,7 @@ private var mapScr : MapInfo;
 private var planet : PlanetInfo;
 private var message : ShowMessage;
 private var general : GeneralInfo;
-
+private var music : PlaybackScript;
 
 private var isInvasion : boolean = false;
 private var isInvaded : boolean = false;
@@ -42,6 +42,7 @@ var fleetSize : int;
 
 function Start () {
 	//set SaveGame start
+	music = GameObject.FindGameObjectWithTag("OST").GetComponent(PlaybackScript);
 	general = GameObject.FindGameObjectWithTag("SaveGame").GetComponent(GeneralInfo);
 	message = GameObject.FindGameObjectWithTag("ShowMessage").GetComponent(ShowMessage);
 	save_scr = GameObject.FindGameObjectWithTag("SaveGame").GetComponent(SaveGame);
@@ -54,6 +55,13 @@ function Start () {
 	spawnPlayerFleet();
 	spawnStations();
 	
+	if(isPlayerEnemy()) {
+		if(!music.getStatus(PlaybackStatus.HOSTILE)) music.setStatus(PlaybackStatus.HOSTILE);
+	} else if (isPlayerAlly()) {
+		if(!music.getStatus(PlaybackStatus.GOOD)) music.setStatus(PlaybackStatus.GOOD);
+	} else {
+		if(!music.getStatus(PlaybackStatus.NEUTRAL)) music.setStatus(PlaybackStatus.NEUTRAL);
+	}
 	
 	//set new message
 	message.AddMessage(mapScr.buildSceneLoadMessage());
@@ -65,14 +73,14 @@ function Update () {
 	if(!isInvasion && Time.time > lastCheck + enemyInterval) {
 		if(genRandom(maxProb) <= prob) {
 			setInvasion();
-			
+			if(!music.getStatus(PlaybackStatus.HOSTILE)) music.setStatus(PlaybackStatus.HOSTILE);	
 		} 
 		lastCheck = Time.time;
 	}
 	
 	if(isInvasion && !isInvaded && Time.time > spawnTime) {
 		spawnInvasion();
-			
+		
 	}
 	
 
@@ -293,5 +301,33 @@ function setFleet(fleetSetup : List.<GameObject>) : List.<GameObject> {
 function getEnemies() : int[] {
 	return general.getFactionInfo(planet.faction).hostileFactions;
 
+}
+
+function getAllies() : int[] {
+	return general.getFactionInfo(planet.faction).alliedFactions;
+}
+
+function isPlayerEnemy() : boolean {
+	var itis : boolean = false;
+	var enemies : int[] = getEnemies();
+	var i : int = 0;
+	while(i < enemies.Length && !itis) {
+		itis = enemies[i] == 0;
+		i++;
+	}
+	
+	return itis;
+}
+
+function isPlayerAlly() : boolean {
+	var itis : boolean = false;
+	var allies : int[] = getAllies();
+	var i : int = 0;
+	while(i < allies.Length && !itis) {
+		itis = allies[i] == 0;
+		i++;
+	}
+	
+	return itis;
 }
 

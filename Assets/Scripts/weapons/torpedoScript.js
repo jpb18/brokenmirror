@@ -28,7 +28,6 @@ var isSpread : boolean = false; //checks if the torpedo is already a spread
 function FixedUpdate () {
 	
 	calc_range();
-	HomeIn();
 	CheckTTargetAndOrigin();
 	
 
@@ -45,7 +44,7 @@ function CheckTTargetAndOrigin () {
 
 function calc_range() {
 	var time_passed : int = Time.time - launched;
-	var distance_made : int = time_passed * status.speed * Time.deltaTime;
+	var distance_made : int = time_passed * status.speed;
 	
 	if (distance_made >= status.range)
 	{
@@ -54,11 +53,7 @@ function calc_range() {
 
 }
 
-function HomeIn() {
-	rigidbody.velocity = status.speed * transform.forward * Time.deltaTime;
-	
 
-}
 
 
 function OnEnable() {
@@ -72,7 +67,7 @@ function OnEnable() {
 	}
 
 
-	rigidbody.velocity = status.speed * transform.forward * Time.deltaTime;
+	rigidbody.velocity = status.speed * transform.forward;
 	
 	launched = Time.time;
 	effect.hasExploded = false;
@@ -159,7 +154,7 @@ private function stationTrigger(hitGO : GameObject) {
 
 function OnCollisionEnter (hit: Collision) {
 	var go : GameObject = hit.gameObject;
-	Debug.Log(origin.name + "/" + go.name);
+	
 	if(hit != origin && !effect.hasExploded)
 	{		
 		if(go.tag == "Ship")

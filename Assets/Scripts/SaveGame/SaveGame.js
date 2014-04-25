@@ -119,7 +119,7 @@ class SaveShip{
 		shipInv.torp2 = shipWea.torp2.torpedo;
 		
 		//now get load a prefab for this ship
-		shipPrefab = Resources.Load(ship.name);
+		shipPrefab = Resources.Load(ship.name) as GameObject;
 		
 	}
 	
@@ -221,6 +221,9 @@ function Update() {
 		makeNearFleet();
 	}
 	
+	if(!playShip) {
+		playShip = FindPlayerShip();
+	}
 	
 
 }

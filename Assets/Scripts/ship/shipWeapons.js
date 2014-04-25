@@ -215,7 +215,7 @@ class Phaser {
 	
 	}
 	
-	function setLastShot() : float {
+	function setLastShot() {
 		lastShot = Time.time;
 	}
 	
@@ -259,13 +259,16 @@ class Torpedo {
 		
 		for(var x : int = 0; x < num; x++) {
 			var torp : GameObject = getPooledWeapon();
-			
-			torp.transform.position = torpedoPoint.transform.position;
-			var ws : weaponScript = torp.GetComponent(weaponScript);
-			ws.setTarget(target);
-			ws.setOrigin(torpedoPoint);
-			torp.SetActive(true);
+			if(torp) {
+				torp.transform.position = torpedoPoint.transform.position;
+				var ws : weaponScript = torp.GetComponent(weaponScript);
+				ws.setTarget(target);
+				ws.setOrigin(torpedoPoint);
+				torp.SetActive(true);
 			yield WaitForSeconds(rate);
+			} else {
+				Debug.LogWarning(torpedoPoint.transform.parent.parent.parent.name + "Isn't getting any torpedo!");
+			}
 		}
 	
 	}
@@ -391,12 +394,16 @@ function phaserFunction() {
 }
 
 function hasWeaponInRange(target : GameObject) : boolean {
-
+		
 	return hasPhaserInRange(target) || hasTorpedoInRange(target);
 }
 
 function hasPhaserInRange(target : GameObject) : boolean {
-	return phaser.canRangeAndAngle(target);
+	var has : boolean = false;
+	if(phaser.isEnabled) {
+		has = phaser.canRangeAndAngle(target);
+	}
+	return has;
 }
 
 function hasTorpedoInRange(target : GameObject) : boolean {

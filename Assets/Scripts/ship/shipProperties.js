@@ -138,3 +138,7 @@ function getFaction() : int {
 	return shipInfo.faction;
 }
 
+function setFaction(fac : int) {
+	shipInfo.faction = fac;
+}
+

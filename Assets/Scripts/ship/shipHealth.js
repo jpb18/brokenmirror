@@ -225,24 +225,25 @@ function PlasmaLeak() {
 }
 
 function ShieldShow () {
-	
-	if (Time.time <= shieldShow.lastHit + shieldShow.showDur && shield.renderer.enabled == true && shieldShow.lastHit != 0)
-	{
-		var totTime : float = shieldShow.showDur + shieldShow.lastHit;
-		var remTime : float = totTime - Time.time;
+	if(shield) {
+		if (Time.time <= shieldShow.lastHit + shieldShow.showDur && shield.renderer.enabled == true && shieldShow.lastHit != 0)
+		{
+			var totTime : float = shieldShow.showDur + shieldShow.lastHit;
+			var remTime : float = totTime - Time.time;
+			
+			
+			
+			var alpha : float = (1 * remTime)/shieldShow.showDur;
+			
+			shield.renderer.material.color.a = alpha;
+			
+			
 		
-		
-		
-		var alpha : float = (1 * remTime)/shieldShow.showDur;
-		
-		shield.renderer.material.color.a = alpha;
-		
-		
-	
-	}
-	else
-	{
-		shield.renderer.material.color.a = 0;
+		}
+		else
+		{
+			shield.renderer.material.color.a = 0;
+		}
 	}
 
 }

@@ -291,7 +291,7 @@ public class WeaponPoints extends Object { //added this so I could use the const
 	
 	}
 	
-	function setLastShot() : float {
+	function setLastShot() {
 		lastShot = Time.time;
 	}
 	

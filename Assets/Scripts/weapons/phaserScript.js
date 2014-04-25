@@ -15,11 +15,11 @@ var target : GameObject;
 
 
 function Update() {
-	changeSoundFocus();
+	
 	if(!origin || !target) {
 		Destroy(gameObject);
-	
 	}
+	if(origin) changeSoundFocus();
 
 }
 

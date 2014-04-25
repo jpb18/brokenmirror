@@ -8,10 +8,13 @@ private var resetIsPod : boolean;
 private var resetPodNumber : int;
 private var resetPod : GameObject;
 
+private var props : shipProperties;
+
 function Start() {
 	resetIsPod = isPod;
 	resetPodNumber = podNumber;
 	resetPod = pod;
+	props = gameObject.GetComponent(shipProperties);
 }
 
 function reset() {
@@ -34,7 +37,9 @@ function getEscapePod() : GameObject {
 
 function instantiateEscapePod(position : Vector3, rotation : Quaternion) : GameObject {
 	podNumber--;
-	return Instantiate(pod, position, rotation);
-	
+	var go : GameObject = Instantiate(pod, position, rotation);
+	var scr : shipProperties = go.GetComponent(shipProperties);
+	scr.setFaction(props.getFaction());	
+	return go;
 }
 

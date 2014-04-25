@@ -1,7 +1,7 @@
 ﻿#pragma strict
 //lets start by creating some enumerations
 enum Formation {close, standard, loose}
-enum ShipType {Frigate, AttackShip, Cruiser, BattleShip, Boss}
+enum ShipType {EscapePod, Frigate, AttackShip, Cruiser, BattleShip, Boss}
 
 
 //now le variables
@@ -70,6 +70,8 @@ function Update () {
 function botFunction() {
 	if(isDanger()) {
 	
+	} else if (isEscapePod()) {
+		//stay quiet (for the time being)
 	}
 	else if(hasLeader()) {
 		leaderFunction();	
@@ -823,4 +825,8 @@ function orbit() {
 	}
 
 
+}
+
+function isEscapePod() : boolean {
+	return type == ShipType.EscapePod;
 }

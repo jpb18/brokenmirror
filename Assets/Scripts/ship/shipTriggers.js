@@ -17,9 +17,10 @@ function Start () {
 
 	properties = gameObject.GetComponent(shipProperties);
 	reentryParticles = getReentryParticles();
-	reentryParticles.particleSystem.Play();
-	reentryParticles.particleSystem.enableEmission = false;
-	
+	if(reentryParticles) {
+		reentryParticles.particleSystem.Play();
+		reentryParticles.particleSystem.enableEmission = false;
+	}
 	
 
 }
@@ -72,15 +73,16 @@ function OnCollisionEnter(hit : Collision) {
 
 function reentry() {
 
-	
-	if(triggerProps.isTurbulence)
-	{
-		reentryParticles.particleSystem.enableEmission = true;
-				
-	}
-	else
-	{
-		reentryParticles.particleSystem.enableEmission = false;
+	if(reentryParticles) {
+		if(triggerProps.isTurbulence)
+		{
+			reentryParticles.particleSystem.enableEmission = true;
+					
+		}
+		else
+		{
+			reentryParticles.particleSystem.enableEmission = false;
+		}
 	}
 
 

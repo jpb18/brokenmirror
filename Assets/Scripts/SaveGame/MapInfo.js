@@ -136,7 +136,7 @@ class SaveStation extends System.Object{
 		faction = statS.faction;
 		
 		//set prefab
-		prefab = Resources.Load(station.name);
+		prefab = Resources.Load(station.name) as GameObject;
 	
 	}
 	
