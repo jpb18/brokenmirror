@@ -11,6 +11,9 @@ var speedChanged : boolean = false; //Checks if the speed has been changed in th
 var isChanging : boolean = false;
 var speedTarget : float;
 
+var redAlertSlowdown : float = 0.7f;
+
+
 class KeyControlMovemnt {
 	var KeyDelay : float = 0.2f;
 	var SpeedIncreaseKey : float;
@@ -32,7 +35,6 @@ private static final var WARP_SPEED : float = 500.0f;
 private static final var DRAG_DECEL : float = 10.0f;
 private static final var DRAG_DUR : float = 3.0f;
 var spawnTime : float;
-
 
 
 function Start () {
@@ -69,6 +71,10 @@ function Update () {
 	var shipSpeed : float = properties.movement.impulseSpeed * Time.deltaTime;
 	
 	var SpeedChange : float = speedStatus * shipSpeed;
+	
+	if(properties.getRedAlert()) {
+		SpeedChange = SpeedChange * getSpeedReduction();
+	}
 	
 	rigidbody.velocity = transform.forward * SpeedChange;
 	
@@ -222,7 +228,7 @@ function isAtMin() : boolean {
 //this function matches the ship speed with the target speed
 function matchSpeed(target : GameObject) {
 	var shipAcceleration : float = properties.movement.acceleration;
-	if(Mathf.Sqrt(Mathf.Pow(speedStatus, 2)) > shipAcceleration * Time.deltaTime) {
+	if(speedStatus * speedStatus > shipAcceleration * shipAcceleration * Time.deltaTime) {
 		if(Statics.isSlower(target, gameObject)) {
 			if(!isAtMax()) {
 				increaseSpeed();
@@ -278,3 +284,6 @@ function setWarp() {
 
 }
 
+function getSpeedReduction() : float {
+	return redAlertSlowdown;
+}
