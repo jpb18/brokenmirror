@@ -4,6 +4,7 @@
 var isOpen : boolean = false;
 var items : List.<GameObject>;
 var maxSize : int = 30;
+var credits : int = 5000;
 
 
 private var load : LoadScene;
@@ -49,4 +50,13 @@ function resize(addSlots : int) {
 
 	maxSize += addSlots;
 
+}
+
+function canBuy(cost : int) : boolean{
+
+	return cost <= credits;
+}
+
+function spendCredits(cost : int) {
+	credits -= cost;
 }

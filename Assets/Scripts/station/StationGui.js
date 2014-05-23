@@ -14,6 +14,7 @@ class StationGui {
 	private var info : StationInterface;
 	private var inv : Inventory;
 	
+	
 	var close_bt : Rect;
 	
 	function setWindow(health : Health, info : StationInterface, inv : Inventory) {
@@ -97,7 +98,7 @@ class StationStore {
 			
 			//Draw Store Buttons
 			var store : List.<GameObject> = info.getStore(mode);
-			storeButtons(store, skin, inv);
+			storeButtons(store, skin, inv, info);
 			mouseOver(store, skin);
 		
 		GUILayout.EndArea();
@@ -119,46 +120,75 @@ class StationStore {
 		}
 	}
 	
-	private function storeButtons(store : List.<GameObject>, skin : GUISkin, inv : Inventory) {
+	private function storeButtons(store : List.<GameObject>, skin : GUISkin, inv : Inventory, info : StationInterface) {
 		
 		
 		
 		for(var i :int = 0; i < store.Count; i++) {
 		
-			storeButton(store[i], store_buttons[i], skin, inv);
+			storeButton(store[i], store_buttons[i], skin, inv, info);
 		
 		}
 	
 	}
 	
-	private function storeButton(item : GameObject, rect : Rect, skin : GUISkin, inv : Inventory) {
+	private function storeButton(item : GameObject, rect : Rect, skin : GUISkin, inv : Inventory, info : StationInterface) {
 			
 		
 		if(GUI.Button(rect, getImage(item), skin.GetStyle("StoreButton"))) {
 		
-			buttonAction(inv, item);
+			buttonAction(inv, item, info);
 		
 		}
 		
 	
 	}
 	
-	private function buttonAction(inv : Inventory, item : GameObject) {
+	private function buttonAction(inv : Inventory, item : GameObject, info : StationInterface) {
 	
 		switch(mode) {
 		
 			case StoreMode.items:
-				buyItem(inv, item);
+				buyItem(inv, item, info);
+				break;
+			case StoreMode.ships:
+				buyShip(inv, item, info);
 				break;
 		
 		}
 	
 	}
 	
-	private function buyItem(inv : Inventory, item : GameObject) {
-		if(!inv.isFull()) {
+	private function buyItem(inv : Inventory, item : GameObject, info : StationInterface) {
+		var message : ShowMessage = info.getMessage();
+		if(inv.isFull()) {
+			
+			message.AddMessage("Inventory is full.");
+		} else if (!inv.canBuy(getPrice(item))) {
+			
+			message.AddMessage("Not enough credits.");
+		} else {
 			inv.addItem(item);
+			inv.spendCredits(getPrice(item));
 		}
+	}
+	
+	private function buyShip(inv : Inventory, item : GameObject, info : StationInterface) {
+		if (!inv.canBuy(getPrice(item))) {
+			var message : ShowMessage = info.getMessage();
+			message.AddMessage("Not enough credits.");
+		} else {
+			inv.spendCredits(getPrice(item));
+			
+			var newShip : GameObject = GameObject.Instantiate(item, info.genSpawnPos(), Quaternion.identity);
+			newShip.transform.LookAt(info.getPosition());
+			
+			var props : shipProperties = newShip.GetComponent(shipProperties);
+			props.setFaction(0);
+			props.setPlayer(false);
+		}
+		
+	
 	}
 	
 	private function getImage(item : GameObject) : Texture {
@@ -219,6 +249,7 @@ class StationStore {
 		
 		return name;
 	
+		
 	}
 	
 	private function getDescription(item : GameObject) : String {
@@ -234,12 +265,26 @@ class StationStore {
 	
 	}
 	
+	
+	private function getPrice(item : GameObject) : int {
+		var price : int = 0;
+		
+		if(item.tag == "Ship") {
+			price = item.GetComponent(shipProperties).getPrice();
+		} else if (item.tag == "Torpedoes" || item.tag == "Phaser") {
+			price = item.GetComponent(weaponScript). getPrice();		
+		}
+		
+		return price;
+	}
+	
 	private function mouseOver(store : List.<GameObject>, skin : GUISkin) {
 	
 		if(hasMouseOver(store.Count)) {
 			var num : int = getMouseOver(store.Count);
-			GUI.Label(name_label, getName(store[num]), skin.GetStyle("StationLabel"));
-			GUI.Label(desc_label, getDescription(store[num]), skin.GetStyle("StationLabel"));
+			var obj : GameObject = store[num];
+			GUI.Label(name_label, getName(obj) + " - " + getPrice(obj).ToString() + " cr", skin.GetStyle("StationLabel"));
+			GUI.Label(desc_label, getDescription(obj), skin.GetStyle("StationLabel"));
 		
 		}
 	

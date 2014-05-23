@@ -29,9 +29,16 @@ private var general : GeneralInfo;
 private var health : Health;
 private var hud : HUDStatus;
 private var inv : Inventory;
+private var message : ShowMessage;
+
+//Spawn position
+private var spawn : float = 5.0f;
 
 
 
+//cached stuff
+var trans : Transform;
+var go : GameObject;
 
 function Start () {
 	mainCam = Camera.main;
@@ -42,6 +49,8 @@ function Start () {
 	inv = GameObject.FindGameObjectWithTag("SaveGame").GetComponent(Inventory);
 	gui.setWindow(health, this, inv);
 	hud = GameObject.FindGameObjectWithTag("GlobalInfo").GetComponent(HUDStatus);
+	trans = transform;
+	message = GameObject.FindGameObjectWithTag("ShowMessage").GetComponent(ShowMessage);
 	
 }
 
@@ -63,7 +72,7 @@ function guiFunction() {
 }
 
 function drawLabel() {
-	var pos : Vector3 = mainCam.WorldToScreenPoint(transform.position);
+	var pos : Vector3 = mainCam.WorldToScreenPoint(trans.position);
 	if(camScript.target) {
 		var player : GameObject = camScript.target.gameObject;
 		if(isOnScreen(pos)) {
@@ -105,4 +114,20 @@ function getStore(mode : StoreMode) {
 
 function openGUI () {
 	gui.setOn();
+}
+
+function genSpawnPos() : Vector3 {
+	var cur : Vector3 = trans.position;
+	var sphere : Vector3 = Random.onUnitSphere * spawn;
+	
+	return sphere + cur;	
+				
+}
+
+function getPosition() : Vector3 {
+	return trans.position;
+}
+
+function getMessage() : ShowMessage {
+	return message;
 }

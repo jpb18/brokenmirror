@@ -32,7 +32,7 @@ class ShipHealthProps {
 
 class ShipProps {
 	var shipStrenght : float; //this var contains the ship strenght... Used in AI, and calculating fleet and planet strenght
-	
+	var baseCost : int; //this represents the base cost of the ship
 }
 
 class ShipModifiers {
@@ -140,5 +140,9 @@ function getFaction() : int {
 
 function setFaction(fac : int) {
 	shipInfo.faction = fac;
+}
+
+function getPrice() {
+	return shipProps.baseCost;
 }
 

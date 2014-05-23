@@ -5,6 +5,7 @@ var type : WeaponType;
 var firingAngle : float;
 var guiInfo : GuiInfo;
 var altRate : float;
+var baseCost : int;
 
 enum WeaponType {
 	beam,
@@ -162,4 +163,8 @@ function setOrigin(origin : GameObject) {
 	}
 
 
+}
+
+function getPrice() : int {
+	return baseCost;
 }

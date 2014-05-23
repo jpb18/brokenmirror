@@ -1,4 +1,5 @@
-﻿#pragma strict
+﻿
+#pragma strict
 //lets start by creating some enumerations
 enum Formation {close, standard, loose}
 enum ShipType {EscapePod, Frigate, AttackShip, Cruiser, BattleShip, Boss}
@@ -60,10 +61,14 @@ function Start () {
 }
 
 function Update () {
+	
 	if(!props.playerProps.isPlayer)
 	{
+		
 		botFunction();
+		
 	}
+	
 
 }
 
