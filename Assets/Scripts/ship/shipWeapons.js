@@ -260,7 +260,7 @@ class Torpedo {
 		for(var x : int = 0; x < num; x++) {
 			var torp : GameObject = getPooledWeapon();
 			if(torp) {
-				torp.transform.position = torpedoPoint.transform.position;
+				
 				var ws : weaponScript = torp.GetComponent(weaponScript);
 				ws.setTarget(target);
 				ws.setOrigin(torpedoPoint);

@@ -53,7 +53,7 @@ public function fire (weaponNum : int, type : WeaponType) {
 		
 		case WeaponType.beam:
 			if(phaserPoints[weaponNum].canFire()) {
-				StartCoroutine(phaserPoints[weaponNum].fire());
+				StartCoroutine(phaserPoints[weaponNum].fireBeam());
 			}
 			break;
 		case WeaponType.torpedo:

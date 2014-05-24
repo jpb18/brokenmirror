@@ -86,7 +86,7 @@ class StationStore {
 	var name_label : Rect;
 	var desc_label : Rect;
 	
-	var mode : StoreMode;
+	var mode : StoreMode = StoreMode.ships;
 	
 	function draw(info : StationInterface, skin : GUISkin, inv : Inventory) {
 		GUILayout.BeginArea(area);

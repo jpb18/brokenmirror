@@ -50,7 +50,7 @@ public class WeaponPoints extends Object { //added this so I could use the const
 		
 		if(getWeaponType() == WeaponType.beam) {
 		
-			fireBeam(target, point);
+			fireBeam();
 		
 		
 		} else if(getWeaponType() == WeaponType.torpedo) {
@@ -166,7 +166,8 @@ public class WeaponPoints extends Object { //added this so I could use the const
 	
 	}
 	
-	function fireBeam(target : GameObject, origin : GameObject) {
+	function fireBeam() {
+		lastShot = Time.time;
 		var rate : float = 1/duration;
 		var i : float = 0;
 		var phaserGO : GameObject;
@@ -174,7 +175,7 @@ public class WeaponPoints extends Object { //added this so I could use the const
 		while (i < 1) {
 			if(target){
 				i += rate * Time.deltaTime; 
-				var or : Vector3 = origin.transform.position;
+				var or : Vector3 = point.transform.position;
 				var ta : Vector3 = target.transform.position;
 				var dir : Vector3 = (ta - or).normalized;
 				var hit : RaycastHit;
@@ -303,11 +304,27 @@ public class WeaponPoints extends Object { //added this so I could use the const
 	
 	function fireTorpedo() {
 		
-		var torp : GameObject = GameObject.Instantiate(weapon, point.transform.position, point.transform.rotation);
+		var torp : GameObject = getPooledWeapon();
 		var ws : weaponScript = torp.GetComponent(weaponScript);
 		
 		ws.setTarget(target);
 		ws.setOrigin(point);
+		torp.SetActive(true);
+	}
+	
+	function getPooledWeapon() : GameObject {
+		var pools : GameObject[] = GameObject.FindGameObjectsWithTag("Pooler");
+		var pool : GameObject = null;
+		var i : int = 0;
+		while(i < pools.Length && pool == null) {
+			if(pools[i].GetComponent(ObjectPooler).equals(weapon)) {
+				pool = pools[i];
+			}
+			i++;
+		}
+		
+		return pool.GetComponent(ObjectPooler).getObject();
+	
 	}
 
 }

@@ -23,7 +23,8 @@ var origin : GameObject; //origin ship
 var launched : float; //launch time
 var isSpread : boolean = false; //checks if the torpedo is already a spread
 
-
+private var trans : Transform;
+private var go : GameObject;
 
 function FixedUpdate () {
 	
@@ -53,10 +54,15 @@ function calc_range() {
 
 }
 
+function Awake() {
+	trans = transform;
+	go = gameObject;
 
+}
 
 
 function OnEnable() {
+	
 	var audio : AudioSource = gameObject.GetComponent(AudioSource);
 	audio.Play();
 	
@@ -83,14 +89,16 @@ function OnTriggerEnter(hit : Collider) {
 	if(hit.tag == "Shields" && effect.hasExploded == false)
 	{
 		var hitGO : GameObject = getParent(hit.transform).gameObject;
-		if(hitGO != origin)
+		var e = origin.Equals(hitGO);
+		if(!e)
 		{
-			if (hitGO.tag == "Ship")
-			{
+			if (hitGO.tag == "Ship") {			
 				shipTrigger(hitGO);
 			} else if (hitGO.tag == "Station") {
 				stationTrigger(hitGO);
 			}
+		} else {
+			
 		}
 	
 	
@@ -204,6 +212,7 @@ function setTarget(target : GameObject) {
 //this method sets the origin
 //pre origin != null
 function setOrigin(origin : GameObject) {
+	trans.position = origin.transform.position;
 	this.origin = getParent(origin.transform).gameObject;
 	
 }
