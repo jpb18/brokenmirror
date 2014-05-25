@@ -138,9 +138,9 @@ class Phaser {
 				//get target health script
 				var ship : GameObject = getParent(hit.transform).gameObject;
 				if(ship.tag.Equals("Ship")) {
-				ship.GetComponent(shipHealth).damageShield(getDamage() * Time.deltaTime);
+					ship.GetComponent(shipHealth).damageShield(getDamage() * Time.deltaTime);
 				} else if (ship.tag.Equals("Station")) {
-				ship.GetComponent(Health).getDamage(getDamage() *  Time.deltaTime, true);
+					ship.GetComponent(Health).getDamage(getDamage() *  Time.deltaTime, true);
 				}
 				//get hit point
 				var point : Vector3 = hit.point;
