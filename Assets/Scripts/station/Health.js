@@ -52,7 +52,7 @@ function getDamage(damage : float, isEnergy : boolean) {
 private function getShieldDamage(damage : float, isEnergy : boolean) {
 	
 	if(isEnergy) {
-		damage -= shieldDissipation;
+		damage -= shieldDissipation * Time.deltaTime;
 	}
 	
 	if(shield >= damage) {

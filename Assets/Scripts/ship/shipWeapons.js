@@ -144,7 +144,7 @@ class Phaser {
 				}
 				//get hit point
 				var point : Vector3 = hit.point;
-				Debug.Log("Gets here");
+				//Debug.Log("Gets here");
 				//draw phaser
 				if(phaserGO == null) {
 					phaserGO = GameObject.Instantiate(phaser);
