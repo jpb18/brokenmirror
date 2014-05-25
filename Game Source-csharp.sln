@@ -29,7 +29,11 @@ Global
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
-																																																																					GlobalSection(MonoDevelopProperties) = preSolution
+<<<<<<< .working
+																																																																						GlobalSection(MonoDevelopProperties) = preSolution
+=======
+																																																																				GlobalSection(MonoDevelopProperties) = preSolution
+>>>>>>> .merge-right.r370
 		StartupItem = Assembly-CSharp.csproj
 		Policies = $0
 		$0.TextStylePolicy = $1
