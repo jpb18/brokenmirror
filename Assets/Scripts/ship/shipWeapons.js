@@ -54,8 +54,8 @@ class Phaser {
 		var point : GameObject;
 		var ws : weaponScript = phaser.GetComponent(weaponScript);
 		
-		for(var p : GameObject in phaserPoint) {
-			
+		for(var i : int = 0; i < phaserPoint.Count; i++) {
+			var p : GameObject = phaserPoint[i];
 			if(!point) {
 				if(ws.isRange(p, target) && ws.isAngle(p, target)) {
 					point = p;
@@ -91,6 +91,7 @@ class Phaser {
 		var i : float = 0;
 		var phaserGO : GameObject;
 		isFiring = true;
+		
 		while (i < 1) {
 			if(target){
 				i += rate * Time.deltaTime; 
@@ -100,6 +101,7 @@ class Phaser {
 				var hit : RaycastHit;
 				
 				if(hasTargetShield(target)) {
+					
 					phaserGO = fireShields(target, origin, or, dir, hit, phaserGO);
 				} else {
 					phaserGO = fireHull(target, origin, or, dir, hit, phaserGO);
@@ -116,23 +118,33 @@ class Phaser {
 	}
 	
 	private function hasTargetShield(target : GameObject) : boolean {
+		if(target.tag.Equals("Ship")) {
 		var health : shipHealth = target.GetComponent(shipHealth);
 		return health.isShieldUp();
+		} else if (target.tag.Equals("Station")) {
+		var shealth : Health = target.GetComponent(Health);
+		return shealth.hasShield();
+		
+		}
 			
 	}
 	//pre hasTargetShield()
 	private function fireShields(target : GameObject, origin : GameObject, or : Vector3, dir : Vector3, hit : RaycastHit, phaserGO : GameObject) : GameObject {
+		
 		if(Physics.Raycast(or, dir, hit, getRange(), shieldLayerMask)) {
 				
 		
 				//do phaser logic here
 				//get target health script
 				var ship : GameObject = getParent(hit.transform).gameObject;
+				if(ship.tag.Equals("Ship")) {
 				ship.GetComponent(shipHealth).damageShield(getDamage() * Time.deltaTime);
-				
+				} else if (ship.tag.Equals("Station")) {
+				ship.GetComponent(Health).getDamage(getDamage() *  Time.deltaTime, true);
+				}
 				//get hit point
 				var point : Vector3 = hit.point;
-				
+				Debug.Log("Gets here");
 				//draw phaser
 				if(phaserGO == null) {
 					phaserGO = GameObject.Instantiate(phaser);

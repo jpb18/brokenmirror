@@ -1,33 +1,34 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\weapons\torpedoScript.js">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\ship\shipWeapons.js">
     <Files>
       <File FileName="Assets\Scripts\weapons\torpedoScript.js" Line="53" Column="3" />
-      <File FileName="Assets\Scripts\ship\ShipAI.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\ship\ShipAI.js" Line="68" Column="1" />
       <File FileName="Assets\Scripts\SaveGame\GeneralInfo.js" Line="1" Column="1" />
       <File FileName="Assets\Scripts\SaveGame\Inventory.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\ship\shipProperties.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\ship\shipProperties.js" Line="77" Column="1" />
       <File FileName="Assets\Scripts\station\StationInterface.js" Line="1" Column="1" />
       <File FileName="Assets\Scripts\station\StationGui.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\weapons\weaponScript.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\weapons\weaponScript.js" Line="103" Column="1" />
       <File FileName="Assets\Scripts\menus\ShowMessage.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\station\StationWeapons.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\station\Station.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\station\WeaponPoints.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\ship\shipWeapons.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\weapons\torpedoScript.js" Line="59" Column="18" />
+      <File FileName="Assets\Scripts\ship\shipWeapons.js" Line="134" Column="18" />
+      <File FileName="Assets\Scripts\camera\screenshot.cs" Line="20" Column="1" />
+      <File FileName="Assets\Scripts\station\Health.js" Line="52" Column="69" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
+          <Node name="Assembly-CSharp" expanded="True">
+            <Node name="Scripts" expanded="True">
+              <Node name="camera" expanded="True" />
+            </Node>
+          </Node>
           <Node name="Assembly-UnityScript" expanded="True">
             <Node name="Scripts" expanded="True">
-              <Node name="menus" expanded="True" />
-              <Node name="SaveGame" expanded="True" />
-              <Node name="ship" expanded="True" />
-              <Node name="station" expanded="True">
-                <Node name="StationWeapons.js" selected="True" />
+              <Node name="ship" expanded="True">
+                <Node name="shipWeapons.js" selected="True" />
               </Node>
+              <Node name="station" expanded="True" />
               <Node name="weapons" expanded="True" />
             </Node>
           </Node>
