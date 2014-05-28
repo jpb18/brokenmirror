@@ -413,6 +413,12 @@ function goWarp(destiny : String) {
 	
 	//play warp anymation
 	//play sound first (future) and wait 1.0 seconds
+	
+	//fade camera out
+	var cam : Camera = Camera.main;
+	var fade : FadeInOut = cam.GetComponent(FadeInOut);
+	fade.fadeOut();
+	
 	//disableAllColliders(playerShip); //first disableAllColliders
 	WaitForSeconds(warpWait);
 	

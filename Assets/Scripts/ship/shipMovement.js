@@ -13,6 +13,7 @@ var speedTarget : float;
 
 var redAlertSlowdown : float = 0.7f;
 
+var impulseParticleSystem : ParticleSystem;
 
 class KeyControlMovemnt {
 	var KeyDelay : float = 0.2f;
@@ -37,14 +38,22 @@ private static final var DRAG_DUR : float = 3.0f;
 var spawnTime : float;
 
 
+private var impulseParticleSpeed : float;
+
 function Start () {
 
 	properties = gameObject.GetComponent(shipProperties);
 	
+	if(!impulseParticleSystem) {
+		Debug.LogWarning("Check if the impulse particle system exists at " + gameObject.name + ".");
+	} else {
+		impulseParticleSpeed = impulseParticleSystem.startSpeed;
+	}
 
 }
 
 function Update () {
+	if(impulseParticleSystem) setImpulseSpeed();
 	
 	if(isLoad && isWarp) {
 		rigidbody.velocity = transform.forward * WARP_SPEED;
@@ -286,4 +295,10 @@ function setWarp() {
 
 function getSpeedReduction() : float {
 	return redAlertSlowdown;
+}
+
+private function setImpulseSpeed() {
+
+	var speed : float = speedStatus * impulseParticleSpeed;
+	impulseParticleSystem.startSpeed = speed;
 }
