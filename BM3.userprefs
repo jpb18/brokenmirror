@@ -1,29 +1,27 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\menus\ShowMessage.js">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Upgrades\Upgrade.js">
     <Files>
-      <File FileName="Assets\Scripts\menus\ShowMessage.js" Line="135" Column="1" />
-      <File FileName="Assets\Scripts\effects\FadeInOut.js" Line="57" Column="12" />
-      <File FileName="Assets\Scripts\SaveGame\MapInfo.js" Line="419" Column="45" />
+      <File FileName="Assets\Scripts\Upgrades\Passive.js" Line="46" Column="22" />
+      <File FileName="Assets\Scripts\Interfaces\IUpgrade.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\menus\ShowMessage.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\effects\FadeInOut.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\SaveGame\MapInfo.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Interfaces\IPassive.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Upgrades\Upgrade.js" Line="21" Column="2" />
+      <File FileName="Assets\Scripts\Upgrades\Passive.js" Line="46" Column="22" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
-          <Node name="Assembly-CSharp" expanded="True" />
-          <Node name="Assembly-CSharp-Editor" expanded="True" />
-          <Node name="Assembly-CSharp-firstpass" expanded="True" />
           <Node name="Assembly-UnityScript" expanded="True">
             <Node name="Scripts" expanded="True">
-              <Node name="effects" expanded="True" />
-              <Node name="menus" expanded="True">
-                <Node name="ShowMessage.js" selected="True" />
+              <Node name="Interfaces" expanded="True" />
+              <Node name="Upgrades" expanded="True">
+                <Node name="Upgrade.js" selected="True" />
               </Node>
-              <Node name="SaveGame" expanded="True" />
-              <Node name="ship" expanded="True" />
-              <Node name="station" expanded="True" />
             </Node>
           </Node>
-          <Node name="Assembly-UnityScript-firstpass" expanded="True" />
         </State>
       </Pad>
       <Pad Id="ClassPad">

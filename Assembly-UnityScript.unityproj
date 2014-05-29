@@ -53,6 +53,9 @@
      <Compile Include="Assets\Menus\MenuScript.js" />
      <Compile Include="Assets\NewBehaviourScript.js" />
      <Compile Include="Assets\Scripts\GlobalInfo.js" />
+     <Compile Include="Assets\Scripts\Interfaces\IActive.js" />
+     <Compile Include="Assets\Scripts\Interfaces\IPassive.js" />
+     <Compile Include="Assets\Scripts\Interfaces\IUpgrade.js" />
      <Compile Include="Assets\Scripts\Load\GameLoad.js" />
      <Compile Include="Assets\Scripts\Load\SceneStart.js" />
      <Compile Include="Assets\Scripts\Load\dontDestroy.js" />
@@ -66,6 +69,8 @@
      <Compile Include="Assets\Scripts\SaveGame\MapInfo.js" />
      <Compile Include="Assets\Scripts\SaveGame\SaveGame.js" />
      <Compile Include="Assets\Scripts\Statics.js" />
+     <Compile Include="Assets\Scripts\Upgrades\Passive.js" />
+     <Compile Include="Assets\Scripts\Upgrades\Upgrade.js" />
      <Compile Include="Assets\Scripts\camera\MouseOrbit.js" />
      <Compile Include="Assets\Scripts\camera\SmoothFollow.js" />
      <Compile Include="Assets\Scripts\camera\flareOclusion.js" />
