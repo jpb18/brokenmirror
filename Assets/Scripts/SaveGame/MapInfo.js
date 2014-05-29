@@ -433,7 +433,8 @@ function goWarp(destiny : String) {
 	
 	}
 	
-	
+	//unload fade
+	fade.setFadeOff();
 	//load new scene
 	//show splash screen
 	var go : GameObject = GameObject.FindGameObjectWithTag("LoadScene");

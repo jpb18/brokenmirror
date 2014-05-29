@@ -1,20 +1,10 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\station\Health.js">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\menus\ShowMessage.js">
     <Files>
-      <File FileName="Assets\Scripts\ship\shipWeapons.js" Line="143" Column="33" />
-      <File FileName="Assets\Scripts\weapons\torpedoScript.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\ship\ShipAI.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\SaveGame\GeneralInfo.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\SaveGame\Inventory.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\ship\shipProperties.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\station\StationInterface.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\station\StationGui.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\weapons\weaponScript.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\menus\ShowMessage.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\ship\shipWeapons.js" Line="134" Column="18" />
-      <File FileName="Assets\Scripts\camera\screenshot.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\station\Health.js" Line="47" Column="2" />
+      <File FileName="Assets\Scripts\menus\ShowMessage.js" Line="135" Column="1" />
+      <File FileName="Assets\Scripts\effects\FadeInOut.js" Line="57" Column="12" />
+      <File FileName="Assets\Scripts\SaveGame\MapInfo.js" Line="419" Column="45" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -24,9 +14,13 @@
           <Node name="Assembly-CSharp-firstpass" expanded="True" />
           <Node name="Assembly-UnityScript" expanded="True">
             <Node name="Scripts" expanded="True">
-              <Node name="station" expanded="True">
-                <Node name="Health.js" selected="True" />
+              <Node name="effects" expanded="True" />
+              <Node name="menus" expanded="True">
+                <Node name="ShowMessage.js" selected="True" />
               </Node>
+              <Node name="SaveGame" expanded="True" />
+              <Node name="ship" expanded="True" />
+              <Node name="station" expanded="True" />
             </Node>
           </Node>
           <Node name="Assembly-UnityScript-firstpass" expanded="True" />
@@ -47,6 +41,7 @@
     <BreakpointStore>
       <Breakpoint file="C:\UnityProjects\BM3\Assets\Scripts\weapons\torpedoScript.js" line="166" />
       <Breakpoint file="C:\UnityProjects\BM3\Assets\Scripts\ship\shipWeapons.js" line="134" />
+      <Breakpoint file="C:\UnityProjects\BM3\Assets\Scripts\menus\ShowMessage.js" line="172" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />

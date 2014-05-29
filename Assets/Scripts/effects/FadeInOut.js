@@ -52,3 +52,7 @@ function Start(){
 	alpha=1;
 	fadeIn();
 }
+
+function setFadeOff() {
+	alpha = 0;
+}

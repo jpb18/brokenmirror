@@ -56,6 +56,8 @@ var isGame : boolean = false;
 var loadScene : LoadScene;
 var hud : HUDStatus;
 
+var messageLimit : int = 3;
+
 class ViewProps {
 	var width : int;
 	var height : int;
@@ -136,9 +138,11 @@ function sendAllMessagesDown() {
 ///<summary>This method draws the message window</summary>
 function drawMessageWindow() {
 		view.scrollPosition = GUI.BeginScrollView (view.getOutRect(), view.scrollPosition, view.getInRect(messages.Count, messageProps.height));
-		
-		for(var x : int = 0; x < messages.Count; x++) {
-			drawMessage(messages[x]);
+		if(messages.Count > 0) {
+			for(var x : int = messages.Count; x > (messages.Count - messageLimit) && x > 0 ; x--) {
+				
+				drawMessage(messages[x-1], messages.Count - x);
+			}
 		}
 		
 		GUI.EndScrollView ();
@@ -148,10 +152,11 @@ function drawMessageWindow() {
 
 ///<summary>This method draws the message inside the message window</summary>
 ///<param name="message">Contains the message object</param>
-function drawMessage(message : Message) {
-	
+function drawMessage(message : Message, x : int) {
+	var alpha : float = getAlphaValue(x);
+	GUI.color = new Color(1,1,1, alpha);
 	GUI.Label(messageProps.getRect(message.position, view.insidePadding), message.message, skin.GetStyle("MessageItem"));
-
+	GUI.color = new Color(1,1,1,1);
 }
 
 ///<summary>This method clears the message history</summary>
@@ -162,4 +167,10 @@ function clearHistory() {
 function setGame() {
 	isGame = true;
 }
+
+function getAlphaValue(x : int) : float {
+	var i : float = messageLimit - x;
+	var lim : float = messageLimit;
+	return i/lim;		
+} 
 
