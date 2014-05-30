@@ -403,13 +403,18 @@ class CommDialogue  {
 	//this script swaps the ship
 	//pre target != null && player != null
 	function swapShip(target : GameObject, player : GameObject) {
-		player.GetComponent(shipProperties).playerProps.isPlayer = false;
-		targetProps.playerProps.isPlayer = true;
+		//set current ship as npc
+		var playerProps : shipProperties = player.GetComponent(shipProperties);
+		playerProps.setPlayer(false);
+		
+		//set new ship as player
+		targetProps.setPlayer(true);
 		
 		//now change camera target
 		var camScript : MouseOrbit = Camera.main.GetComponent(MouseOrbit);
 		camScript.target = target.transform;
 		
+		//clear targeting information
 		target.GetComponent(shipTarget).target = null;
 		player.GetComponent(shipTarget).target = null;
 		player.GetComponent(shipTarget).repeatClick = false;

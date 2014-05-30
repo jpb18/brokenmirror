@@ -40,10 +40,25 @@ private function setWeaponSystem(system : List.<WeaponPoints>, tag : String, wea
 	var systems : GameObject[] = gameObject.FindGameObjectsWithTag(tag);
 	
 	for(var x : int = 0; x < systems.Length; x++) {
-		var newComp : WeaponPoints = new WeaponPoints(systems[x], weapon, hullMask, shieldMask);
-		system.Add(newComp);
+		if(getParent(systems[x].transform) == transform) {
+			var newComp : WeaponPoints = new WeaponPoints(systems[x], weapon, hullMask, shieldMask);
+			system.Add(newComp);
+		}
 	}
 
+}
+
+private function getParent(go : Transform) : Transform {
+	
+	var trans : Transform = go;
+	
+	
+	while(trans.parent) {
+		trans = trans.parent.transform;
+	}
+
+	return trans;
+	
 }
 
 //this method fires the weapons on each slot

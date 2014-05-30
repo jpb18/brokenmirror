@@ -89,7 +89,9 @@ function Update() {
 	if(Input.GetAxis("Map") && playerProps.isPlayer && lastMap + waitMap < Time.time) {
 		//get permanent game object
 		var perm : GameObject = GameObject.FindGameObjectWithTag("MapInfo");
+		//retrieve map info
 		var mapInfo : MapInfo = perm.GetComponent(MapInfo);
+		
 		mapInfo.swapStatus();
 		lastMap = Time.time;
 	}

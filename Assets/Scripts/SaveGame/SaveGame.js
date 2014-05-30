@@ -271,10 +271,14 @@ function SavePlayerFleet() {
 public static function FindPlayerShip() : GameObject {
 
 	
+	
 	var playerShip : GameObject; //set the return variable
 	
+	var shipsGo : GameObject[] = GameObject.FindGameObjectsWithTag("Ship");
 	
-	for (var ship : GameObject in  GameObject.FindGameObjectsWithTag("Ship")) { //loop through all ships in search of the player ship
+	
+	
+	for (var ship : GameObject in  shipsGo) { //loop through all ships in search of the player ship
 		
 		var shipPros : shipProperties = ship.GetComponent(shipProperties); //get ship properties script
 		if(shipPros.playerProps.isPlayer) { //check if its player
