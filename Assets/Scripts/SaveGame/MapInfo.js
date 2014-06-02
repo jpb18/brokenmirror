@@ -12,6 +12,9 @@ class PlanetInfo { //this class stores all planet information necessary for the 
 	var defenseFleet : SaveShip[];
 	var stations : List.<SaveStation>;
 	
+	var reputation : int;
+	
+	
 	var hasPlayerVisit : boolean = false;
 	var isColonized : boolean = false;
 	
@@ -52,6 +55,12 @@ class PlanetInfo { //this class stores all planet information necessary for the 
 		return scene.Equals(this.scene);
 	 
 	} 
+	
+	function getReputation() : int {
+		
+		return reputation;
+		
+	}
 
 }
 
@@ -489,5 +498,28 @@ function buildSceneLoadMessage() : String {
 	var planet : PlanetInfo = findPlanet(curScene);
 	var message : String = "You've arrived at " + planet.name + ".";	
 	return message;
+
+}
+
+function getGalacticReputation() : int {
+	
+	var sum : int = 0;
+	for(var planet : PlanetInfo in planets) {
+		sum += planet.getReputation();
+	}
+	return sum / planets.Length;
+	
+	
+}
+
+function getCurrentReputation() : int {
+	var curScene : String = Application.loadedLevelName;
+	var planet : PlanetInfo = findPlanet(curScene);
+	if(planet) {
+		return planet.getReputation(); 
+	} else {
+		return 0;
+	}
+
 
 }

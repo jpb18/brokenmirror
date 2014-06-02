@@ -54,7 +54,7 @@ class ResourcePanel extends GuiElement implements IDrawable {
 			var rect : Rect = super.position;
 			rect.x = 0;
 			rect.y = 0;
-			GUI.DrawTexture(rect, background);		
+			GUI.DrawTexture(rect, super.background);		
 		}
 	}
 	
