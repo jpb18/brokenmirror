@@ -8,8 +8,7 @@ var items : List.<GameObject>;
 var maxSize : int = 30;
 //@tooltip("Player's latinum.")
 var latinum : int = 5000;
-//@tooltip("Player's deuranium.")
-var dilithium : int = 5000;
+
 
 //var guiInventory : ResourcePanel;
 
@@ -32,19 +31,17 @@ function resize(addSlots : int) {
 
 }
 
-function canBuy(latinum : int, dilithium : int) : boolean{
+function canBuy(latinum : int) : boolean{
 
-	return this.latinum >= latinum && this.dilithium >= dilithium;
+	return this.latinum >= latinum ;
 }
 
-function spend(latinum : int, dilithium : int) {
+function spend(latinum : int) {
 	this.latinum -= latinum;
-	this.dilithium -=dilithium;
+	
 }
 
-function getDilithium() : int {
-	return this.dilithium;
-}
+
 
 function getLatinum() : int {
 	return this.latinum;

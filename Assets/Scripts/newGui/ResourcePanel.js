@@ -18,12 +18,15 @@ class ResourcePanel extends GuiElement implements IDrawable {
 	private var inv : Inventory; //inventory goes here
 	//private var load : LoadScene;
 	private var status : HUDStatus;
+	private var save : SaveGame;
+
 	
 	function Start() {
 		//load = GameObject.FindGameObjectWithTag("LoadScene").GetComponent(LoadScene);
 		inv = gameObject.GetComponent(Inventory); //gets inventory component
 		status = GameObject.FindGameObjectWithTag("GlobalInfo").GetComponent(HUDStatus); //gets hud status component
 		style = skin.GetStyle("ResourceLabel");
+		save = gameObject.GetComponent(SaveGame);
 	}
 	
 	function OnGUI() {
@@ -41,7 +44,7 @@ class ResourcePanel extends GuiElement implements IDrawable {
 				latIcon.draw();
 				
 				//Draw labels
-				var dilithium : String= inv.getDilithium().ToString();
+				var dilithium : String= getDilithium().ToString();
 				GUI.Label(dilLabel, dilithium, style);
 				var latinum : String = inv.getLatinum().ToString();
 				GUI.Label(latLabel, latinum, style);
@@ -64,6 +67,11 @@ class ResourcePanel extends GuiElement implements IDrawable {
 		return newPos;
 	}	
 
+	private function getDilithium() : int {
+		var ship : GameObject = save.getPlayerShip();
+		var fuel : ShipFuel = ship.GetComponent(ShipFuel);
+		return fuel.getCurrentLoad();
+	}
 
 
 }

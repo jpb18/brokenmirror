@@ -164,21 +164,21 @@ class StationStore {
 		if(inv.isFull()) {
 			
 			message.AddMessage("Inventory is full.");
-		} else if (!inv.canBuy(getPrice(item), 0)) {
+		} else if (!inv.canBuy(getPrice(item))) {
 			
 			message.AddMessage("Not enough credits.");
 		} else {
 			inv.addItem(item);
-			inv.spend(getPrice(item), 0);
+			inv.spend(getPrice(item));
 		}
 	}
 	
 	private function buyShip(inv : Inventory, item : GameObject, info : StationInterface) {
-		if (!inv.canBuy(getPrice(item), 0)) {
+		if (!inv.canBuy(getPrice(item))) {
 			var message : ShowMessage = info.getMessage();
 			message.AddMessage("Not enough credits.");
 		} else {
-			inv.spend(getPrice(item), 0);
+			inv.spend(getPrice(item));
 			
 			var newShip : GameObject = GameObject.Instantiate(item, info.genSpawnPos(), Quaternion.identity);
 			newShip.transform.LookAt(info.getPosition());

@@ -189,12 +189,16 @@ private var areaRect : Rect;
 
 private var message : ShowMessage;
 private var hud : HUDStatus;
+private var save : SaveGame;
+
+public static var LIGHT_YEAR : float = 2.9f;
 
 
 function Start() {
 
 	message = GameObject.FindGameObjectWithTag("ShowMessage").GetComponent(ShowMessage);
 	hud = GameObject.FindGameObjectWithTag("GlobalInfo").GetComponent(HUDStatus);
+	save = GameObject.FindGameObjectWithTag("SaveGame").GetComponent(SaveGame);
 
 }
 
@@ -242,8 +246,12 @@ function drawMap () {
 		//now get faction info
 		var factionInfo : FactionInfo = gen_scr.factionInfo[faction];
 		
+		
+		
 		//print the buttons		
 		for(var x : int = 0; x < planets.Length; x++) {
+		
+		
 			CreatePlanetButton(planets[x], map.buttons, map.map_bg.position, factionInfo, faction);
 		}
 		
@@ -313,19 +321,34 @@ function CreatePlanetButton(planet : PlanetInfo, buttons : MapButtons, mapRect :
 	
 	//now its the button
 	if(GUI.Button(butRect, useTexture, map.skin.GetStyle("ButtonMap"))) {
-		if(!planet.isScene(Application.loadedLevelName)){
-			goWarp(planet.scene);
-		} else {
-			message.AddMessage("Already in the system");
+		
+	
+	
+		if(planet.isScene(Application.loadedLevelName)){
+			message.AddMessage("Already in the system.");
+		} else { 
+		
+			if (!canWarp(planet)) {
+				message.AddMessage("Not enough fuel.");
+			} else {
+				goWarp(planet.scene);
+			}
 		}
 	
 	}
 	
 	//var globalRect : Rect = new Rect(CoodX + areaRect.x, CoodY + areaRect.y, buttons.buttonRect.width, buttons.buttonRect.height);
 	
+		
+
+}
+
+private function canWarp(destiny : PlanetInfo) : boolean {
 	
-	
-	
+	var origin : PlanetInfo = findPlanet(Application.loadedLevelName);
+	var player : GameObject = save.getPlayerShip();
+	var fuel : ShipFuel = player.GetComponent(ShipFuel);
+	return fuel.hasEnough(getDistance(origin, destiny));
 
 }
 
@@ -396,13 +419,11 @@ function goWarp(destiny : String) {
 	swapStatus();
 	
 	//save game first
-	var save_obj : GameObject = GameObject.FindGameObjectWithTag("SaveGame");
-	var save_scr : SaveGame = save_obj.GetComponent(SaveGame);
- 	save_scr.Save();
+ 	save.Save();
 	
 	//find player ship
 	
-	var playerShip : GameObject = save_scr.FindPlayerShip();
+	var playerShip : GameObject = save.getPlayerShip();
 	
 	//set particle system
 	var warpParticles : GameObject[] = GameObject.FindGameObjectsWithTag("Warp");
@@ -450,6 +471,14 @@ function goWarp(destiny : String) {
 	var scr : LoadScene = go.GetComponent(LoadScene);
 	scr.showScreen();
 	
+	//calculate dilithium costs
+	var origin : PlanetInfo = findPlanet(Application.loadedLevelName);
+	var dest : PlanetInfo = findPlanet(destiny);
+	var distance : int = getDistance(origin, dest);
+	
+	//apply them
+	var fuel : ShipFuel = playerShip.GetComponent(ShipFuel);
+	fuel.consume(distance);
 	
 	//load level
 
@@ -520,6 +549,16 @@ function getCurrentReputation() : int {
 	} else {
 		return 0;
 	}
+}
 
+function getDistance(origin : PlanetInfo, destiny : PlanetInfo) : int{
+	var a : Vector2 = new Vector2();
+	if(origin) {
+		a = new Vector2(origin.cood.x, origin.cood.y);
+	}
+	var b : Vector2 = new Vector2(destiny.cood.x, destiny.cood.y);
+	return Vector2.Distance(a, b) * LIGHT_YEAR;
 
 }
+
+

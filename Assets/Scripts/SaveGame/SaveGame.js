@@ -53,6 +53,7 @@ class SaveShip{
 	var shipInfo : ShipInfo;
 	var shipHea : ShipHealth;
 	var shipInv : ShipInventory;
+	var dilithium : int;
 	
 	function SaveShip() {
 		shipInfo = new ShipInfo();
@@ -78,6 +79,10 @@ class SaveShip{
 		shipHealth.shipHealth.health = shipHea.curHull;
 		shipHealth.shipHealth.shields = shipHea.curShield;
 		
+		//get dilithium
+		var shipFuel : ShipFuel = ship.GetComponent(ShipFuel);
+		shipFuel.setCurrentLoad(dilithium);
+		
 		//get ship weapons
 		if(hasBeenSet) {
 			var shipWeap : shipWeapons = ship.GetComponent(shipWeapons);
@@ -99,6 +104,7 @@ class SaveShip{
 		var shipProps : shipProperties = ship.GetComponent(shipProperties);
 		var shipHeal : shipHealth = ship.GetComponent(shipHealth);
 		var shipWea : shipWeapons = ship.GetComponent(shipWeapons);
+		var shipFuel : ShipFuel = ship.GetComponent(ShipFuel);
 		
 		//now fill the ship info part
 		shipInfo.Name =  shipProps.shipInfo.shipName;
@@ -117,6 +123,9 @@ class SaveShip{
 		shipInv.phaser = shipWea.phaser.phaser;
 		shipInv.torp1 = shipWea.torp1.torpedo;
 		shipInv.torp2 = shipWea.torp2.torpedo;
+		
+		//get dilithium
+		dilithium = shipFuel.getCurrentLoad();
 		
 		//now get load a prefab for this ship
 		shipPrefab = Resources.Load(ship.name) as GameObject;
@@ -221,11 +230,20 @@ function Update() {
 		makeNearFleet();
 	}
 	
-	if(!playShip) {
+	if(!playShip || !isPlayer(playShip)) {
 		playShip = FindPlayerShip();
 	}
 	
 
+}
+
+function getPlayerShip() : GameObject {
+	return playShip;
+}
+
+function isPlayer(ship : GameObject) : boolean {
+	var props : shipProperties = ship.GetComponent(shipProperties);
+	return props.getPlayer();
 }
 
 function changeFormation() {
