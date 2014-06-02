@@ -55,6 +55,11 @@ function drawMenu() {
 		if(GUILayout.Button("Quit", style)) {
 			quit();
 		}
+		
+		if(GUILayout.Button("Leave Game", style)) {
+			leave();
+		}
+		
 	GUILayout.EndArea();
 }
 
@@ -72,4 +77,8 @@ function setOff() {
 
 function quit() {
 	Application.LoadLevel(MAIN_MENU);
+}
+
+function leave() {
+	Application.Quit();
 }

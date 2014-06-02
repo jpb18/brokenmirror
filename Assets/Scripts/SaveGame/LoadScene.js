@@ -5,7 +5,6 @@ var show : boolean = false;
 
 
 
-
 function LoadScene(destiny : String) {
 	
 	var save_obj : GameObject = GameObject.FindGameObjectWithTag("SaveGame");

@@ -14,8 +14,18 @@ var uColor : Color;
 
 public static final var MENU_LAYER : String = "MenuText";
 
+private var hud : HUDStatus;
+private var show : ShowMessage;
+private var music : PlaybackScript;
+
+private var load : LoadScene;
+
 function Start () {
-	
+	show = GameObject.FindGameObjectWithTag("ShowMessage").GetComponent(ShowMessage);
+	music = GameObject.FindGameObjectWithTag("OST").GetComponent(PlaybackScript);
+	hud  = GameObject.FindGameObjectWithTag("GlobalInfo").GetComponent(HUDStatus);
+	load = GameObject.FindGameObjectWithTag("LoadScene").GetComponent(LoadScene);
+
 }
 
 function Update () {
@@ -91,10 +101,14 @@ function getNumber(tag : String) : int {
 function FixedUpdate() {
 	if (startGame) {
 			//get show message script
-			var show : ShowMessage = GameObject.FindGameObjectWithTag("ShowMessage").GetComponent(ShowMessage);
+			
+			
 			show.setGame();
-			var music : PlaybackScript = GameObject.FindGameObjectWithTag("OST").GetComponent(PlaybackScript);
+			
 			music.startPlaying();
+			
+			hud.setGame(true);
+			
 			Application.LoadLevel ("Start");
 	}
 
@@ -104,7 +118,7 @@ function FixedUpdate() {
 function OnGUI ()
 {
 		if (showSplash) {
-				GUI.DrawTexture (new Rect (0, 0, Screen.width, Screen.height), image);
+				load.showScreen();
 				startGame = true;
 		}
 }

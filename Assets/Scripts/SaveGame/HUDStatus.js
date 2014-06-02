@@ -1,6 +1,7 @@
 
 var isHidden : boolean = false;
 var load : LoadScene;
+var isGame : boolean = false;
 
 private var last : float;
 private var interval : float = 0.2f;
@@ -24,7 +25,7 @@ function Update () {
 
 function isShowingGui() : boolean {
 
-	return !isHidden && !load.show;
+	return !isHidden && !load.show && isGame;
 
 }
 
@@ -32,5 +33,9 @@ private function hasIntervalPassed() : boolean {
 
 	return Time.time > last + interval;
 
+}
+
+function setGame(game : boolean) {
+	this.isGame = game;
 }
 

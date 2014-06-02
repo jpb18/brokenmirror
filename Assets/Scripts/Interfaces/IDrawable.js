@@ -1,0 +1,6 @@
+
+interface IDrawable {
+
+	function draw();
+
+}

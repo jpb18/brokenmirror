@@ -1,38 +1,18 @@
 ﻿import System.Collections.Generic;
 #pragma strict
 
-var isOpen : boolean = false;
+
+//@tooltip("Items on inventory.")
 var items : List.<GameObject>;
+//@tooltip("Maximum capacity of inventory.")
 var maxSize : int = 30;
-var credits : int = 5000;
+//@tooltip("Player's latinum.")
+var latinum : int = 5000;
+//@tooltip("Player's deuranium.")
+var dilithium : int = 5000;
 
+//var guiInventory : ResourcePanel;
 
-private var load : LoadScene;
-
-function Start () {
-	load = GameObject.FindGameObjectWithTag("LoadScene").GetComponent(LoadScene);
-}
-
-function Update () {
-	
-	if(Input.GetAxis("Inventory")) {
-		isOpen = !isOpen;
-	}
-	
-}
-
-function OnGUI () {
-
-	if(!load.show) drawGui();
-
-}
-
-function drawGui() {
-
-	//TODO put GUI code here
-	return null;
-
-}
 
 function addItem(item : GameObject) {
 	
@@ -52,11 +32,20 @@ function resize(addSlots : int) {
 
 }
 
-function canBuy(cost : int) : boolean{
+function canBuy(latinum : int, dilithium : int) : boolean{
 
-	return cost <= credits;
+	return this.latinum >= latinum && this.dilithium >= dilithium;
 }
 
-function spendCredits(cost : int) {
-	credits -= cost;
+function spend(latinum : int, dilithium : int) {
+	this.latinum -= latinum;
+	this.dilithium -=dilithium;
+}
+
+function getDilithium() : int {
+	return this.dilithium;
+}
+
+function getLatinum() : int {
+	return this.latinum;
 }
