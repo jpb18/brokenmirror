@@ -142,7 +142,7 @@ class SaveStation extends System.Object{
 	
 	//this function returns a station
 	function getStation() : GameObject {
-		var station : GameObject = prefab;
+		var station : GameObject = GameObject.Instantiate(prefab, this.position, new Quaternion());
 		
 		//set position
 		station.transform.position = position;

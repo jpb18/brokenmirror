@@ -171,7 +171,7 @@ function spawnStations() {
 	//lets spawn them!
 	for(var stat : SaveStation in stations) {
 		station = stat.getStation();
-		station = Instantiate(station, station.transform.position, station.transform.rotation);
+		
 		station.name = save_scr.RemoveClone(station.name);
 		stationList.Add(station);
 	
