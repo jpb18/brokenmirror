@@ -42,22 +42,28 @@ class ShieldRegeneration {
 }
 
 var shipHealth : ship_Health;
-var escape : shipEscapePods;
+
 var shieldShow : ShieldsShow;
 var shieldRegen : ShieldRegeneration;
-var properties : shipProperties;
-var triggers : shipTriggers;
+
 var explosion : GameObject;
 var smokeTrails : List.<GameObject>;
 var plasmaParticles : List.<GameObject>;
 var shield : GameObject;
 
+//other scripts
+private var properties : shipProperties;
+private var triggers : shipTriggers;
+private var cloud : ShipCloud;
+private var escape : shipEscapePods;
 
 function Start () {
 
 	//get other scripts
 	properties = gameObject.GetComponent(shipProperties);
 	triggers = gameObject.GetComponent(shipTriggers);
+	cloud = gameObject.GetComponent(ShipCloud);
+	escape = gameObject.GetComponent(shipEscapePods);
 	
 	//get health stats
 	shipHealth.maxHealth = properties.ShipHealth.basicHealth;
@@ -83,8 +89,8 @@ function Start () {
 		}
 	}
 	
-	//get escape pod script
-	escape = gameObject.GetComponent(shipEscapePods);
+
+	
 	
 
 }
@@ -256,7 +262,7 @@ function OnDestroy () {
 
 function isShieldUp() : boolean {
 
-	return shipHealth.hasShield() && properties.getRedAlert();
+	return shipHealth.hasShield() && properties.getRedAlert() && !cloud.isShieldInibited();
 }
 
 //pre: isShieldUp()

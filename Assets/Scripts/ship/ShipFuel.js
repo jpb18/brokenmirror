@@ -29,11 +29,23 @@ class ShipFuel extends MonoBehaviour {
 	}
 	
 	private function calculate(distance : int) : int {
-		return distance * consumption;
+		return distance * getConsumption();
 	}
 	
 	function setCurrentLoad(load : int) {
 		current = load;
+	}
+	
+	function addFuel(fuel : int) {
+		if(current + fuel < getCapacity()) {
+			current += fuel;
+		} else {
+			current = getCapacity();
+		}
+	}
+	
+	function isFull() : boolean {
+		return current >= getCapacity();
 	}
 	
 }

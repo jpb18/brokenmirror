@@ -78,6 +78,8 @@
      <Compile Include="Assets\Scripts\camera\testReturn.js" />
      <Compile Include="Assets\Scripts\effects\FadeInOut.js" />
      <Compile Include="Assets\Scripts\effects\LookAtCamera.js" />
+     <Compile Include="Assets\Scripts\environment\Cloud.js" />
+     <Compile Include="Assets\Scripts\environment\DilithiumCloud.js" />
      <Compile Include="Assets\Scripts\environment\asteroids.js" />
      <Compile Include="Assets\Scripts\environment\border.js" />
      <Compile Include="Assets\Scripts\environment\planetScript.js" />
@@ -97,6 +99,7 @@
      <Compile Include="Assets\Scripts\shields\shieldImp.js" />
      <Compile Include="Assets\Scripts\shields\shieldImpPoints.js" />
      <Compile Include="Assets\Scripts\ship\ShipAI.js" />
+     <Compile Include="Assets\Scripts\ship\ShipCloud.js" />
      <Compile Include="Assets\Scripts\ship\ShipFuel.js" />
      <Compile Include="Assets\Scripts\ship\shipEscapePods.js" />
      <Compile Include="Assets\Scripts\ship\shipHealth.js" />
