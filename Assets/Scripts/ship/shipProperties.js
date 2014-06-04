@@ -66,8 +66,22 @@ var cam : MouseOrbit;
 var lastMap : float;
 var waitMap : float = 0.2f;
 
+//other scripts
+var health : shipHealth;
+var map : MapInfo;
+var cloud : ShipCloud;
+var message : ShowMessage;
+
+//constants
+public static var SHIELD_INIBITED : String = "Can't raise shields, shields inhibited.";
+
 function Start() {
 	cam = Camera.main.gameObject.GetComponent(MouseOrbit);
+	health = gameObject.GetComponent(shipHealth);
+	map = GameObject.FindGameObjectWithTag("MapInfo").GetComponent(MapInfo);
+	cloud = gameObject.GetComponent(ShipCloud);
+	message = GameObject.FindGameObjectWithTag("ShowMessage").GetComponent(ShowMessage);
+
 }
 
 function Update() {
@@ -78,21 +92,17 @@ function Update() {
 	{
 		combatStatus.isRedAlert = !combatStatus.isRedAlert;
 		combatStatus.lastRedPress = Time.time;
-		gameObject.GetComponent(shipHealth).showShields();
+		if(cloud.isShieldInibited() && getRedAlert()) {
+			message.AddMessage(SHIELD_INIBITED);
+		} else {
+			if(!cloud.isShieldInibited)	health.showShields();
+		}
 	}
 
-	
-	
-	
 	//map status
 	//in case Map Input is pressed
 	if(Input.GetAxis("Map") && playerProps.isPlayer && lastMap + waitMap < Time.time) {
-		//get permanent game object
-		var perm : GameObject = GameObject.FindGameObjectWithTag("MapInfo");
-		//retrieve map info
-		var mapInfo : MapInfo = perm.GetComponent(MapInfo);
-		
-		mapInfo.swapStatus();
+		map.swapStatus();
 		lastMap = Time.time;
 	}
 	

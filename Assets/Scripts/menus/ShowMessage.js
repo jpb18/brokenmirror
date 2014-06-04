@@ -137,13 +137,14 @@ function sendAllMessagesDown() {
 
 ///<summary>This method draws the message window</summary>
 function drawMessageWindow() {
-		view.scrollPosition = GUI.BeginScrollView (view.getOutRect(), view.scrollPosition, view.getInRect(messages.Count, messageProps.height));
-		if(messages.Count > 0) {
-			for(var x : int = messages.Count; x > (messages.Count - messageLimit) && x > 0 ; x--) {
-				
-				drawMessage(messages[x-1], messages.Count - x);
-			}
+		view.scrollPosition = GUI.BeginScrollView (view.getOutRect(), view.scrollPosition, view.getInRect(messageLimit, messageProps.height));
+		
+		for(var x : int = messages.Count; x > 0 && x > (messages.Count - messageLimit) ; x--) {
+			
+			drawMessage(messages[x-1], messages.Count - x);
 		}
+		
+		
 		
 		GUI.EndScrollView ();
 	
