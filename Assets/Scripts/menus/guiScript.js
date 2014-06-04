@@ -1352,6 +1352,10 @@ function CreateWeapButton(Weapon : Torpedo, Skin : GUISkin, Area : Rect) {
 //this function returns the size of a bar in pixels
 function GetBarSize (FullSize : int, MaxValue : float, CurValue : float) : int {
 
+	if(MaxValue == 0) {
+		return 0;
+	}
+
 	var newSize : int;
 	
 	newSize = (FullSize * CurValue)/MaxValue;
@@ -1362,6 +1366,10 @@ function GetBarSize (FullSize : int, MaxValue : float, CurValue : float) : int {
 }
 
 function ValueToPercentage(MaxValue : float, CurValue : float) : float {
+
+	if(MaxValue == 0) {
+		return 0;
+	}
 
 	var perc : float;
 	

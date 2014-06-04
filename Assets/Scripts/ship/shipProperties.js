@@ -74,6 +74,7 @@ var message : ShowMessage;
 
 //constants
 public static var SHIELD_INIBITED : String = "Can't raise shields, shields inhibited.";
+public static var NO_SHIELD : String = "Shields down.";
 
 function Start() {
 	cam = Camera.main.gameObject.GetComponent(MouseOrbit);
@@ -92,10 +93,12 @@ function Update() {
 	{
 		combatStatus.isRedAlert = !combatStatus.isRedAlert;
 		combatStatus.lastRedPress = Time.time;
-		if(cloud.isShieldInibited() && getRedAlert()) {
-			message.AddMessage(SHIELD_INIBITED);
+		if(cloud.isShieldInibited()) {
+			if(getRedAlert()) message.AddMessage(SHIELD_INIBITED);
+		} else if (!health.isShieldUp()) {
+			if(getRedAlert()) message.AddMessage(NO_SHIELD);
 		} else {
-			if(!cloud.isShieldInibited)	health.showShields();
+			health.showShields();
 		}
 	}
 

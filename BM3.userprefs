@@ -1,17 +1,12 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\ship\shipHealth.js">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\menus\guiScript.js">
     <Files>
-      <File FileName="Assets\Scripts\SaveGame\MapInfo.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\newGui\ResourcePanel.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\SaveGame\SaveGame.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\environment\DilithiumCloud.js" Line="13" Column="3" />
-      <File FileName="Assets\Scripts\ship\ShipCloud.js" Line="38" Column="23" />
-      <File FileName="Assets\Scripts\ship\ShipFuel.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\environment\Cloud.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\menus\ShowMessage.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\ship\shipProperties.js" Line="99" Column="52" />
+      <File FileName="Assets\Scripts\menus\ShowMessage.js" Line="135" Column="1" />
       <File FileName="Assets\Scripts\menus\EscMenu.js" Line="1" Column="1" />
       <File FileName="Assets\Scripts\ship\shipHealth.js" Line="49" Column="22" />
+      <File FileName="Assets\Scripts\menus\guiScript.js" Line="1400" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -19,10 +14,10 @@
           <Node name="Assembly-UnityScript" expanded="True">
             <Node name="Scripts" expanded="True">
               <Node name="environment" expanded="True" />
-              <Node name="menus" expanded="True" />
-              <Node name="ship" expanded="True">
-                <Node name="shipHealth.js" selected="True" />
+              <Node name="menus" expanded="True">
+                <Node name="guiScript.js" selected="True" />
               </Node>
+              <Node name="ship" expanded="True" />
             </Node>
           </Node>
         </State>
