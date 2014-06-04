@@ -224,32 +224,33 @@ function setInvasion() {
 
 //this method will spawn an invasion fleet
 function spawnInvasion () {
-
-	//first spawn the leader
-	var leader : GameObject = spawnLeader(toBeSpawned);
-	
-	
-	
-	for(var ship : GameObject in toBeSpawned) {
-		if(ship != leader) {
-			var s : GameObject = Instantiate(ship, genSpawn(botMinRadius, botMaxRadius, leader.transform.position), leader.transform.rotation);
-						
-			//set properties
-			var props : shipProperties = s.GetComponent(shipProperties);
-			props.shipInfo.faction = factionToSpawn;
-			props.playerProps.isPlayer = false;
+	if(toBeSpawned.Count > 0) {
+		//first spawn the leader
+		var leader : GameObject = spawnLeader(toBeSpawned);
 			
-			//set leader
-			var ai : ShipAI = s.GetComponent(ShipAI);
-			ai.leader = leader;
-			
-			//remove clone
-			s.name = save_scr.RemoveClone(s.name);
+		for(var ship : GameObject in toBeSpawned) {
+			if(ship != leader) {
+				var s : GameObject = Instantiate(ship, genSpawn(botMinRadius, botMaxRadius, leader.transform.position), leader.transform.rotation);
+							
+				//set properties
+				var props : shipProperties = s.GetComponent(shipProperties);
+				props.shipInfo.faction = factionToSpawn;
+				props.playerProps.isPlayer = false;
+				
+				//set leader
+				var ai : ShipAI = s.GetComponent(ShipAI);
+				ai.leader = leader;
+				
+				//remove clone
+				s.name = save_scr.RemoveClone(s.name);
+			}
+		
 		}
-	
+		message.AddMessage(arriveMessage);
+		isInvaded = true;
+	} else {
+		isInvasion = false;
 	}
-	message.AddMessage(arriveMessage);
-	isInvaded = true;
 
 }
 
