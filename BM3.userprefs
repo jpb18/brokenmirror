@@ -1,17 +1,17 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\menus\GameOver.js">
+    <Files>
+      <File FileName="Assets\Scripts\menus\GameOver.js" Line="1" Column="1" />
+    </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
           <Node name="Assembly-UnityScript" expanded="True">
             <Node name="Scripts" expanded="True">
-              <Node name="Load" expanded="True" />
               <Node name="menus" expanded="True">
-                <Node name="guiScript.js" selected="True" />
+                <Node name="GameOver.js" selected="True" />
               </Node>
-              <Node name="SaveGame" expanded="True" />
-              <Node name="ship" expanded="True" />
             </Node>
           </Node>
         </State>
