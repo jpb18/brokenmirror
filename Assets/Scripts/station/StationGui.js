@@ -168,7 +168,8 @@ class StationStore {
 			
 			message.AddMessage("Not enough credits.");
 		} else {
-			inv.addItem(item);
+			var cargo : Cargo = new Cargo(item, 1, getPrice(item));
+			inv.addItem(cargo);
 			inv.spend(getPrice(item));
 		}
 	}

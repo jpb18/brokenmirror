@@ -3,7 +3,7 @@
 
 
 //@tooltip("Items on inventory.")
-var items : List.<GameObject>;
+var items : List.<Cargo>;
 //@tooltip("Maximum capacity of inventory.")
 var maxSize : int = 30;
 //@tooltip("Player's latinum.")
@@ -13,10 +13,32 @@ var latinum : int = 5000;
 //var guiInventory : ResourcePanel;
 
 
-function addItem(item : GameObject) {
+function addItem(item : Cargo) {
 	
-	items.Add(item);
+	if(items.Contains(item)) {
+		var i : Cargo = findItem(item);
+		i.addUnit();
+	} else {
+		items.Add(item);
+	}
 	
+	
+}
+
+function removeItem(item : Cargo) {
+	if(items.Contains(item)) {
+		items.Remove(item);
+	}
+
+}
+
+function findItem(item : Cargo) {
+	for(var i : Cargo in items) {
+		if(item.Equals(i)) {
+			return i;
+		}
+	}
+
 }
 
 function isFull() : boolean {
@@ -41,7 +63,9 @@ function spend(latinum : int) {
 	
 }
 
-
+function addLatinum(latinum : int) {
+	this.latinum += latinum;
+}
 
 function getLatinum() : int {
 	return this.latinum;
