@@ -561,4 +561,11 @@ function getDistance(origin : PlanetInfo, destiny : PlanetInfo) : int{
 
 }
 
+function getPlanetCount() : int {
+	return planets.Length;
+}
+
+function getPlanetByNumber(num : int) : PlanetInfo {
+	return planets[num];
+}
 

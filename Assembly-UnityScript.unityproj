@@ -62,7 +62,9 @@
      <Compile Include="Assets\Scripts\Load\dontDestroy.js" />
      <Compile Include="Assets\Scripts\Load\sceneSwapper.js" />
      <Compile Include="Assets\Scripts\Missions\Cargo.js" />
+     <Compile Include="Assets\Scripts\Missions\CargoItem.js" />
      <Compile Include="Assets\Scripts\Missions\Mission.js" />
+     <Compile Include="Assets\Scripts\Missions\MissionGenerator.js" />
      <Compile Include="Assets\Scripts\Missions\Missions.js" />
      <Compile Include="Assets\Scripts\Missions\TradeMission.js" />
      <Compile Include="Assets\Scripts\Music\PlaybackScript.js" />

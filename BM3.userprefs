@@ -1,22 +1,22 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Missions\Mission.js">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Missions\MissionGenerator.js">
     <Files>
+      <File FileName="Assets\Scripts\Missions\CargoItem.js" Line="21" Column="14" />
       <File FileName="Assets\Scripts\Missions\Missions.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Missions\TradeMission.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Missions\TradeMission.js" Line="10" Column="59" />
       <File FileName="Assets\Scripts\Missions\Mission.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Missions\Cargo.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Missions\Cargo.js" Line="12" Column="22" />
       <File FileName="Assets\Scripts\SaveGame\Inventory.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\station\StationGui.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Missions\MissionGenerator.js" Line="23" Column="26" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
           <Node name="Assembly-UnityScript" expanded="True">
             <Node name="Scripts" expanded="True">
-              <Node name="menus" expanded="True" />
               <Node name="Missions" expanded="True">
-                <Node name="Mission.js" selected="True" />
+                <Node name="MissionGenerator.js" selected="True" />
               </Node>
               <Node name="SaveGame" expanded="True" />
               <Node name="station" expanded="True" />
