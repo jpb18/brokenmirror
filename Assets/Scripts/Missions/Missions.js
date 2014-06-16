@@ -6,16 +6,24 @@ var tradeMissionsAccepted : int;
 
 
 private var inventory : Inventory;
+private var message : ShowMessage;
+
+public static var TRADE_FINISHED : String = "Trade mission finished. {0} Latinum deposited into account.";
+public static var TRADE_STARTED : String = "Trade mission begun. Destiny: {0}."; 
 
 // Use this for initialization
 function Start () {
 	inventory = GameObject.FindGameObjectWithTag("SaveGame").GetComponent(Inventory);
+	message = GameObject.FindGameObjectWithTag("ShowMessage").GetComponent(ShowMessage);
 }	
 
 function addTradeMission(mission : TradeMission) {
 	if(!tradeMissions.Contains(mission)) {
 		tradeMissions.Add(mission);
 		tradeMissionsAccepted++;
+		
+		var msg : String = String.Format(TRADE_STARTED, mission.getDestination());
+		message.AddMessage(msg);
 	}
 
 }
@@ -64,6 +72,10 @@ function finishTradeMissions(destination : String) {
 			inventory.removeItem(cargo);
 			mission.finish();
 			tradeMissionsCompleted++;
+			
+			var mes : String = String.Format(TRADE_FINISHED, reward);
+			message.AddMessage(mes); 
+			
 		}
 	}
 	
