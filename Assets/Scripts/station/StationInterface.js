@@ -30,6 +30,8 @@ private var health : Health;
 private var hud : HUDStatus;
 private var inv : Inventory;
 private var message : ShowMessage;
+private var missions : Missions;
+private var generator : MissionGenerator;
 
 //Spawn position
 private var spawn : float = 5.0f;
@@ -45,9 +47,15 @@ function Start () {
 	radar.Set(gameObject);
 	camScript = mainCam.GetComponent(MouseOrbit);
 	general = GameObject.FindGameObjectWithTag("SaveGame").GetComponent(GeneralInfo);
+	
+	var g : GameObject = GameObject.FindGameObjectWithTag("Missions");
+	missions = g.GetComponent.<Missions>();
+	generator = g.GetComponent.<MissionGenerator>();
 	health  = gameObject.GetComponent(Health);
 	inv = GameObject.FindGameObjectWithTag("SaveGame").GetComponent(Inventory);
-	gui.setWindow(health, this, inv);
+	gui.setWindow(health, this, inv, missions, generator);
+	
+	
 	hud = GameObject.FindGameObjectWithTag("GlobalInfo").GetComponent(HUDStatus);
 	trans = transform;
 	message = GameObject.FindGameObjectWithTag("ShowMessage").GetComponent(ShowMessage);

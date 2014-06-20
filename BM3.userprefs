@@ -1,25 +1,28 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Missions\MissionGenerator.js">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\station\StationInt.js">
     <Files>
-      <File FileName="Assets\Scripts\Missions\CargoItem.js" Line="21" Column="14" />
+      <File FileName="Assets\Scripts\station\StationInterface.js" Line="53" Column="15" />
+      <File FileName="Assets\Scripts\station\StationGui.js" Line="24" Column="39" />
+      <File FileName="Assets\Scripts\station\StationInt.js" Line="77" Column="68" />
+      <File FileName="Assets\Scripts\station\StoreMode.js" Line="7" Column="1" />
+      <File FileName="Assets\Scripts\station\InteractionsMode.js" Line="8" Column="1" />
+      <File FileName="Assets\Scripts\menus\ShowMessage.js" Line="79" Column="37" />
+      <File FileName="Assets\Scripts\Missions\TradeMission.js" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Missions\Missions.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Missions\TradeMission.js" Line="10" Column="59" />
-      <File FileName="Assets\Scripts\Missions\Mission.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Missions\Cargo.js" Line="12" Column="22" />
-      <File FileName="Assets\Scripts\SaveGame\Inventory.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Missions\MissionGenerator.js" Line="23" Column="26" />
+      <File FileName="Assets\Scripts\Missions\Cargo.js" Line="1" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
           <Node name="Assembly-UnityScript" expanded="True">
             <Node name="Scripts" expanded="True">
-              <Node name="Missions" expanded="True">
-                <Node name="MissionGenerator.js" selected="True" />
-              </Node>
+              <Node name="menus" expanded="True" />
+              <Node name="Missions" expanded="True" />
               <Node name="SaveGame" expanded="True" />
-              <Node name="station" expanded="True" />
+              <Node name="station" expanded="True">
+                <Node name="StationInt.js" selected="True" />
+              </Node>
             </Node>
           </Node>
         </State>

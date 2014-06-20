@@ -75,6 +75,11 @@ class ViewProps {
 	
 	}
 	
+	function getOutsideRect(x : int, y : int) : Rect {
+		return new Rect(x,y,width,height);
+	
+	}  
+	
 	///<summary>Gets inside rect of the Scroll View</summary>
 	///<returns>Inside Rect</returns>
 	///<param name="number">Number of messages its going to contain</param>

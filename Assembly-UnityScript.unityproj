@@ -118,10 +118,15 @@
      <Compile Include="Assets\Scripts\ship\shipWeapons.js" />
      <Compile Include="Assets\Scripts\ship\swapPrototype.js" />
      <Compile Include="Assets\Scripts\station\Health.js" />
+     <Compile Include="Assets\Scripts\station\InteractionsMode.js" />
      <Compile Include="Assets\Scripts\station\Station.js" />
      <Compile Include="Assets\Scripts\station\StationGui.js" />
+     <Compile Include="Assets\Scripts\station\StationInfo.js" />
+     <Compile Include="Assets\Scripts\station\StationInt.js" />
      <Compile Include="Assets\Scripts\station\StationInterface.js" />
+     <Compile Include="Assets\Scripts\station\StationStore.js" />
      <Compile Include="Assets\Scripts\station\StationWeapons.js" />
+     <Compile Include="Assets\Scripts\station\StoreMode.js" />
      <Compile Include="Assets\Scripts\station\WeaponPoints.js" />
      <Compile Include="Assets\Scripts\weapons\RotateInEditor.js" />
      <Compile Include="Assets\Scripts\weapons\phaserScript.js" />

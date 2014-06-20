@@ -4,12 +4,13 @@ import System.Random;
 
 var cargoItems : List.<GameObject>;
 var cargoMax : int;
-
+private var r : System.Random;
 
 private var map : MapInfo;
 
 function Start() {
 	map = GameObject.FindGameObjectWithTag("MapInfo").GetComponent(MapInfo);
+	r = new System.Random();
 }
 
 function generateTradeMission() : TradeMission {
@@ -28,7 +29,7 @@ private function generateCargo() : Cargo {
 }
 
 private function pickRandomCargoItem() : GameObject {
-	var r : System.Random = new System.Random();
+	
 	var rnd : int = r.Next(0, cargoItems.Count - 1);
 	
 	return cargoItems[rnd];
@@ -45,7 +46,7 @@ private function getCargoPrice(cargo : GameObject) : int {
 
 private function getDestination() : String {
 	var count : int = map.getPlanetCount();
-	var r : System.Random = new System.Random();
+	
 	do {
 		var rnd : int = r.Next(0, count-1);
 		var planet : PlanetInfo = map.getPlanetByNumber(rnd);
