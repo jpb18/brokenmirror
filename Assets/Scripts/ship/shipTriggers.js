@@ -6,15 +6,32 @@ class trigger_props {
 	var isOrbit : boolean = false;
 	var isTurbulence : boolean = false;
 	var isKill : boolean = false;
+	
+	function setOrbit(orbit : boolean) {
+		isOrbit = orbit;
+	}
+	
+	function setTurbulence(turbulence : boolean) {
+		isTurbulence = turbulence;
+	}
+	
+	function setKill(kill : boolean) {
+		isKill = kill;
+	}
+	
 
 }
 
 var triggerProps : trigger_props;
 var properties : shipProperties;
 var reentryParticles : GameObject;
+var message : ShowMessage;
+
+public static var IN_ORBIT : String = "Entering planetary orbit.";
+public static var OUT_ORBIT : String = "Leaving planetary orbit.";
 
 function Start () {
-
+	message = GameObject.FindGameObjectWithTag("ShowMessage").GetComponent(ShowMessage);
 	properties = gameObject.GetComponent(shipProperties);
 	reentryParticles = getReentryParticles();
 	if(reentryParticles) {
@@ -34,17 +51,18 @@ function OnTriggerEnter(hit : Collider) {
 	
 	if (hit.collider.gameObject.name == "orbit_trigger" && triggerProps.isOrbit == false)
 	{
-		triggerProps.isOrbit = true;
+		triggerProps.setOrbit(true);
+		message.AddMessage(IN_ORBIT);
 	}
 	
 	if (hit.collider.gameObject.name == "turbolence_trigger" && triggerProps.isTurbulence == false)
 	{
-		triggerProps.isTurbulence = true;
+		triggerProps.setTurbulence(true);
 	}
 	
 	if (hit.collider.gameObject.name == "kill_trigger" && triggerProps.isKill == false)
 	{
-		triggerProps.isKill = true;
+		triggerProps.setKill(true);
 	}
 
 }
@@ -53,12 +71,13 @@ function OnTriggerExit (hit : Collider) {
 
 	if (hit.collider.gameObject.name == "orbit_trigger" && triggerProps.isOrbit == true)
 	{
-		triggerProps.isOrbit = false;
+		triggerProps.setOrbit(false);
+		message.AddMessage(OUT_ORBIT);
 	}
 	
 	if (hit.collider.gameObject.name == "turbolence_trigger" && triggerProps.isTurbulence == true)
 	{
-		triggerProps.isTurbulence = false;
+		triggerProps.setTurbulence(false);
 	}
 
 }
@@ -66,7 +85,7 @@ function OnTriggerExit (hit : Collider) {
 function OnCollisionEnter(hit : Collision) {
 	if(hit.transform.tag == "Planet")
 	{
-		triggerProps.isKill = true;
+		triggerProps.setKill(true);
 	}
 
 }
@@ -85,6 +104,12 @@ function reentry() {
 		}
 	}
 
+
+}
+
+function isOrbit() : boolean {
+	
+	return triggerProps.isOrbit;
 
 }
 

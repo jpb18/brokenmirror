@@ -21,6 +21,7 @@ class StationInt {
 	
 	private var generator : MissionGenerator;
 	private var missions : Missions;
+	private var tradeDialogue : TradeMissionDialogue;
 	public static var CARGO : String = "Cargo Mission: {0} GPL";
 	
 	
@@ -28,6 +29,10 @@ class StationInt {
 		this.generator = gen;
 		this.missions = missions;
 		generateMissions();
+	}
+	
+	function setTrade(dialogue : TradeMissionDialogue) {
+		this.tradeDialogue = dialogue;
 	}
 	
 	private function generateMissions() {
@@ -39,8 +44,16 @@ class StationInt {
 	
 	}
 	
-	function draw(info : StationInterface, skin : GUISkin) {
+	function removeTradeMissions() {
+		for(var i : int= tradeMissions.Count; i > 0; i--) {
+			if(tradeMissions[i-1].hasStarted()) {
+				tradeMissions.RemoveAt(i-1);
+			}
+		}
+	}
 	
+	function draw(info : StationInterface, skin : GUISkin) {
+		removeTradeMissions();
 		GUILayout.BeginArea(area);
 			//draw background
 			GUI.DrawTexture(Rect(0,0, area.width, area.height), bg_image);
@@ -68,12 +81,14 @@ class StationInt {
 	private function drawTradeItems() {
 		view.scrollPosition = GUI.BeginScrollView (view.getOutsideRect(itemPos.x, itemPos.y), view.scrollPosition, view.getInRect(missionNumber, itemHeight), true, true);
 		
-		for(var x : int = 0; x < missionNumber; x++) {
+		for(var x : int = 0; x < tradeMissions.Count; x++) {
 			var mission : TradeMission = tradeMissions[x];
 			var cargo : Cargo = mission.getCargo();
 			var price : int = cargo.getTotalPrice();
 			var str : String = String.Format(CARGO, price);
-			GUI.Button(new Rect(0, x * itemHeight, itemWidth, itemHeight), str);
+			if(GUI.Button(new Rect(0, x * itemHeight, itemWidth, itemHeight), str)) {
+				tradeDialogue.setMission(mission, this);
+			}
 			//TODO Code the next stage here... Preferably on a new window...
 		}
 		

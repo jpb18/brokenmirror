@@ -569,3 +569,11 @@ function getPlanetByNumber(num : int) : PlanetInfo {
 	return planets[num];
 }
 
+function getPlanetBySceneName(scene : String) : PlanetInfo {
+	for(var planet : PlanetInfo in planets) {
+		if(planet.isScene(scene)) {
+			return planet;
+		}
+	}
+}
+

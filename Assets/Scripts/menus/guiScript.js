@@ -19,9 +19,6 @@ var TopGui : Rect;
 var TargetModule : Rect;
 
 //Gui Elements
-
-var isInventory : boolean = false; //checks if inventory is up
-var isCargo : boolean = false; //checks if cargo is up
 var isExpanded : boolean = false; //checks if some elements on the target are expanded
 
 //Skin
@@ -115,6 +112,9 @@ class WeaponGui {
 	
 	//Empty button
 	var empty_texture : Texture;
+	
+	
+	
 }
 
 
@@ -634,6 +634,7 @@ var radarLabel : RadarLabel;
 var redAlert : RedAlertGui;
 
 //External Scripts
+var triggers : shipTriggers;
 var shipProps : shipProperties;
 var shipMov : shipMovement;
 var shipHea : shipHealth;
@@ -643,6 +644,8 @@ var mapInfo : MapInfo;
 var loadScene : LoadScene;
 var general : GeneralInfo;
 var hud : HUDStatus;
+var message : ShowMessage;
+var missions : Missions;
 
 //main camara
 var mainCam : Camera;
@@ -650,6 +653,9 @@ var camScript : MouseOrbit;
 
 
 function Start () {
+	message = GameObject.FindGameObjectWithTag("ShowMessage").GetComponent(ShowMessage);
+	missions = GameObject.FindGameObjectWithTag("Missions").GetComponent(Missions);
+	triggers = gameObject.GetComponent(shipTriggers);
 	general = GameObject.FindGameObjectWithTag("SaveGame").GetComponent(GeneralInfo);
 	shipProps = gameObject.GetComponent(shipProperties);
 	shipMov = gameObject.GetComponent(shipMovement);
@@ -928,14 +934,19 @@ function weaponModule() {
 		//Draw inventory button and check if its pressed
 		if(GUI.Button(Weapon.inv_area, Weapon.inv_img, HudSkin.button)) {
 		
-			isInventory = !isInventory; //invert the value of the button (show if hidden, hide if visible)
+			//Open inventory window
 		
 		}
 		
-		//Draw cargo button and check if its pressed
+		//Draw beam down button and check if its pressed
 		if(GUI.Button(Weapon.cargo_area, Weapon.cargo_img, HudSkin.button)) {
 		
-			isCargo = !isCargo; //invert the value of the button (show if hidden, hide if visible)
+			//first lets see if we're inside orbit range
+			if(!triggers.isOrbit()) {
+				message.AddMessage("Not in a planets orbit.");
+			} else {
+				missions.finishTradeMissionInSystem();
+			}
 		
 		}
 		

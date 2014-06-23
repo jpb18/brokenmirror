@@ -2,17 +2,21 @@
 
 class Mission extends Object {
 
-	var start : boolean;
+	var started : boolean;
 	var finished : boolean;
 	var name : String;
 	var description : String;
 	
 	function Mission(name : String, description : String) {
-		this.start = true;
+		this.started = false;
 		this.finished = false;
 		this.name = name;
 		this.description = description;
 		
+	}
+	
+	function start() {
+		started = true;
 	}
 	
 	function getName() : String {
@@ -24,7 +28,7 @@ class Mission extends Object {
 	}
 	
 	function hasStarted() : boolean {
-		return start;
+		return started;
 	}
 	
 	function hasFinished() : boolean {

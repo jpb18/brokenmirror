@@ -32,6 +32,7 @@ private var inv : Inventory;
 private var message : ShowMessage;
 private var missions : Missions;
 private var generator : MissionGenerator;
+private var tradeDialogue : TradeMissionDialogue;
 
 //Spawn position
 private var spawn : float = 5.0f;
@@ -43,6 +44,8 @@ var trans : Transform;
 var go : GameObject;
 
 function Start () {
+	tradeDialogue = gameObject.GetComponent(TradeMissionDialogue);
+
 	mainCam = Camera.main;
 	radar.Set(gameObject);
 	camScript = mainCam.GetComponent(MouseOrbit);
@@ -53,12 +56,14 @@ function Start () {
 	generator = g.GetComponent.<MissionGenerator>();
 	health  = gameObject.GetComponent(Health);
 	inv = GameObject.FindGameObjectWithTag("SaveGame").GetComponent(Inventory);
-	gui.setWindow(health, this, inv, missions, generator);
+	gui.setWindow(health, this, inv, missions, generator, tradeDialogue);
 	
 	
 	hud = GameObject.FindGameObjectWithTag("GlobalInfo").GetComponent(HUDStatus);
 	trans = transform;
 	message = GameObject.FindGameObjectWithTag("ShowMessage").GetComponent(ShowMessage);
+	
+	
 	
 }
 

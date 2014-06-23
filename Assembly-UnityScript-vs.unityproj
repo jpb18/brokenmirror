@@ -100,10 +100,13 @@
      <Compile Include="Assets\Scripts\menus\mainMenu.js" />
      <Compile Include="Assets\Scripts\menus\setupMenu.js" />
      <Compile Include="Assets\Scripts\menus\testMenu.js" />
+     <Compile Include="Assets\Scripts\newGui\FloatingWindow.js" />
      <Compile Include="Assets\Scripts\newGui\GuiElement.js" />
      <Compile Include="Assets\Scripts\newGui\Icon.js" />
+     <Compile Include="Assets\Scripts\newGui\MissionDialogue.js" />
      <Compile Include="Assets\Scripts\newGui\ReputationPanel.js" />
      <Compile Include="Assets\Scripts\newGui\ResourcePanel.js" />
+     <Compile Include="Assets\Scripts\newGui\TradeMissionDialogue.js" />
      <Compile Include="Assets\Scripts\shields\shieldImp.js" />
      <Compile Include="Assets\Scripts\shields\shieldImpPoints.js" />
      <Compile Include="Assets\Scripts\ship\ShipAI.js" />

@@ -17,11 +17,13 @@ class StationGui {
 	
 	var close_bt : Rect;
 	
-	function setWindow(health : Health, info : StationInterface, inv : Inventory, missions : Missions, generator : MissionGenerator) {
+	function setWindow(health : Health, info : StationInterface, inv : Inventory, missions : Missions, generator : MissionGenerator, tradeDialogue : TradeMissionDialogue) {
+	
 		this.health = health;
 		this.info = info;
 		this.inv = inv;
 		sit.setMission(generator, missions);
+		sit.setTrade(tradeDialogue);
 	}
 		
 	function draw() {
