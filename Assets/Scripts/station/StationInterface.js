@@ -49,21 +49,29 @@ function Start () {
 	mainCam = Camera.main;
 	radar.Set(gameObject);
 	camScript = mainCam.GetComponent(MouseOrbit);
-	general = GameObject.FindGameObjectWithTag("SaveGame").GetComponent(GeneralInfo);
 	
+	
+	
+	
+	//Missions scripts here.
 	var g : GameObject = GameObject.FindGameObjectWithTag("Missions");
 	missions = g.GetComponent.<Missions>();
 	generator = g.GetComponent.<MissionGenerator>();
 	health  = gameObject.GetComponent(Health);
-	inv = GameObject.FindGameObjectWithTag("SaveGame").GetComponent(Inventory);
+	
+	//Save Game scripts here
+	var save : GameObject = GameObject.FindGameObjectWithTag("SaveGame");
+	general = save.GetComponent(GeneralInfo);
+	inv = save.GetComponent(Inventory);
+	
+	
 	gui.setWindow(health, this, inv, missions, generator, tradeDialogue);
 	
-	
-	hud = GameObject.FindGameObjectWithTag("GlobalInfo").GetComponent(HUDStatus);
 	trans = transform;
+	go = gameObject;
 	message = GameObject.FindGameObjectWithTag("ShowMessage").GetComponent(ShowMessage);
 	
-	
+	hud = GameObject.FindGameObjectWithTag("GlobalInfo").GetComponent(HUDStatus);
 	
 }
 

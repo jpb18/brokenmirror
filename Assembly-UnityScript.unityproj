@@ -69,6 +69,7 @@
      <Compile Include="Assets\Scripts\Missions\TradeMission.js" />
      <Compile Include="Assets\Scripts\Music\PlaybackScript.js" />
      <Compile Include="Assets\Scripts\Pooler\ObjectPooler.js" />
+     <Compile Include="Assets\Scripts\SaveGame\CargoHold.js" />
      <Compile Include="Assets\Scripts\SaveGame\GeneralInfo.js" />
      <Compile Include="Assets\Scripts\SaveGame\HUDStatus.js" />
      <Compile Include="Assets\Scripts\SaveGame\Inventory.js" />

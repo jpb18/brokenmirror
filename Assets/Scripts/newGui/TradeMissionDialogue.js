@@ -21,7 +21,7 @@ class TradeMissionDialogue extends MissionDialogue {
 	}
 	
 	function accept() {
-		mission.start();
+		
 		super.missions.addTradeMission(mission);	
 		this.setOff();
 	}

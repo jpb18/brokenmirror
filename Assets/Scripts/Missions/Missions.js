@@ -8,25 +8,39 @@ var tradeMissionsAccepted : int;
 private var inventory : Inventory;
 private var message : ShowMessage;
 private var map : MapInfo;
+private var hold : CargoHold;
 
 public static var TRADE_FINISHED : String = "Trade mission finished. {0} Latinum deposited into account.";
 public static var TRADE_STARTED : String = "Trade mission begun. Destiny: {0}."; 
 public static var NO_TRADE : String = "No trade missions to be completed in this system.";
+public static var CARGO_FULL : String = "Can't accept new mission. Not enough space in cargo hold.";
 
 // Use this for initialization
 function Start () {
-	inventory = GameObject.FindGameObjectWithTag("SaveGame").GetComponent(Inventory);
+	var save : GameObject = GameObject.FindGameObjectWithTag("SaveGame");
+	inventory = save.GetComponent(Inventory);
+	hold = save.GetComponent(CargoHold);
+	
 	message = GameObject.FindGameObjectWithTag("ShowMessage").GetComponent(ShowMessage);
 	map = GameObject.FindGameObjectWithTag("MapInfo").GetComponent(MapInfo);
 }	
 
 function addTradeMission(mission : TradeMission) {
 	if(!tradeMissions.Contains(mission)) {
-		tradeMissions.Add(mission);
-		tradeMissionsAccepted++;
 		
-		var msg : String = String.Format(TRADE_STARTED, mission.getDestination());
-		message.AddMessage(msg);
+		var size : int = mission.getCargo().getSize();
+	
+		if(hold.willBeFull(size)) {
+			MessageType.AddMessage(CARGO_FULL);
+		} else {		
+			mission.start();
+			tradeMissions.Add(mission);
+			tradeMissionsAccepted++;
+			hold.addCargo(mission.getCargo());
+			
+			var msg : String = String.Format(TRADE_STARTED, mission.getDestination());
+			message.AddMessage(msg);
+		}
 	}
 
 }
@@ -38,14 +52,7 @@ function removeTradeMission(mission : TradeMission) {
 
 }
 
-function getTradeMission(mission : TradeMission) {
-	for(var m : TradeMission in tradeMissions) {
-		if(mission == m) {
-			return m;	
-		}
-	
-	}
-}
+
 
 
 function getTradeMissionsByDestination(destination : String) : List.<TradeMission> {
@@ -84,7 +91,7 @@ function finishTradeMissions(destination : String) {
 				var cargo : Cargo = mission.getCargo();
 				var reward : int = cargo.getTotalPrice();
 				inventory.addLatinum(reward);
-				inventory.removeItem(cargo);
+				hold.removeCargo(cargo);
 				mission.finish();
 				tradeMissionsCompleted++;
 				

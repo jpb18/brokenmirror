@@ -89,7 +89,7 @@ class StationInt {
 			if(GUI.Button(new Rect(0, x * itemHeight, itemWidth, itemHeight), str)) {
 				tradeDialogue.setMission(mission, this);
 			}
-			//TODO Code the next stage here... Preferably on a new window...
+			
 		}
 		
 		GUI.EndScrollView();

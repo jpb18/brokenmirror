@@ -5,9 +5,10 @@ var target : GameObject;
 var lastClick : float;
 var clickInt : float = 0.2f;
 
-var shipProps : shipProperties;
-var general : GeneralInfo;
-var shipWeps : shipWeapons;
+private var shipProps : shipProperties;
+private var general : GeneralInfo;
+private var shipWeps : shipWeapons;
+private var gui : guiScript;
 
 var repeatClick : boolean = false;
 
@@ -21,6 +22,7 @@ function Start () {
 
 	shipProps = gameObject.GetComponent(shipProperties);
 	shipWeps = gameObject.GetComponent(shipWeapons);
+	gui = gameObject.GetComponent(guiScript);
 	general = GameObject.FindGameObjectWithTag("SaveGame").GetComponent(GeneralInfo);
 	
 	
@@ -87,16 +89,17 @@ function ClickTarget() {
 		
 			if(Physics.Raycast(ray, hit)) //check if it hits something
 			{
+				var go : GameObject = hit.transform.gameObject;
 				if(hit.transform.gameObject != target) //check if it's the first click
 				{
-					if(hit.transform.gameObject != gameObject)
+					if(go != gameObject)
 					{
-						target = hit.transform.gameObject; //store the target
+						target = go; //store the target
 					}
 				}
 				else
 				{
-					if(hit.transform.gameObject != gameObject)
+					if(go != gameObject)
 					{
 						repeatClick = true;
 					}
@@ -107,9 +110,25 @@ function ClickTarget() {
 			
 			
 			lastClick = Time.time;
+			if(repeatClick) {
+				controlDoubleClick(go);
+				repeatClick = false;	
+			}
 	
 	}
 
+
+}
+
+function controlDoubleClick(obj : GameObject) {
+	
+	if(obj.tag == "Ship") {
+		gui.openComm(obj);
+	} else if (obj.tag == "Station") {
+		var scr : StationInterface = obj.GetComponent(StationInterface);
+		scr.openGUI();
+	}
+		
 
 }
 

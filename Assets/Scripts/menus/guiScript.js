@@ -1408,3 +1408,9 @@ function CheckArrayValue(desValue : int, array : int[]) : boolean {
 	return belongs;
 
 }
+
+function openComm(target : GameObject) {
+	if(!commWindow.isOpen){
+		commWindow.open(target, gameObject);
+		}
+}
