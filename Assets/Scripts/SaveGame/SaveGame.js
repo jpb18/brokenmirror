@@ -18,6 +18,20 @@ class SaveShip{
 			isPlayer = false;
 			isRedAlert = false;
 			strenght = 0;
+			
+		}
+		
+		
+		function serialize() : String {
+			var serie : String = "";
+			
+			serie = serie + Name + "\n";
+			serie = serie + Faction + "\n"; 		
+			serie = serie + isPlayer + "\n";
+			serie = serie + isRedAlert + "\n";
+			serie = serie + strenght + "\n";
+																											
+			return serie;
 		}
 	
 	}
@@ -30,6 +44,15 @@ class SaveShip{
 			curHull = 0;
 			curShield = 0;
 		}
+		
+		function serialize() : String {
+			var serie : String = "";
+			
+			serie = serie + curHull + "\n";
+			serie = serie + curShield + "\n";
+			
+			return serie;
+		}
 	
 	}
 
@@ -37,13 +60,27 @@ class SaveShip{
 		var phaser : GameObject;
 		var torp1 : GameObject;
 		var torp2 : GameObject;
-		var upgrades : GameObject[];
+		var upgrades : List.<GameObject>;
 		
 		function ShipInventory() {
 			phaser = null;
 			torp1 = null;
 			torp2 = null;
-			upgrades = new GameObject[0];
+			upgrades = new List.<GameObject>();
+		}
+		
+		function serialize() : String {
+			var serie : String = "";
+			
+			serie = serie + (phaser ? phaser.name : "null") + "\n";
+			serie = serie + (torp1 ? torp1.name : "null") + "\n";
+			serie = serie + (torp2 ? torp2.name : "null") + "\n";
+			serie = serie + upgrades.Count + "\n";
+			for(var up : GameObject in upgrades) {
+				serie = serie + up.name + "\n";		
+			}
+			
+			return serie;
 		}
 		
 	}
@@ -132,6 +169,21 @@ class SaveShip{
 		
 	}
 	
+	function serialize() : String {
+		var serie : String = "";
+		
+		serie = serie + shipPrefab.name + "\n";
+
+		
+		
+		serie = serie + dilithium + "\n";
+		serie = serie + shipInfo.serialize();
+		serie = serie + shipHea.serialize();
+		serie = serie + shipInv.serialize();
+		
+		return serie;
+	
+	}
 	
 	
 }
@@ -198,6 +250,17 @@ class Fleet extends System.Object{
 		return ships.Count;
 	}
 	
+	function serialize() : String {
+		var serie : String = formation.ToString() + "\n";
+		
+		serie = serie + ships.Count + "\n";
+		for(var s : SaveShip in ships) {
+			serie = serie + s.serialize();	
+		}
+		
+		return serie;
+		
+	}
 
 }
 
@@ -212,6 +275,8 @@ var load : LoadScene;
 var start : SceneStart;
 
 var playShip : GameObject;
+
+var lastSceneLoaded : String;
 
 var rangeToAutoCommand : int = 50.0f;
 
@@ -253,9 +318,10 @@ function changeFormation() {
 	}
 }
 
-function Save() {
+function Save(scene : String) {
 	PlayerSave(); //first save the player ship
 	SavePlayerFleet(); //then its fleet
+	SaveScene(scene);
 }
 
 function PlayerSave() {
@@ -367,5 +433,16 @@ function makeNearFleet() {
 	
 }
 
+function SaveScene(scene : String) {
+	lastSceneLoaded = scene;
+}
 
+function serialize() : String {
+	var serie : String = lastSceneLoaded + "\n";
+	
+	serie = serie + playerShip.serialize();
+	serie = serie + playerFleet.serialize();
+	
+	return serie;
+}
 

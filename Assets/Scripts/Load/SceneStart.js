@@ -92,10 +92,10 @@ function spawnDefenseFleet() {
 	//first lets get the planet fleet
 	
 	
-	var fleet : SaveShip[] = planet.getFleet();
+	var fleet : List.<SaveShip> = planet.getFleet();
 	var ship : GameObject;
 	//now lets spawn it!
-	for(var x : int = 0; x < fleet.length; x++) {
+	for(var x : int = 0; x < fleet.Count; x++) {
 		
 		ship = fleet[x].getShip();
 		ship.transform.position =  genSpawn(minRadius, maxRadius, transform.position);

@@ -9,6 +9,14 @@ class PlayerInfo {
 	function setAllegience(faction : FactionInfo) {
 		allegience = faction;
 	}
+	
+	function serialize() : String {
+		var serie : String = name + "\n";
+		serie = serie + gameDificulty.ToString() + "\n";
+		serie = serie + empireName + "\n";
+		serie = serie + allegience.serialize();
+		return serie;		
+	}
 		
 }
 
@@ -109,6 +117,30 @@ class FactionInfo {
 	 function hasCommonEnemies(faction : FactionInfo) : boolean {
 	 	return getCommonEnemies(faction).Count > 0;
 	 }
+	 
+	 function serialize() : String {
+	 	var serie : String = factionName + "\n";
+	 	
+	 	serie = serie + factionRace + "\n";
+	 	serie = serie + hostileFactions.Count + "\n";
+	 	
+	 	for(var i : int in hostileFactions) {
+	 		serie = serie + i + "\n";
+	 	}
+	 	
+	 	serie = serie + alliedFactions.Count + "\n";
+	 	
+	 	for(var a : int in alliedFactions) {
+	 		serie = serie + a + "\n";
+	 	}
+	 	
+	 	for(var ship : GameObject in invasionFleet) {
+	 		serie = serie + ship.name + "\n";
+	 	}
+	 	
+	 	return serie;
+	 
+	 }
 
 }
 
@@ -144,6 +176,13 @@ function Start () {
 	playerInfo.setAllegience(getFactionInfo(0));
 }
 
-function Update () {
-
+function serialize() {
+	var serie : String = playerInfo.serialize();
+	
+	for(var fac : FactionInfo in factionInfo) {
+		serie = serie + fac.serialize();
+	}
+	
+	return serie;
+	
 }

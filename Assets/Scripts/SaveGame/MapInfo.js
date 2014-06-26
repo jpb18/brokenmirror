@@ -9,7 +9,7 @@ class PlanetInfo { //this class stores all planet information necessary for the 
 	var description : String;
 	var image : Texture2D;
 	var cood : PlanetCood;
-	var defenseFleet : SaveShip[];
+	var defenseFleet : List.<SaveShip>;
 	var stations : List.<SaveStation>;
 	
 	var reputation : int;
@@ -22,6 +22,10 @@ class PlanetInfo { //this class stores all planet information necessary for the 
 		
 		var x : int;
 		var y : int;
+		
+		function serialize() : String {
+			return x + "\n" + y + "\n";
+		}
 	
 	}
 	
@@ -30,7 +34,7 @@ class PlanetInfo { //this class stores all planet information necessary for the 
 	function getStrenght() : int {
 		var strenght : int = 0;
 		//get fleet strenght
-		for(var x : int = 0; x < defenseFleet.Length; x++) {
+		for(var x : int = 0; x < defenseFleet.Count; x++) {
 			strenght += defenseFleet[x].shipInfo.strenght;
 		
 		}
@@ -43,7 +47,7 @@ class PlanetInfo { //this class stores all planet information necessary for the 
 	}
 	
 	//this method return the defense fleet present on the planet
-	function getFleet() : SaveShip[] {
+	function getFleet() : List.<SaveShip> {
 	
 		return defenseFleet;
 	
@@ -68,6 +72,31 @@ class PlanetInfo { //this class stores all planet information necessary for the 
 	
 	function addReputation(amount : int) {
 		reputation += amount;
+	}
+	
+	function serialize() : String {
+		var serie : String = "";
+		
+		serie = serie + isEnabled + "\n";
+		serie = serie + name + "\n";
+		serie = serie + faction + "\n";
+		serie = serie + scene + "\n";
+		serie = serie + description + "\n";
+		//TODO : Planet images
+		serie = serie + cood.serialize();
+		serie = serie + defenseFleet.Count + "\n";
+		for(var ship : SaveShip in defenseFleet) {
+			serie = serie + ship.serialize();
+		}
+		serie = serie + stations.Count + "\n";
+		for(var station : SaveStation in stations) {
+			serie = serie + station.serialize();
+		}
+		serie = serie + reputation + "\n";
+		serie = serie + hasPlayerVisit + "\n";
+		serie = serie + isColonized + "\n";
+		
+		return serie;
 	}
 
 }
@@ -178,13 +207,50 @@ class SaveStation extends System.Object{
 		
 		return station;
 	}
+	
+	function serialize() : String {
+		var serie : String = name + "\n";
+		
+		serie = serie + faction + "\n";
+		serie = serie + serializeVector3(position);
+		
+		
+		//items
+		serie = serie + serializeGoList(items);
+		
+		//ships
+		serie = serie + serializeGoList(ships);
+		
+		//plans
+		serie = serie + serializeGoList(plans);
+		
+		//upgrades
+		serie = serie + serializeGoList(upgrades);
+		
+		serie = serie + prefab.name + "\n";
+		
+		return serie;
+		
+	}
+	
+	private function serializeVector3(vector : Vector3) {
+		return vector.x + "\n" + vector.y + "\n" + vector.z + "\n";
+	}
+	
+	private function serializeGoList(list : List.<GameObject>) {
+		var serie : String = list.Count + "\n";
+		for(var item : GameObject in list) {
+			serie = serie + item.name + "\n";
+		}
+		return serie;
+	}
 
 
 }
 
 
 
-var planets : PlanetInfo[];
+var planets : List.<PlanetInfo>;
 var map : MapGui;
 var isMap : boolean = false;
 
@@ -257,14 +323,14 @@ function drawMap () {
 		
 		
 		//print the buttons		
-		for(var x : int = 0; x < planets.Length; x++) {
+		for(var x : int = 0; x < planets.Count; x++) {
 		
 		
 			CreatePlanetButton(planets[x], map.buttons, map.map_bg.position, factionInfo, faction);
 		}
 		
 		//prepare the mouseovers
-		for(x = 0; x < planets.Length; x++) {
+		for(x = 0; x < planets.Count; x++) {
 		
 			var butRect : Rect = prepButRect(map.map_bg.position, planets[x], map.buttons);
 			DrawMouseOver(butRect, map.mouseOver, planets[x]);
@@ -427,7 +493,7 @@ function goWarp(destiny : String) {
 	swapStatus();
 	
 	//save game first
- 	save.Save();
+ 	save.Save(destiny);
 	
 	//find player ship
 	
@@ -514,7 +580,7 @@ function findPlanet(scene : String) : PlanetInfo {
 	var planet :  PlanetInfo;
 	
 	var x : int = 0;
-	while(x < planets.Length && planet == null) {
+	while(x < planets.Count && planet == null) {
 		if(planets[x].isScene(scene)) {
 			
 			planet = planets[x];
@@ -544,7 +610,7 @@ function getGalacticReputation() : int {
 	for(var planet : PlanetInfo in planets) {
 		sum += planet.getReputation();
 	}
-	return sum / planets.Length;
+	return sum / planets.Count;
 	
 	
 }
@@ -570,7 +636,7 @@ function getDistance(origin : PlanetInfo, destiny : PlanetInfo) : int{
 }
 
 function getPlanetCount() : int {
-	return planets.Length;
+	return planets.Count;
 }
 
 function getPlanetByNumber(num : int) : PlanetInfo {
@@ -592,4 +658,15 @@ function addReputationToEmpire(faction : int, amount : int) {
 		}
 	}
 
+}
+
+function serialize() : String {
+	var serie : String = planets.Count + "\n";
+	
+	for(var planet : PlanetInfo in planets) {
+		serie = serie + planet.serialize();
+	}
+	
+	return serie; 
+	  
 }

@@ -13,10 +13,15 @@ private var lastPress : float;
 private var timeInt : float = 0.2f;
 
 private var message : ShowMessage;
+private var saveScript : SaveScript;
+
+private static var SAVE_TEXT : String = "SaveGame";
+private static var SAVE_EXT : String = ".bm";
 
 function Start () {
 
 	message = GameObject.FindGameObjectWithTag("ShowMessage").GetComponent(ShowMessage);
+	saveScript = GameObject.FindGameObjectWithTag("SaveScript").GetComponent(SaveScript);
 
 }
 
@@ -50,7 +55,11 @@ function drawMenu() {
 		}
 		
 		GUILayout.Button("Video/Audio", style);
-		GUILayout.Button("Controls", style);
+		
+		if(GUILayout.Button("Save Game", style)) {
+			save();
+			setOff();
+		}
 		
 		if(GUILayout.Button("Quit", style)) {
 			quit();
@@ -81,4 +90,9 @@ function quit() {
 
 function leave() {
 	Application.Quit();
+}
+
+function save() {
+	var fileName : String = SAVE_TEXT + SAVE_EXT;
+	saveScript.writeToFile(fileName);
 }

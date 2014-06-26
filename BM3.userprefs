@@ -1,16 +1,15 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Missions\Missions.js">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\SaveGame\MapInfo.js">
     <Files>
-      <File FileName="Assets\Scripts\newGui\CombatMissionDialogue.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\ship\shipWeapons.js" Line="462" Column="2" />
-      <File FileName="Assets\Scripts\ship\shipHealth.js" Line="318" Column="36" />
-      <File FileName="Assets\Scripts\Missions\Missions.js" Line="164" Column="22" />
-      <File FileName="Assets\Scripts\station\Station.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\ship\shipProperties.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\SaveGame\GeneralInfo.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\weapons\torpedoScript.js" Line="223" Column="18" />
-      <File FileName="Assets\Scripts\Missions\CombatMission.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\SaveGame\SaveGame.js" Line="177" Column="3" />
+      <File FileName="Assets\Scripts\SaveGame\LoadScene.js" Line="13" Column="2" />
+      <File FileName="Assets\Scripts\SaveGame\SaveScript.js" Line="40" Column="1" />
+      <File FileName="Assets\Scripts\camera\screenshot.cs" Line="8" Column="1" />
+      <File FileName="Assets\Scripts\menus\EscMenu.js" Line="61" Column="13" />
+      <File FileName="Assets\Scripts\SaveGame\GeneralInfo.js" Line="17" Column="19" />
+      <File FileName="Assets\Scripts\SaveGame\MapInfo.js" Line="664" Column="1" />
+      <File FileName="Assets\Scripts\Load\SceneStart.js" Line="94" Column="2" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
