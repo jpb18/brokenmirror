@@ -205,12 +205,11 @@ static function genSpawn(min : float, max : float, trans : Vector3) : Vector3 {
 //this method controls the invasion settings in the scene
 function setInvasion() {
 	
-	var enemies : int[] = getEnemies();
-	if(enemies.Length > 0) { //has enemies? if so, pick one
-		var num : int = 0;
-		num  = genRandom(enemies.Length - 2);
-		factionToSpawn = num + 1;
-		toBeSpawned = setFleet(general.getFactionInfo(factionToSpawn).invasionFleet);
+	var enemies : FactionInfo = getFaction();
+	if(enemies.hasHostiles()) { //has enemies? if so, pick one
+
+		factionToSpawn = enemies.pickRandomEnemy();
+		toBeSpawned = setFleet(general.getFactionInfo(factionToSpawn).getFleet());
 		spawnTime = Time.time + spawnEnemy;
 		isInvasion = true;
 		message.AddMessage(invasionMessage1 + general.getFactionInfo(factionToSpawn).getInfo().factionName + invasionMessage2 + spawnEnemy.ToString() + invasionMessage3);
@@ -299,36 +298,25 @@ function setFleet(fleetSetup : List.<GameObject>) : List.<GameObject> {
 }
 
 //this method gets the enemy list of the systems owner ship
-function getEnemies() : int[] {
-	return general.getFactionInfo(planet.faction).hostileFactions;
+function getFaction() : FactionInfo {
+	return general.getFactionInfo(planet.faction);
 
 }
 
-function getAllies() : int[] {
-	return general.getFactionInfo(planet.faction).alliedFactions;
-}
+
 
 function isPlayerEnemy() : boolean {
-	var itis : boolean = false;
-	var enemies : int[] = getEnemies();
-	var i : int = 0;
-	while(i < enemies.Length && !itis) {
-		itis = enemies[i] == 0;
-		i++;
-	}
 	
-	return itis;
+	var faction : FactionInfo = getFaction();
+	
+	
+	return faction.isHostile(0);
 }
 
 function isPlayerAlly() : boolean {
-	var itis : boolean = false;
-	var allies : int[] = getAllies();
-	var i : int = 0;
-	while(i < allies.Length && !itis) {
-		itis = allies[i] == 0;
-		i++;
-	}
+	var faction : FactionInfo = getFaction();
 	
-	return itis;
+	
+	return faction.isAllied(0);
 }
 

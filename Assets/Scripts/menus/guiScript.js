@@ -524,9 +524,9 @@ class RadarLabel {
 		
 		if(ownFac == plaFac) { //check if it owns
 			texture = own_bg;		
-		} else if(CheckArrayValue(plaFac, ownInfo.alliedFactions)) { //check if its ally
+		} else if(ownInfo.isAllied(plaFac)) { //check if its ally
 			texture = ally_bg;
-		} else if(CheckArrayValue(plaFac, ownInfo.hostileFactions)) { //check if its enemy
+		} else if(ownInfo.isHostile(plaFac)) { //check if its enemy
 			texture = enemy_bg;
 		} else {
 			texture = neutral_bg;	
@@ -550,9 +550,9 @@ class RadarLabel {
 		
 		if(ownFac == plaFac) { //check if it owns
 			texture = own_small;		
-		} else if(CheckArrayValue(plaFac, ownInfo.alliedFactions)) { //check if its ally
+		} else if(ownInfo.isAllied(plaFac)) { //check if its ally
 			texture = ally_small;
-		} else if(CheckArrayValue(plaFac, ownInfo.hostileFactions)) { //check if its enemy
+		} else if(ownInfo.isHostile(plaFac)) { //check if its enemy
 			texture = enemy_small;
 		} else {
 			texture = neutral_small;	
@@ -1102,9 +1102,7 @@ function targetModule() {
 				
 				//Now the orb part
 				//get the player ship faction and faction information
-				var playerFaction : int = shipProps.shipInfo.faction;
-				var playerAllies : int[] = general.factionInfo[playerFaction].alliedFactions;
-				var playerEnemies : int[] = general.factionInfo[playerFaction].hostileFactions;
+				var playerFaction : FactionInfo = general.getFactionInfo(shipProps.shipInfo.faction);
 				
 				//obtain the target faction
 				var tarFaction : int;
@@ -1123,15 +1121,15 @@ function targetModule() {
 				
 				//Now lets select the orb in question
 				var orbTexture : Texture;
-				if(playerFaction == tarFaction) //check if it has the same faction
+				if(shipProps.shipInfo.faction == tarFaction) //check if it has the same faction
 				{
 					orbTexture = Target.orb_owned_color; //give owned color
 				}
-				else if (CheckArrayValue(tarFaction, playerAllies)) //check if it's an ally
+				else if (playerFaction.isAllied(tarFaction)) //check if it's an ally
 				{
 					orbTexture = Target.orb_ally_color; //give allied color
 				}
-				else if (CheckArrayValue(tarFaction, playerEnemies)) //check if it's an enemy
+				else if (playerFaction.isHostile(tarFaction)) //check if it's an enemy
 				{
 					orbTexture = Target.orb_enemy_color; //give enemy color
 				}

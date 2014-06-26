@@ -210,14 +210,14 @@ function hasShip() : boolean {
 function hasHostileShip() : boolean {
 	var isHostile : boolean = false;
 	var ships : GameObject[] = GameObject.FindGameObjectsWithTag("Ship");
-	var hostileList : int[] = general.factionInfo[props.shipInfo.faction].hostileFactions;
+	var factionInfo : FactionInfo = general.getFactionInfo(props.shipInfo.faction);
 	
 	for(var x : int = 0; x < ships.Length && !isHostile; x++) {
 	
 		var faction : int = ships[x].GetComponent(shipProperties).shipInfo.faction;
-		if(Statics.isEnemy(faction, hostileList)) {
-			isHostile = true;
-		}	
+		
+			isHostile = factionInfo.isHostile(faction);
+			
 				
 	}
 	
@@ -230,14 +230,12 @@ function hasHostileShip() : boolean {
 function hasHostileStation() : boolean {
 	var isHostile : boolean = false;
 	var ships : GameObject[] = GameObject.FindGameObjectsWithTag("Station");
-	var hostileList : int[] = general.factionInfo[props.shipInfo.faction].hostileFactions;
+	var factionInfo : FactionInfo = general.getFactionInfo(props.shipInfo.faction);
 	
 	for(var x : int = 0; x < ships.Length && !isHostile; x++) {
 	
 		var faction : int = ships[x].GetComponent(Station).faction;
-		if(Statics.isEnemy(faction, hostileList)) {
-			isHostile = true;
-		}	
+		isHostile = factionInfo.isHostile(faction);
 				
 	}
 	

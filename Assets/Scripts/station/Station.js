@@ -6,15 +6,20 @@ var factionInfo : FactionInfo;
 var faction : int = -1;
 var rotation : Vector3;
 
+private var general : GeneralInfo;
+
 function Start () {
 	//get station weapons script
 	weapon = gameObject.GetComponent(StationWeapons);
 	health = gameObject.GetComponent(Health);
-
+	
+	general = GameObject.FindGameObjectWithTag("SaveGame").GetComponent(GeneralInfo);
+	factionInfo = general.getFactionInfo(faction);
 }
 
 function Update () {
-	updateFaction();
+
+	
 	scan();
 	fire();
 	life();
@@ -23,14 +28,8 @@ function Update () {
 }
 
 
-//updates all faction info
-private function updateFaction() {
-	//find the game object with said info
-	var obj : GameObject = GameObject.FindGameObjectWithTag("SaveGame");
-	var scr : GeneralInfo = obj.GetComponent(GeneralInfo);
-	factionInfo = scr.getFactionInfo(faction);
-	
-	
+function getFaction() : FactionInfo {
+	return factionInfo;
 }
 
 //make all weapons scan
@@ -38,18 +37,18 @@ private function scan() {
 	
 	//scan for phasers
 	for(var x : int = 0; x < weapon.getLength(WeaponType.beam); x++) {
-		weapon.scan(x, WeaponType.beam, factionInfo.hostileFactions);
+		weapon.scan(x, WeaponType.beam, factionInfo);
 		
 	}
 
 	//scan for torpedoes
 	for(x  = 0; x < weapon.getLength(WeaponType.torpedo); x++) {
-		weapon.scan(x, WeaponType.torpedo, factionInfo.hostileFactions);
+		weapon.scan(x, WeaponType.torpedo, factionInfo);
 	}
 	
 	//scan for pulses
 	for(x = 0; x < weapon.getLength(WeaponType.pulse); x++) {
-		weapon.scan(x, WeaponType.pulse, factionInfo.hostileFactions);
+		weapon.scan(x, WeaponType.pulse, factionInfo);
 	}
 
 }

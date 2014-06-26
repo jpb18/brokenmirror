@@ -176,6 +176,8 @@ function OnCollisionEnter (hit: Collision) {
 		{
 			Destroy(gameObject);
 		}
+		
+		registerHit(go);
 			
 	}
 
@@ -237,4 +239,16 @@ private function getParent(trans : Transform) : Transform {
 		
 		return par;
 	
+}
+
+function registerHit(target : GameObject) {
+	if(target.tag == "Ship") {
+		registerShipHit(target);
 	}
+
+}
+
+private function registerShipHit(ship : GameObject) {
+	var health : shipHealth = ship.GetComponent(shipHealth);
+	health.setLastHitter(origin);
+}

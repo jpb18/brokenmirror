@@ -111,11 +111,14 @@ class Phaser {
 			}
 			
 			
+			
 			yield;
 		}
 		GameObject.Destroy(phaserGO);
 		isFiring = false;
 	}
+	
+
 	
 	private function hasTargetShield(target : GameObject) : boolean {
 		if(target.tag.Equals("Ship")) {
@@ -401,6 +404,7 @@ function phaserFunction() {
 	
 	if(phaser.canFire(target.target)) {
 		StartCoroutine(phaser.fireBeam(target.target, phaser.getPoint(target.target)));	
+		registerHit(target.target);
 	}
 	
 }
@@ -465,4 +469,16 @@ function volleyNum() : int {
 	
 
 	return num;
+}
+
+function registerHit(target : GameObject) {
+	if(target.tag == "Ship") {
+		registerShipHit(target);
+	}
+
+}
+
+private function registerShipHit(ship : GameObject) {
+	var health : shipHealth = ship.GetComponent(shipHealth);
+	health.setLastHitter(gameObject);
 }

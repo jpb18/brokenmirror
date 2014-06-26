@@ -149,8 +149,8 @@ function PressTarget() {
 function FindTarget(origin : GameObject, shipProps : shipProperties) : GameObject {
 
 
-	var enemyList : int[] = general.factionInfo[shipProps.shipInfo.faction].hostileFactions;
-	return Statics.FindTarget(origin, Mathf.Infinity, enemyList);
+	var faction : FactionInfo = general.getFactionInfo(shipProps.shipInfo.faction);
+	return Statics.FindTarget(origin, Mathf.Infinity, faction);
 
 }
 

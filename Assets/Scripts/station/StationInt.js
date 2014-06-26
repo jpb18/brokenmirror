@@ -11,7 +11,10 @@ class StationInt {
 	var mode : InteractionsMode;
 	
 	var tradeMissions : List.<TradeMission>;
+	var combatMissions : List.<CombatMission>;
 	var missionNumber : int = 5;
+	
+	
 	
 	var view : ViewProps;
 	
@@ -21,8 +24,12 @@ class StationInt {
 	
 	private var generator : MissionGenerator;
 	private var missions : Missions;
+	private var faction : FactionInfo;
 	private var tradeDialogue : TradeMissionDialogue;
+	private var combatDialogue : CombatMissionDialogue;
 	public static var CARGO : String = "Cargo Mission: {0} GPL";
+	public static var COMBAT : String = "Combat Mission : {0} GPL";
+	
 	
 	
 	function setMission(gen : MissionGenerator, missions : Missions) {
@@ -31,17 +38,37 @@ class StationInt {
 		generateMissions();
 	}
 	
+	function setCombat(dialogue : CombatMissionDialogue, faction : FactionInfo) {
+		this.combatDialogue = dialogue;
+		this.faction = faction;
+	}
+	
 	function setTrade(dialogue : TradeMissionDialogue) {
 		this.tradeDialogue = dialogue;
 	}
 	
 	private function generateMissions() {
 	
+		generateTradeMission();
+		generateCombatMission();	
+	
+	}
+	
+	private function generateTradeMission() {
 		for(var x : int = 0; x < missionNumber; x++) {
 			var mission : TradeMission = generator.generateTradeMission();
 			tradeMissions.Add(mission);
 		}
+	}
 	
+	private function generateCombatMission() {
+		if(generator.hasCommonEnemies(faction)) {
+			for(var x : int = 0; x < missionNumber; x++) {
+				var mission : CombatMission = generator.generateCombatMission(faction);
+				combatMissions.Add(mission);
+				isCombat = true;
+			}
+		}
 	}
 	
 	function removeTradeMissions() {
@@ -52,8 +79,19 @@ class StationInt {
 		}
 	}
 	
+	function removeCombatMissions() {
+		for(var i : int= combatMissions.Count; i > 0; i--) {
+			if(combatMissions[i-1].hasStarted()) {
+				combatMissions.RemoveAt(i-1);
+			}
+		}
+	}
+	
 	function draw(info : StationInterface, skin : GUISkin) {
+		
+	
 		removeTradeMissions();
+		removeCombatMissions();
 		GUILayout.BeginArea(area);
 			//draw background
 			GUI.DrawTexture(Rect(0,0, area.width, area.height), bg_image);
@@ -70,6 +108,9 @@ class StationInt {
 		switch(mode) {
 			case InteractionsMode.trade:
 				drawTradeItems();
+				break;
+			case InteractionsMode.missions:
+				drawCombatItems();
 				break;
 			default:
 				break;
@@ -88,6 +129,22 @@ class StationInt {
 			var str : String = String.Format(CARGO, price);
 			if(GUI.Button(new Rect(0, x * itemHeight, itemWidth, itemHeight), str)) {
 				tradeDialogue.setMission(mission, this);
+			}
+			
+		}
+		
+		GUI.EndScrollView();
+	}
+	
+	private function drawCombatItems() {
+		view.scrollPosition = GUI.BeginScrollView (view.getOutsideRect(itemPos.x, itemPos.y), view.scrollPosition, view.getInRect(missionNumber, itemHeight), true, true);
+		
+		for(var x : int = 0; x < combatMissions.Count; x++) {
+			var mission : CombatMission = combatMissions[x];
+			var price : int = mission.getLatinumReward();
+			var str : String = String.Format(COMBAT, price);
+			if(GUI.Button(new Rect(0, x * itemHeight, itemWidth, itemHeight), str)) {
+				combatDialogue.setMission(mission, this);
 			}
 			
 		}

@@ -6,7 +6,7 @@
 ///<param name="enemyList">List with all enemy faction ids</param>
 ///<param name="origin">object searching</param>
 ///<pre>enemyList != null && origin != null</pre>
-static function findAllEnemyShips(enemyList : int[], origin : GameObject) : GameObject[] {
+static function findAllEnemyShips(faction : FactionInfo, origin : GameObject) : GameObject[] {
 	var gameObjs : GameObject[] = GameObject.FindGameObjectsWithTag("Ship");
 	var enemies : List.<GameObject> = new List.<GameObject>();
 	
@@ -24,7 +24,7 @@ static function findAllEnemyShips(enemyList : int[], origin : GameObject) : Game
 						var ship_props : shipProperties = go.GetComponent(shipProperties);
 						var ship_faction : int = ship_props.shipInfo.faction;
 												
-						if(isEnemy(ship_faction, enemyList))
+						if(faction.isHostile(ship_faction))
 						{
 							enemies.Add(go);
 						}
@@ -39,7 +39,7 @@ static function findAllEnemyShips(enemyList : int[], origin : GameObject) : Game
 	
 }
 
-static function findAllEnemyStations(enemyList : int[], origin : GameObject) : GameObject[] {
+static function findAllEnemyStations(faction : FactionInfo, origin : GameObject) : GameObject[] {
 	var gameObjs : GameObject[] = GameObject.FindGameObjectsWithTag("Station");
 	var enemies : List.<GameObject> = new List.<GameObject>();
 	
@@ -55,9 +55,9 @@ static function findAllEnemyStations(enemyList : int[], origin : GameObject) : G
 					
 						//Get ships properties script and faction
 						var props : Station = go.GetComponent(Station);
-						var faction : int = props.faction;
+						var sfaction : int = props.faction;
 												
-						if(isEnemy(faction, enemyList))
+						if(faction.isHostile(sfaction))
 						{
 							enemies.Add(go);
 						}
@@ -73,9 +73,9 @@ static function findAllEnemyStations(enemyList : int[], origin : GameObject) : G
 }
 
 //this method finds a suitable target for the game object that calls it
-static function FindTarget(origin : GameObject, range : float, enemyList : int[]) : GameObject {
+static function FindTarget(origin : GameObject, range : float, faction : FactionInfo) : GameObject {
 
-	var gameObjs : GameObject[] = findAllEnemyShips(enemyList, origin);
+	var gameObjs : GameObject[] = findAllEnemyShips(faction, origin);
 	var closest : GameObject;
 	var originPosition : Vector3 = origin.transform.position;
 	if(gameObjs.Length > 0) {
@@ -114,7 +114,7 @@ static function FindTarget(origin : GameObject, range : float, enemyList : int[]
 		} 
 		}else {
 		
-			gameObjs = findAllEnemyStations(enemyList, origin);
+			gameObjs = findAllEnemyStations(faction, origin);
 			
 			if(gameObjs.Length > 0) {
 		for(var go : GameObject in gameObjs) {

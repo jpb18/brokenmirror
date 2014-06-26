@@ -33,6 +33,8 @@ private var message : ShowMessage;
 private var missions : Missions;
 private var generator : MissionGenerator;
 private var tradeDialogue : TradeMissionDialogue;
+private var combatDialogue : CombatMissionDialogue;
+private var station : Station;
 
 //Spawn position
 private var spawn : float = 5.0f;
@@ -44,15 +46,18 @@ var trans : Transform;
 var go : GameObject;
 
 function Start () {
+	trans = transform;
+	go = gameObject;
+	message = GameObject.FindGameObjectWithTag("ShowMessage").GetComponent(ShowMessage);
+
 	tradeDialogue = gameObject.GetComponent(TradeMissionDialogue);
+	station = gameObject.GetComponent(Station);
+	combatDialogue = gameObject.GetComponent(CombatMissionDialogue);
 
 	mainCam = Camera.main;
 	radar.Set(gameObject);
 	camScript = mainCam.GetComponent(MouseOrbit);
-	
-	
-	
-	
+		
 	//Missions scripts here.
 	var g : GameObject = GameObject.FindGameObjectWithTag("Missions");
 	missions = g.GetComponent.<Missions>();
@@ -63,15 +68,15 @@ function Start () {
 	var save : GameObject = GameObject.FindGameObjectWithTag("SaveGame");
 	general = save.GetComponent(GeneralInfo);
 	inv = save.GetComponent(Inventory);
+		
+	var global : GameObject = GameObject.FindGameObjectWithTag("GlobalInfo");
+	hud = global.GetComponent(HUDStatus);
 	
-	
-	gui.setWindow(health, this, inv, missions, generator, tradeDialogue);
-	
-	trans = transform;
-	go = gameObject;
-	message = GameObject.FindGameObjectWithTag("ShowMessage").GetComponent(ShowMessage);
-	
-	hud = GameObject.FindGameObjectWithTag("GlobalInfo").GetComponent(HUDStatus);
+	try {
+		gui.setWindow(health, this, inv, missions, generator, tradeDialogue, combatDialogue, getFaction());
+	} catch (e : Exception) {
+		Debug.LogWarning("Something is wrong over here!");
+	}
 	
 }
 
@@ -80,6 +85,11 @@ function Update () {
 }
 
 function OnGUI() {
+	if(!hud) {
+		var global : GameObject = GameObject.FindGameObjectWithTag("GlobalInfo");
+		hud = global.GetComponent(HUDStatus);
+	}
+
 	if(hud.isShowingGui()) guiFunction();
 	
 }
@@ -151,4 +161,8 @@ function getPosition() : Vector3 {
 
 function getMessage() : ShowMessage {
 	return message;
+}
+
+function getFaction() : FactionInfo {
+	return station.getFaction();
 }

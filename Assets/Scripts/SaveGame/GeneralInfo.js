@@ -5,14 +5,18 @@ class PlayerInfo {
 	var gameDificulty : Dificulty;
 	var allegience : FactionInfo;
 	var empireName : String;
+	
+	function setAllegience(faction : FactionInfo) {
+		allegience = faction;
+	}
 		
 }
 
 class FactionInfo {
 	var factionName : String;
 	var factionRace : String;
-	var hostileFactions : int[];
-	var alliedFactions : int[];
+	var hostileFactions : List.<int>;
+	var alliedFactions : List.<int>;
 	var invasionFleet : List.<GameObject>;
 	
 	function getInfo() : FactionInfo {
@@ -28,7 +32,83 @@ class FactionInfo {
 		this.hostileFactions = info.hostileFactions;
 		this.alliedFactions = info.alliedFactions;
 	
-	}  
+	} 
+	
+	 function getName() : String {
+	 	return factionName;
+	 }
+	 
+	 function getRace() : String {
+	 	return factionRace;
+	 }
+	 
+	 function isHostile(faction : int) : boolean {
+	 	for(var f : int in hostileFactions) {
+	 		if(f == faction) {
+	 			return true;
+	 		}
+	 	}
+	 	return false;
+	 }
+	 
+	 function isAllied(faction : int) {
+	 	for(var f : int in alliedFactions) {
+	 		if(f == faction) {
+	 			return true;
+	 		}
+	 	}
+	 	return false;
+	 }
+	 
+	 function getFleet() : List.<GameObject> {
+	 	return invasionFleet;
+	 }
+	 
+	 function removeHostile(faction : int) {
+	 	hostileFactions.Remove(faction);
+	 }
+	 
+	 function removeAlly(faction : int) {
+	 	alliedFactions.Remove(faction);
+	 }
+	 
+	 function addAlly(faction : int) {
+	 	removeHostile(faction);
+	 	if(!alliedFactions.Contains(faction)) {
+	 		alliedFactions.Add(faction);
+	 	}
+	 }
+	 
+	 function addHostile(faction : int) {
+	 	removeAlly(faction);
+	 	if(!hostileFactions.Contains(faction)) {
+	 		hostileFactions.Add(faction);
+	 	}
+	 }
+	 
+	 function hasHostiles() : boolean {
+	 	return hostileFactions.Count > 0;
+	 }
+	 
+	 function pickRandomEnemy() : int {
+	 	var rnd : int = Random.Range(0, hostileFactions.Count);
+	 	return hostileFactions[rnd];
+	 }
+	 
+	 function getCommonEnemies(faction : FactionInfo) : List.<int> {
+	
+	 	var enemies : List.<int> = new List.<int>();
+	 	for(var enemy : int in hostileFactions)	 {
+	 		if(faction.isHostile(enemy)) {
+	 			enemies.Add(enemy);
+	 		}
+	 	}
+	 	return enemies;
+	 }
+	 
+	 function hasCommonEnemies(faction : FactionInfo) : boolean {
+	 	return getCommonEnemies(faction).Count > 0;
+	 }
 
 }
 
@@ -47,12 +127,21 @@ var factionInfo : FactionInfo[];
 
 function getFactionInfo(faction : int) : FactionInfo {
 
-	return factionInfo[faction].getInfo();
+	return factionInfo[faction];
 
 }
 
-function Start () {
+function getFactionId(faction : FactionInfo) : int {
+	for(var i : int = 0; i < factionInfo.Length; i++) {
+		if(factionInfo[i] == faction) {
+			return i;
+		}
+	}
+	return -1;
+}
 
+function Start () {
+	playerInfo.setAllegience(getFactionInfo(0));
 }
 
 function Update () {

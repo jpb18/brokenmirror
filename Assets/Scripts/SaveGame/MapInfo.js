@@ -61,6 +61,14 @@ class PlanetInfo { //this class stores all planet information necessary for the 
 		return reputation;
 		
 	}
+	
+	function getFaction() : int {
+		return faction;
+	}
+	
+	function addReputation(amount : int) {
+		reputation += amount;
+	}
 
 }
 
@@ -303,10 +311,10 @@ function CreatePlanetButton(planet : PlanetInfo, buttons : MapButtons, mapRect :
 	else if(!planet.isColonized) { //check if the player is colonized
 		useTexture = buttons.empty;
 	}
-	else if(CheckArrayValue(planet.faction, factionInfo.hostileFactions)){ //if planet is enemy
+	else if(factionInfo.isHostile(planet.faction)){ //if planet is enemy
 		useTexture = buttons.enemy;
 	}
-	else if(CheckArrayValue(planet.faction, factionInfo.alliedFactions)) { //if planet is ally
+	else if(factionInfo.isAllied(planet.faction)) { //if planet is ally
 		useTexture = buttons.ally;
 	}
 	else if(faction == planet.faction) { //if it belongs to your faction
@@ -577,3 +585,11 @@ function getPlanetBySceneName(scene : String) : PlanetInfo {
 	}
 }
 
+function addReputationToEmpire(faction : int, amount : int) {
+	for(var planet : PlanetInfo in planets) {
+		if(planet.getFaction() == faction) {
+			planet.addReputation(amount);
+		}
+	}
+
+}

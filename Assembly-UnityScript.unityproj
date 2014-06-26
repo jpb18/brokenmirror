@@ -63,6 +63,7 @@
      <Compile Include="Assets\Scripts\Load\sceneSwapper.js" />
      <Compile Include="Assets\Scripts\Missions\Cargo.js" />
      <Compile Include="Assets\Scripts\Missions\CargoItem.js" />
+     <Compile Include="Assets\Scripts\Missions\CombatMission.js" />
      <Compile Include="Assets\Scripts\Missions\Mission.js" />
      <Compile Include="Assets\Scripts\Missions\MissionGenerator.js" />
      <Compile Include="Assets\Scripts\Missions\Missions.js" />
@@ -101,6 +102,7 @@
      <Compile Include="Assets\Scripts\menus\mainMenu.js" />
      <Compile Include="Assets\Scripts\menus\setupMenu.js" />
      <Compile Include="Assets\Scripts\menus\testMenu.js" />
+     <Compile Include="Assets\Scripts\newGui\CombatMissionDialogue.js" />
      <Compile Include="Assets\Scripts\newGui\FloatingWindow.js" />
      <Compile Include="Assets\Scripts\newGui\GuiElement.js" />
      <Compile Include="Assets\Scripts\newGui\Icon.js" />

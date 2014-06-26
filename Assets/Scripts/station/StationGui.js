@@ -17,17 +17,18 @@ class StationGui {
 	
 	var close_bt : Rect;
 	
-	function setWindow(health : Health, info : StationInterface, inv : Inventory, missions : Missions, generator : MissionGenerator, tradeDialogue : TradeMissionDialogue) {
+	function setWindow(health : Health, info : StationInterface, inv : Inventory, missions : Missions, generator : MissionGenerator, tradeDialogue : TradeMissionDialogue, combatDialogue : CombatMissionDialogue, faction : FactionInfo) {
 	
 		this.health = health;
 		this.info = info;
 		this.inv = inv;
+		sit.setCombat(combatDialogue, faction);
 		sit.setMission(generator, missions);
 		sit.setTrade(tradeDialogue);
 	}
 		
 	function draw() {
-		
+	
 		area = GUI.Window(0, area, window, "Window", GUIStyle.none);
 		
 	}

@@ -51,11 +51,15 @@ var smokeTrails : List.<GameObject>;
 var plasmaParticles : List.<GameObject>;
 var shield : GameObject;
 
+var lastHit : GameObject;
+
 //other scripts
 private var properties : shipProperties;
 private var triggers : shipTriggers;
 private var cloud : ShipCloud;
 private var escape : shipEscapePods;
+private var missions : Missions;
+private var general : GeneralInfo;
 
 function Start () {
 
@@ -64,6 +68,8 @@ function Start () {
 	triggers = gameObject.GetComponent(shipTriggers);
 	cloud = gameObject.GetComponent(ShipCloud);
 	escape = gameObject.GetComponent(shipEscapePods);
+	missions = GameObject.FindGameObjectWithTag("Missions").GetComponent(Missions);
+	general = GameObject.FindGameObjectWithTag("SaveGame").GetComponent(GeneralInfo);
 	
 	//get health stats
 	shipHealth.maxHealth = properties.ShipHealth.basicHealth;
@@ -130,6 +136,7 @@ function Die () {
 
 	if (shipHealth.health <= 0)
 	{
+		reportKill();
 		instantiatePods();
 		Instantiate(explosion, transform.position, transform.rotation);
 		Destroy(gameObject);
@@ -297,4 +304,40 @@ function setDamage(damage : float) {
 	} else {
 		shipHealth.health -= damage;
 	}
+}
+
+function setLastHitter(ship : GameObject) {
+	lastHit = ship;
+}
+
+function reportKill() {
+	if(lastHit) {
+		var hostileFaction : FactionInfo = getFaction(lastHit);
+		if(hostileFaction === general.getFactionInfo(0)) {
+			var faction : FactionInfo = getFaction(gameObject);
+			missions.addKillToCombatMissions(faction);
+		}
+	}
+}
+
+private function getFaction(ship : GameObject) : FactionInfo {
+	if(ship.tag == "Ship") {
+		return getShipFaction(ship);
+	} else if (ship.tag == "Station") {
+		return getStationFaction(ship);
+	}
+	
+	return null;
+
+}
+
+private function getStationFaction(station : GameObject): FactionInfo {
+	var stat : Station = station.GetComponent(Station);
+	return stat.getFaction();
+}
+
+private function getShipFaction(ship : GameObject) : FactionInfo {
+	var props : shipProperties = ship.GetComponent(shipProperties);
+	var faction : int = props.getFaction();
+	return general.getFactionInfo(faction);
 }
