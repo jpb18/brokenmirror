@@ -43,21 +43,7 @@ class PlanetInfo { //this class stores all planet information necessary for the 
 	}
 	
 	
-	//This function gets the global planet strenght
-	function getStrenght() : int {
-		var strenght : int = 0;
-		//get fleet strenght
-		for(var x : int = 0; x < defenseFleet.Count; x++) {
-			strenght += defenseFleet[x].shipInfo.strenght;
-		
-		}
-		
-		//get starbase strenght (future)
-		
-		return strenght;
-		
 	
-	}
 	
 	//this method return the defense fleet present on the planet
 	function getFleet() : List.<SaveShip> {
@@ -86,6 +72,26 @@ class PlanetInfo { //this class stores all planet information necessary for the 
 	function addReputation(amount : int) {
 		reputation += amount;
 	}
+	
+	function getStrenght() : int {
+		var str : int = 0;
+		
+		for(var ship : SaveShip in defenseFleet) {
+			str += ship.getStrenght();
+		}
+		
+		for(var station : SaveStation in stations) {
+			str += station.getStrenght();
+		}
+		
+		
+		return str;
+	}
+	
+	
+	
+	
+	
 	
 	function serialize() : String {
 		var serie : String = "";
@@ -181,7 +187,49 @@ class OverRect {
 	var planet_label : Rect;
 	var faction_label : Rect;
 	var race_label : Rect;
+	var strLabel : Rect;
 	
+	//skin
+	var skin : GUISkin;
+	
+
+	
+	
+	function Draw(button : Rect, planet : PlanetInfo) {
+	
+		var factionStyle : GUIStyle = skin.GetStyle("FactionOver");
+		
+		//construct texture rect
+		var CoodX : int = button.x;
+		var CoodY : int = button.y - position.height;
+		var overRect : Rect = new Rect(CoodX, CoodY, position.width, position.height);
+		
+		//prepare to draw
+		GUILayout.BeginArea(overRect);
+			GUI.DrawTexture(Rect(0,0, position.width, position.height), bg_image);
+			
+			GUI.Label(planet_label, planet.name, skin.GetStyle("PlanetOver")); //Show planet name
+			
+			//Get faction info
+			var facInfo : FactionInfo = GameObject.FindGameObjectWithTag("SaveGame").GetComponent(GeneralInfo).factionInfo[planet.faction];
+			var facName : String = facInfo.factionName;
+			
+			GUI.Label(faction_label, facName, factionStyle); //Show planet faction
+			
+			var facRace : String = facInfo.factionRace;
+			
+			GUI.Label(race_label, facRace, factionStyle);// Show planet master race
+			
+			//Draw strenght label
+			var strenght : int = planet.getStrenght();
+			GUI.Label(strLabel, "Strenght: " + strenght.ToString(), factionStyle);
+			
+			
+		
+		GUILayout.EndArea();
+	
+	
+	}
 
 }
 
@@ -330,6 +378,11 @@ class SaveStation extends System.Object{
 		}
 		return list;
 	
+	}
+	
+	function getStrenght() : int {
+		var station : Station = prefab.GetComponent(Station);
+		return station.getStrenght();
 	}
 
 }
@@ -519,30 +572,8 @@ private function canWarp(destiny : PlanetInfo) : boolean {
 function DrawMouseOver(button : Rect, mouseover : OverRect, planet : PlanetInfo) {
 	//check if the mouse is over the button
 	if(button.Contains(Event.current.mousePosition)) {
+		mouseover.Draw(button, planet);
 		
-		//construct texture rect
-		var CoodX : int = button.x;
-		var CoodY : int = button.y - mouseover.position.height;
-		var overRect : Rect = new Rect(CoodX, CoodY, mouseover.position.width, mouseover.position.height);
-		
-		//prepare to draw
-		GUILayout.BeginArea(overRect);
-			GUI.DrawTexture(Rect(0,0, mouseover.position.width, mouseover.position.height),mouseover.bg_image);
-			
-			GUI.Label(mouseover.planet_label, planet.name, map.skin.GetStyle("PlanetOver")); //Show planet name
-			
-			//Get faction info
-			var facInfo : FactionInfo = GameObject.FindGameObjectWithTag("SaveGame").GetComponent(GeneralInfo).factionInfo[planet.faction];
-			var facName : String = facInfo.factionName;
-			
-			GUI.Label(mouseover.faction_label, facName, map.skin.GetStyle("FactionOver")); //Show planet faction
-			
-			var facRace : String = facInfo.factionRace;
-			
-			GUI.Label(mouseover.race_label, facRace, map.skin.GetStyle("FactionOver"));// Show planet master race
-			
-		
-		GUILayout.EndArea();
 	}
 
 }

@@ -5,6 +5,7 @@ var weapon : StationWeapons;
 var factionInfo : FactionInfo;
 var faction : int = -1;
 var rotation : Vector3;
+var strenght : int;
 
 private var general : GeneralInfo;
 
@@ -88,4 +89,8 @@ private function life() {
 	}
 
 
+}
+
+function getStrenght() : int {
+	return strenght;
 }

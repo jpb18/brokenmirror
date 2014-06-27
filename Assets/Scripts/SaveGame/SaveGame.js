@@ -137,6 +137,10 @@ class SaveShip{
 		
 	}
 	
+	function getStrenght() : int {
+		return shipInfo.strenght;
+	}
+	
 	//this function returns the ship stored here
 	function getShip() : GameObject {
 		var ship : GameObject = GameObject.Instantiate(shipPrefab);

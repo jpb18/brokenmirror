@@ -161,3 +161,7 @@ function getPrice() {
 	return shipProps.baseCost;
 }
 
+function getStrenght() : int {
+	return shipProps.shipStrenght;
+}
+
