@@ -1,0 +1,84 @@
+# 3ds Max Wavefront OBJ Exporter v0.97b - (c)2007 guruware
+# File Created: 27.06.2014 12:57:09
+
+newmtl Material_000007
+	Ns 10.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.5882 0.5882 0.5882
+	Ks 0.9000 0.9000 0.9000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka C:\Users\Chris\Documents\Broken Mirror 3\Models\Gal-X\WCagtGalaxy\agttopsaucer_glow.tga
+	map_Kd C:\Users\Chris\Documents\Broken Mirror 3\Models\Gal-X\WCagtGalaxy\agttopsaucer_glow.tga
+
+newmtl Material_001036
+	Ns 10.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.5882 0.5882 0.5882
+	Ks 0.9000 0.9000 0.9000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka C:\Users\Chris\Documents\Broken Mirror 3\Models\Gal-X\WCagtGalaxy\sechull_glow.tga
+	map_Kd C:\Users\Chris\Documents\Broken Mirror 3\Models\Gal-X\WCagtGalaxy\sechull_glow.tga
+
+newmtl Material_002408
+	Ns 10.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.5882 0.5882 0.5882
+	Ks 0.9000 0.9000 0.9000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka C:\Users\Chris\Documents\Broken Mirror 3\Models\Gal-X\WCagtGalaxy\agtbits_glow.tga
+	map_Kd C:\Users\Chris\Documents\Broken Mirror 3\Models\Gal-X\WCagtGalaxy\agtbits_glow.tga
+
+newmtl Material_003f8c
+	Ns 10.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.5882 0.5882 0.5882
+	Ks 0.9000 0.9000 0.9000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka C:\Users\Chris\Documents\Broken Mirror 3\Models\Gal-X\WCagtGalaxy\agtbottomsaucer_glow.tga
+	map_Kd C:\Users\Chris\Documents\Broken Mirror 3\Models\Gal-X\WCagtGalaxy\agtbottomsaucer_glow.tga
+
+newmtl Material_0069a4
+	Ns 10.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.5882 0.5882 0.5882
+	Ks 0.9000 0.9000 0.9000
+	Ke 0.0000 0.0000 0.0000
+	map_Ka C:\Users\Chris\Documents\Broken Mirror 3\Models\Gal-X\WCagtGalaxy\agtblankid_glow.tga
+	map_Kd C:\Users\Chris\Documents\Broken Mirror 3\Models\Gal-X\WCagtGalaxy\agtblankid_glow.tga
+
+newmtl Material_000001
+	Ns 10.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.5880 0.5880 0.5880
+	Ks 0.9000 0.9000 0.9000
+	Ke 0.0000 0.0000 0.0000
