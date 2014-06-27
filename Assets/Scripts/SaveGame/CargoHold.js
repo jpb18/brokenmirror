@@ -54,3 +54,30 @@ function removeCargo(cargo : Cargo) {
 	}
 	
 }
+
+function serialize() : String {
+	var serie : String = capacity + "\n";
+	serie = serie + cargoItems.Count + "\n";
+	for(var item : Cargo in cargoItems) {
+		serie = serie + item.serialize();
+	}
+	return serie;
+}
+
+function readFromFile(stream : StreamReader) {
+	capacity = int.Parse(stream.ReadLine());
+	cargoItems = getCargoItemsList(stream);
+}
+
+function getCargoItemsList(stream : StreamReader) : List.<Cargo> {
+	var count : int = int.Parse(stream.ReadLine());
+	var list : List.<Cargo> = new List.<Cargo>();
+	for(var x : int = 0; x < count; x++) {
+		var go : GameObject = Resources.Load(stream.ReadLine());
+		var size : int = int.Parse(stream.ReadLine());
+		var price : int = int.Parse(stream.ReadLine());
+		var cargo : Cargo = new Cargo(go, size, price);
+		list.Add(cargo);		
+	}
+	return list;
+}

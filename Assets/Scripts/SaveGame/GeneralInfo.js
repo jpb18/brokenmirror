@@ -1,3 +1,4 @@
+import System.IO;
 #pragma strict
 
 class PlayerInfo {
@@ -17,6 +18,14 @@ class PlayerInfo {
 		serie = serie + allegience.serialize();
 		return serie;		
 	}
+	
+	function readFromFile(stream : StreamReader) {
+		name = stream.ReadLine();
+		gameDificulty = System.Enum.Parse(typeof(Dificulty), stream.ReadLine());
+		empireName = stream.ReadLine();
+		allegience.readFromFile(stream);
+		
+	}
 		
 }
 
@@ -26,6 +35,14 @@ class FactionInfo {
 	var hostileFactions : List.<int>;
 	var alliedFactions : List.<int>;
 	var invasionFleet : List.<GameObject>;
+	
+	function FactionInfo() {
+		factionName = "";
+		factionRace = "";
+		hostileFactions = new List.<int>();
+		alliedFactions = new List.<int>();
+		invasionFleet = new List.<GameObject>();
+	}
 	
 	function getInfo() : FactionInfo {
 		
@@ -134,12 +151,47 @@ class FactionInfo {
 	 		serie = serie + a + "\n";
 	 	}
 	 	
+	 	serie = serie + invasionFleet.Count + "\n";
 	 	for(var ship : GameObject in invasionFleet) {
 	 		serie = serie + ship.name + "\n";
 	 	}
 	 	
 	 	return serie;
 	 
+	 }
+	 
+	 function readFromFile(stream : StreamReader) {
+	 	factionName = stream.ReadLine();
+	 	factionRace = stream.ReadLine();
+	 	
+	 	//get hostile list
+	 	hostileFactions = getIntList(stream);
+	 	
+	 	//get allied list
+	 	alliedFactions = getIntList(stream);
+	 	
+	 	//get fleet list
+	 	invasionFleet = getGameObjectList(stream);
+	
+	 }
+	 
+	 private function getIntList(stream : StreamReader) : List.<int> {
+	 	var count : int = int.Parse(stream.ReadLine());
+	 	var list : List.<int> = new List.<int>();
+	 	for(var x : int = 0; x < count; x++) {
+	 		list.Add(int.Parse(stream.ReadLine()));
+	 	}
+	 	return list;
+	 }
+	 
+	 private function getGameObjectList(stream : StreamReader) : List.<GameObject> {
+	 	var count : int = int.Parse(stream.ReadLine());
+	 	var list : List.<GameObject> = new List.<GameObject>();
+	 	for(var x : int = 0; x < count; x++) {
+	 		var name : String = stream.ReadLine();
+	 		list.Add(Resources.Load(name) as GameObject);
+	 	}
+	 	return list;
 	 }
 
 }
@@ -154,7 +206,7 @@ enum Dificulty {
 }
 
 var playerInfo : PlayerInfo;
-var factionInfo : FactionInfo[];
+var factionInfo : List.<FactionInfo>;
 
 
 function getFactionInfo(faction : int) : FactionInfo {
@@ -164,7 +216,7 @@ function getFactionInfo(faction : int) : FactionInfo {
 }
 
 function getFactionId(faction : FactionInfo) : int {
-	for(var i : int = 0; i < factionInfo.Length; i++) {
+	for(var i : int = 0; i < factionInfo.Count; i++) {
 		if(factionInfo[i] == faction) {
 			return i;
 		}
@@ -179,10 +231,29 @@ function Start () {
 function serialize() {
 	var serie : String = playerInfo.serialize();
 	
+	serie = serie + factionInfo.Count + "\n";
+	
 	for(var fac : FactionInfo in factionInfo) {
 		serie = serie + fac.serialize();
 	}
 	
 	return serie;
 	
+}
+
+function readFromFile(stream : StreamReader)  {
+	playerInfo.readFromFile(stream);
+	factionInfo = getFactionInfoList(stream);
+	
+}
+
+private function getFactionInfoList(stream : StreamReader) : List.<FactionInfo> {
+	var count : int = int.Parse(stream.ReadLine());
+	var factions : List.<FactionInfo> = new List.<FactionInfo>();
+	for(var x : int =0; x < count; x++) {
+		var faction : FactionInfo = new FactionInfo();
+		faction.readFromFile(stream);
+		factions.Add(faction);
+	}
+	return factions;
 }

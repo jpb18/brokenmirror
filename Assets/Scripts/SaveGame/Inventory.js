@@ -58,3 +58,30 @@ function addLatinum(latinum : int) {
 function getLatinum() : int {
 	return this.latinum;
 }
+
+function serialize() : String {
+	var serie : String = latinum + "\n";
+	serie = serie + maxSize + "\n";
+	serie = serie + items.Count + "\n";
+	for(var item : GameObject in items) {
+		serie = serie + item.name + "\n";
+	}
+	return serie;
+}
+
+function readFromFile(stream : StreamReader) {
+	latinum = int.Parse(stream.ReadLine());
+	maxSize = int.Parse(stream.ReadLine());
+	items = getItemsList(stream);
+}
+
+private function getItemsList(stream : StreamReader) : List.<GameObject> {
+	var count : int = int.Parse(stream.ReadLine());
+	var list : List.<GameObject> = new List.<GameObject>();
+	for(var x : int = 0; x < count; x++) {
+		var name : String = stream.ReadLine();
+		var go : GameObject = Resources.Load(name) as GameObject; 
+		list.Add(go);
+	}
+	return list;
+}

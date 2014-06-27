@@ -42,8 +42,11 @@ function getPress() {
 		var layer : LayerMask = LayerMask.NameToLayer (MENU_LAYER);
 		if (Physics.Raycast (ray, hit, 1000.0f, ~layer.value)) {
 				var hitGo : GameObject = hit.transform.gameObject;
-				if (hitGo.tag == "resume") {
+				if (hitGo.tag == "NewGame") {
 						showSplash = true;
+				}
+				else if(hitGo.tag == "resume") {
+					loadLatestGame();
 				}
 		}
 	
@@ -100,19 +103,19 @@ function getNumber(tag : String) : int {
 
 function FixedUpdate() {
 	if (startGame) {
-			//get show message script
-			
-			
-			show.setGame();
-			
-			music.startPlaying();
-			
-			hud.setGame(true);
-			
+			startComponents();
 			Application.LoadLevel ("Start");
 	}
 
 
+}
+
+function startComponents() {
+	show.setGame();
+			
+			music.startPlaying();
+			
+			hud.setGame(true);
 }
 
 function OnGUI ()
@@ -137,4 +140,28 @@ function hideRoll() {
 		text.color = uColor;
 	}
 	
+}
+
+function loadLatestGame() {
+	//first load save game
+	var go : GameObject = GameObject.FindGameObjectWithTag("SaveScript");
+	var save : SaveScript = go.GetComponent(SaveScript);
+	var file : String = EscMenu.SAVE_TEXT + EscMenu.SAVE_EXT;
+	save.readFromFile(file);
+	
+	//then get latest loaded scene
+	var saveGo : GameObject = GameObject.FindGameObjectWithTag("SaveGame");
+	var saveGame : SaveGame = saveGo.GetComponent(SaveGame);
+	var scene : String = saveGame.getLastScene();
+	
+	
+		
+	//load new scene
+	var loadGo : GameObject = GameObject.FindGameObjectWithTag("LoadScene");
+	var load : LoadScene = loadGo.GetComponent(LoadScene);
+	
+	load.LoadScene(scene, this);
+	
+	
+	      
 }

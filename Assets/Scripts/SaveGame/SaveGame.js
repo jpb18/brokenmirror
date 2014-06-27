@@ -33,6 +33,14 @@ class SaveShip{
 																											
 			return serie;
 		}
+		
+		function readFromFile(stream : StreamReader) {
+			Name = stream.ReadLine();
+			Faction = int.Parse(stream.ReadLine());
+			isPlayer = boolean.Parse(stream.ReadLine());
+			isRedAlert = boolean.Parse(stream.ReadLine());
+			strenght = int.Parse(stream.ReadLine());
+		}
 	
 	}
 	
@@ -52,6 +60,11 @@ class SaveShip{
 			serie = serie + curShield + "\n";
 			
 			return serie;
+		}
+		
+		function readFromFile(stream : StreamReader) {
+			curHull = float.Parse(stream.ReadLine());
+			curShield = float.Parse(stream.ReadLine());
 		}
 	
 	}
@@ -81,6 +94,30 @@ class SaveShip{
 			}
 			
 			return serie;
+		}
+		
+		function readFromFile(stream : StreamReader) {
+			phaser = getGameObject(stream.ReadLine());
+			torp1 = getGameObject(stream.ReadLine());
+			torp2 = getGameObject(stream.ReadLine());
+			upgrades = getGameObjectList(stream);			
+		}
+		
+		private function getGameObject(name : String) : GameObject{
+			if(name == "null") {
+				return null;
+			} else {
+				return Resources.Load(name) as GameObject;
+			}
+		}
+		
+		private function getGameObjectList(stream : StreamReader) : List.<GameObject> {
+			var count  : int = int.Parse(stream.ReadLine());
+			var list : List.<GameObject> = new List.<GameObject>();
+			for(var x : int = 0; x < count; x++) {
+				list.Add(getGameObject(stream.ReadLine()));
+			}
+			return list;		
 		}
 		
 	}
@@ -185,6 +222,24 @@ class SaveShip{
 	
 	}
 	
+	function readFromFile(stream : StreamReader) {
+		shipPrefab = getGameObject(stream.ReadLine());
+		dilithium = int.Parse(stream.ReadLine());
+		shipInfo = new ShipInfo();
+		shipInfo.readFromFile(stream);
+		shipHea = new ShipHealth();
+		shipHea.readFromFile(stream);
+		shipInv = new ShipInventory();
+		shipInv.readFromFile(stream);
+	}
+	
+	private function getGameObject(name : String) : GameObject {
+		if(name == "null") {
+			return null;
+		} else {
+			return Resources.Load(name) as GameObject;
+		}
+	}
 	
 }
 
@@ -260,6 +315,23 @@ class Fleet extends System.Object{
 		
 		return serie;
 		
+	}
+	
+	function readFromFile(stream : StreamReader) {
+		formation = System.Enum.Parse(typeof(Formation), stream.ReadLine());
+		ships = getSaveShipList(stream);
+		
+	}
+	
+	private function getSaveShipList(stream : StreamReader) : List.<SaveShip> {
+		var count : int = int.Parse(stream.ReadLine());
+		var list : List.<SaveShip> = new List.<SaveShip>();
+		for(var x : int = 0; x < count; x++) {
+			var ship : SaveShip = new SaveShip();
+			ship.readFromFile(stream);
+			list.Add(ship);
+		}
+		return list;
 	}
 
 }
@@ -437,6 +509,10 @@ function SaveScene(scene : String) {
 	lastSceneLoaded = scene;
 }
 
+function getLastScene() : String {
+	return lastSceneLoaded;
+}
+
 function serialize() : String {
 	var serie : String = lastSceneLoaded + "\n";
 	
@@ -446,3 +522,8 @@ function serialize() : String {
 	return serie;
 }
 
+function readFromFile(stream : StreamReader) {
+	lastSceneLoaded = stream.ReadLine();
+	playerShip.readFromFile(stream);
+	playerFleet.readFromFile(stream);
+}

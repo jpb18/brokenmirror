@@ -50,6 +50,13 @@ class Cargo extends Object {
 		return false;
 		
 	}
+	
+	function serialize() : String {
+		var serie : String = cargo.name + "\n";
+		serie = serie + size + "\n";
+		serie = serie + price + "\n";
+		return serie;
+	}
 
 }
 

@@ -15,8 +15,8 @@ private var timeInt : float = 0.2f;
 private var message : ShowMessage;
 private var saveScript : SaveScript;
 
-private static var SAVE_TEXT : String = "SaveGame";
-private static var SAVE_EXT : String = ".bm";
+public static var SAVE_TEXT : String = "SaveGame";
+public static var SAVE_EXT : String = ".bm";
 
 function Start () {
 

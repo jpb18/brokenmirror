@@ -18,13 +18,26 @@ class PlanetInfo { //this class stores all planet information necessary for the 
 	var hasPlayerVisit : boolean = false;
 	var isColonized : boolean = false;
 	
+	function PlanetInfo(stream : StreamReader) {
+		readFromFile(stream);
+	}
+	
 	class PlanetCood {
 		
 		var x : int;
 		var y : int;
 		
+		function PlanetCood(stream : StreamReader) {
+			readFromFile(stream);
+		}
+		
 		function serialize() : String {
 			return x + "\n" + y + "\n";
+		}
+		
+		function readFromFile(stream : StreamReader) {
+			x = int.Parse(stream.ReadLine());
+			y = int.Parse(stream.ReadLine());
 		}
 	
 	}
@@ -98,6 +111,45 @@ class PlanetInfo { //this class stores all planet information necessary for the 
 		
 		return serie;
 	}
+	
+	function readFromFile(stream : StreamReader) {
+		isEnabled = boolean.Parse(stream.ReadLine());
+		name = stream.ReadLine();
+		faction = int.Parse(stream.ReadLine());
+		scene = stream.ReadLine();
+		description = stream.ReadLine();
+		//TODO : Planet Images
+		cood = new PlanetCood(stream);
+		defenseFleet = getSaveShipList(stream);
+		stations = getSaveStationList(stream);
+		reputation = int.Parse(stream.ReadLine());
+		hasPlayerVisit = boolean.Parse(stream.ReadLine());
+		isColonized = boolean.Parse(stream.ReadLine());
+		
+	}
+	
+	private function getSaveShipList(stream : StreamReader) : List.<SaveShip> {
+		var count : int = int.Parse(stream.ReadLine());
+		var list : List.<SaveShip> = new List.<SaveShip>();
+		for(var x : int = 0; x < count; x++) {
+			var ship : SaveShip = new SaveShip();
+			ship.readFromFile(stream);
+			list.Add(ship);
+		}
+		return list;
+	}
+	
+	private function getSaveStationList(stream : StreamReader) : List.<SaveStation> {
+		var count : int = int.Parse(stream.ReadLine());
+		var list : List.<SaveStation> = new List.<SaveStation>();
+		for(var x : int = 0; x < count; x++) {
+			var station : SaveStation = new SaveStation(stream);
+			list.Add(station);
+		}
+		return list;
+	}
+	
+
 
 }
 
@@ -162,6 +214,10 @@ class SaveStation extends System.Object{
 	
 	//prefab
 	var prefab : GameObject;
+	
+	function SaveStation(stream : StreamReader) {
+		readFromFile(stream);
+	}
 	
 	//this function sets the station information
 	//pre station.tag == "Station"
@@ -244,7 +300,37 @@ class SaveStation extends System.Object{
 		}
 		return serie;
 	}
-
+	
+	function readFromFile(stream : StreamReader) {
+		name = stream.ReadLine();
+		faction = int.Parse(stream.ReadLine());
+		position = readVector3(stream);
+		items = readGoList(stream);
+		ships = readGoList(stream);
+		plans = readGoList(stream);
+		upgrades = readGoList(stream);
+		prefab = Resources.Load(stream.ReadLine()) as GameObject;
+		
+	}
+	
+	private function readVector3(stream : StreamReader) : Vector3 {
+		var x : float = float.Parse(stream.ReadLine());
+		var y : float = float.Parse(stream.ReadLine());
+		var z : float = float.Parse(stream.ReadLine());
+		return new Vector3(x, y, z);
+	}
+	
+	private function readGoList(stream : StreamReader) : List.<GameObject> {
+		var count : int = int.Parse(stream.ReadLine());
+		var list : List.<GameObject> = new List.<GameObject>();
+		for(var x : int = 0; x < count; x++) {
+			var name : String = stream.ReadLine();
+			var go : GameObject = Resources.Load(name) as GameObject;
+			list.Add(go);
+		}
+		return list;
+	
+	}
 
 }
 
@@ -649,6 +735,7 @@ function getPlanetBySceneName(scene : String) : PlanetInfo {
 			return planet;
 		}
 	}
+	return null;
 }
 
 function addReputationToEmpire(faction : int, amount : int) {
@@ -669,4 +756,19 @@ function serialize() : String {
 	
 	return serie; 
 	  
+}
+
+function readFromFile(stream : StreamReader) {
+	planets = getPlanetsList(stream);
+}
+
+private function getPlanetsList(stream : StreamReader) : List.<PlanetInfo> {
+	var count : int = int.Parse(stream.ReadLine());
+	var list : List.<PlanetInfo> = new List.<PlanetInfo>();
+	for(var x : int = 0; x < count; x++) {
+		var planet : PlanetInfo = new PlanetInfo(stream);
+		list.Add(planet);
+	}
+	return list;
+	
 }

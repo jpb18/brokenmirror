@@ -14,6 +14,15 @@ function LoadScene(destiny : String) {
 
 }
 
+function LoadScene(destiny : String, menu : MenuScript) {
+	
+
+	menu.startComponents();
+	Application.LoadLevel(destiny);
+	
+
+}
+
 
 
 function showScreen() {
