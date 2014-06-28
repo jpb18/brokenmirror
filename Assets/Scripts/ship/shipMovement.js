@@ -53,7 +53,10 @@ function Start () {
 }
 
 function Update () {
-	if(impulseParticleSystem) setImpulseSpeed();
+	if(impulseParticleSystem) {
+		setImpulseSpeed();
+		setImpulseParticlesVisible();	
+	}
 	
 	if(isLoad && isWarp) {
 		rigidbody.velocity = transform.forward * WARP_SPEED;
@@ -301,4 +304,14 @@ private function setImpulseSpeed() {
 
 	var speed : float = speedStatus * impulseParticleSpeed;
 	impulseParticleSystem.startSpeed = speed;
+}
+
+private function setImpulseParticlesVisible() {
+	
+	if(isStop()) {
+		impulseParticleSystem.renderer.enabled = false;
+	} else {
+		impulseParticleSystem.renderer.enabled = true;
+	}
+
 }
