@@ -222,7 +222,7 @@ class OverRect {
 			
 			//Draw strenght label
 			var strenght : int = planet.getStrenght();
-			GUI.Label(strLabel, "Strenght: " + strenght.ToString(), factionStyle);
+			GUI.Label(strLabel, "Strength: " + strenght.ToString(), factionStyle);
 			
 			
 		

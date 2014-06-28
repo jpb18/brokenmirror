@@ -10,14 +10,28 @@ class stats {
 	
 }
 
-class effects {
+class Effects {
 	var explosion : GameObject; //the explosion Game Object
-	var hasExploded : boolean = false; //checks if the torpedo has already detonated
+	var exploded : boolean = false; //checks if the torpedo has already detonated
+	
+	
+	
+	function hasExploded() : boolean {
+		return exploded;
+	}
+	
+	function getExplosion() : GameObject {
+		return explosion;
+	}
+	
+	function setExploded(s : boolean) {
+		exploded = s;
+	}
 
 }
 
 var status : stats;
-var effect : effects;
+var effect : Effects;
 var target : GameObject; //target ship
 var origin : GameObject; //origin ship
 var launched : float; //launch time
@@ -76,7 +90,7 @@ function OnEnable() {
 	rigidbody.velocity = status.speed * transform.forward;
 	
 	launched = Time.time;
-	effect.hasExploded = false;
+	effect.setExploded(false);
 	
 	
 	
@@ -86,7 +100,7 @@ function OnEnable() {
 function OnTriggerEnter(hit : Collider) {
 
 	//check if it's a shield trigger
-	if(hit.tag == "Shields" && effect.hasExploded == false)
+	if(hit.tag == "Shields" && !effect.hasExploded())
 	{
 		var hitGO : GameObject = getParent(hit.transform).gameObject;
 		var e = origin.Equals(hitGO);
@@ -119,7 +133,7 @@ private function shipTrigger(hitGO : GameObject)  {
 			var shields = hitHS.shipHealth.shields;
 			if(shields > 0)
 			{
-				effect.hasExploded = true;
+				effect.setExploded(true);
 				if(shields >= status.shieldDmg)
 				{
 					hitHS.shipHealth.shields -= status.shieldDmg;
@@ -147,7 +161,7 @@ private function stationTrigger(hitGO : GameObject) {
 		
 		if(hitHS.hasShield())
 		{
-			effect.hasExploded = true;
+			effect.setExploded(true);
 					
 			hitHS.getDamage(status.shieldDmg, false);
 			
@@ -184,7 +198,7 @@ function OnCollisionEnter (hit: Collision) {
 }
 
 private function stationCollision(hit : GameObject) {
-	effect.hasExploded = true;
+	effect.setExploded(true);
 	var hitHS : Health = hit.GetComponent(Health);
 	hitHS.getDamage(getDamage(false), false);
 	Instantiate(effect.explosion, transform.position, transform.rotation);
@@ -193,7 +207,7 @@ private function stationCollision(hit : GameObject) {
 }
 
 private function shipCollision(hit : GameObject) {
-	effect.hasExploded = true;
+	effect.setExploded(true);
 	var hitHS : shipHealth = hit.GetComponent(shipHealth);
 	hitHS.shipHealth.health -= getDamage(false);
 	hitHS.shieldRegen.lastHit = Time.time;

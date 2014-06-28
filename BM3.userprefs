@@ -1,18 +1,8 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Menus\MenuScript.js">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\weapons\torpedoScript.js">
     <Files>
-      <File FileName="Assets\Scripts\SaveGame\SaveGame.js" Line="336" Column="1" />
-      <File FileName="Assets\Scripts\SaveGame\LoadScene.js" Line="20" Column="25" />
-      <File FileName="Assets\Scripts\SaveGame\SaveScript.js" Line="63" Column="30" />
-      <File FileName="Assets\Scripts\SaveGame\Inventory.js" Line="74" Column="41" />
-      <File FileName="Assets\Scripts\SaveGame\CargoHold.js" Line="69" Column="41" />
-      <File FileName="Assets\Scripts\Missions\Cargo.js" Line="58" Column="15" />
-      <File FileName="Assets\Scripts\SaveGame\GeneralInfo.js" Line="15" Column="28" />
-      <File FileName="Assets\Scripts\SaveGame\MapInfo.js" Line="122" Column="33" />
-      <File FileName="Assets\Scripts\menus\EscMenu.js" Line="12" Column="11" />
-      <File FileName="Assets\Menus\MenuScript.js" Line="144" Column="1" />
-      <File FileName="Assets\Scripts\newGui\ResourcePanel.js" Line="72" Column="1" />
+      <File FileName="Assets\Scripts\weapons\torpedoScript.js" Line="221" Column="2" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

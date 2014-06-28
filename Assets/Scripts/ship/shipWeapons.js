@@ -82,8 +82,31 @@ class Phaser {
 		lastShot = Time.time;
 		if(getType() == WeaponType.beam) {
 			fireBeam(target, getPoint(target));
+		} else if (getType() == WeaponType.pulse) {
+		
 		}	
 	
+	}
+	
+	function firePulse(target : GameObject, repeat : int) {
+		isFiring = true;
+		var time : float = getAlternateFireRate();
+		var i : int = 0;
+	
+		while(i < repeat) {
+			for(var point : GameObject in phaserPoint) {
+				var pulse : GameObject = getPooledWeapon();
+				var ws : weaponScript = pulse.GetComponent(weaponScript);
+				ws.setTarget(target);
+				ws.setOrigin(point);
+				pulse.SetActive(true);
+			}
+			yield WaitForSeconds(time);
+			i++;
+		}
+
+		
+		isFiring = false;
 	}
 	
 	function fireBeam(target : GameObject, origin : GameObject) {
@@ -233,6 +256,27 @@ class Phaser {
 	function setLastShot() {
 		lastShot = Time.time;
 	}
+	
+	function getAlternateFireRate() : float {
+		var scr : weaponScript = phaser.GetComponent(weaponScript);
+		return scr.getAlternateRate();
+	}
+	
+	function getPooledWeapon() : GameObject {
+		var pools : GameObject[] = GameObject.FindGameObjectsWithTag("Pooler");
+		var pool : GameObject = null;
+		var i : int = 0;
+		while(i < pools.Length && pool == null) {
+			if(pools[i].GetComponent(ObjectPooler).equals(phaser)) {
+				pool = pools[i];
+			}
+			i++;
+		}
+		
+		return pool.GetComponent(ObjectPooler).getObject();
+	
+	}
+
 	
 }
 

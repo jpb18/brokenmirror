@@ -64,7 +64,8 @@ function getCooldown() : float {
 			cd = gameObject.GetComponent(torpedoScript).status.cooldown;
 			break;
 		case WeaponType.pulse:
-			cd = gameObject.GetComponent(pulseScript).cooldown;
+			cd = gameObject.GetComponent(torpedoScript).status.cooldown;
+			break;
 			
 	
 	}
@@ -85,7 +86,7 @@ function getDamage(isShield : boolean) : float {
 			dmg = gameObject.GetComponent(torpedoScript).getDamage(isShield);
 			break;
 		case WeaponType.pulse:
-			dmg = gameObject.GetComponent(pulseScript).getDamage(isShield);
+			dmg = gameObject.GetComponent(torpedoScript).getDamage(isShield);
 			
 	
 	}
@@ -106,7 +107,7 @@ function getRange() : float {
 			range = gameObject.GetComponent(torpedoScript).status.range;
 			break;
 		case WeaponType.pulse:
-			range = gameObject.GetComponent(pulseScript).range;
+			range = gameObject.GetComponent(torpedoScript).status.range;
 		
 	
 	}
@@ -142,7 +143,7 @@ function setTarget(target : GameObject) {
 			gameObject.GetComponent(torpedoScript).setTarget(target);
 			break;
 		case WeaponType.pulse:
-			gameObject.GetComponent(pulseScript).setTarget(target);
+			gameObject.GetComponent(torpedoScript).setTarget(target);
 			
 	
 	}
@@ -158,7 +159,7 @@ function setOrigin(origin : GameObject) {
 			gameObject.GetComponent(torpedoScript).setOrigin(origin);
 			break;
 		case WeaponType.pulse:
-			gameObject.GetComponent(pulseScript).setOrigin(origin);
+			gameObject.GetComponent(torpedoScript).setOrigin(origin);
 	
 	}
 
@@ -167,4 +168,8 @@ function setOrigin(origin : GameObject) {
 
 function getPrice() : int {
 	return baseCost;
+}
+
+function getAlternateRate() : float {
+	return altRate;
 }
