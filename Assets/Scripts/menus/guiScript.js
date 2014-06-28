@@ -1237,7 +1237,7 @@ function CreateWeapButton(Weapon : Phaser, Skin : GUISkin, Area : Rect) {
 			
 				if(shipTar.target) { //check if there's a target
 					if(Weapon.canFire(shipTar.target)) {//check if weapon can fire
-						Weapon.fire(shipTar.target); //Set isFiring as true
+						Weapon.fire(shipTar.target, shipWeap.volleyNum(), shipWeap); //Set isFiring as true
 					}
 				
 				} else { //if there isn't, find one and set isFiring as true after
@@ -1245,7 +1245,7 @@ function CreateWeapButton(Weapon : Phaser, Skin : GUISkin, Area : Rect) {
 					shipTar.target = shipTar.FindTarget(gameObject, shipProps); //Find target 
 					
 					if(Weapon.canFire(shipTar.target)) {//check if weapon can fire
-						Weapon.fire(shipTar.target); //Set isFiring as true
+						Weapon.fire(shipTar.target, shipWeap.volleyNum(), shipWeap); //Set isFiring as true
 					}
 				
 				}

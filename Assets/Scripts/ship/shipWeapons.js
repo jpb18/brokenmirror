@@ -12,6 +12,7 @@ class Phaser {
 	var duration : float = 1.0f;
 	var hullLayerMask : LayerMask;
 	var shieldLayerMask : LayerMask;
+	var ship : GameObject;
 	
 	function setPhaser(phaser : GameObject) {
 		this.phaser = phaser;	
@@ -78,13 +79,16 @@ class Phaser {
 	
 	///<summary>This will fire the phaser. Must check canFire(target) first. Also, make sure this is started as a coroutine.</summary>
 	///<param name="target">Target GameObject</param>
-	function fire(target : GameObject) {
+	function fire(target : GameObject, repeat : int, wep : shipWeapons) {
 		lastShot = Time.time;
-		if(getType() == WeaponType.beam) {
-			fireBeam(target, getPoint(target));
-		} else if (getType() == WeaponType.pulse) {
 		
-		}	
+		if(getType() == WeaponType.beam) {
+			wep.StartCoroutine(fireBeam(target, getPoint(target)));
+		} else if (getType() == WeaponType.pulse) {
+			wep.StartCoroutine(firePulse(target, repeat));
+		}
+		
+
 	
 	}
 	
@@ -92,7 +96,7 @@ class Phaser {
 		isFiring = true;
 		var time : float = getAlternateFireRate();
 		var i : int = 0;
-	
+		
 		while(i < repeat) {
 			for(var point : GameObject in phaserPoint) {
 				var pulse : GameObject = getPooledWeapon();
@@ -132,12 +136,10 @@ class Phaser {
 			} else {
 				i = 2;
 			}
-			
-			
-			
 			yield;
 		}
 		GameObject.Destroy(phaserGO);
+		registerHit(target);
 		isFiring = false;
 	}
 	
@@ -276,6 +278,18 @@ class Phaser {
 		return pool.GetComponent(ObjectPooler).getObject();
 	
 	}
+	
+	function registerHit(target : GameObject) {
+		if(target.tag == "Ship") {
+			registerShipHit(target);
+		}
+
+	}
+	
+	private function registerShipHit(ship : GameObject) {
+		var health : shipHealth = ship.GetComponent(shipHealth);
+		health.setLastHitter(ship);
+	}
 
 	
 }
@@ -399,6 +413,7 @@ var torpVolley : Volley;
 function Start() {
 	target = gameObject.GetComponent(shipTarget);
 	properties = gameObject.GetComponent(shipProperties);
+	phaser.ship = gameObject;
 
 }
 
@@ -447,8 +462,8 @@ function botFire() {
 function phaserFunction() {
 	
 	if(phaser.canFire(target.target)) {
-		StartCoroutine(phaser.fireBeam(target.target, phaser.getPoint(target.target)));	
-		registerHit(target.target);
+		
+		phaser.fire(target.target, volleyNum(), this);		
 	}
 	
 }
@@ -515,14 +530,5 @@ function volleyNum() : int {
 	return num;
 }
 
-function registerHit(target : GameObject) {
-	if(target.tag == "Ship") {
-		registerShipHit(target);
-	}
 
-}
 
-private function registerShipHit(ship : GameObject) {
-	var health : shipHealth = ship.GetComponent(shipHealth);
-	health.setLastHitter(gameObject);
-}
