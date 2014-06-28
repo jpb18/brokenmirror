@@ -1,12 +1,21 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\weapons\torpedoScript.js">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\ship\shipWeapons.js">
     <Files>
       <File FileName="Assets\Scripts\weapons\torpedoScript.js" Line="221" Column="2" />
+      <File FileName="Assets\Scripts\weapons\weaponScript.js" Line="67" Column="1" />
+      <File FileName="Assets\Scripts\ship\shipWeapons.js" Line="277" Column="3" />
+      <File FileName="Assets\Scripts\menus\guiScript.js" Line="1248" Column="65" />
+      <File FileName="Assets\Scripts\ship\shipHealth.js" Line="173" Column="2" />
+      <File FileName="Assets\Scripts\ship\shipTriggers.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\newGui\ResourcePanel.js" Line="72" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
+    <BreakpointStore>
+      <Breakpoint file="C:\UnityProjects\BM3\Assets\Scripts\ship\shipWeapons.js" line="503" />
+      <Breakpoint file="C:\UnityProjects\BM3\Assets\Scripts\ship\shipWeapons.js" line="85" />
+    </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>
