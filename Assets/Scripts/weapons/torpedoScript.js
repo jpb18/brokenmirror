@@ -100,7 +100,9 @@ function OnEnable() {
 function OnTriggerEnter(hit : Collider) {
 
 	//check if it's a shield trigger
-	if(hit.tag == "Shields" && !effect.hasExploded())
+	var h : boolean = hit.tag == "Shields";
+	var ex : boolean = !effect.hasExploded();
+	if(h && ex)
 	{
 		var hitGO : GameObject = getParent(hit.transform).gameObject;
 		var e = origin.Equals(hitGO);
@@ -177,7 +179,7 @@ private function stationTrigger(hitGO : GameObject) {
 function OnCollisionEnter (hit: Collision) {
 	var go : GameObject = hit.gameObject;
 	
-	if(hit != origin && !effect.hasExploded)
+	if(go != origin && !effect.hasExploded());
 	{		
 		if(go.tag == "Ship")
 		{

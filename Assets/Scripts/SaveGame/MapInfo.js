@@ -609,8 +609,7 @@ function goWarp(destiny : String) {
 	//map off
 	swapStatus();
 	
-	//save game first
- 	save.Save(destiny);
+	
 	
 	//find player ship
 	
@@ -671,8 +670,9 @@ function goWarp(destiny : String) {
 	var fuel : ShipFuel = playerShip.GetComponent(ShipFuel);
 	fuel.consume(distance);
 	
-	//load level
-
+	//save game first
+ 	save.Save(destiny);
+	
 	
 	
 	scr.LoadScene(destiny);
