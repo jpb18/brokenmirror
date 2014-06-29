@@ -237,4 +237,10 @@ static function getNearbyOwnedShips(own : Vector3, range : float, faction : int)
 
 } 
 
+//pre: last 7 letter must be "(Clone)"
+public static function RemoveClone(name : String) : String {
 
+		//remove last 7 characters of name
+		return name.Substring(0, name.Length - 7);
+
+}

@@ -112,7 +112,7 @@ class StationStore {
 			
 			var newShip : GameObject = GameObject.Instantiate(item, info.genSpawnPos(), Quaternion.identity);
 			newShip.transform.LookAt(info.getPosition());
-			
+			newShip.name = Statics.RemoveClone(newShip.name);
 			var props : shipProperties = newShip.GetComponent(shipProperties);
 			props.setFaction(0);
 			props.setPlayer(false);
