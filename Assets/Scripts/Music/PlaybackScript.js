@@ -23,6 +23,11 @@ function Start () {
 }
 
 function Update () {
+	
+	main();
+}
+
+function main () {
 	if(isPlaying) {
 		if(!source.isPlaying) {
 			play();
@@ -33,6 +38,11 @@ function Update () {
 
 function startPlaying() {
 	isPlaying = true;
+}
+
+function stopPlaying() {
+	isPlaying = false;
+	source.Stop();
 }
 
 function getStatus(status : PlaybackStatus) : boolean {

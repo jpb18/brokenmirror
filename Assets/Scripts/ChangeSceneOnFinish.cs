@@ -8,6 +8,8 @@ public class ChangeSceneOnFinish : MonoBehaviour
 		public string destinyScene;
 		public float wait;
 
+		
+
 		// Use this for initialization
 		void Start ()
 		{
@@ -32,6 +34,7 @@ public class ChangeSceneOnFinish : MonoBehaviour
 		private IEnumerator terminate ()
 		{
 				yield return new WaitForSeconds (wait);
+				
 				Application.LoadLevel (destinyScene);
 		}
 }

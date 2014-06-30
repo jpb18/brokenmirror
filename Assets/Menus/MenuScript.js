@@ -103,7 +103,7 @@ function getNumber(tag : String) : int {
 
 function FixedUpdate() {
 	if (startGame) {
-			startComponents();
+			
 			Application.LoadLevel ("Intro");
 	}
 
