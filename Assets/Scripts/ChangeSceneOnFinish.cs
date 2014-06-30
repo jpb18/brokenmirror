@@ -21,14 +21,20 @@ public class ChangeSceneOnFinish : MonoBehaviour
 		{
 				if (canTerminate ()) {
 						StartCoroutine (terminate ());
+				} else if (isSkiping ()) {
+						skip ();
 				}
-	
 		}
 
 		private bool canTerminate ()
 		{
-				return !animation.isPlaying || Input.GetKey (KeyCode.Escape);
+				return !animation.isPlaying;
 
+		}
+
+		private bool isSkiping ()
+		{
+				return Input.GetKey (KeyCode.Escape);
 		}
 
 		private IEnumerator terminate ()
@@ -37,4 +43,12 @@ public class ChangeSceneOnFinish : MonoBehaviour
 				
 				Application.LoadLevel (destinyScene);
 		}
+
+		private void skip ()
+		{
+				Application.LoadLevel (destinyScene);
+
+		}
 }
+		
+

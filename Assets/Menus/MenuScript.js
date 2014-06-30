@@ -118,10 +118,8 @@ function FixedUpdate() {
 
 function startComponents() {
 	show.setGame();
-			
-			music.startPlaying();
-			
-			hud.setGame(true);
+	music.startPlaying();
+	hud.setGame(true);
 }
 
 function OnGUI ()
