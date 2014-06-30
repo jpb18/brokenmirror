@@ -174,6 +174,10 @@ function setGame() {
 	isGame = true;
 }
 
+function setOff() {
+	isGame = false;
+}
+
 function getAlphaValue(x : int) : float {
 	var i : float = messageLimit - x;
 	var lim : float = messageLimit;

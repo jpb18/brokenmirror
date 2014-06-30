@@ -14,9 +14,9 @@ var drawDepth : float = -1000f;
 //                       Private variables
 //--------------------------------------------------------------------
  
-private var alpha : float = 1.0f; 
+var alpha : float = 1.0f; 
  
-private var fadeDir : float = -1f;
+var fadeDir : float = -1f;
  
 //--------------------------------------------------------------------
 //                       Runtime functions

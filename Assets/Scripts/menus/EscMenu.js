@@ -18,8 +18,14 @@ private var saveScript : SaveScript;
 public static var SAVE_TEXT : String = "SaveGame";
 public static var SAVE_EXT : String = ".bm";
 
-function Start () {
+private var hud : HUDStatus;
+private var music : PlaybackScript;
 
+
+function Start () {
+	
+	music = GameObject.FindGameObjectWithTag("OST").GetComponent(PlaybackScript);
+	hud  = GameObject.FindGameObjectWithTag("GlobalInfo").GetComponent(HUDStatus);
 	message = GameObject.FindGameObjectWithTag("ShowMessage").GetComponent(ShowMessage);
 	saveScript = GameObject.FindGameObjectWithTag("SaveScript").GetComponent(SaveScript);
 
@@ -85,6 +91,10 @@ function setOff() {
 }
 
 function quit() {
+	var camera : Camera = Camera.main;
+	stopComponents();
+	Destroy(camera.gameObject);
+	setOff();
 	Application.LoadLevel(MAIN_MENU);
 }
 
@@ -95,4 +105,10 @@ function leave() {
 function save() {
 	var fileName : String = SAVE_TEXT + SAVE_EXT;
 	saveScript.writeToFile(fileName);
+}
+
+private function stopComponents() {
+	message.setOff();
+	music.stopPlaying();
+	hud.setGame(false);
 }

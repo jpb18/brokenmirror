@@ -19,12 +19,18 @@ private var show : ShowMessage;
 private var music : PlaybackScript;
 
 private var load : LoadScene;
+private var fade : FadeInOut;
 
 function Start () {
 	show = GameObject.FindGameObjectWithTag("ShowMessage").GetComponent(ShowMessage);
 	music = GameObject.FindGameObjectWithTag("OST").GetComponent(PlaybackScript);
 	hud  = GameObject.FindGameObjectWithTag("GlobalInfo").GetComponent(HUDStatus);
 	load = GameObject.FindGameObjectWithTag("LoadScene").GetComponent(LoadScene);
+	
+	fade = gameObject.GetComponent(FadeInOut);
+	if(fade) {
+		fade.fadeIn();
+	}
 
 }
 
