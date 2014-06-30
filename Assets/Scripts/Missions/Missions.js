@@ -45,7 +45,7 @@ function addTradeMission(mission : TradeMission) {
 		var size : int = mission.getCargo().getSize();
 	
 		if(hold.willBeFull(size)) {
-			MessageType.AddMessage(CARGO_FULL);
+			message.AddMessage(CARGO_FULL);
 		} else {		
 			mission.start();
 			tradeMissions.Add(mission);
