@@ -43,7 +43,7 @@ function getPress() {
 		if (Physics.Raycast (ray, hit, 1000.0f, ~layer.value)) {
 				var hitGo : GameObject = hit.transform.gameObject;
 				if (hitGo.tag == "NewGame") {
-						showSplash = true;
+						startGame = true;
 				}
 				else if(hitGo.tag == "resume") {
 					loadLatestGame();
@@ -104,7 +104,7 @@ function getNumber(tag : String) : int {
 function FixedUpdate() {
 	if (startGame) {
 			startComponents();
-			Application.LoadLevel ("Start");
+			Application.LoadLevel ("Intro");
 	}
 
 

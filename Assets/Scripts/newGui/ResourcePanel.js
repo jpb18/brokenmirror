@@ -44,7 +44,7 @@ class ResourcePanel extends GuiElement implements IDrawable {
 				latIcon.draw();
 				
 				//Draw labels
-				var dilithium : String= getDilithium().ToString();
+				var dilithium : String = getDilithium().ToString();
 				GUI.Label(dilLabel, dilithium, style);
 				var latinum : String = inv.getLatinum().ToString();
 				GUI.Label(latLabel, latinum, style);
@@ -68,9 +68,13 @@ class ResourcePanel extends GuiElement implements IDrawable {
 	}	
 
 	private function getDilithium() : int {
-		var ship : GameObject = save.getPlayerShip();
-		var fuel : ShipFuel = ship.GetComponent(ShipFuel);
-		return fuel.getCurrentLoad();
+		try {
+			var ship : GameObject = save.getPlayerShip();
+			var fuel : ShipFuel = ship.GetComponent(ShipFuel);
+			return fuel.getCurrentLoad();
+		} catch (e : Exception) {
+			return 0;
+		}
 	}
 
 

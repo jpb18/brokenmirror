@@ -1,23 +1,10 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\weapons\torpedoScript.js">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\ChangeSceneOnFinish.cs">
     <Files>
-      <File FileName="Assets\Scripts\weapons\torpedoScript.js" Line="128" Column="5" />
-      <File FileName="Assets\Scripts\ship\shipProperties.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\weapons\weaponScript.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\ship\shipWeapons.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\menus\guiScript.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\ship\shipHealth.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\ship\shipTriggers.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\newGui\ResourcePanel.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\ship\shipMovement.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\SaveGame\MapInfo.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\station\StationStore.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Load\SceneStart.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\SaveGame\SaveGame.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Statics.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\ship\ShipAI.js" Line="233" Column="1" />
-      <File FileName="Assets\Scripts\ship\ShipCloud.js" Line="24" Column="1" />
+      <File FileName="Assets\Scripts\ChangeSceneOnFinish.cs" Line="15" Column="4" />
+      <File FileName="Assets\Menus\MenuScript.js" Line="54" Column="2" />
+      <File FileName="Assets\Scripts\newGui\ResourcePanel.js" Line="66" Column="26" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
