@@ -108,11 +108,7 @@ function OnTriggerEnter(hit : Collider) {
 		var e = origin.Equals(hitGO);
 		if(!e)
 		{
-			if (hitGO.tag == "Ship") {			
-				shipTrigger(hitGO);
-			} else if (hitGO.tag == "Station") {
-				stationTrigger(hitGO);
-			}
+			validHit(hitGO);	
 		} else {
 			
 		}
@@ -122,6 +118,15 @@ function OnTriggerEnter(hit : Collider) {
 
 
 
+}
+
+private function validHit(hitGO : GameObject) {
+	if (hitGO.tag == "Ship") {			
+				shipTrigger(hitGO);
+			} else if (hitGO.tag == "Station") {
+				stationTrigger(hitGO);
+				
+			}
 }
 
 private function shipTrigger(hitGO : GameObject)  {
@@ -178,8 +183,8 @@ private function stationTrigger(hitGO : GameObject) {
 
 function OnCollisionEnter (hit: Collision) {
 	var go : GameObject = hit.gameObject;
-	
-	if(go != origin && !effect.hasExploded());
+	var e : boolean = go != origin;
+	if(e && !effect.hasExploded())
 	{		
 		if(go.tag == "Ship")
 		{
