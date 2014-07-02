@@ -33,15 +33,12 @@ class Cargo extends Object {
 		size++;
 	}
 	
-	function Equals(obj : Object) : boolean {
-				
-		if(!(obj instanceof Cargo)) {
+	function Equals(obj : Cargo) : boolean {
+		if(this == obj) {
 			return false;
 		}
 		
-		var tmp : Cargo = obj as Cargo;
-		
-		if(cargo == tmp.getCargo() && price == tmp.getUnitPrice()) {
+		if(cargo == obj.getCargo() && price == obj.getUnitPrice()) {
 			return true;
 		}
 		
