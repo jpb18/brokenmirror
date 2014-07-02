@@ -1,23 +1,10 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Missions\Missions.js">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\ship\shipMovement.js">
     <Files>
-      <File FileName="Assets\Scripts\Missions\Missions.js" Line="34" Column="20" />
-      <File FileName="Assets\Scripts\effects\FadeInOut.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\ChangeSceneOnFinish.cs" Line="1" Column="1" />
-      <File FileName="Assets\Menus\MenuScript.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\newGui\ResourcePanel.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Music\PlaybackScript.js" Line="1" Column="1" />
-      <File FileName="Assets\StartupScript.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\SaveGame\LoadScene.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\SaveGame\MapInfo.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\menus\EscMenu.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\SaveGame\HUDStatus.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\menus\ShowMessage.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\station\StationWeapons.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\ship\shipTriggers.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\weapons\weaponScript.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\ship\ShipAI.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Missions\Missions.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\ship\shipMovement.js" Line="372" Column="24" />
+      <File FileName="Assets\Scripts\Missions\Cargo.js" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

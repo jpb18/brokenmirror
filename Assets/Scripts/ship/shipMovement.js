@@ -30,15 +30,23 @@ class MovementProperties {
 }
 
 //warp deceleration variables
-var isWarp = true;
+private var isWarp = true;
 private var isLoad = true;
 private static final var WARP_SPEED : float = 500.0f;
 private static final var DRAG_DECEL : float = 10.0f;
 private static final var DRAG_DUR : float = 3.0f;
 var spawnTime : float;
 
+var isAtWarp : boolean;
+var warpMulti : float = 5f;
+private var curWarpMulti : float = 1f;
+var warpTime : float = 1f;
+private var isSpeeding : boolean = false;
+public static var WARP_MIN : float = 1f; 
 
 private var impulseParticleSpeed : float;
+private var message : ShowMessage;
+var warpParticle : ParticleSystem;
 
 function Start () {
 
@@ -49,10 +57,23 @@ function Start () {
 	} else {
 		impulseParticleSpeed = impulseParticleSystem.startSpeed;
 	}
-
+	
+	message = GameObject.FindGameObjectWithTag("ShowMessage").GetComponent(ShowMessage);
+	
 }
 
 function Update () {
+	
+	if(isAtWarp) {
+		warp();
+	} else {
+		sublight();
+	}
+	selectWarp();
+	
+}
+
+function sublight() {
 	if(impulseParticleSystem) {
 		setImpulseSpeed();
 		setImpulseParticlesVisible();	
@@ -89,7 +110,6 @@ function Update () {
 	}
 	
 	rigidbody.velocity = transform.forward * SpeedChange;
-	
 }
 
 //this function controls the ship speed
@@ -314,4 +334,102 @@ private function setImpulseParticlesVisible() {
 		impulseParticleSystem.renderer.enabled = true;
 	}
 
+}
+
+private function selectWarp() {
+
+	
+	if(Input.GetAxis("Warp")) {
+		if(!isAtMax()) {
+			message.AddMessage("Ship needs to be at maximum speed to enter warp.");
+		} else if (isAtWarp) {
+			message.AddMessage("Ship is already at warp.");
+		} else if (isSpeeding) {
+			message.AddMessage("Warp engine can't handle such reactions.");	
+		} else {
+			isAtWarp = true;
+			startWarpParticles();
+			StartCoroutine(accelerateToWarp());
+		}
+		
+	}
+	
+	if(Input.GetAxis("ShipSpeed") < 0 && isAtWarp) {
+		if (isSpeeding) {
+			message.AddMessage("Warp engine can't handle such reactions.");	
+		} else {
+			isAtWarp = false;
+			stopWarpParticles();
+			StartCoroutine(desacelerateFromWarp());
+		}
+	}
+	
+	if(Input.GetAxis("FullStop") && isAtWarp) {
+		if (isSpeeding) {
+			message.AddMessage("Warp engine can't handle such reactions.");	
+		} else {
+			isAtWarp = false;
+			stopWarpParticles();
+			StartCoroutine(desacelerateFromWarp());
+			fullStop();
+		}
+	}
+
+}
+
+private function startWarpParticles() {
+	if(warpParticle) {
+		warpParticle.Play();
+	} else {
+		Debug.Log(gameObject.name + "doesn't have a WarpParticle assigned in the movement script.");
+	}
+}
+
+private function stopWarpParticles() {
+	if(warpParticle) {
+		warpParticle.Stop();
+	} else {
+		Debug.Log(gameObject.name + "doesn't have a WarpParticle assigned in the movement script.");
+	}
+}
+
+private function warp() {
+
+	var shipSpeed : float = properties.movement.impulseSpeed * Time.deltaTime;
+	
+	var SpeedChange : float = curWarpMulti * shipSpeed;
+	
+	if(properties.getRedAlert()) {
+		SpeedChange = SpeedChange * getSpeedReduction();
+	}
+	
+	rigidbody.velocity = transform.forward * SpeedChange;
+
+}
+
+private function accelerateToWarp() {
+	var i : float = 0;
+	var rate : float = 1/warpTime;
+	var dist : float = warpMulti - WARP_MIN;
+	isSpeeding = true;
+	while(i < 1) {
+		i += Time.deltaTime * rate;
+		curWarpMulti += dist * rate * Time.deltaTime;
+		yield;
+	}
+	isSpeeding = false;
+}
+
+private function desacelerateFromWarp() {
+	var i : float = 0;
+	var rate : float = 1/warpTime;
+	var dist : float = warpMulti - WARP_MIN;
+	isSpeeding = true;
+	while(i < 1) {
+		i += Time.deltaTime * rate;
+		curWarpMulti -= dist * rate * Time.deltaTime;
+		yield;
+	}
+	isSpeeding = false;
+	curWarpMulti = WARP_MIN;
 }
