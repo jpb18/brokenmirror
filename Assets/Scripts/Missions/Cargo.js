@@ -1,3 +1,4 @@
+
 #pragma strict
 
 class Cargo extends Object {
@@ -33,17 +34,14 @@ class Cargo extends Object {
 	}
 	
 	function Equals(obj : Object) : boolean {
-		if(this == obj) {
-			return true;
-		}
-		
+				
 		if(!(obj instanceof Cargo)) {
 			return false;
 		}
 		
 		var tmp : Cargo = obj as Cargo;
 		
-		if(cargo.Equals(tmp.getCargo()) && price == tmp.getUnitPrice()) {
+		if(cargo == tmp.getCargo() && price == tmp.getUnitPrice()) {
 			return true;
 		}
 		
