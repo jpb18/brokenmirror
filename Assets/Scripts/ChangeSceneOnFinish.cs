@@ -13,12 +13,15 @@ public class ChangeSceneOnFinish : MonoBehaviour
 		// Use this for initialization
 		void Start ()
 		{
-				animation = gameObject.GetComponent<Animation> ();
+				if (animation == null) {
+						animation = gameObject.GetComponent<Animation> ();
+				}
 		}
 	
 		// Update is called once per frame
 		void Update ()
 		{
+				Debug.Log (animation.isPlaying.ToString ());
 				if (canTerminate ()) {
 						StartCoroutine (terminate ());
 				} else if (isSkiping ()) {
@@ -28,6 +31,7 @@ public class ChangeSceneOnFinish : MonoBehaviour
 
 		private bool canTerminate ()
 		{
+			
 				return !animation.isPlaying;
 
 		}

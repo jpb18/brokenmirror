@@ -8,8 +8,14 @@ class GuiElement extends MonoBehaviour {
 	var background : Texture;
 	
 	 var id : int;
+	 
+	 var ratio : float = 1f;
 	
 	function Start() {
+		init();
+	}
+	
+	function init() {
 		id = GUIUtility.GetControlID(FocusType.Passive);
 	}
 	
@@ -44,5 +50,10 @@ class GuiElement extends MonoBehaviour {
 		position.y = y;		
 	}	
 	
+	function resizeRect(rect : Rect) : Rect {
+		
+		return new Rect(Mathf.Floor(rect.x * ratio), Mathf.Floor(rect.y * ratio), Mathf.Floor(rect.width * ratio), Mathf.Floor(rect.height * ratio));
+	
+	}
 	
 }

@@ -689,6 +689,10 @@ function prepButRect(mapRect : Rect, planet : PlanetInfo, buttons : MapButtons) 
 
 }
 
+function getPlanetInCurrentScene() : PlanetInfo {
+	var scene : String = Application.loadedLevelName;
+	return findPlanet(scene);
+}
 
 
 //this function finds a planet
