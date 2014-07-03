@@ -1,0 +1,16 @@
+Star Trek Broken Mirror
+Change Log
+
+Version 0.2.1
+**********************************************************************
+
+FIXED:
+
+
+CHANGED:
+
+
+ADDED:
+
+
+REMOVED:
