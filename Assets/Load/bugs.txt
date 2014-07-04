@@ -1,0 +1,20 @@
+Star Trek Broken Mirror
+Reported Bugs/Changes
+
+Version 0.2.0
+**********************************************************************
+-Trade crash -WIN.
+-Stardock moves when pushed.
+-System Notifications off screen.
+-No death screen.
+-Klingon Ship Names should be IKS not ISS.
+-Fleets continue to fight after player death - not sure if bug really.
+-Escape pods don't have enough fuel to go anywhere.
+-Phasers inoperative (on Klingon targets).
+-Some trade missions have a 0 GPL award.
+-Trade destinations say Destiny.  Should say Destination.
+-Starfields need to be disabled for NPCs.
+-Some planets do not "complete" the trade mission.  Instead credits keep being awarded for every beam down.
+-MAC OSX will not load for some.
+-WINDOWS will not load for some.
+
