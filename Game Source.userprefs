@@ -1,9 +1,9 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\ScrollText.js">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Load\changelog.txt">
     <Files>
-      <File FileName="Assets\ScrollText.js" Line="11" Column="13" />
-      <File FileName="Assets\Paragraph.js" Line="9" Column="2" />
+      <File FileName="Assets\Load\changelog.txt" Line="16" Column="9" />
+      <File FileName="Assets\Paragraph.js" Line="1" Column="1" />
       <File FileName="Assets\Scripts\menus\guiScript.js" Line="1" Column="1" />
       <File FileName="Assets\Scripts\ship\shipTarget.js" Line="1" Column="1" />
       <File FileName="Assets\CameraConstraint.js" Line="1" Column="1" />
