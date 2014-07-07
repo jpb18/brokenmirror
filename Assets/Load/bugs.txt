@@ -17,4 +17,5 @@ Version 0.2.0
 -Some planets do not "complete" the trade mission.  Instead credits keep being awarded for every beam down.
 -MAC OSX will not load for some.
 -WINDOWS will not load for some.
+- Ship just spins in space, makes flying it near impossible as it is always flying to the right and down.
 
