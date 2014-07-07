@@ -2,7 +2,7 @@ import System;
 
 class FloatingWindow extends GuiElement {
 	var on : boolean;
-	private var title : String;
+	protected var title : String;
 	
 	
 	

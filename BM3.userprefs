@@ -1,19 +1,16 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Load\changelog.txt">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\newGui\PlanetPanel.js">
     <Files>
-      <File FileName="Assets\Scripts\ship\shipWeapons.js" Line="130" Column="1" />
-      <File FileName="Assets\Scripts\ship\shipTriggers.js" Line="55" Column="1" />
-      <File FileName="Assets\Scripts\ship\shipMovement.js" Line="343" Column="51" />
-      <File FileName="Assets\Scripts\ship\shipProperties.js" Line="115" Column="1" />
-      <File FileName="Assets\Scripts\weapons\weaponScript.js" Line="123" Column="1" />
-      <File FileName="Assets\Load\changelog.txt" Line="11" Column="43" />
+      <File FileName="Assets\Scripts\newGui\PlanetPanel.js" Line="82" Column="23" />
+      <File FileName="Assets\Scripts\newGui\GuiElement.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\newGui\FloatingWindow.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\newGui\MissionDialogue.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\SaveGame\MapInfo.js" Line="94" Column="20" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore>
-      <Breakpoint file="C:\UnityProjects\BM3\Assets\Scripts\weapons\torpedoScript.js" line="456" />
-    </BreakpointStore>
+    <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>

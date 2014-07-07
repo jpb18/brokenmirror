@@ -4,6 +4,8 @@
 class GuiElement extends MonoBehaviour {
 	//@Tooltip ("Element position on screen.")
 	var position : Rect;
+	protected var original : Rect;
+	
 	//@Tooltip ("Background texture. If it's null, it won't draw.")
 	var background : Texture;
 	
@@ -17,6 +19,7 @@ class GuiElement extends MonoBehaviour {
 	
 	function init() {
 		id = GUIUtility.GetControlID(FocusType.Passive);
+		original = position;
 	}
 	
 	function OnGUI() {
@@ -36,6 +39,10 @@ class GuiElement extends MonoBehaviour {
 	
 	function getBackground() : Texture {
 		return background;
+	}
+	
+	function hasBackground() : boolean {
+		return background != null;
 	}
 	
 	function getId() : int {

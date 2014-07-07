@@ -13,7 +13,7 @@ class PlanetInfo { //this class stores all planet information necessary for the 
 	var stations : List.<SaveStation>;
 	
 	var reputation : int;
-	
+	var dilithium : boolean;
 	
 	var hasPlayerVisit : boolean = false;
 	var isColonized : boolean = false;
@@ -90,7 +90,9 @@ class PlanetInfo { //this class stores all planet information necessary for the 
 	
 	
 	
-	
+	function hasDilithium() : boolean {
+		return dilithium;
+	}
 	
 	
 	function serialize() : String {
