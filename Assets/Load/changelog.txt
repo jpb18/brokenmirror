@@ -7,13 +7,16 @@ Version 0.2.1
 FIXED:
 -Terran Spacedock Physics - won't fly away upon crashing.
 -Stack overflow - 64bit crash should be fixed.
+-Fixed System Warp where NPC ships would go to warp if player pressed the "Warp" key.
+-Fixed firing issue vs klingon ships + Sona Warship + Terran Spacedock + Galaxy Dreadnaught
 
 CHANGED:
-
+-Completed Vorcha
 
 ADDED:
 -Planet GUI Panel.
 -In system warp.  Once at full impulse, use Right Shift to engage warp.  Regular slow down keys will slow ship down.
 -Credits scene.
+
 
 REMOVED:

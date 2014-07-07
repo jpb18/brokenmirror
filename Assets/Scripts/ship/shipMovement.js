@@ -46,6 +46,7 @@ public static var WARP_MIN : float = 1f;
 
 private var impulseParticleSpeed : float;
 private var message : ShowMessage;
+
 var warpParticle : ParticleSystem;
 
 function Start () {
@@ -339,7 +340,7 @@ private function setImpulseParticlesVisible() {
 private function selectWarp() {
 
 	
-	if(Input.GetAxis("Warp")) {
+	if(Input.GetAxis("Warp") && properties.getPlayer()) {
 		if(!isAtMax()) {
 			message.AddMessage("Ship needs to be at maximum speed to enter warp.");
 		} else if (isAtWarp) {

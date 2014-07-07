@@ -83,7 +83,7 @@ class Phaser {
 		lastShot = Time.time;
 		
 		if(getType() == WeaponType.beam) {
-			wep.StartCoroutine(fireBeam(target, getPoint(target)));
+ 			wep.StartCoroutine(fireBeam(target, getPoint(target)));
 		} else if (getType() == WeaponType.pulse) {
 			wep.StartCoroutine(firePulse(target, repeat));
 		}
@@ -159,35 +159,34 @@ class Phaser {
 	//pre hasTargetShield()
 	private function fireShields(target : GameObject, origin : GameObject, or : Vector3, dir : Vector3, hit : RaycastHit, phaserGO : GameObject) : GameObject {
 		
-		if(Physics.Raycast(or, dir, hit, getRange(), shieldLayerMask)) {
-				
-		
-				//do phaser logic here
-				//get target health script
-				var ship : GameObject = getParent(hit.transform).gameObject;
-				if(ship.tag.Equals("Ship")) {
-					ship.GetComponent(shipHealth).damageShield(getDamage() * Time.deltaTime);
-				} else if (ship.tag.Equals("Station")) {
-					ship.GetComponent(Health).getDamage(getDamage() *  Time.deltaTime, true);
-				}
-				//get hit point
-				var point : Vector3 = hit.point;
-				//Debug.Log("Gets here");
-				//draw phaser
-				if(phaserGO == null) {
-					phaserGO = GameObject.Instantiate(phaser);
-					setLastShot();
-				}
-				var script : phaserScript = phaserGO.GetComponent(phaserScript);
-				script.setPhaser(origin, target);
-				var line : LineRenderer = script.line_renderer;
-				line.SetPosition(0, or);
-				line.SetPosition(1, point);
-				
-				
-			} 
+		var isHit : boolean = Physics.Raycast(or, dir, hit, getRange(), shieldLayerMask);
+		if(isHit) {
+			//do phaser logic here
+			//get target health script
+			var ship : GameObject = getParent(hit.transform).gameObject;
+			if(ship.tag.Equals("Ship")) {
+				ship.GetComponent(shipHealth).damageShield(getDamage() * Time.deltaTime);
+			} else if (ship.tag.Equals("Station")) {
+				ship.GetComponent(Health).getDamage(getDamage() *  Time.deltaTime, true);
+			}
+			//get hit point
+			var point : Vector3 = hit.point;
+			//Debug.Log("Gets here");
+			//draw phaser
+			if(phaserGO == null) {
+				phaserGO = GameObject.Instantiate(phaser);
+				setLastShot();
+			}
+			var script : phaserScript = phaserGO.GetComponent(phaserScript);
+			script.setPhaser(origin, target);
+			var line : LineRenderer = script.line_renderer;
+			line.SetPosition(0, or);
+			line.SetPosition(1, point);
 			
-			return phaserGO;
+			
+		} 
+		
+		return phaserGO;
 	
 	}
 	

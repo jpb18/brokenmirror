@@ -1,20 +1,13 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\menus\LoaderButton.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Load\changelog.txt">
     <Files>
-      <File FileName="BM3.sln" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\newGui\PlanetPanel.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Missions\Missions.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\ship\shipMovement.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Missions\Cargo.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\menus\guiScript.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\newGui\FloatingWindow.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\newGui\GuiElement.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\SaveGame\MapInfo.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\SaveGame\GeneralInfo.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\newGui\MissionDialogue.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\ChangeSceneOnFinish.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\menus\LoaderButton.cs" Line="29" Column="37" />
+      <File FileName="Assets\Scripts\ship\shipWeapons.js" Line="130" Column="1" />
+      <File FileName="Assets\Scripts\ship\shipTriggers.js" Line="55" Column="1" />
+      <File FileName="Assets\Scripts\ship\shipMovement.js" Line="343" Column="51" />
+      <File FileName="Assets\Scripts\ship\shipProperties.js" Line="115" Column="1" />
+      <File FileName="Assets\Scripts\weapons\weaponScript.js" Line="123" Column="1" />
+      <File FileName="Assets\Load\changelog.txt" Line="11" Column="43" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
