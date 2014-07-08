@@ -1,12 +1,15 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\newGui\PlanetPanel.js">
     <Files>
-      <File FileName="Assets\Scripts\newGui\PlanetPanel.js" Line="82" Column="23" />
+      <File FileName="Assets\Scripts\newGui\PlanetPanel.js" Line="75" Column="21" />
       <File FileName="Assets\Scripts\newGui\GuiElement.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\newGui\FloatingWindow.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\newGui\FloatingWindow.js" Line="19" Column="19" />
       <File FileName="Assets\Scripts\newGui\MissionDialogue.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\SaveGame\MapInfo.js" Line="94" Column="20" />
+      <File FileName="Assets\Scripts\SaveGame\MapInfo.js" Line="47" Column="16" />
+      <File FileName="Assets\Scripts\SaveGame\SaveGame.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\ship\shipTriggers.js" Line="78" Column="4" />
+      <File FileName="Assets\Scripts\SaveGame\GeneralInfo.js" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

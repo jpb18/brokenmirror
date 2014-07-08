@@ -52,7 +52,9 @@ function OnTriggerEnter(hit : Collider) {
 	if (hit.collider.gameObject.name == "orbit_trigger" && triggerProps.isOrbit == false)
 	{
 		triggerProps.setOrbit(true);
-		message.AddMessage(IN_ORBIT);
+		if(properties.getPlayer()) {
+			message.AddMessage(IN_ORBIT);
+		}
 	}
 	
 	if (hit.collider.gameObject.name == "turbolence_trigger" && triggerProps.isTurbulence == false)
@@ -72,7 +74,9 @@ function OnTriggerExit (hit : Collider) {
 	if (hit.collider.gameObject.name == "orbit_trigger" && triggerProps.isOrbit == true)
 	{
 		triggerProps.setOrbit(false);
-		message.AddMessage(OUT_ORBIT);
+		if(properties.getPlayer()) {
+			message.AddMessage(OUT_ORBIT);
+		}
 	}
 	
 	if (hit.collider.gameObject.name == "turbolence_trigger" && triggerProps.isTurbulence == true)

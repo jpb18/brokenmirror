@@ -43,7 +43,9 @@ class PlanetInfo { //this class stores all planet information necessary for the 
 	}
 	
 	
-	
+	function getImage() : Texture2D {
+		return image;
+	}
 	
 	//this method return the defense fleet present on the planet
 	function getFleet() : List.<SaveShip> {
@@ -116,7 +118,7 @@ class PlanetInfo { //this class stores all planet information necessary for the 
 		serie = serie + reputation + "\n";
 		serie = serie + hasPlayerVisit + "\n";
 		serie = serie + isColonized + "\n";
-		
+		serie = serie + image.name + "\n";
 		return serie;
 	}
 	
@@ -133,6 +135,7 @@ class PlanetInfo { //this class stores all planet information necessary for the 
 		reputation = int.Parse(stream.ReadLine());
 		hasPlayerVisit = boolean.Parse(stream.ReadLine());
 		isColonized = boolean.Parse(stream.ReadLine());
+		image = Resources.Load(stream.ReadLine()) as Texture2D;
 		
 	}
 	

@@ -170,6 +170,193 @@ class TargetGui {
 	
 	
 	var expand : TargetExpand;
+	
+	function Draw(shipTar : shipTarget, targetModule : Rect, player : GameObject, commWindow : CommDialogue, general : GeneralInfo, shipProps : shipProperties, hudSkin : GUISkin) {
+		if(shipTar.target) //checks first if the ship has a target to show
+		{
+
+			GUILayout.BeginArea(targetModule);
+				
+				//Expand Area
+				
+				GUILayout.BeginArea(expand.exp_area);
+				
+				
+					//Draw panel		
+					expand.DrawPanel(shipTar.target, player, commWindow); 
+																
+					//Expand button
+					if(expand.DrawButton()) {
+						if(expand.canExpand()) {
+							shipTar.StartCoroutine(expand.expand());
+						} else if(expand.canRetract()) {
+							shipTar.StartCoroutine(expand.retract());
+						}
+					
+					}
+				
+				GUILayout.EndArea();
+				//Main Component
+				GUILayout.BeginArea(main_area);
+					//Lets start by the background
+					GUI.DrawTexture(bg_area, bg_image);
+					
+					//Now the orb part
+					//get the player ship faction and faction information
+					var playerFaction : FactionInfo = general.getFactionInfo(shipProps.shipInfo.faction);
+					
+					//Draw the texture
+					var orbTexture : Texture = getOrbTexture(shipProps, playerFaction, getFaction(shipTar.target));
+					GUI.DrawTexture(orb_area, orbTexture);
+					
+					//Now Draw the ship image
+					//First get it from the targeted object
+					var tarImage : Texture;
+					var shipClass : String; //get these for the future
+	 				var shipName : String;
+					
+					if(shipTar.target.tag == "Ship") { //if it's a ship
+										
+						var targetScript : shipProperties = getShipInfo(shipTar.target);
+						tarImage = targetScript.shipInfo.targetImg; //get image
+						shipClass = targetScript.shipInfo.shipClass; //get class
+						shipName = targetScript.shipInfo.shipName; //get name
+					
+					} else if(shipTar.target.tag == "Station") {
+						var stationI : StationInterface = shipTar.target.GetComponent(StationInterface);
+						tarImage = stationI.image;
+						shipClass = stationI.stClass;
+						shipName = stationI.stName;
+					} else if(shipTar.target.tag == "Planet") {
+						var planet : PlanetInfo = getPlanetInfo(shipTar.target);
+						tarImage = planet.getImage();
+						shipClass = "Planet";
+						shipName = planet.name;
+					}
+					
+					//Now draw the texture
+					GUI.DrawTexture(orb_area, tarImage);
+					
+					//And now, it's time for writing those labels
+					GUI.Label(name_area, shipName, hudSkin.GetStyle("TargetLabel"));
+					GUI.Label(class_area, shipClass, hudSkin.GetStyle("TargetLabel"));
+					
+					//And now the health bars of the target
+					//lets start by getting the target status
+					
+					var hull : float;
+					var maxHull : float;
+					var shield : float;
+					var maxShield : float;
+					
+					if(shipTar.target.tag == "Ship") { //if its a ship
+					
+						var healthTarget : shipHealth = shipTar.target.GetComponent(shipHealth); //get the target health script
+						hull = healthTarget.shipHealth.health; //get hull values
+						maxHull = healthTarget.shipHealth.maxHealth; //get max hull
+						shield = healthTarget.shipHealth.shields; // get shields
+						maxShield = healthTarget.shipHealth.maxShields; //get max shields
+					
+					} else if (shipTar.target.tag == "Station") {
+						var stationH : Health = shipTar.target.GetComponent(Health);
+						hull = stationH.hull;
+						maxHull = stationH.maxHull;
+						shield = stationH.shield;
+						maxShield = stationH.maxShield;
+						
+					} else {
+						hull = 1;
+						maxHull = 1;
+						shield = 1;
+						maxShield = 1;
+					}
+					
+					//lets get the width of those bars
+					var shieldWidth : int = GetBarSize(shield_area.width, maxShield, shield);
+					var hullWidth : int = GetBarSize(hull_area.width, maxHull, hull);
+					//Now lets draw them
+					//start by shield
+					GUI.DrawTexture(Rect(shield_area.x, shield_area.y, shieldWidth, shield_area.height),shield_img);
+					GUI.DrawTexture(Rect(hull_area.x, hull_area.y, hullWidth, hull_area.height), hull_img);
+					
+					
+					
+				
+				GUILayout.EndArea();
+			
+			GUILayout.EndArea();
+		
+		}
+	}
+	
+	//this function returns the size of a bar in pixels
+	function GetBarSize (FullSize : int, MaxValue : float, CurValue : float) : int {
+
+		if(MaxValue == 0) {
+			return 0;
+		}
+
+		var newSize : int;
+		
+		newSize = (FullSize * CurValue)/MaxValue;
+		
+		return newSize;
+		
+
+	}
+	
+	function getFaction(target : GameObject) : int {
+		//obtain the target faction
+		var tarFaction : int;
+		
+		if(target.tag == "Ship") {
+			
+			var targetScript : shipProperties = target.GetComponent(shipProperties);
+			tarFaction = targetScript.shipInfo.faction;						
+		
+		} else if (target.tag == "Station") {
+			
+			var station : Station = target.GetComponent(Station);
+			tarFaction = station.faction;
+		
+		} else if (target.tag == "Planet") {
+			var planet : PlanetInfo = getPlanetInfo(target);
+			tarFaction = planet.getFaction();
+		}
+		
+		return tarFaction;
+	}
+	
+	function getOrbTexture(shipProps : shipProperties, playerFaction : FactionInfo, faction : int) : Texture {
+		//Now lets select the orb in question
+		var orbTexture : Texture;
+		if(shipProps.shipInfo.faction == faction) //check if it has the same faction
+		{
+			orbTexture = orb_owned_color; //give owned color
+		}
+		else if (playerFaction.isAllied(faction)) //check if it's an ally
+		{
+			orbTexture = orb_ally_color; //give allied color
+		}
+		else if (playerFaction.isHostile(faction)) //check if it's an enemy
+		{
+			orbTexture = orb_enemy_color; //give enemy color
+		}
+		else //if none of the above
+		{
+			orbTexture = orb_neutral_color; //give neutral color
+		}
+		return orbTexture;
+	}
+	
+	function getPlanetInfo(planet : GameObject) : PlanetInfo {
+		return planet.GetComponent(PlanetPanel).getPlanetInfo();
+	}
+	
+	function getShipInfo(ship : GameObject) : shipProperties {
+		return ship.GetComponent(shipProperties);
+	}
+	
 
 }
 
@@ -217,6 +404,8 @@ class TargetExpand {
 			if(GUI.Button(hailButton, "Hail", hudSkin.GetStyle("TacticalButton"))) {
 				if(target.tag == "Station") {
 					target.GetComponent(StationInterface).openGUI();
+				}else if (target.tag == "Planet") {
+					target.GetComponent(PlanetPanel).setOn();					
 				} else {
 					comm.open(target, player);
 				}
@@ -1071,145 +1260,7 @@ function redAlertModule() {
 //Draws the targetting module of the HUD
 function targetModule() {
 
-	if(shipTar.target) //checks first if the ship has a target to show
-	{
-
-		GUILayout.BeginArea(TargetModule);
-			
-			//Expand Area
-			
-			GUILayout.BeginArea(Target.expand.exp_area);
-			
-			
-				//Draw panel		
-				Target.expand.DrawPanel(shipTar.target, gameObject, commWindow); 
-															
-				//Expand button
-				if(Target.expand.DrawButton()) {
-					if(Target.expand.canExpand()) {
-						StartCoroutine(Target.expand.expand());
-					} else if(Target.expand.canRetract()) {
-						StartCoroutine(Target.expand.retract());
-					}
-				
-				}
-			
-			GUILayout.EndArea();
-			//Main Component
-			GUILayout.BeginArea(Target.main_area);
-				//Lets start by the background
-				GUI.DrawTexture(Target.bg_area, Target.bg_image);
-				
-				//Now the orb part
-				//get the player ship faction and faction information
-				var playerFaction : FactionInfo = general.getFactionInfo(shipProps.shipInfo.faction);
-				
-				//obtain the target faction
-				var tarFaction : int;
-				
-				if(shipTar.target.tag == "Ship") {
-					
-					var targetScript : shipProperties = shipTar.target.GetComponent(shipProperties);
-					tarFaction = targetScript.shipInfo.faction;						
-				
-				} else if (shipTar.target.tag == "Station") {
-					
-					var station : Station = shipTar.target.GetComponent(Station);
-					tarFaction = station.faction;
-				
-				}
-				
-				//Now lets select the orb in question
-				var orbTexture : Texture;
-				if(shipProps.shipInfo.faction == tarFaction) //check if it has the same faction
-				{
-					orbTexture = Target.orb_owned_color; //give owned color
-				}
-				else if (playerFaction.isAllied(tarFaction)) //check if it's an ally
-				{
-					orbTexture = Target.orb_ally_color; //give allied color
-				}
-				else if (playerFaction.isHostile(tarFaction)) //check if it's an enemy
-				{
-					orbTexture = Target.orb_enemy_color; //give enemy color
-				}
-				else //if none of the above
-				{
-					orbTexture = Target.orb_neutral_color; //give neutral color
-				}
-				
-				
-				//Draw the texture
-				GUI.DrawTexture(Target.orb_area, orbTexture);
-				
-				//Now Draw the ship image
-				//First get it from the targeted object
-				var tarImage : Texture;
-				var shipClass : String; //get these for the future
- 				var shipName : String;
-				
-				if(shipTar.target.tag == "Ship") { //if it's a ship
-									
-					
-					tarImage = targetScript.shipInfo.targetImg; //get image
-					shipClass = targetScript.shipInfo.shipClass; //get class
-					shipName = targetScript.shipInfo.shipName; //get name
-				
-				} else if(shipTar.target.tag == "Station") {
-					var stationI : StationInterface = shipTar.target.GetComponent(StationInterface);
-					tarImage = stationI.image;
-					shipClass = stationI.stClass;
-					shipName = stationI.stName;
-				}
-				
-				//Now draw the texture
-				GUI.DrawTexture(Target.orb_area, tarImage);
-				
-				//And now, it's time for writing those labels
-				GUI.Label(Target.name_area, shipName, HudSkin.GetStyle("TargetLabel"));
-				GUI.Label(Target.class_area, shipClass, HudSkin.GetStyle("TargetLabel"));
-				
-				//And now the health bars of the target
-				//lets start by getting the target status
-				
-				var hull : float;
-				var maxHull : float;
-				var shield : float;
-				var maxShield : float;
-				
-				if(shipTar.target.tag == "Ship") { //if its a ship
-				
-					var healthTarget : shipHealth = shipTar.target.GetComponent(shipHealth); //get the target health script
-					hull = healthTarget.shipHealth.health; //get hull values
-					maxHull = healthTarget.shipHealth.maxHealth; //get max hull
-					shield = healthTarget.shipHealth.shields; // get shields
-					maxShield = healthTarget.shipHealth.maxShields; //get max shields
-				
-				} else if (shipTar.target.tag == "Station") {
-					var stationH : Health = shipTar.target.GetComponent(Health);
-					hull = stationH.hull;
-					maxHull = stationH.maxHull;
-					shield = stationH.shield;
-					maxShield = stationH.maxShield;
-					
-				}
-				
-				//lets get the width of those bars
-				var shieldWidth : int = GetBarSize(Target.shield_area.width, maxShield, shield);
-				var hullWidth : int = GetBarSize(Target.hull_area.width, maxHull, hull);
-				//Now lets draw them
-				//start by shield
-				GUI.DrawTexture(Rect(Target.shield_area.x, Target.shield_area.y, shieldWidth, Target.shield_area.height), Target.shield_img);
-				GUI.DrawTexture(Rect(Target.hull_area.x, Target.hull_area.y, hullWidth, Target.hull_area.height), Target.hull_img);
-				
-				
-				
-			
-			GUILayout.EndArea();
-		
-		GUILayout.EndArea();
-	
-	}
+	Target.Draw(shipTar, TargetModule, gameObject, commWindow, general, shipProps, HudSkin);	
 
 
 }
