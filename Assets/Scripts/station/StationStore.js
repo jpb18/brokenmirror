@@ -106,7 +106,7 @@ class StationStore {
 	private function buyShip(inv : Inventory, item : GameObject, info : StationInterface) {
 		if (!inv.canBuy(getPrice(item))) {
 			var message : ShowMessage = info.getMessage();
-			message.AddMessage("Not enough credits.");
+			message.AddMessage("Not enough latinum.");
 		} else {
 			inv.spend(getPrice(item));
 			

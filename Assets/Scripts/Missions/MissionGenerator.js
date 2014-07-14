@@ -50,7 +50,7 @@ private function pickRandomCargoItem() : GameObject {
 }
 
 private function genCargoSize() : int {
-	return (Random.value * cargoMax);
+	return (r.Next(1, cargoMax));
 }
 
 private function getCargoPrice(cargo : GameObject) : int {

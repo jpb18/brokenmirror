@@ -1,6 +1,17 @@
 Star Trek Broken Mirror
 Change Log
 
+Version 0.2.2
+**********************************************************************
+FIXED:
+- GUI crash on Alpha Centauri
+
+
+CHANGED:
+- Added store function to Planet Panel
+
+ADDED:
+
 Version 0.2.1
 **********************************************************************
 
@@ -21,3 +32,5 @@ ADDED:
 
 
 REMOVED:
+
+

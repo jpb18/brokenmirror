@@ -10,12 +10,13 @@ Version 0.2.0
 -Klingon Ship Names should be IKS not ISS.
 -Fleets continue to fight after player death - not sure if bug really.
 -Escape pods don't have enough fuel to go anywhere.
--Phasers inoperative (on Klingon targets).
--Some trade missions have a 0 GPL award.
--Trade destinations say Destiny.  Should say Destination.
+-Phasers inoperative (on Klingon targets). - Fixed
+-Some trade missions have a 0 GPL award. - Fixed
+-Trade destinations say Destiny.  Should say Destination. - Fixed
 -Starfields need to be disabled for NPCs.
 -Some planets do not "complete" the trade mission.  Instead credits keep being awarded for every beam down.
 -MAC OSX will not load for some.
 -WINDOWS will not load for some.
 - Ship just spins in space, makes flying it near impossible as it is always flying to the right and down.
+- GUI would crash when beaming down cargo to Alpha Centauri - Fixed
 

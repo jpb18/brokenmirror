@@ -40,6 +40,7 @@ class PlanetPanel extends FloatingWindow {
 	var skin : GUISkin;
 		
 	public static var DILITHIUM_COST : int = 3;
+	public static var SPAWN_RADIUS : int = 5;
 	
 	function Start() {
 		super.init();
@@ -77,6 +78,7 @@ class PlanetPanel extends FloatingWindow {
 		drawName();
 		drawFaction();
 		drawStrenght();
+		drawStoreButtons();
 		//keep this at end
 		drag();
 	}
@@ -95,11 +97,11 @@ class PlanetPanel extends FloatingWindow {
 	}
 	
 	function drawDilithium() {
-		//if(planet.hasDilithium()) {
+		if(planet.hasDilithium()) {
 			if(GUI.Button(resizeRect(dilithiumRect), dilImage, skin.GetStyle("PlanetButton"))) {
 				buyDilithium();
 			}
-		//}
+		}
 	}
 	
 	function buyDilithium() {
@@ -168,12 +170,22 @@ class PlanetPanel extends FloatingWindow {
 	
 	function drawStatsLabels() {
 		drawDilithiumStats();
+		drawStoreMouseOvers();
 	}
 	
 	function drawDilithiumStats() {
 		if(isInRect(resizeRect(dilithiumRect))) {
 			drawStats("Dilithium", getDilithiumCost(save.getPlayerShip()).ToString());
 		}
+	}
+	
+	function drawStoreButtons() {
+	
+		for(var x : int = 0; x < ships.Count; x++) {
+			drawStoreButton(x);
+		
+		}
+	
 	}
 	
 	
@@ -195,6 +207,68 @@ class PlanetPanel extends FloatingWindow {
 	function drawStrenght() {
 		var strenght : String = planet.getStrenght().ToString();
 		GUI.Label(resizeRect(strRect), strenght, skin.label);
+	}
+	
+	function getStoreButtonRect(id : int) : Rect {
+		return resizeRect(new Rect (buttonPos[id].x, buttonPos[id].y, buttonSize.x, buttonSize.y));
+	}
+	
+	function drawStoreButton(id : int) {
+		var rect : Rect = getStoreButtonRect(id);
+		var image : Texture = ships[id].GetComponent(shipProperties).getStoreImage();
+		if(GUI.Button(rect, image, skin.GetStyle("StoreButton"))) {
+			//Buy ship
+			buyShip(ships[id]);
+		}
+	}
+	
+	function drawStoreMouseOvers() {
+		for(var x : int = 0; x < ships.Count; x++) {
+			drawStoreMouseOver(x);
+		}
+	}
+	
+	function drawStoreMouseOver(id : int) {
+		var rect : Rect = getStoreButtonRect(id);
+		if(isInRect(rect)) {
+			var ship : GameObject = ships[id];
+			drawStats(getShipClass(ship), getShipCost(ship).ToString());
+		}
+	}
+	
+	function getShipCost(ship : GameObject) : int {
+		return ship.GetComponent(shipProperties).getPrice();
+	}
+	
+	function getShipClass(ship : GameObject) : String {
+		return ship.GetComponent(shipProperties).getClass();
+	}
+	
+	function buyShip(ship : GameObject) {
+		if(!inventory.canBuy(getShipCost(ship))) {
+			message.AddMessage("Not enough latinum.");
+		} else {
+			inventory.spend(getShipCost(ship));
+			var newShip : GameObject = GameObject.Instantiate(ship, genSpawnPoint(), Quaternion.identity);
+			newShip.transform.LookAt(getPlayerPosition());
+			newShip.name = Statics.RemoveClone(newShip.name);
+			var props : shipProperties = newShip.GetComponent(shipProperties);
+			props.setFaction(0);
+			props.setPlayer(false);
+			message.AddMessage("Ship acquired.");
+		}
+	}
+	
+	function genSpawnPoint() : Vector3 {
+		var pos : Vector3 = getPlayerPosition();
+		var rnd : Vector3 = Random.onUnitSphere * SPAWN_RADIUS;
+		return pos + rnd;
+		
+	}
+	
+	function getPlayerPosition() : Vector3 {
+		var ship : GameObject = save.getPlayerShip();
+		return ship.transform.position;
 	}
 
 }

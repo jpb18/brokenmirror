@@ -16,7 +16,7 @@ private var hold : CargoHold;
 private var general : GeneralInfo;
 
 public static var TRADE_FINISHED : String = "Trade mission finished. {0} Latinum deposited into account.";
-public static var TRADE_STARTED : String = "Trade mission begun. Destiny: {0}."; 
+public static var TRADE_STARTED : String = "Trade mission begun. Destination: {0}."; 
 public static var NO_TRADE : String = "No trade missions to be completed in this system.";
 public static var CARGO_FULL : String = "Can't accept new mission. Not enough space in cargo hold.";
 public static var COMBAT_STARTED : String = "Combat mission against {0} begun.";

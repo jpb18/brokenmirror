@@ -350,7 +350,8 @@ class TargetGui {
 	}
 	
 	function getPlanetInfo(planet : GameObject) : PlanetInfo {
-		return planet.GetComponent(PlanetPanel).getPlanetInfo();
+		var panel : PlanetPanel = planet.GetComponent(PlanetPanel);
+		return panel.getPlanetInfo();
 	}
 	
 	function getShipInfo(ship : GameObject) : shipProperties {
