@@ -11,6 +11,7 @@ CHANGED:
 - Added store function to Planet Panel
 
 ADDED:
+- Game Over Screen
 
 Version 0.2.1
 **********************************************************************

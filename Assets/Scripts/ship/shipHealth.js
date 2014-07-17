@@ -60,6 +60,7 @@ private var cloud : ShipCloud;
 private var escape : shipEscapePods;
 private var missions : Missions;
 private var general : GeneralInfo;
+private var over : GameOver;
 
 function Start () {
 
@@ -70,6 +71,7 @@ function Start () {
 	escape = gameObject.GetComponent(shipEscapePods);
 	missions = GameObject.FindGameObjectWithTag("Missions").GetComponent(Missions);
 	general = GameObject.FindGameObjectWithTag("SaveGame").GetComponent(GeneralInfo);
+	over = GameObject.FindGameObjectWithTag("GameOver").GetComponent(GameOver);
 	
 	//get health stats
 	shipHealth.maxHealth = properties.ShipHealth.basicHealth;
@@ -137,11 +139,14 @@ function Die () {
 	if (shipHealth.health <= 0)
 	{
 		reportKill();
-		instantiatePods();
+		
 		Instantiate(explosion, transform.position, transform.rotation);
 		Destroy(gameObject);
 		
-		
+		if(properties.getPlayer()) {
+			gameOver();
+		}
+		instantiatePods();
 	}
 	
 
@@ -340,4 +345,9 @@ private function getShipFaction(ship : GameObject) : FactionInfo {
 	var props : shipProperties = ship.GetComponent(shipProperties);
 	var faction : int = props.getFaction();
 	return general.getFactionInfo(faction);
+}
+
+function gameOver() {
+	var esc : boolean = !escape.isEscapePod() && escape.hasEscapePod();
+	over.setGameOver(esc);
 }
