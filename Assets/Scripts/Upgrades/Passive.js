@@ -1,7 +1,7 @@
 
 
 
-public class Passive extends Upgrade implements IPassive {
+public class Passive extends Upgrade {
 	
 	var weaponRecharge : float;
 	var weaponDamage : float;

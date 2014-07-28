@@ -1,7 +1,7 @@
 
-public class Upgrade implements IUpgrade {
+public class Upgrade extends MonoBehaviour {
 	
-	public var name : String;
+	public var upgradeName : String;
 	public var cost : int;
 	public var description : String;
 	public var image : Texture;

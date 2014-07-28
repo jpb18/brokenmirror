@@ -37,7 +37,16 @@ class ShieldRegeneration {
 	var isRegen : boolean = false; //checks if the ships shields can regenerate
 	var lastHit : float; //checks last hit by a weapon
 	var timeInt : float; //contains time interval from last hit before the shield start regenerating
-	var regenRate : float; //contains the regeneration rate
+	var regenRate : float; //contains the regeneration rate in seconds
+	var lastRegen : float;
+	
+	function canRegen(modifier : float) : boolean {
+		return isRegen && Time.time >= lastRegen + regenRate - modifier && Time.time >= lastHit + timeInt;
+	}
+	
+	function setRegen() {
+		lastRegen = Time.time;
+	}
 
 }
 
@@ -61,6 +70,7 @@ private var escape : shipEscapePods;
 private var missions : Missions;
 private var general : GeneralInfo;
 private var over : GameOver;
+private var upgrades : Upgrades;
 
 function Start () {
 
@@ -69,6 +79,7 @@ function Start () {
 	triggers = gameObject.GetComponent(shipTriggers);
 	cloud = gameObject.GetComponent(ShipCloud);
 	escape = gameObject.GetComponent(shipEscapePods);
+	upgrades = gameObject.GetComponent(Upgrades);
 	missions = GameObject.FindGameObjectWithTag("Missions").GetComponent(Missions);
 	general = GameObject.FindGameObjectWithTag("SaveGame").GetComponent(GeneralInfo);
 	over = GameObject.FindGameObjectWithTag("GameOver").GetComponent(GameOver);
@@ -118,10 +129,11 @@ function Update () {
 //this function controls a ship shield regeneration
 function shield_regen() {
 	//checks if the time interval has passed and the shield is able of regenerating
-	if (shieldRegen.lastHit + shieldRegen.timeInt <= Time.time && shieldRegen.isRegen == true && shipHealth.shields < shipHealth.maxShields)
+	if (shieldRegen.canRegen(upgrades.getShieldRecharge()) == true && shipHealth.shields < shipHealth.maxShields)
 	{
-	
-		shipHealth.shields += shieldRegen.regenRate * Time.deltaTime; //adds shield
+		shieldRegen.setRegen();
+		var rate : float = shieldRegen.regenRate;
+		shipHealth.shields += rate; //adds shield
 	
 	}
 

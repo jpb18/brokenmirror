@@ -836,6 +836,7 @@ var general : GeneralInfo;
 var hud : HUDStatus;
 var message : ShowMessage;
 var missions : Missions;
+var upgrades : Upgrades;
 
 //main camara
 var mainCam : Camera;
@@ -855,6 +856,7 @@ function Start () {
 	mapInfo = GameObject.FindGameObjectWithTag("MapInfo").GetComponent(MapInfo);
 	loadScene = GameObject.FindGameObjectWithTag("LoadScene").GetComponent(LoadScene);
 	hud = GameObject.FindGameObjectWithTag("GlobalInfo").GetComponent(HUDStatus);
+	upgrades = gameObject.GetComponent(Upgrades);
 	
 	//reset loadScene status
 	loadScene.show = false;
@@ -1288,7 +1290,7 @@ function CreateWeapButton(Weapon : Phaser, Skin : GUISkin, Area : Rect) {
 		
 			
 				if(shipTar.target) { //check if there's a target
-					if(Weapon.canFire(shipTar.target)) {//check if weapon can fire
+					if(Weapon.canFire(shipTar.target, upgrades.getWeaponRecharge())) {//check if weapon can fire
 						Weapon.fire(shipTar.target, shipWeap.volleyNum(), shipWeap); //Set isFiring as true
 					}
 				
@@ -1296,7 +1298,7 @@ function CreateWeapButton(Weapon : Phaser, Skin : GUISkin, Area : Rect) {
 				
 					shipTar.target = shipTar.FindTarget(gameObject, shipProps); //Find target 
 					
-					if(Weapon.canFire(shipTar.target)) {//check if weapon can fire
+					if(Weapon.canFire(shipTar.target,  upgrades.getWeaponRecharge())) {//check if weapon can fire
 						Weapon.fire(shipTar.target, shipWeap.volleyNum(), shipWeap); //Set isFiring as true
 					}
 				
@@ -1361,7 +1363,7 @@ function CreateWeapButton(Weapon : Torpedo, Skin : GUISkin, Area : Rect) {
 			
 				if(shipTar.target) { //check if there's a target
 					if(Weapon.canFire(shipTar.target)) {//check if weapon can fire
-						StartCoroutine(Weapon.fire(shipTar.target, shipWeap.volleyNum())); //Set isFiring as true
+						StartCoroutine(Weapon.fire(shipTar.target, shipWeap.volleyNum(),  upgrades.getWeaponRecharge())); //Set isFiring as true
 					}
 				
 				} else { //if there isn't, find one and set isFiring as true after
@@ -1369,7 +1371,7 @@ function CreateWeapButton(Weapon : Torpedo, Skin : GUISkin, Area : Rect) {
 					shipTar.target = shipTar.FindTarget(gameObject, shipProps); //Find target 
 					
 					if(Weapon.canFire(shipTar.target)) {//check if weapon can fire
-						StartCoroutine(Weapon.fire(shipTar.target, shipWeap.volleyNum())); //Set isFiring as true
+						StartCoroutine(Weapon.fire(shipTar.target, shipWeap.volleyNum(),  upgrades.getWeaponRecharge())); //Set isFiring as true
 					}
 				
 				}

@@ -20,10 +20,10 @@ class Phaser {
 	
 	///<summary>This will check if the phaser can fire</summary>
 	///<param name="target">Object to be checked (target)</param>
-	function canFire(target : GameObject) : boolean {
+	function canFire(target : GameObject, modifier : float) : boolean {
 		var can : boolean = false;
 		if(isEnabled && phaser) {
-			var isTime : boolean = Time.time >= lastShot + getCooldown();
+			var isTime : boolean = Time.time >= lastShot + getCooldown() - modifier;
 			can = isTime && canRangeAndAngle(target) && !isFiring;
 		}
 		
@@ -325,9 +325,9 @@ class Torpedo {
 		return ws.isAngle(torpedoPoint, target);
 	}
 	
-	function fire(target : GameObject, num : int) {
+	function fire(target : GameObject, num : int, modifier : float) {
 		
-		nextShot = Time.time + getCooldown() * num;
+		nextShot = Time.time + (getCooldown() - modifier) * num;
 		
 		for(var x : int = 0; x < num; x++) {
 			var torp : GameObject = getPooledWeapon();
@@ -402,6 +402,7 @@ var torp2 : Torpedo;
 //needed scripts
 var target : shipTarget;
 var properties : shipProperties;
+var upgrades : Upgrades;
 
 //volley
 var torpVolley : Volley;
@@ -412,6 +413,7 @@ var torpVolley : Volley;
 function Start() {
 	target = gameObject.GetComponent(shipTarget);
 	properties = gameObject.GetComponent(shipProperties);
+	upgrades = gameObject.GetComponent(Upgrades);
 	phaser.ship = gameObject;
 
 }
@@ -460,7 +462,7 @@ function botFire() {
 
 function phaserFunction() {
 	
-	if(phaser.canFire(target.target)) {
+	if(phaser.canFire(target.target, upgrades.getWeaponRecharge())) {
 		
 		phaser.fire(target.target, volleyNum(), this);		
 	}
@@ -499,7 +501,7 @@ function hasTorpedoInRange(target : GameObject) : boolean {
 
 function torpFunction(torp : Torpedo) {
 	if(torp.canFire(target.target)) {
-		StartCoroutine(torp.fire(target.target, volleyNum()));
+		StartCoroutine(torp.fire(target.target, volleyNum(), upgrades.getWeaponRecharge()));
 	}
 
 
