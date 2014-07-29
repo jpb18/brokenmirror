@@ -118,7 +118,7 @@ function sublight() {
 //this function controls the ship speed
 function shipPlayer_speed () {
 	
-	var shipAcceleration : float = properties.movement.acceleration;
+	//var shipAcceleration : float = properties.movement.acceleration;
 	
 	if(Input.GetAxis("ShipSpeed") > 0 && !isChanging)
 	{
