@@ -20,10 +20,10 @@ class Phaser {
 	
 	///<summary>This will check if the phaser can fire</summary>
 	///<param name="target">Object to be checked (target)</param>
-	function canFire(target : GameObject, modifier : float) : boolean {
+	function canFire(target : GameObject, upgrades : Upgrades) : boolean {
 		var can : boolean = false;
 		if(isEnabled && phaser) {
-			var isTime : boolean = Time.time >= lastShot + getCooldown() - modifier;
+			var isTime : boolean = Time.time >= lastShot + getCooldown(upgrades);
 			can = isTime && canRangeAndAngle(target) && !isFiring;
 		}
 		
@@ -79,20 +79,20 @@ class Phaser {
 	
 	///<summary>This will fire the phaser. Must check canFire(target) first. Also, make sure this is started as a coroutine.</summary>
 	///<param name="target">Target GameObject</param>
-	function fire(target : GameObject, repeat : int, wep : shipWeapons) {
+	function fire(target : GameObject, repeat : int, wep : shipWeapons, upgrades : Upgrades) {
 		lastShot = Time.time;
 		
 		if(getType() == WeaponType.beam) {
- 			wep.StartCoroutine(fireBeam(target, getPoint(target)));
+ 			wep.StartCoroutine(fireBeam(target, getPoint(target), upgrades));
 		} else if (getType() == WeaponType.pulse) {
-			wep.StartCoroutine(firePulse(target, repeat));
+			wep.StartCoroutine(firePulse(target, repeat, upgrades));
 		}
 		
 
 	
 	}
 	
-	function firePulse(target : GameObject, repeat : int) {
+	function firePulse(target : GameObject, repeat : int, upgrades : Upgrades) {
 		isFiring = true;
 		var time : float = getAlternateFireRate();
 		var i : int = 0;
@@ -103,6 +103,7 @@ class Phaser {
 				var ws : weaponScript = pulse.GetComponent(weaponScript);
 				ws.setTarget(target);
 				ws.setOrigin(point);
+				ws.setUpgrade(upgrades);
 				pulse.SetActive(true);
 			}
 			yield WaitForSeconds(time);
@@ -113,7 +114,7 @@ class Phaser {
 		isFiring = false;
 	}
 	
-	function fireBeam(target : GameObject, origin : GameObject) {
+	function fireBeam(target : GameObject, origin : GameObject, upgrades : Upgrades) {
 		var rate : float = 1/duration;
 		var i : float = 0;
 		var phaserGO : GameObject;
@@ -129,9 +130,9 @@ class Phaser {
 				
 				if(hasTargetShield(target)) {
 					
-					phaserGO = fireShields(target, origin, or, dir, hit, phaserGO);
+					phaserGO = fireShields(target, origin, or, dir, hit, phaserGO, upgrades);
 				} else {
-					phaserGO = fireHull(target, origin, or, dir, hit, phaserGO);
+					phaserGO = fireHull(target, origin, or, dir, hit, phaserGO, upgrades);
 				}
 			} else {
 				i = 2;
@@ -154,10 +155,11 @@ class Phaser {
 		return shealth.hasShield();
 		
 		}
+		return false;
 			
 	}
 	//pre hasTargetShield()
-	private function fireShields(target : GameObject, origin : GameObject, or : Vector3, dir : Vector3, hit : RaycastHit, phaserGO : GameObject) : GameObject {
+	private function fireShields(target : GameObject, origin : GameObject, or : Vector3, dir : Vector3, hit : RaycastHit, phaserGO : GameObject, upgrades : Upgrades) : GameObject {
 		
 		var isHit : boolean = Physics.Raycast(or, dir, hit, getRange(), shieldLayerMask);
 		if(isHit) {
@@ -165,9 +167,9 @@ class Phaser {
 			//get target health script
 			var ship : GameObject = getParent(hit.transform).gameObject;
 			if(ship.tag.Equals("Ship")) {
-				ship.GetComponent(shipHealth).damageShield(getDamage() * Time.deltaTime);
+				ship.GetComponent(shipHealth).damageShield(getDamage(upgrades) * Time.deltaTime);
 			} else if (ship.tag.Equals("Station")) {
-				ship.GetComponent(Health).getDamage(getDamage() *  Time.deltaTime, true);
+				ship.GetComponent(Health).getDamage(getDamage(upgrades) *  Time.deltaTime, true);
 			}
 			//get hit point
 			var point : Vector3 = hit.point;
@@ -190,13 +192,13 @@ class Phaser {
 	
 	}
 	
-	private function fireHull(target : GameObject, origin : GameObject, or : Vector3, dir : Vector3, hit : RaycastHit, phaserGO : GameObject) : GameObject {
+	private function fireHull(target : GameObject, origin : GameObject, or : Vector3, dir : Vector3, hit : RaycastHit, phaserGO : GameObject, upgrades : Upgrades) : GameObject {
 		if(Physics.Raycast(or, dir, hit, getRange(), hullLayerMask)) {
 				
 				//do phaser logic here
 				//get target health script
 				var ship : GameObject = getParent(hit.transform).gameObject;
-				ship.GetComponent(shipHealth).damageHull(getDamage() * Time.deltaTime);
+				ship.GetComponent(shipHealth).damageHull(getDamage(upgrades) * Time.deltaTime);
 				
 				//get hit point
 				var point : Vector3 = hit.point;
@@ -219,9 +221,10 @@ class Phaser {
 	}
 	
 	///<summary>This returns the weapon cooldown</summary>
-	function getCooldown() : float {
+	function getCooldown(upgrades : Upgrades) : float {
 			var ws : weaponScript = phaser.GetComponent(weaponScript);
-		 	return ws.getCooldown();
+			var cooldown : float = ws.getCooldown();
+		 	return cooldown - upgrades.getWeaponRecharge();
 	
 	}
 	
@@ -245,12 +248,13 @@ class Phaser {
 	
 	}
 	
-	function getNextShot() : float{
-		return lastShot + getCooldown();	
+	function getNextShot(upgrades : Upgrades) : float{
+		return lastShot + getCooldown(upgrades);	
 	}
 	
-	function getDamage() : float {
-		return phaser.GetComponent(phaserScript).damage;
+	function getDamage(up : Upgrades) : float {
+		var damage : float = phaser.GetComponent(phaserScript).damage;
+		return damage  + up.getDamageBonus();
 	
 	}
 	
@@ -325,9 +329,9 @@ class Torpedo {
 		return ws.isAngle(torpedoPoint, target);
 	}
 	
-	function fire(target : GameObject, num : int, modifier : float) {
+	function fire(target : GameObject, num : int, upgrades : Upgrades) {
 		
-		nextShot = Time.time + (getCooldown() - modifier) * num;
+		nextShot = Time.time + (getCooldown(upgrades)) * num;
 		
 		for(var x : int = 0; x < num; x++) {
 			var torp : GameObject = getPooledWeapon();
@@ -336,6 +340,7 @@ class Torpedo {
 				var ws : weaponScript = torp.GetComponent(weaponScript);
 				ws.setTarget(target);
 				ws.setOrigin(torpedoPoint);
+				ws.setUpgrade(upgrades);
 				torp.SetActive(true);
 			yield WaitForSeconds(rate);
 			} else {
@@ -346,8 +351,8 @@ class Torpedo {
 	}
 	
 	///<summary>This returns the weapon cooldown</summary>
-	function getCooldown() : float {
-		 return torpedo.GetComponent(weaponScript).getCooldown();
+	function getCooldown(upgrades : Upgrades) : float {
+		 return torpedo.GetComponent(weaponScript).getCooldown() - upgrades.getWeaponRecharge();
 	
 	}
 	
@@ -362,11 +367,6 @@ class Torpedo {
 	
 	function getNextShot() : float{
 		return nextShot;	
-	}
-	
-	function getDamage() : float {
-		return torpedo.GetComponent(phaserScript).damage;
-	
 	}
 	
 	function getPooledWeapon() : GameObject {
@@ -462,9 +462,9 @@ function botFire() {
 
 function phaserFunction() {
 	
-	if(phaser.canFire(target.target, upgrades.getWeaponRecharge())) {
+	if(phaser.canFire(target.target, upgrades)) {
 		
-		phaser.fire(target.target, volleyNum(), this);		
+		phaser.fire(target.target, volleyNum(), this, upgrades);		
 	}
 	
 }
@@ -501,7 +501,7 @@ function hasTorpedoInRange(target : GameObject) : boolean {
 
 function torpFunction(torp : Torpedo) {
 	if(torp.canFire(target.target)) {
-		StartCoroutine(torp.fire(target.target, volleyNum(), upgrades.getWeaponRecharge()));
+		StartCoroutine(torp.fire(target.target, volleyNum(), upgrades));
 	}
 
 

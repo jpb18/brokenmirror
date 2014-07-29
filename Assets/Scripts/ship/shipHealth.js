@@ -8,8 +8,12 @@ class ship_Health {
 	var maxShields : float;
 	var shields : float;
 	
-	function hasShield() : boolean {
-		return shields > 0;	
+	function hasShield(upgrades : Upgrades) : boolean {
+		return getShield(upgrades) > 0;	
+	}
+	
+	function hasHull(upgrades : Upgrades) : boolean {
+		return getHull(upgrades) > 0;
 	}
 	
 	//pre hasShield()
@@ -19,6 +23,22 @@ class ship_Health {
 	
 	function hullDamage(damage : float) {
 		health -= damage;
+	}
+	
+	function getMaxHull(upgrades : Upgrades) : float {
+		return maxHealth + upgrades.getHullStrenght();
+	}
+	
+	function getHull(upgrades : Upgrades) : float {
+		return health + upgrades.getHullStrenght();
+	}
+	
+	function getMaxShield(upgrades : Upgrades) : float {
+		return maxShields + upgrades.getShieldStrenght();
+	}
+	
+	function getShield(upgrades : Upgrades) : float {
+		return shields + upgrades.getShieldStrenght();
 	}
 
 }
@@ -61,6 +81,8 @@ var plasmaParticles : List.<GameObject>;
 var shield : GameObject;
 
 var lastHit : GameObject;
+
+
 
 //other scripts
 private var properties : shipProperties;
@@ -116,7 +138,7 @@ function Start () {
 
 function Update () {
 
-	updateHealth();
+	
 	Triggers();
 	Die();
 	Trails();
@@ -129,7 +151,7 @@ function Update () {
 //this function controls a ship shield regeneration
 function shield_regen() {
 	//checks if the time interval has passed and the shield is able of regenerating
-	if (shieldRegen.canRegen(upgrades.getShieldRecharge()) == true && shipHealth.shields < shipHealth.maxShields)
+	if (shieldRegen.canRegen(upgrades.getShieldRecharge()) == true && shipHealth.getShield(upgrades) < shipHealth.getMaxShield(upgrades))
 	{
 		shieldRegen.setRegen();
 		var rate : float = shieldRegen.regenRate;
@@ -139,16 +161,10 @@ function shield_regen() {
 
 }
 
-function updateHealth () {
-
-	shipHealth.maxHealth = properties.ShipHealth.basicHealth;
-	
-
-}
 
 function Die () {
 
-	if (shipHealth.health <= 0)
+	if (!shipHealth.hasHull(upgrades))
 	{
 		reportKill();
 		
@@ -207,7 +223,7 @@ function Triggers () {
 function Trails () {
 	var isTurbulence : boolean = triggers.triggerProps.isTurbulence;
 	
-	if (isTurbulence || shipHealth.health <= shipHealth.maxHealth * 0.5)
+	if (isTurbulence || shipHealth.getHull(upgrades) <= shipHealth.getMaxHull(upgrades) * 0.5)
 	{
 		for (var trail : GameObject in smokeTrails)
 		{
@@ -232,7 +248,7 @@ function Trails () {
 }
 
 function PlasmaLeak() {
-	if (shipHealth.health <= shipHealth.maxHealth * 0.15)
+	if (shipHealth.getHull(upgrades) <= shipHealth.getMaxHull(upgrades) * 0.15)
 	{
 		for (var plasma : GameObject in plasmaParticles)
 		{
@@ -286,7 +302,7 @@ function OnDestroy () {
 
 function isShieldUp() : boolean {
 
-	return shipHealth.hasShield() && properties.getRedAlert() && !cloud.isShieldInibited();
+	return shipHealth.hasShield(upgrades) && properties.getRedAlert() && !cloud.isShieldInibited();
 }
 
 //pre: isShieldUp()
@@ -363,3 +379,4 @@ function gameOver() {
 	var esc : boolean = !escape.isEscapePod() && escape.hasEscapePod();
 	over.setGameOver(esc);
 }
+

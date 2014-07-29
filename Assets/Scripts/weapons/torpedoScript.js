@@ -40,6 +40,8 @@ var isSpread : boolean = false; //checks if the torpedo is already a spread
 private var trans : Transform;
 private var go : GameObject;
 
+private var upgrades : Upgrades;
+
 function FixedUpdate () {
 	
 	calc_range();
@@ -247,6 +249,11 @@ function getDamage(isShield : boolean) : float {
 	} else {
 		dmg = status.hullDmg;
 	}
+	
+	if(upgrades) {
+		dmg = dmg + upgrades.getDamageBonus();
+	}
+	
 	return dmg;
 }
 
@@ -273,3 +280,8 @@ private function registerShipHit(ship : GameObject) {
 	var health : shipHealth = ship.GetComponent(shipHealth);
 	health.setLastHitter(origin);
 }
+
+function setUpgrade(upgrades : Upgrades) {
+	this.upgrades = upgrades;
+}
+

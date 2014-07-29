@@ -7,6 +7,7 @@ public class Passive extends Upgrade {
 	var weaponDamage : float;
 	var shieldRecharge : float;
 	var hullStrenght : float;
+	var shieldStrenght : float;
 	var speedIncrease : float;
 	var agilityTurn : float;
 
@@ -28,6 +29,10 @@ public class Passive extends Upgrade {
 	//Shield
 	function getShieldRechargeBonus() : float {
 		return shieldRecharge;
+	}
+	
+	function getShieldStrenghtBonus() : float {
+		return shieldStrenght;
 	}
 	
 	

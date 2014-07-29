@@ -165,3 +165,7 @@ function getStrenght() : int {
 	return shipProps.shipStrenght;
 }
 
+function getSpeed() : float {
+	return movement.impulseSpeed;
+}
+

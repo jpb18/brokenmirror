@@ -13,6 +13,9 @@ CHANGED:
 ADDED:
 - Game Over Screen
 
+WIP:
+- Passive Upgrades
+
 Version 0.2.1
 **********************************************************************
 

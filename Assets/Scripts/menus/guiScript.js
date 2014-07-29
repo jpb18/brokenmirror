@@ -1033,14 +1033,14 @@ function healthModule() {
 	
 		//calculations
 		//get hull values
-		var maxHull : float = shipHea.shipHealth.maxHealth;
-		var curHull : float = shipHea.shipHealth.health;
+		var maxHull : float = shipHea.shipHealth.getMaxHull(upgrades);
+		var curHull : float = shipHea.shipHealth.getHull(upgrades);
 		var percHull : float = ValueToPercentage(maxHull, curHull);
 		
 		
 		//get shield values
-		var maxShield : float = shipHea.shipHealth.maxShields;
-		var curShield : float = shipHea.shipHealth.shields;
+		var maxShield : float = shipHea.shipHealth.getMaxShield(upgrades);
+		var curShield : float = shipHea.shipHealth.getShield(upgrades);
 		var percShield : float = ValueToPercentage(maxShield, curShield);
 	
 	
@@ -1290,16 +1290,16 @@ function CreateWeapButton(Weapon : Phaser, Skin : GUISkin, Area : Rect) {
 		
 			
 				if(shipTar.target) { //check if there's a target
-					if(Weapon.canFire(shipTar.target, upgrades.getWeaponRecharge())) {//check if weapon can fire
-						Weapon.fire(shipTar.target, shipWeap.volleyNum(), shipWeap); //Set isFiring as true
+					if(Weapon.canFire(shipTar.target, upgrades)) {//check if weapon can fire
+						Weapon.fire(shipTar.target, shipWeap.volleyNum(), shipWeap, upgrades); //Set isFiring as true
 					}
 				
 				} else { //if there isn't, find one and set isFiring as true after
 				
 					shipTar.target = shipTar.FindTarget(gameObject, shipProps); //Find target 
 					
-					if(Weapon.canFire(shipTar.target,  upgrades.getWeaponRecharge())) {//check if weapon can fire
-						Weapon.fire(shipTar.target, shipWeap.volleyNum(), shipWeap); //Set isFiring as true
+					if(Weapon.canFire(shipTar.target,  upgrades)) {//check if weapon can fire
+						Weapon.fire(shipTar.target, shipWeap.volleyNum(), shipWeap, upgrades); //Set isFiring as true
 					}
 				
 				}
@@ -1309,12 +1309,12 @@ function CreateWeapButton(Weapon : Phaser, Skin : GUISkin, Area : Rect) {
 		}
 		
 		//If weapon is reloading, draw overlay
-		if(Time.time < Weapon.getNextShot()) {
+		if(Time.time < Weapon.getNextShot(upgrades)) {
 			
 			//Calculate size
 			//Get total reload time and time remaining
-			var totalReload : float = Weapon.getCooldown();
-			var remainTime : float = Weapon.getNextShot() - Time.time;
+			var totalReload : float = Weapon.getCooldown(upgrades);
+			var remainTime : float = Weapon.getNextShot(upgrades) - Time.time;
 			
 			//Get overlay height
 			var overHeight : int = GetBarSize(Area.height, totalReload, remainTime);
@@ -1363,7 +1363,7 @@ function CreateWeapButton(Weapon : Torpedo, Skin : GUISkin, Area : Rect) {
 			
 				if(shipTar.target) { //check if there's a target
 					if(Weapon.canFire(shipTar.target)) {//check if weapon can fire
-						StartCoroutine(Weapon.fire(shipTar.target, shipWeap.volleyNum(),  upgrades.getWeaponRecharge())); //Set isFiring as true
+						StartCoroutine(Weapon.fire(shipTar.target, shipWeap.volleyNum(),  upgrades)); //Set isFiring as true
 					}
 				
 				} else { //if there isn't, find one and set isFiring as true after
@@ -1371,7 +1371,7 @@ function CreateWeapButton(Weapon : Torpedo, Skin : GUISkin, Area : Rect) {
 					shipTar.target = shipTar.FindTarget(gameObject, shipProps); //Find target 
 					
 					if(Weapon.canFire(shipTar.target)) {//check if weapon can fire
-						StartCoroutine(Weapon.fire(shipTar.target, shipWeap.volleyNum(),  upgrades.getWeaponRecharge())); //Set isFiring as true
+						StartCoroutine(Weapon.fire(shipTar.target, shipWeap.volleyNum(),  upgrades)); //Set isFiring as true
 					}
 				
 				}
@@ -1385,7 +1385,7 @@ function CreateWeapButton(Weapon : Torpedo, Skin : GUISkin, Area : Rect) {
 			
 			//Calculate size
 			//Get total reload time and time remaining
-			var totalReload : float = Weapon.getCooldown();
+			var totalReload : float = Weapon.getCooldown(upgrades);
 			var remainTime : float = Weapon.getNextShot() - Time.time;
 			
 			//Get overlay height

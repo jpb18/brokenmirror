@@ -7,6 +7,7 @@ var guiInfo : GuiInfo;
 var altRate : float;
 var baseCost : int;
 
+
 enum WeaponType {
 	beam,
 	torpedo,
@@ -165,6 +166,14 @@ function setOrigin(origin : GameObject) {
 
 
 }
+
+function setUpgrade(upgrades : Upgrades) {
+	
+	if(type == WeaponType.torpedo || type == WeaponType.pulse) {
+		gameObject.GetComponent(torpedoScript).setUpgrade(upgrades);
+	}
+
+} 
 
 function getPrice() : int {
 	return baseCost;

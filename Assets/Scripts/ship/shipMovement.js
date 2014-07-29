@@ -46,12 +46,14 @@ public static var WARP_MIN : float = 1f;
 
 private var impulseParticleSpeed : float;
 private var message : ShowMessage;
+private var upgrades : Upgrades;
 
 var warpParticle : ParticleSystem;
 
 function Start () {
 
 	properties = gameObject.GetComponent(shipProperties);
+	upgrades = gameObject.GetComponent(Upgrades);
 	
 	if(!impulseParticleSystem) {
 		Debug.LogWarning("Check if the impulse particle system exists at " + gameObject.name + ".");
@@ -102,7 +104,7 @@ function sublight() {
 		
 	}
 	
-	var shipSpeed : float = properties.movement.impulseSpeed * Time.deltaTime;
+	var shipSpeed : float = getShipSpeed() * Time.deltaTime;
 	
 	var SpeedChange : float = speedStatus * shipSpeed;
 	
@@ -146,14 +148,11 @@ function shipPlayer_speed () {
 			
 	}
 	
-	
-	
-	
-	
-	
-	
+}
 
-
+function getShipSpeed() : float {
+	var speed : float = properties.getSpeed();
+	return speed + upgrades.getSpeedBonus();
 }
 
 function fullStop() {
@@ -182,7 +181,7 @@ function shipPlayer_movement () {
 }
 
 function shipAgility() : float {
-	return properties.movement.agility * Time.deltaTime;
+	return (properties.movement.agility + upgrades.getAgilityBonus()) * Time.deltaTime;
 }
 
 function FullStop (currentSpeed : float, acceleration : float)
@@ -434,3 +433,5 @@ private function desacelerateFromWarp() {
 	isSpeeding = false;
 	curWarpMulti = WARP_MIN;
 }
+
+

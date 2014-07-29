@@ -57,3 +57,36 @@ function getWeaponRecharge() : float {
 	return bonus;
 
 }
+
+function getHullStrenght() : float {
+	var bonus : float;
+	var passive : Passive;
+	for(var up : GameObject in upgrades) {
+		passive = up.GetComponent(Passive);
+		bonus += passive.getHullStrenghtBonus();
+	
+	}
+	return bonus;
+}
+
+function getAgilityBonus() : float {
+	var bonus : float;
+	var passive : Passive;
+	for(var up : GameObject in upgrades) {
+		passive = up.GetComponent(Passive);
+		bonus += passive.getAgilityTurnBonus();
+	
+	}
+	return bonus;
+}
+
+function getShieldStrenght() : float {
+	var bonus : float;
+	var passive : Passive;
+	for(var up : GameObject in upgrades) {
+		passive = up.GetComponent(Passive);
+		bonus += passive.getShieldStrenghtBonus();
+	
+	}
+	return bonus;
+}
