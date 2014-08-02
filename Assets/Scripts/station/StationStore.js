@@ -129,6 +129,8 @@ class StationStore {
 				text = item.GetComponent(shipProperties).getStoreImage();	
 		} else if(item.tag == "Torpedoes" || item.tag == "Phaser") {
 				text = item.GetComponent(weaponScript).getImage();
+		} else if (item.tag == "Upgrade") {
+				text = item.GetComponent(Upgrade).getImage();
 		}
 		
 		
@@ -175,6 +177,8 @@ class StationStore {
 			name = item.GetComponent(shipProperties).getClass();
 		} else if (item.tag == "Torpedoes" || item.tag == "Phaser") {
 			name = item.GetComponent(weaponScript). getName();		
+		} else if (item.tag == "Upgrade") {
+			name = item.GetComponent(Upgrade).getName();
 		}
 		
 		return name;
@@ -189,6 +193,8 @@ class StationStore {
 			desc = item.GetComponent(shipProperties).getDescription();
 		} else if (item.tag == "Torpedoes" || item.tag == "Phaser") {
 			desc = item.GetComponent(weaponScript). getDescription();		
+		} else if (item.tag == "Upgrade") {
+			desc = item.GetComponent(Upgrade).getDescription();
 		}
 		
 		return desc;
@@ -203,6 +209,8 @@ class StationStore {
 			price = item.GetComponent(shipProperties).getPrice();
 		} else if (item.tag == "Torpedoes" || item.tag == "Phaser") {
 			price = item.GetComponent(weaponScript). getPrice();		
+		} else if (item.tag == "Upgrade") {
+			price = item.GetComponent(Upgrade).getCost();
 		}
 		
 		return price;
@@ -213,7 +221,7 @@ class StationStore {
 		if(hasMouseOver(store.Count)) {
 			var num : int = getMouseOver(store.Count);
 			var obj : GameObject = store[num];
-			GUI.Label(name_label, getName(obj) + " - " + getPrice(obj).ToString() + " cr", skin.GetStyle("StationLabel"));
+			GUI.Label(name_label, getName(obj) + " - " + getPrice(obj).ToString() + " GPL", skin.GetStyle("StationLabel"));
 			GUI.Label(desc_label, getDescription(obj), skin.GetStyle("StationLabel"));
 		
 		}
