@@ -434,4 +434,8 @@ private function desacelerateFromWarp() {
 	curWarpMulti = WARP_MIN;
 }
 
+function isSystemWarp() : boolean {
+	return isAtWarp || isWarp;
+}
+
 

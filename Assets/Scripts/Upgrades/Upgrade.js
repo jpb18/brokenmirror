@@ -14,7 +14,7 @@ public class Upgrade extends MonoBehaviour {
 	}
 	
 	public function getName() : String {
-		return name;
+		return upgradeName;
 	}
 	
 	public function getClass() {

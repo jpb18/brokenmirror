@@ -2,16 +2,20 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Load\changelog.txt">
     <Files>
-      <File FileName="Assets\Scripts\station\StationStore.js" Line="224" Column="81" />
-      <File FileName="Assets\Scripts\Upgrades\Passive.js" Line="9" Column="14" />
-      <File FileName="Assets\Load\changelog.txt" Line="17" Column="19" />
+      <File FileName="Assets\Load\changelog.txt" Line="43" Column="1" />
+      <File FileName="Assets\Load\changelog.txt" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\menus\guiScript.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\station\StationStore.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Upgrades\Passive.js" Line="1" Column="1" />
       <File FileName="Assets\Load\bugs.txt" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Upgrades\Upgrade.js" Line="36" Column="1" />
-      <File FileName="Assets\Scripts\Upgrades\Upgrades.js" Line="83" Column="14" />
+      <File FileName="Assets\Scripts\Upgrades\Upgrade.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Upgrades\Upgrades.js" Line="1" Column="1" />
       <File FileName="Assets\Scripts\weapons\weaponScript.js" Line="1" Column="1" />
       <File FileName="Assets\Scripts\weapons\torpedoScript.js" Line="1" Column="1" />
       <File FileName="Assets\Scripts\ship\shipHealth.js" Line="1" Column="1" />
       <File FileName="Assets\Scripts\ship\shipProperties.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\ship\shipMovement.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\ship\Reactor.js" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

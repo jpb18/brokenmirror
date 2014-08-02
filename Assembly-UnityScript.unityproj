@@ -116,6 +116,7 @@
      <Compile Include="Assets\Scripts\newGui\TradeMissionDialogue.js" />
      <Compile Include="Assets\Scripts\shields\shieldImp.js" />
      <Compile Include="Assets\Scripts\shields\shieldImpPoints.js" />
+     <Compile Include="Assets\Scripts\ship\Reactor.js" />
      <Compile Include="Assets\Scripts\ship\ShipAI.js" />
      <Compile Include="Assets\Scripts\ship\ShipCloud.js" />
      <Compile Include="Assets\Scripts\ship\ShipFuel.js" />

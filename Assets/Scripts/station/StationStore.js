@@ -176,7 +176,7 @@ class StationStore {
 		if(item.tag == "Ship") {
 			name = item.GetComponent(shipProperties).getClass();
 		} else if (item.tag == "Torpedoes" || item.tag == "Phaser") {
-			name = item.GetComponent(weaponScript). getName();		
+			name = item.GetComponent(weaponScript).getName();		
 		} else if (item.tag == "Upgrade") {
 			name = item.GetComponent(Upgrade).getName();
 		}

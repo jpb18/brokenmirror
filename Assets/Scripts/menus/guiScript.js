@@ -6,6 +6,10 @@ class GuiAreas {
 	var x : int;
 	var y : int;
 	
+	function getRect() : Rect {
+		return new Rect(x, y, width, height);
+	}
+	
 }
 
 //Areas
@@ -46,6 +50,7 @@ class HelmGui {
 	//Forward Indicator
 	var fwd_speed_bg : Texture;
 	var fwd_speed_fg : Texture;
+	var fwd_speed_warp : Texture;
 	var fwd_speed_area : GuiAreas;
 	
 	//Buttons
@@ -64,6 +69,123 @@ class HelmGui {
 	//Map button
 	var map_area : GuiAreas;
 	var map_img : Texture;
+	
+	function Draw(shipMov : shipMovement, mapInfo : MapInfo, HudSkin : GUISkin, shipProps : shipProperties) {
+		GUI.DrawTexture(Rect(0,0, bg_width, bg_height), bgTexture); //background image
+		
+		var curSpeed : float = shipMov.speedStatus;
+		var maxSpeed : float = shipMov.movProps.maxStatus;
+		var minSpeed : float = shipMov.movProps.minStatus;
+		
+		//forward speed background		
+		GUI.DrawTexture(fwd_speed_area.getRect(), fwd_speed_bg);
+		
+		drawForwardSpeedBar(shipMov, curSpeed, maxSpeed);
+		
+		//Backward Speed Shadow
+		GUI.DrawTexture(bw_shadow_area.getRect(), bw_shadow);
+		
+		//backward speed backgrounds
+		GUI.DrawTexture(bw_speed_area.getRect(), bw_speed_bg);
+		
+		drawBackwardSpeedBar(shipMov, curSpeed, minSpeed);
+	
+		//Draw buttons
+		//get movement info
+		var speedInc : float = shipProps.movement.acceleration;
+		
+		//Increase button
+		if(GUI.RepeatButton(inc_but_area.getRect(), inc_but_img, HudSkin.button)) {
+			
+			
+			if(curSpeed < maxSpeed) {
+				shipMov.speedStatus += Time.deltaTime * speedInc;
+			
+			}
+		
+		}
+		
+		//Decrease button
+		if(GUI.RepeatButton(dec_but_area.getRect(), dec_but_img, HudSkin.button))
+		{
+		
+			if(curSpeed > minSpeed) {
+				shipMov.speedStatus -= Time.deltaTime * speedInc;
+			
+			}
+		
+		}
+		
+		//Stop button
+		if(GUI.Button(stop_area.getRect(), stop_img, HudSkin.GetStyle("StopButton")))
+		{
+			if(curSpeed != 0 && !shipMov.isChanging) {
+			
+				shipMov.StartCoroutine(shipMov.FullStop(curSpeed, speedInc));
+			  
+			} 
+		}
+		
+		
+		//Map button
+		if(GUI.Button(map_area.getRect(), map_img, HudSkin.button)) {
+			
+			mapInfo.swapStatus();
+		
+		}
+	
+	}
+	
+	function drawForwardSpeedBar(shipMov : shipMovement, curSpeed : float, maxSpeed : float) {
+		
+		if(curSpeed > 0)
+		{
+			var rect : Rect = getResizedRect(fwd_speed_area.getRect(), maxSpeed, curSpeed);
+			
+			//Draw speed bar
+			if(!shipMov.isSystemWarp()) {
+				GUI.DrawTexture(rect, fwd_speed_fg, ScaleMode.ScaleAndCrop);
+			} else {
+				GUI.DrawTexture(rect, fwd_speed_warp, ScaleMode.ScaleAndCrop);
+			}
+			
+		}
+		
+		
+		
+	}
+	
+	function drawBackwardSpeedBar(shipMov : shipMovement, curSpeed : float, minSpeed : float) {
+		
+		if(curSpeed < 0)
+		{
+			var rect : Rect = getResizedRect(bw_speed_area.getRect(), minSpeed, curSpeed);
+			GUI.DrawTexture(rect , bw_speed_fg, ScaleMode.ScaleAndCrop);
+		}
+		
+			
+	}
+	
+	function getResizedRect(rect : Rect, maxValue : float, curValue : float) {
+		var width : int = GetBarSize(rect.width, maxValue, curValue);
+		return new Rect(rect.x, rect.y, width, rect.height);
+	}
+	
+	//this function returns the size of a bar in pixels
+	function GetBarSize (FullSize : int, MaxValue : float, CurValue : float) : int {
+
+		if(MaxValue == 0) {
+			return 0;
+		}
+
+		var newSize : int;
+		
+		newSize = (FullSize * CurValue)/MaxValue;
+		
+		return newSize;
+		
+
+	}
 	
 	
 }
@@ -924,101 +1046,10 @@ function BotGUI () {
 
 function helmModule () {
 
-	GUILayout.BeginArea(Rect(HelmModule.x, HelmModule.y, HelmModule.width, HelmModule.height));
+	GUILayout.BeginArea(HelmModule.getRect());
 	
-		GUI.DrawTexture(Rect(0,0, Helm.bg_width, Helm.bg_height), Helm.bgTexture); //background image
 		
-		//forward speed background		
-		GUI.DrawTexture(Rect(Helm.fwd_speed_area.x, Helm.fwd_speed_area.y, Helm.fwd_speed_area.width, Helm.fwd_speed_area.height), Helm.fwd_speed_bg);
-		
-		//forward speed foreground
-		//get current speed and max speed
-		var curSpeed : float = shipMov.speedStatus;
-		var maxSpeed : float = shipMov.movProps.maxStatus;
-		
-		
-		var fwbarSize : int;
-		if(curSpeed > 0)
-		{
-			fwbarSize = GetBarSize(Helm.fwd_speed_area.width, maxSpeed, curSpeed);
-		}
-		else
-		{
-			fwbarSize = 0;
-		}
-		
-		//Draw speed bar
-		GUI.DrawTexture(Rect(Helm.fwd_speed_area.x, Helm.fwd_speed_area.y, fwbarSize, Helm.fwd_speed_area.height), Helm.fwd_speed_fg, ScaleMode.ScaleAndCrop);
-		
-		//Backward Speed Shadow
-		GUI.DrawTexture(Rect(Helm.bw_shadow_area.x, Helm.bw_shadow_area.y, Helm.bw_shadow_area.width, Helm.bw_shadow_area.height), Helm.bw_shadow);
-		
-		//backward speed background
-		GUI.DrawTexture(Rect(Helm.bw_speed_area.x, Helm.bw_speed_area.y, Helm.bw_speed_area.width, Helm.bw_speed_area.height), Helm.bw_speed_bg);
-		
-		//backward speed fooreground
-		//get min speed
-		var minSpeed : float = shipMov.movProps.minStatus;
-		
-		
-		var bwbarSize : int;
-		if(curSpeed < 0)
-		{
-			bwbarSize = GetBarSize(Helm.bw_speed_area.width, minSpeed, curSpeed);
-		}
-		else
-		{
-			bwbarSize = 0;
-		}
-		
-		//Draw speed bar
-		
-		GUI.DrawTexture(Rect(Helm.bw_speed_area.x, Helm.bw_speed_area.y, bwbarSize, Helm.bw_speed_area.height), Helm.bw_speed_fg, ScaleMode.ScaleAndCrop);
-	
-		//Draw buttons
-		//get movement info
-		var speedInc : float = shipProps.movement.acceleration;
-		
-		//Increase button
-		if(GUI.RepeatButton(Rect(Helm.inc_but_area.x, Helm.inc_but_area.y, Helm.inc_but_area.width, Helm.inc_but_area.height), Helm.inc_but_img, HudSkin.button)) {
-			
-			
-			if(curSpeed < maxSpeed) {
-				shipMov.speedStatus += Time.deltaTime * speedInc;
-			
-			}
-		
-		}
-		
-		//Decrease button
-		if(GUI.RepeatButton(Rect(Helm.dec_but_area.x, Helm.dec_but_area.y, Helm.dec_but_area.width, Helm.dec_but_area.height), Helm.dec_but_img, HudSkin.button))
-		{
-		
-			if(curSpeed > minSpeed) {
-				shipMov.speedStatus -= Time.deltaTime * speedInc;
-			
-			}
-		
-		}
-		
-		//Stop button
-		if(GUI.Button(Rect(Helm.stop_area.x, Helm.stop_area.y, Helm.stop_area.width, Helm.stop_area.height), Helm.stop_img, HudSkin.GetStyle("StopButton")))
-		{
-			if(curSpeed != 0 && !shipMov.isChanging) {
-			
-				StartCoroutine(shipMov.FullStop(curSpeed, speedInc));
-			  
-			} 
-		}
-		
-		
-		//Map button
-		if(GUI.Button(Rect(Helm.map_area.x, Helm.map_area.y, Helm.map_area.width, Helm.map_area.height), Helm.map_img, HudSkin.button)) {
-			
-			mapInfo.swapStatus();
-		
-		}
-		
+		Helm.Draw(shipMov, mapInfo, HudSkin, shipProps);
 		
 	
 	GUILayout.EndArea();
