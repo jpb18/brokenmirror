@@ -6,6 +6,7 @@ var firingAngle : float;
 var guiInfo : GuiInfo;
 var altRate : float;
 var baseCost : int;
+var energyCost : float;
 
 
 enum WeaponType {
@@ -181,4 +182,8 @@ function getPrice() : int {
 
 function getAlternateRate() : float {
 	return altRate;
+}
+
+function getEnergyCost() : float {
+	return energyCost;
 }

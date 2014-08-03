@@ -58,7 +58,8 @@ class ShieldRegeneration {
 	var lastHit : float; //checks last hit by a weapon
 	var timeInt : float; //contains time interval from last hit before the shield start regenerating
 	var regenRate : float; //contains the regeneration rate in seconds
-	var lastRegen : float;
+	var lastRegen : float; //contains the last regeneration
+	var regenConsumption : float; //contains energy consumption
 	
 	function canRegen(modifier : float) : boolean {
 		return isRegen && Time.time >= lastRegen + regenRate - modifier && Time.time >= lastHit + timeInt;
@@ -66,6 +67,10 @@ class ShieldRegeneration {
 	
 	function setRegen() {
 		lastRegen = Time.time;
+	}
+	
+	function getEnergyCost() : float {
+		return regenConsumption;
 	}
 
 }
@@ -93,6 +98,7 @@ private var missions : Missions;
 private var general : GeneralInfo;
 private var over : GameOver;
 private var upgrades : Upgrades;
+private var reactor : ShipReactor;
 
 function Start () {
 
@@ -102,6 +108,8 @@ function Start () {
 	cloud = gameObject.GetComponent(ShipCloud);
 	escape = gameObject.GetComponent(shipEscapePods);
 	upgrades = gameObject.GetComponent(Upgrades);
+	reactor = gameObject.GetComponent(ShipReactor);
+	
 	missions = GameObject.FindGameObjectWithTag("Missions").GetComponent(Missions);
 	general = GameObject.FindGameObjectWithTag("SaveGame").GetComponent(GeneralInfo);
 	over = GameObject.FindGameObjectWithTag("GameOver").GetComponent(GameOver);
@@ -153,9 +161,15 @@ function shield_regen() {
 	//checks if the time interval has passed and the shield is able of regenerating
 	if (shieldRegen.canRegen(upgrades.getShieldRecharge()) == true && shipHealth.getShield(upgrades) < shipHealth.getMaxShield(upgrades))
 	{
-		shieldRegen.setRegen();
-		var rate : float = shieldRegen.regenRate;
-		shipHealth.shields += rate; //adds shield
+		var cost : float = shieldRegen.getEnergyCost();
+	
+		if(reactor.hasEnough(cost))
+		{
+			reactor.spend(cost);
+			shieldRegen.setRegen();
+			var rate : float = shieldRegen.regenRate;
+			shipHealth.shields += rate; //adds shield
+		}
 	
 	}
 

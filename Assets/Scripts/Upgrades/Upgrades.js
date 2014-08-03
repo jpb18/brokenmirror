@@ -90,3 +90,15 @@ function getShieldStrenght() : float {
 	}
 	return bonus;
 }
+
+function getReactorRecharge() : float {
+	var bonus : float;
+	var passive : Passive;
+	for(var up : GameObject in upgrades) {
+		passive = up.GetComponent(Passive);
+		bonus += passive.getReactorRechargeBonus();
+	
+	}
+	return bonus;
+	
+}

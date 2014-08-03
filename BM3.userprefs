@@ -1,21 +1,16 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Load\changelog.txt">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\weapons\weaponScript.js">
     <Files>
+      <File FileName="Assets\Scripts\ship\Reactor.js" Line="29" Column="21" />
       <File FileName="Assets\Load\changelog.txt" Line="43" Column="1" />
-      <File FileName="Assets\Load\changelog.txt" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\menus\guiScript.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\station\StationStore.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Upgrades\Passive.js" Line="1" Column="1" />
-      <File FileName="Assets\Load\bugs.txt" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Upgrades\Upgrade.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Upgrades\Upgrades.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\weapons\weaponScript.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\weapons\torpedoScript.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\ship\shipHealth.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\ship\shipProperties.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\ship\shipMovement.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\ship\Reactor.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\ship\ShipReactor.js" Line="14" Column="72" />
+      <File FileName="Assets\Scripts\Upgrades\Passive.js" Line="56" Column="26" />
+      <File FileName="Assets\Scripts\Upgrades\Upgrades.js" Line="99" Column="38" />
+      <File FileName="Assets\Scripts\ship\shipMovement.js" Line="407" Column="59" />
+      <File FileName="Assets\Scripts\ship\shipHealth.js" Line="73" Column="26" />
+      <File FileName="Assets\Scripts\ship\shipWeapons.js" Line="481" Column="24" />
+      <File FileName="Assets\Scripts\weapons\weaponScript.js" Line="152" Column="2" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

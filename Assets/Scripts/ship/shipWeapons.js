@@ -293,6 +293,11 @@ class Phaser {
 		var health : shipHealth = ship.GetComponent(shipHealth);
 		health.setLastHitter(ship);
 	}
+	
+	function getEnergyCost() : float {
+		var weap : weaponScript = phaser.GetComponent(weaponScript);
+		return weap.getEnergyCost();
+	}
 
 	
 }
@@ -383,6 +388,11 @@ class Torpedo {
 		return pool.GetComponent(ObjectPooler).getObject();
 	
 	}
+	
+	function getEnergyCost() : float {
+		var weap : weaponScript = torpedo.GetComponent(weaponScript);
+		return weap.getEnergyCost();
+	}
 
 }
 
@@ -400,9 +410,10 @@ var torp1 : Torpedo;
 var torp2 : Torpedo;
 
 //needed scripts
-var target : shipTarget;
-var properties : shipProperties;
-var upgrades : Upgrades;
+private var target : shipTarget;
+private var properties : shipProperties;
+private var upgrades : Upgrades;
+private var reactor : ShipReactor;
 
 //volley
 var torpVolley : Volley;
@@ -414,6 +425,7 @@ function Start() {
 	target = gameObject.GetComponent(shipTarget);
 	properties = gameObject.GetComponent(shipProperties);
 	upgrades = gameObject.GetComponent(Upgrades);
+	reactor = gameObject.GetComponent(ShipReactor);
 	phaser.ship = gameObject;
 
 }
@@ -461,10 +473,13 @@ function botFire() {
 }
 
 function phaserFunction() {
-	
-	if(phaser.canFire(target.target, upgrades)) {
-		
-		phaser.fire(target.target, volleyNum(), this, upgrades);		
+	var cost : float = phaser.getEnergyCost();
+	if(reactor.hasEnough(cost)) {
+		if(phaser.canFire(target.target, upgrades)) {
+			
+			phaser.fire(target.target, volleyNum(), this, upgrades);
+			reactor.spend(cost);		
+		}
 	}
 	
 }
@@ -500,10 +515,13 @@ function hasTorpedoInRange(target : GameObject) : boolean {
 
 
 function torpFunction(torp : Torpedo) {
-	if(torp.canFire(target.target)) {
-		StartCoroutine(torp.fire(target.target, volleyNum(), upgrades));
+	var cost : float = torp.getEnergyCost();
+	if(reactor.hasEnough(cost)) {
+		if(torp.canFire(target.target)) {
+			StartCoroutine(torp.fire(target.target, volleyNum(), upgrades));
+			reactor.spend(cost);
+		}
 	}
-
 
 }
 

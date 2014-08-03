@@ -1,7 +1,7 @@
 ﻿#pragma strict
 
 var capacity : float;
-private var current : float;
+var current : float;
 var rechargeRate : float;
 
 function Start () {
@@ -30,7 +30,7 @@ function hasPower() : boolean {
 }
 
 function hasEnough(amount : float) : boolean {
-	return amount >= current;
+	return amount <= current;
 }
 
 function spend(amount : float) {
@@ -44,3 +44,6 @@ function getPercentage() : int {
 function initReactor() {
 	current = capacity;
 }
+
+
+

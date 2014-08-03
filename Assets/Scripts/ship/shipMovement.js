@@ -47,13 +47,17 @@ public static var WARP_MIN : float = 1f;
 private var impulseParticleSpeed : float;
 private var message : ShowMessage;
 private var upgrades : Upgrades;
+private var reactor : ShipReactor;
 
 var warpParticle : ParticleSystem;
+
+var warpConsumption : float;
 
 function Start () {
 
 	properties = gameObject.GetComponent(shipProperties);
 	upgrades = gameObject.GetComponent(Upgrades);
+	reactor = gameObject.GetComponent(ShipReactor);
 	
 	if(!impulseParticleSystem) {
 		Debug.LogWarning("Check if the impulse particle system exists at " + gameObject.name + ".");
@@ -358,9 +362,7 @@ private function selectWarp() {
 		if (isSpeeding) {
 			message.AddMessage("Warp engine can't handle such reactions.");	
 		} else {
-			isAtWarp = false;
-			stopWarpParticles();
-			StartCoroutine(desacelerateFromWarp());
+			stopWarp();
 		}
 	}
 	
@@ -368,13 +370,17 @@ private function selectWarp() {
 		if (isSpeeding) {
 			message.AddMessage("Warp engine can't handle such reactions.");	
 		} else {
-			isAtWarp = false;
-			stopWarpParticles();
-			StartCoroutine(desacelerateFromWarp());
+			stopWarp();
 			fullStop();
 		}
 	}
 
+}
+
+function stopWarp() {
+	isAtWarp = false;
+	stopWarpParticles();
+	StartCoroutine(desacelerateFromWarp());
 }
 
 private function startWarpParticles() {
@@ -395,15 +401,25 @@ private function stopWarpParticles() {
 
 private function warp() {
 
-	var shipSpeed : float = properties.movement.impulseSpeed * Time.deltaTime;
+	var consume : float = warpConsumption * Time.deltaTime;
 	
-	var SpeedChange : float = curWarpMulti * shipSpeed;
+	if(!reactor.hasEnough(consume)) {
+		message.AddMessage("Not enough power to sustain warp.");
+		stopWarp();
+		
+	} else {
+		reactor.spend(consume);
 	
-	if(properties.getRedAlert()) {
-		SpeedChange = SpeedChange * getSpeedReduction();
+		var shipSpeed : float = properties.movement.impulseSpeed * Time.deltaTime;
+		
+		var SpeedChange : float = curWarpMulti * shipSpeed;
+		
+		if(properties.getRedAlert()) {
+			SpeedChange = SpeedChange * getSpeedReduction();
+		}
+		
+		rigidbody.velocity = transform.forward * SpeedChange;
 	}
-	
-	rigidbody.velocity = transform.forward * SpeedChange;
 
 }
 

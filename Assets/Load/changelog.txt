@@ -16,7 +16,7 @@ ADDED:
 
 WIP:
 - Passive Upgrades
-- Ship Energy
+- Ship Energy (Weapons, Shields, Warp)
 
 Version 0.2.1
 **********************************************************************

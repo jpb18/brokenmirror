@@ -10,6 +10,7 @@ public class Passive extends Upgrade {
 	var shieldStrenght : float;
 	var speedIncrease : float;
 	var agilityTurn : float;
+	var reactorRecharge : float;
 
 
 	function Passive(name : String, cost : int, description : String, image : Texture) {
@@ -50,5 +51,9 @@ public class Passive extends Upgrade {
 	function getAgilityTurnBonus() : float {
 		return agilityTurn;
 	}
+	
+	function getReactorRechargeBonus() : float {
+		return reactorRecharge;
+	} 
 
 }
