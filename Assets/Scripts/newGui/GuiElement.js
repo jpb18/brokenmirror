@@ -28,6 +28,7 @@ class GuiElement extends MonoBehaviour {
 	
 	function draw() {
 		if(background) {
+			position = resizeRect(original);
 			GUI.DrawTexture(position, background);
 		}
 	}
@@ -35,6 +36,10 @@ class GuiElement extends MonoBehaviour {
 	
 	function getPosition() : Rect {
 		return position;
+	}
+	
+	function getResizedPosition() : Rect {
+		return resizeRect(original);
 	}
 	
 	function getBackground() : Texture {
@@ -62,5 +67,6 @@ class GuiElement extends MonoBehaviour {
 		return new Rect(Mathf.Floor(rect.x * ratio), Mathf.Floor(rect.y * ratio), Mathf.Floor(rect.width * ratio), Mathf.Floor(rect.height * ratio));
 	
 	}
+	
 	
 }

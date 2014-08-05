@@ -1,0 +1,6 @@
+
+enum AlertMode {
+	COLLISION,
+	GRAVITY
+
+}

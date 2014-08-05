@@ -394,3 +394,18 @@ function gameOver() {
 	over.setGameOver(esc);
 }
 
+function getMaxHull() : float {
+	return shipHealth.getMaxHull(upgrades);
+}
+
+function getHull() : float {
+	return shipHealth.getHull(upgrades);
+}
+
+function getMaxShield() : float {
+	return shipHealth.getMaxShield(upgrades);
+}
+
+function getShield() : float {
+	return shipHealth.getShield(upgrades);
+}

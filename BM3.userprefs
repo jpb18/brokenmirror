@@ -1,16 +1,17 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\weapons\weaponScript.js">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Load\changelog.txt">
     <Files>
-      <File FileName="Assets\Scripts\ship\Reactor.js" Line="29" Column="21" />
-      <File FileName="Assets\Load\changelog.txt" Line="43" Column="1" />
-      <File FileName="Assets\Scripts\ship\ShipReactor.js" Line="14" Column="72" />
-      <File FileName="Assets\Scripts\Upgrades\Passive.js" Line="56" Column="26" />
-      <File FileName="Assets\Scripts\Upgrades\Upgrades.js" Line="99" Column="38" />
-      <File FileName="Assets\Scripts\ship\shipMovement.js" Line="407" Column="59" />
-      <File FileName="Assets\Scripts\ship\shipHealth.js" Line="73" Column="26" />
-      <File FileName="Assets\Scripts\ship\shipWeapons.js" Line="481" Column="24" />
-      <File FileName="Assets\Scripts\weapons\weaponScript.js" Line="152" Column="2" />
+      <File FileName="Assets\Scripts\newGui\GuiElement.js" Line="22" Column="1" />
+      <File FileName="Assets\Scripts\menus\guiScript.js" Line="1119" Column="218" />
+      <File FileName="Assets\Scripts\ship\shipTriggers.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\SaveGame\HUDStatus.js" Line="28" Column="1" />
+      <File FileName="Assets\Scripts\newGui\NewHUD\AlertWarning.js" Line="19" Column="2" />
+      <File FileName="Assets\Scripts\newGui\NewHUD\HUDElement.js" Line="20" Column="1" />
+      <File FileName="Assets\Scripts\newGui\NewHUD\HUDHealth.js" Line="3" Column="31" />
+      <File FileName="Assets\Scripts\ship\shipHealth.js" Line="410" Column="40" />
+      <File FileName="Assets\Scripts\newGui\NewHUD\HUDBottom.js" Line="10" Column="3" />
+      <File FileName="Assets\Load\changelog.txt" Line="12" Column="56" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

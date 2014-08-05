@@ -5,6 +5,7 @@ class trigger_props {
 	
 	var isOrbit : boolean = false;
 	var isTurbulence : boolean = false;
+	private var lastTurbulence : boolean = false;
 	var isKill : boolean = false;
 	
 	function setOrbit(orbit : boolean) {
@@ -17,6 +18,12 @@ class trigger_props {
 	
 	function setKill(kill : boolean) {
 		isKill = kill;
+	}
+	
+	function hasTurbulenceChanged() : boolean {
+		var change : boolean = this.lastTurbulence != this.isTurbulence;
+		lastTurbulence = isTurbulence;
+		return change;
 	}
 	
 
@@ -130,4 +137,8 @@ function getReentryParticles () : GameObject {
 	
 	return particle;
 
+}
+
+function hasTurbulenceChanged() : boolean {
+	return triggerProps.hasTurbulenceChanged();
 }

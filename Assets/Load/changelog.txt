@@ -9,14 +9,17 @@ FIXED:
 CHANGED:
 - Added store function to Planet Panel
 - Now only Earth, Bajor and Cardassia can sell Dilithium
+- Increased Message Window width from 300 to 400 pixels
 
 ADDED:
 - Game Over Screen
 - Speed indicator turns blue when ship goes to warp
+- Gravity Warning
 
 WIP:
 - Passive Upgrades
 - Ship Energy (Weapons, Shields, Warp)
+- Refactoring HUD
 
 Version 0.2.1
 **********************************************************************
