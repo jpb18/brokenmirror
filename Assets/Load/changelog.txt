@@ -10,6 +10,7 @@ CHANGED:
 - Added store function to Planet Panel
 - Now only Earth, Bajor and Cardassia can sell Dilithium
 - Increased Message Window width from 300 to 400 pixels
+- Added upgrades to Save Game functionality
 
 ADDED:
 - Game Over Screen

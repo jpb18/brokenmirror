@@ -167,6 +167,10 @@ class SaveShip{
 			shipWeap.phaser.setPhaser(shipInv.phaser);
 			shipWeap.torp1.setTorpedo(shipInv.torp1);
 			shipWeap.torp2.setTorpedo(shipInv.torp2);
+			
+			var up : Upgrades = ship.GetComponent(Upgrades);
+			up.upgrades = shipInv.upgrades;
+			
 		}
 		
 		return ship;
@@ -183,6 +187,7 @@ class SaveShip{
 		var shipHeal : shipHealth = ship.GetComponent(shipHealth);
 		var shipWea : shipWeapons = ship.GetComponent(shipWeapons);
 		var shipFuel : ShipFuel = ship.GetComponent(ShipFuel);
+		var up : Upgrades = ship.GetComponent(Upgrades);
 		
 		//now fill the ship info part
 		shipInfo.Name =  shipProps.shipInfo.shipName;
@@ -201,6 +206,9 @@ class SaveShip{
 		shipInv.phaser = shipWea.phaser.phaser;
 		shipInv.torp1 = shipWea.torp1.torpedo;
 		shipInv.torp2 = shipWea.torp2.torpedo;
+		
+		//get upgrades
+		shipInv.upgrades = up.upgrades;
 		
 		//get dilithium
 		dilithium = shipFuel.getCurrentLoad();
