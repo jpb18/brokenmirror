@@ -16,7 +16,6 @@ class HUDHealth extends HUDBottom {
 	var hullLabelRect : Rect;
 	var shieldLabelRect : Rect;
 	
-	var skin : GUISkin;
 	
 	public static final var PERC : String = "%";
 	

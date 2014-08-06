@@ -115,6 +115,9 @@
      <Compile Include="Assets\Scripts\newGui\NewHUD\HUDBottom.js" />
      <Compile Include="Assets\Scripts\newGui\NewHUD\HUDElement.js" />
      <Compile Include="Assets\Scripts\newGui\NewHUD\HUDHealth.js" />
+     <Compile Include="Assets\Scripts\newGui\NewHUD\HUDHelm.js" />
+     <Compile Include="Assets\Scripts\newGui\NewHUD\HUDTorpedo.js" />
+     <Compile Include="Assets\Scripts\newGui\NewHUD\HUDWeapons.js" />
      <Compile Include="Assets\Scripts\newGui\PlanetPanel.js" />
      <Compile Include="Assets\Scripts\newGui\ReputationPanel.js" />
      <Compile Include="Assets\Scripts\newGui\ResourcePanel.js" />

@@ -30,7 +30,7 @@ class SaveShip{
 			serie = serie + isPlayer + "\n";
 			serie = serie + isRedAlert + "\n";
 			serie = serie + strenght + "\n";
-																											
+
 			return serie;
 		}
 		

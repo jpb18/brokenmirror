@@ -9,7 +9,6 @@ class AlertWarning extends HUDElement {
 	var timePeriod : float;
 	private var lastSetTime : float;
 	
-	var skin : GUISkin;
 	private var alertStyle : GUIStyle;
 	
 	
@@ -84,7 +83,7 @@ class AlertWarning extends HUDElement {
 	
 	}
 	
-	private function drawBackground() {
+	function drawBackground() {
 		var position : Rect = resizeRect(super.getPosition());
 		var rect : Rect = new Rect(0,0, position.width, position.height);
 		GUI.DrawTexture(rect, super.getBackground());

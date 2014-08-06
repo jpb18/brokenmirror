@@ -150,7 +150,8 @@ function FindTarget(origin : GameObject, shipProps : shipProperties) : GameObjec
 
 
 	var faction : FactionInfo = general.getFactionInfo(shipProps.shipInfo.faction);
-	return Statics.FindTarget(origin, Mathf.Infinity, faction);
+	setTarget(Statics.FindTarget(origin, Mathf.Infinity, faction));
+	return target;
 
 }
 
@@ -160,7 +161,7 @@ function botFunction() {
 		if(Time.time > nextSearch)
 		{
 		
-			target = FindTarget(gameObject, shipProps);
+			FindTarget(gameObject, shipProps);
 			nextSearch = Time.time + Random.value * searchTime;
 			
 		}

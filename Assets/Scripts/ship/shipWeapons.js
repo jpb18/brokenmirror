@@ -549,5 +549,19 @@ function volleyNum() : int {
 	return num;
 }
 
+function setVolleyOne() {
+	torpVolley = Volley.one;
+}
+
+function toggleVolley(volley : Volley) {
+	if(torpVolley != volley) {
+		torpVolley = volley;
+	} else {
+		setVolleyOne();
+	}
+}
+
+
+
 
 

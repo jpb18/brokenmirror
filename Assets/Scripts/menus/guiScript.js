@@ -1032,10 +1032,10 @@ function BotGUI () {
 
 	GUILayout.BeginArea(Rect(Screen.width/2 - BotGui.x/2, Screen.height - BotGui.y, BotGui.width, BotGui.height));
 	
-		helmModule();
+		//helmModule();
 		//healthModule();
-		weaponModule();
-		torpedoModule();
+		//weaponModule();
+		//torpedoModule();
 	
 	GUILayout.EndArea();
 

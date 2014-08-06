@@ -16,6 +16,7 @@ ADDED:
 - Game Over Screen
 - Speed indicator turns blue when ship goes to warp
 - Gravity Warning
+- Added placeholder graph on transport button
 
 WIP:
 - Passive Upgrades
