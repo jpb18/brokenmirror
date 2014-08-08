@@ -1,5 +1,5 @@
 ﻿#pragma strict
-
+class Health extends MonoBehaviour implements IHealtheable {
 var hull : float;
 var maxHull : float;
 var shield : float;
@@ -114,5 +114,15 @@ function die(object : GameObject) {
 	Instantiate(explosion, object.transform.position, object.transform.rotation);
 	Destroy(object);
 
+
+}
+
+function getHullPercentage() : float {
+	return hull/maxHull;
+}
+
+function getShieldPercentage() : float {
+	return shield/maxShield;
+}
 
 }

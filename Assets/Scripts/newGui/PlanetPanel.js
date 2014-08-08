@@ -1,7 +1,7 @@
 #pragma strict
 import System.Collections.Generic;
 
-class PlanetPanel extends FloatingWindow {
+class PlanetPanel extends FloatingWindow implements IFactionable, IHealtheable, ITextureable, IHailable {
 
 	//stats
 	private var planet : PlanetInfo;
@@ -39,8 +39,10 @@ class PlanetPanel extends FloatingWindow {
 	
 	var skin : GUISkin;
 		
-	public static var DILITHIUM_COST : int = 3;
-	public static var SPAWN_RADIUS : int = 5;
+	public static final var DILITHIUM_COST : int = 3;
+	public static final var SPAWN_RADIUS : int = 5;
+	public static final var CLASS : String = "Planet";
+	public static final var HEALTH : float = 1f;
 	
 	function Start() {
 		super.init();
@@ -269,6 +271,54 @@ class PlanetPanel extends FloatingWindow {
 	function getPlayerPosition() : Vector3 {
 		var ship : GameObject = save.getPlayerShip();
 		return ship.transform.position;
+	}
+	
+	function getFaction() : int {
+		return general.getFactionId(faction);
+	}
+	
+	function isHostile(faction : int) : boolean {
+		return this.faction.isHostile(faction);
+	}
+	
+	function isAllied(faction : int) : boolean {
+		return this.faction.isAllied(faction);
+	}
+	
+	function isNeutral(faction : int) : boolean {
+		return !isHostile(faction) && !isAllied(faction);
+	}
+	
+	function isOwn(faction : int) : boolean {
+		return getFaction() == faction;
+	}
+	
+	function getName() : String {
+		return planet.name;
+	}
+	
+	function getClass() : String {
+		return CLASS;
+	}
+	
+	function getHullPercentage() : float {
+		return HEALTH;
+	}
+	
+	function getShieldPercentage() : float {
+		return HEALTH;
+	}
+	
+	function getStoreImage() : Texture {
+		return null;
+	}
+	
+	function getTargetImage() : Texture {
+		return planet.getImage();
+	}
+	
+	function openComm() {
+		setOn();
 	}
 
 }

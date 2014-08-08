@@ -28,11 +28,15 @@ class GuiElement extends MonoBehaviour {
 	
 	function draw() {
 		if(background) {
-			position = resizeRect(original);
-			GUI.DrawTexture(position, background);
+			
+			GUI.DrawTexture(getResizedPosition(), background);
 		}
 	}
-		
+	
+	function drawBackground() {
+	
+		GUI.DrawTexture(getResizedPosition(), background);
+	}	
 	
 	function getPosition() : Rect {
 		return position;

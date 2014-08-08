@@ -11,6 +11,7 @@ CHANGED:
 - Now only Earth, Bajor and Cardassia can sell Dilithium
 - Increased Message Window width from 300 to 400 pixels
 - Added upgrades to Save Game functionality
+- HUD has been refactored (invisible to the player, usefull to the developers)
 
 ADDED:
 - Game Over Screen
@@ -21,7 +22,7 @@ ADDED:
 WIP:
 - Passive Upgrades
 - Ship Energy (Weapons, Shields, Warp)
-- Refactoring HUD
+
 
 Version 0.2.1
 **********************************************************************

@@ -14,14 +14,7 @@ class HUDWeapons extends HUDBottom {
 	
 	public static final var ORBIT_ERROR = "Not in a planets orbit.";
 
-	// Use this for initialization
-	function Start () {
-		initWeapons();
-	}
 
-	function initWeapons() {
-		super.initHud();
-	}
 	
 	function OnGUI() {
 		if(hud.isShowingGui()) {

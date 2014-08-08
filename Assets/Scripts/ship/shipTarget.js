@@ -122,13 +122,8 @@ function ClickTarget() {
 
 function controlDoubleClick(obj : GameObject) {
 	
-	if(obj.tag == "Ship") {
-		gui.openComm(obj);
-	} else if (obj.tag == "Station") {
-		var scr : StationInterface = obj.GetComponent(StationInterface);
-		scr.openGUI();
-	}
-		
+	var hail : IHailable = obj.GetComponent(typeof(IHailable)) as IHailable;
+	hail.openComm();
 
 }
 

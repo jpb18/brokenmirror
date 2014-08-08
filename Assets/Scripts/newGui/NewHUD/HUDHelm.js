@@ -28,14 +28,8 @@ class HUDHelm extends HUDBottom {
 	
 	public static final var STOP_STYLE = "StopButton";	
 
-	// Use this for initialization
-	function Start () {
-		initHelm();
-	}
 
-	function initHelm() {
-		initHud();
-	}
+
 
 	function OnGUI () {
 		if(hud.isShowingGui()) {

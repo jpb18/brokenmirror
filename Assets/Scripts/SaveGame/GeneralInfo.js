@@ -228,6 +228,17 @@ function Start () {
 	playerInfo.setAllegience(getFactionInfo(0));
 }
 
+function isFactionEnemies(faction1 : int, faction2 : int) : boolean {
+	var faction : FactionInfo = getFactionInfo(faction1);
+	return faction.isHostile(faction2);
+
+}
+
+function isFactionAllies(faction1 : int, faction2 : int) : boolean {
+	var faction : FactionInfo = getFactionInfo(faction1);
+	return faction.isAllied(faction2);
+}
+
 function serialize() {
 	var serie : String = playerInfo.serialize();
 	

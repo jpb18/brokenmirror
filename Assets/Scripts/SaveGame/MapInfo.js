@@ -7,7 +7,7 @@ class PlanetInfo { //this class stores all planet information necessary for the 
 	var faction : int;
 	var scene : String;
 	var description : String;
-	var image : Texture2D;
+	var image : Texture;
 	var cood : PlanetCood;
 	var defenseFleet : List.<SaveShip>;
 	var stations : List.<SaveStation>;
@@ -43,7 +43,7 @@ class PlanetInfo { //this class stores all planet information necessary for the 
 	}
 	
 	
-	function getImage() : Texture2D {
+	function getImage() : Texture {
 		return image;
 	}
 	

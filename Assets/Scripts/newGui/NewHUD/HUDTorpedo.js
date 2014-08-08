@@ -16,13 +16,6 @@ class HUDTorpedo extends HUDBottom {
 	
 	public static final var TRANSPARENCY : float = 0.50f;
 	
-	function Start() {
-		initTorpedo();		
-	}
-	
-	function initTorpedo() {
-		super.initHud();
-	}
 	
 	function OnGUI() {
 		if(hud.isShowingGui()) {

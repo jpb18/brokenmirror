@@ -19,13 +19,7 @@ class HUDHealth extends HUDBottom {
 	
 	public static final var PERC : String = "%";
 	
-	function Start() {
-		initHealth();
-	}
 	
-	function initHealth() {
-		super.initHud();
-	}
 	
 	function OnGUI() {
 		if(hud.isShowingGui()) {

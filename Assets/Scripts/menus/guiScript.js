@@ -994,7 +994,7 @@ function Start () {
 
 function OnGUI () {
 
-	if(hud.isShowingGui())	guiFunction();
+	//if(hud.isShowingGui())	guiFunction();
 	
 
 }
@@ -1009,7 +1009,7 @@ function guiFunction() {
 	} 
 	
 	//windows
-	commWindow.DrawWindow();
+	//commWindow.DrawWindow();
 	
 	//non player labels
 	if(!shipProps.playerProps.isPlayer) 
@@ -1271,8 +1271,8 @@ function TopGUI() {
 
 	GUILayout.BeginArea(Rect(Screen.width/2 - TopGui.x/2, TopGui.y, TopGui.width, TopGui.height));
 	
-		redAlertModule();
-		targetModule();	
+		//redAlertModule();
+		//targetModule();	
 	
 	GUILayout.EndArea();
 

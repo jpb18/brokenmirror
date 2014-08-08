@@ -51,121 +51,144 @@ class ShipInfo {
 
 }
 
+class shipProperties extends MonoBehaviour implements IFactionable, INameable, ITextureable {
 
+	//use classes
+	var playerProps : ShipPlayerProps;
+	var movement : ShipMovementProps;
+	var ShipHealth : ShipHealthProps;
+	var shipProps : ShipProps;
+	var shipModifiers : ShipModifiers;
+	var shipInfo : ShipInfo;
+	var combatStatus : ShipCombatStatus;
+	var cam : MouseOrbit;
 
-//use classes
-var playerProps : ShipPlayerProps;
-var movement : ShipMovementProps;
-var ShipHealth : ShipHealthProps;
-var shipProps : ShipProps;
-var shipModifiers : ShipModifiers;
-var shipInfo : ShipInfo;
-var combatStatus : ShipCombatStatus;
-var cam : MouseOrbit;
+	var lastMap : float;
+	var waitMap : float = 0.2f;
 
-var lastMap : float;
-var waitMap : float = 0.2f;
+	//other scripts
+	var health : shipHealth;
+	var map : MapInfo;
+	var cloud : ShipCloud;
+	var message : ShowMessage;
+	private var general : GeneralInfo;
 
-//other scripts
-var health : shipHealth;
-var map : MapInfo;
-var cloud : ShipCloud;
-var message : ShowMessage;
+	//constants
+	public static var SHIELD_INIBITED : String = "Can't raise shields, shields inhibited.";
+	public static var NO_SHIELD : String = "Shields down.";
 
-//constants
-public static var SHIELD_INIBITED : String = "Can't raise shields, shields inhibited.";
-public static var NO_SHIELD : String = "Shields down.";
+	function Start() {
+		cam = Camera.main.gameObject.GetComponent(MouseOrbit);
+		health = gameObject.GetComponent(shipHealth);
+		map = GameObject.FindGameObjectWithTag("MapInfo").GetComponent(MapInfo);
+		cloud = gameObject.GetComponent(ShipCloud);
+		message = GameObject.FindGameObjectWithTag("ShowMessage").GetComponent(ShowMessage);
+		general = GameObject.FindGameObjectWithTag("SaveGame").GetComponent(GeneralInfo);
 
-function Start() {
-	cam = Camera.main.gameObject.GetComponent(MouseOrbit);
-	health = gameObject.GetComponent(shipHealth);
-	map = GameObject.FindGameObjectWithTag("MapInfo").GetComponent(MapInfo);
-	cloud = gameObject.GetComponent(ShipCloud);
-	message = GameObject.FindGameObjectWithTag("ShowMessage").GetComponent(ShowMessage);
+	}
 
-}
+	function Update() {
 
-function Update() {
+		//change red alert status
 
-	//change red alert status
-
-	if (Input.GetAxis("RedAlert") && Time.time >= combatStatus.lastRedPress + combatStatus.timeInt && playerProps.isPlayer)
-	{
-		combatStatus.isRedAlert = !combatStatus.isRedAlert;
-		combatStatus.lastRedPress = Time.time;
-		if(cloud.isShieldInibited()) {
-			if(getRedAlert()) message.AddMessage(SHIELD_INIBITED);
-		} else if (!health.isShieldUp()) {
-			if(getRedAlert()) message.AddMessage(NO_SHIELD);
-		} else {
-			health.showShields();
+		if (Input.GetAxis("RedAlert") && Time.time >= combatStatus.lastRedPress + combatStatus.timeInt && playerProps.isPlayer)
+		{
+			combatStatus.isRedAlert = !combatStatus.isRedAlert;
+			combatStatus.lastRedPress = Time.time;
+			if(cloud.isShieldInibited()) {
+				if(getRedAlert()) message.AddMessage(SHIELD_INIBITED);
+			} else if (!health.isShieldUp()) {
+				if(getRedAlert()) message.AddMessage(NO_SHIELD);
+			} else {
+				health.showShields();
+			}
 		}
+
+		//map status
+		//in case Map Input is pressed
+		if(Input.GetAxis("Map") && playerProps.isPlayer && lastMap + waitMap < Time.time) {
+			map.swapStatus();
+			lastMap = Time.time;
+		}
+		
+
 	}
 
-	//map status
-	//in case Map Input is pressed
-	if(Input.GetAxis("Map") && playerProps.isPlayer && lastMap + waitMap < Time.time) {
-		map.swapStatus();
-		lastMap = Time.time;
+
+	function getRedAlert() : boolean {
+
+		return combatStatus.isRedAlert;
+
+	}
+
+	function getPlayer() : boolean {
+		return playerProps.isPlayer;
+
+	}
+
+	function setPlayer(isPlayer : boolean) {
+		playerProps.isPlayer = isPlayer;
+		
+		
+
+	}
+
+	function getStoreImage() : Texture {
+		return shipInfo.storeImg;
 	}
 	
+	function getTargetImage() : Texture {
+		return shipInfo.targetImg;
+	}
 
-}
+	function getClass() : String {
+		return shipInfo.shipClass;
 
+	}
 
-function getRedAlert() : boolean {
+	function getDescription() : String {
+		return shipInfo.shipDescription;
 
-	return combatStatus.isRedAlert;
+	}
 
-}
+	function getName() : String {
+		return shipInfo.shipName;
+	}
 
-function getPlayer() : boolean {
-	return playerProps.isPlayer;
-
-}
-
-function setPlayer(isPlayer : boolean) {
-	playerProps.isPlayer = isPlayer;
+	function getFaction() : int {
+		return shipInfo.faction;
+	}
 	
+	function isHostile(faction : int) : boolean {
+		return general.isFactionEnemies(getFaction(), faction);							
+	}
 	
+	function isAllied(faction : int) : boolean {
+		return general.isFactionAllies(getFaction(), faction);
+	}
+	
+	function isNeutral(faction : int) : boolean {
+		return !isHostile(faction) && !isAllied(faction);
+	}
+	
+	function isOwn(faction : int) : boolean {
+		return getFaction() == faction;
+	}
+
+	function setFaction(fac : int) {
+		shipInfo.faction = fac;
+	}
+
+	function getPrice() {
+		return shipProps.baseCost;
+	}
+
+	function getStrenght() : int {
+		return shipProps.shipStrenght;
+	}
+
+	function getSpeed() : float {
+		return movement.impulseSpeed;
+	}
 
 }
-
-function getStoreImage() : Texture {
-	return shipInfo.storeImg;
-}
-
-function getClass() : String {
-	return shipInfo.shipClass;
-
-}
-
-function getDescription() : String {
-	return shipInfo.shipDescription;
-
-}
-
-function getName() : String {
-	return shipInfo.shipName;
-}
-
-function getFaction() : int {
-	return shipInfo.faction;
-}
-
-function setFaction(fac : int) {
-	shipInfo.faction = fac;
-}
-
-function getPrice() {
-	return shipProps.baseCost;
-}
-
-function getStrenght() : int {
-	return shipProps.shipStrenght;
-}
-
-function getSpeed() : float {
-	return movement.impulseSpeed;
-}
-
