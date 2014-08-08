@@ -76,7 +76,7 @@ class StationInterface extends MonoBehaviour implements INameable, ITextureable,
 		try {
 			gui.setWindow(health, this, inv, missions, generator, tradeDialogue, combatDialogue, getFaction());
 		} catch (e : Exception) {
-			Debug.LogWarning("Something is wrong over here!");
+			Debug.LogWarning("Something is wrong over here! " + e.ToString());
 		}
 		
 	}

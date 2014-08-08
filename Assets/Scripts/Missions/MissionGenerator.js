@@ -11,9 +11,10 @@ private var map : MapInfo;
 private var general : GeneralInfo;
 
 function Start() {
+	r = new System.Random();
 	map = GameObject.FindGameObjectWithTag("MapInfo").GetComponent(MapInfo);
 	general = GameObject.FindGameObjectWithTag("SaveGame").GetComponent(GeneralInfo);
-	r = new System.Random();
+	
 }
 
 function generateTradeMission() : TradeMission {
@@ -42,7 +43,7 @@ private function generateCargo() : Cargo {
 }
 
 private function pickRandomCargoItem() : GameObject {
-	
+
 	var rnd : int = r.Next(0, cargoItems.Count - 1);
 	
 	return cargoItems[rnd];

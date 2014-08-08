@@ -1,13 +1,17 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\newGui\NewHUD\RadarObject.js">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Load\changelog.txt">
     <Files>
-      <File FileName="Assets\Scripts\menus\guiScript.js" Line="810" Column="1" />
-      <File FileName="Assets\Load\changelog.txt" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Interfaces\IHailable.js" Line="6" Column="23" />
-      <File FileName="Assets\Scripts\newGui\NewHUD\RadarObject.js" Line="40" Column="17" />
-      <File FileName="Assets\Scripts\newGui\CommPanel.js" Line="30" Column="3" />
-      <File FileName="Assets\Scripts\newGui\NewHUD\HUDTarget.js" Line="42" Column="1" />
+      <File FileName="Assets\Scripts\newGui\NewHUD\HUDTarget.js" Line="229" Column="1" />
+      <File FileName="Assets\Load\changelog.txt" Line="7" Column="30" />
+      <File FileName="Assets\Scripts\newGui\NewHUD\RadarObject.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\newGui\CommPanel.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\newGui\NewHUD\HUDTarget.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Upgrades\Upgrades.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Interfaces\IHailable.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\newGui\PlanetPanel.js" Line="325" Column="12" />
+      <File FileName="Assets\Scripts\station\StationInterface.js" Line="79" Column="1" />
+      <File FileName="Assets\Scripts\newGui\NewHUD\AlertWarning.js" Line="122" Column="7" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

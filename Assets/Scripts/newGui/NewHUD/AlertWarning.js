@@ -101,10 +101,10 @@ class AlertWarning extends HUDElement {
 		switch(alert) {
 			case AlertMode.COLLISION:
 				return COLLISION_ALERT;
-				break;
+				//break;
 			case AlertMode.GRAVITY:
 				return GRAVITY_ALERT;
-				break;
+				//break;
 			
 		}
 		
@@ -116,10 +116,10 @@ class AlertWarning extends HUDElement {
 		switch(alert) {
 			case AlertMode.COLLISION:
 				return super.resizeRect(collisionLabel);
-				break;
+				//break;
 			case AlertMode.GRAVITY:
 				return super.resizeRect(gravityLabel);
-				break;
+				//break;
 			
 		}
 		

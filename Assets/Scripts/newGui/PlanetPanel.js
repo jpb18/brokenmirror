@@ -1,7 +1,7 @@
 #pragma strict
 import System.Collections.Generic;
 
-class PlanetPanel extends FloatingWindow implements IFactionable, IHealtheable, ITextureable, IHailable {
+class PlanetPanel extends FloatingWindow implements IFactionable, IHealtheable, ITextureable, IHailable, INameable {
 
 	//stats
 	private var planet : PlanetInfo;
@@ -319,6 +319,10 @@ class PlanetPanel extends FloatingWindow implements IFactionable, IHealtheable, 
 	
 	function openComm() {
 		setOn();
+	}
+	
+	function closeComm() {
+		setOff();
 	}
 
 }
