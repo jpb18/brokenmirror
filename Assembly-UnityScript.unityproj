@@ -61,6 +61,7 @@
      <Compile Include="Assets\Scripts\Interfaces\IHealtheable.js" />
      <Compile Include="Assets\Scripts\Interfaces\INameable.js" />
      <Compile Include="Assets\Scripts\Interfaces\IPassive.js" />
+     <Compile Include="Assets\Scripts\Interfaces\IPopuleable.js" />
      <Compile Include="Assets\Scripts\Interfaces\ITextureable.js" />
      <Compile Include="Assets\Scripts\Interfaces\IUpgrade.js" />
      <Compile Include="Assets\Scripts\Load\GameLoad.js" />

@@ -45,7 +45,7 @@ class PlanetPanel extends FloatingWindow implements IFactionable, IHealtheable, 
 	public static final var HEALTH : float = 1f;
 	
 	function Start() {
-		super.init();
+		
 		map = GameObject.FindGameObjectWithTag("MapInfo").GetComponent(MapInfo);
 		planet = map.getPlanetInCurrentScene();
 		var SaveGO : GameObject = GameObject.FindGameObjectWithTag("SaveGame");
@@ -57,7 +57,6 @@ class PlanetPanel extends FloatingWindow implements IFactionable, IHealtheable, 
 	}
 	
 	function OnGUI() {
-		
 		
 		if(super.on) {
 			drawWindow();

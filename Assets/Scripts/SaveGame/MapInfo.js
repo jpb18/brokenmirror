@@ -1,7 +1,7 @@
 ﻿import System.Collections.Generic;
 #pragma strict
 
-class PlanetInfo { //this class stores all planet information necessary for the map
+class PlanetInfo implements IPopuleable { //this class stores all planet information necessary for the map
 	var isEnabled : boolean;
 	var name : String;
 	var faction : int;
@@ -12,6 +12,7 @@ class PlanetInfo { //this class stores all planet information necessary for the 
 	var defenseFleet : List.<SaveShip>;
 	var stations : List.<SaveStation>;
 	
+	var population : float;
 	var reputation : int;
 	var dilithium : boolean;
 	
@@ -42,6 +43,30 @@ class PlanetInfo { //this class stores all planet information necessary for the 
 	
 	}
 	
+	function getPopulation() : float {
+		return population + getStationPopulation();
+	}
+	
+	private function getStationPopulation() : float {
+		var popul : float;
+		
+		for(var station : SaveStation in stations) {
+			var pop : IPopuleable = station.prefab.GetComponent(typeof(IPopuleable)) as IPopuleable;
+			popul += pop.getPopulation();
+			
+		}
+		
+		
+		return popul;
+	}
+	
+	function killPopulation(amount : float) {
+		population -= amount;
+	}
+	
+	function growPopulation(amount : float) {
+		population += amount;
+	}
 	
 	function getImage() : Texture {
 		return image;
@@ -193,6 +218,7 @@ class OverRect {
 	var faction_label : Rect;
 	var race_label : Rect;
 	var strLabel : Rect;
+	var popLabel : Rect;
 	
 	//skin
 	var skin : GUISkin;
@@ -228,6 +254,8 @@ class OverRect {
 			//Draw strenght label
 			var strenght : int = planet.getStrenght();
 			GUI.Label(strLabel, "Strength: " + strenght.ToString(), factionStyle);
+			//Draw Population label
+			GUI.Label(popLabel, "Population: " + planet.getPopulation() + " Billion", factionStyle);
 			
 			
 		
@@ -343,6 +371,8 @@ class SaveStation extends System.Object{
 		return serie;
 		
 	}
+	
+	
 	
 	private function serializeVector3(vector : Vector3) {
 		return vector.x + "\n" + vector.y + "\n" + vector.z + "\n";

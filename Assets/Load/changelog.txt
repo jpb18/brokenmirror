@@ -12,6 +12,7 @@ CHANGED:
 - Increased Message Window width from 300 to 400 pixels
 - Added upgrades to Save Game functionality
 - HUD has been refactored (invisible to the player, usefull to the developers)
+- Increased map mouse over dimensions
 
 ADDED:
 - Game Over Screen
@@ -19,6 +20,7 @@ ADDED:
 - Gravity Warning
 - Added placeholder graph on transport button
 - Map Location indicator
+- Population (Still pretty basic)
 
 WIP:
 - Passive Upgrades
