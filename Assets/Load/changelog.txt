@@ -18,6 +18,7 @@ ADDED:
 - Speed indicator turns blue when ship goes to warp
 - Gravity Warning
 - Added placeholder graph on transport button
+- Map Location indicator
 
 WIP:
 - Passive Upgrades

@@ -250,7 +250,9 @@ class MapGui { //this class stores all information related with the map GUI
 	
 	
 	var skin : GUISkin;
-
+	
+	var hereTexture : Texture;
+	var hereRect : Rect;
 }
 
 class SaveStation extends System.Object{
@@ -512,6 +514,12 @@ function drawMap () {
 */
 
 function CreatePlanetButton(planet : PlanetInfo, buttons : MapButtons, mapRect : Rect, factionInfo : FactionInfo, faction : int) {
+	
+	if(isCurrentPlanet(planet)) {
+		drawHere(planet, mapRect);
+	}
+	
+	
 	var useTexture : Texture2D;
 	
 	//first check if planet has been visited by player
@@ -559,6 +567,15 @@ function CreatePlanetButton(planet : PlanetInfo, buttons : MapButtons, mapRect :
 	
 		
 
+}
+
+function drawHere(planet : PlanetInfo, rect : Rect) {
+	var hereRect = prepHereRect(rect, planet, map.hereRect);
+	GUI.DrawTexture(hereRect, map.hereTexture);
+}
+
+function isCurrentPlanet(planet : PlanetInfo) : boolean {
+	return planet.scene == Application.loadedLevelName;
 }
 
 private function canWarp(destiny : PlanetInfo) : boolean {
@@ -690,6 +707,15 @@ function prepButRect(mapRect : Rect, planet : PlanetInfo, buttons : MapButtons) 
 		var CoodY : int = (mapRect.height/2 + planet.cood.y) - (buttons.buttonRect.height/2);
 	
 		var butRect : Rect = new Rect(CoodX, CoodY, buttons.buttonRect.width, buttons.buttonRect.height);
+		return butRect;
+
+}
+
+function prepHereRect(mapRect : Rect, planet : PlanetInfo, rect : Rect) : Rect {
+		var CoodX : int = (mapRect.width/2 + planet.cood.x) - (rect.width/2);
+		var CoodY : int = (mapRect.height/2 + planet.cood.y) - (rect.height/2);
+	
+		var butRect : Rect = new Rect(CoodX, CoodY, rect.width, rect.height);
 		return butRect;
 
 }

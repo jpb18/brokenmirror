@@ -1,17 +1,15 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Load\changelog.txt">
     <Files>
-      <File FileName="Assets\Scripts\newGui\NewHUD\HUDTarget.js" Line="229" Column="1" />
-      <File FileName="Assets\Load\changelog.txt" Line="7" Column="30" />
+      <File FileName="Assets\Scripts\SaveGame\MapInfo.js" Line="513" Column="38" />
+      <File FileName="Assets\Scripts\newGui\NewHUD\HUDTarget.js" Line="1" Column="1" />
+      <File FileName="Assets\Load\changelog.txt" Line="21" Column="25" />
       <File FileName="Assets\Scripts\newGui\NewHUD\RadarObject.js" Line="1" Column="1" />
       <File FileName="Assets\Scripts\newGui\CommPanel.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\newGui\NewHUD\HUDTarget.js" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Upgrades\Upgrades.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Interfaces\IHailable.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\newGui\PlanetPanel.js" Line="325" Column="12" />
-      <File FileName="Assets\Scripts\station\StationInterface.js" Line="79" Column="1" />
-      <File FileName="Assets\Scripts\newGui\NewHUD\AlertWarning.js" Line="122" Column="7" />
+      <File FileName="Assets\Scripts\SaveGame\HUDStatus.js" Line="20" Column="1" />
+      <File FileName="Assets\Scripts\menus\GameOver.js" Line="153" Column="18" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

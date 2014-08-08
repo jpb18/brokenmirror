@@ -1,6 +1,7 @@
 
 var isHidden : boolean = false;
-var load : LoadScene;
+private var load : LoadScene;
+private var over : GameOver;
 var isGame : boolean = false;
 
 private var last : float;
@@ -10,6 +11,7 @@ private var interval : float = 0.2f;
 function Start () {
 
 	load = GameObject.FindGameObjectWithTag("LoadScene").GetComponent(LoadScene);
+	over = GameObject.FindGameObjectWithTag("GameOver").GetComponent(GameOver);
 
 }
 
@@ -25,7 +27,7 @@ function Update () {
 
 function isShowingGui() : boolean {
 
-	return !isHidden && !load.show && isGame;
+	return !isHidden && !load.show && isGame && !isGameOver();
 
 }
 
@@ -37,5 +39,9 @@ private function hasIntervalPassed() : boolean {
 
 function setGame(game : boolean) {
 	this.isGame = game;
+}
+
+private function isGameOver() : boolean {
+	return over.isGameOver();
 }
 

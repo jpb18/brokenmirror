@@ -148,3 +148,7 @@ private function ChangeAlpha() {
 	interrupt = false;
 
 }
+
+function isGameOver() : boolean {
+	return gameOver;
+}
