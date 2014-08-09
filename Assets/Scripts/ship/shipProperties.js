@@ -15,6 +15,7 @@ class ShipMovementProps {
 	var agility : float; //Standard Agility of the craft. In degrees per second.
 	var impulseSpeed : float; //Standard Maximum Speed of the craft at sublight.
 	var acceleration : float; //Ship acceleration at sublight speed (in percentage)
+	var warpSpeed : int = 9;
 }
 
 class ShipCombatStatus {
@@ -189,6 +190,10 @@ class shipProperties extends MonoBehaviour implements IFactionable, INameable, I
 
 	function getSpeed() : float {
 		return movement.impulseSpeed;
+	}
+	
+	function getWarpSpeed() : int {
+		return movement.warpSpeed;
 	}
 
 }

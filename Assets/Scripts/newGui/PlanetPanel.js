@@ -45,7 +45,7 @@ class PlanetPanel extends FloatingWindow implements IFactionable, IHealtheable, 
 	public static final var HEALTH : float = 1f;
 	
 	function Start() {
-		
+		init();
 		map = GameObject.FindGameObjectWithTag("MapInfo").GetComponent(MapInfo);
 		planet = map.getPlanetInCurrentScene();
 		var SaveGO : GameObject = GameObject.FindGameObjectWithTag("SaveGame");
@@ -69,7 +69,7 @@ class PlanetPanel extends FloatingWindow implements IFactionable, IHealtheable, 
 	}
 	
 	function window() {
-		resizeParent();
+		
 		drawBackground();
 		drawImage();
 		drawDilithium();
@@ -86,7 +86,7 @@ class PlanetPanel extends FloatingWindow implements IFactionable, IHealtheable, 
 	
 	function drawBackground() {
 		if(hasBackground()) {
-			GUI.DrawTexture(resizeRect(getBackgroundPosition()), background);
+			GUI.DrawTexture(getBackgroundPosition(), background);
 		}
 	}
 	
@@ -141,14 +141,11 @@ class PlanetPanel extends FloatingWindow implements IFactionable, IHealtheable, 
 	}
 	
 	private function getBackgroundPosition() : Rect {
-		return new Rect(0,0, super.original.width, super.original.height);
+		var rect : Rect = getResizedPosition();
+		return new Rect(0,0, rect.width, rect.height);
 	}
 	
-	function resizeParent() {
-		var r : Rect = resizeRect(original);
-		super.position.width = r.width;
-		super.position.height = r.height;
-	}
+
 	
 	function getPlanetInfo() : PlanetInfo {
 		return planet;

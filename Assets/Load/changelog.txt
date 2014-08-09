@@ -21,6 +21,7 @@ ADDED:
 - Added placeholder graph on transport button
 - Map Location indicator
 - Population (Still pretty basic)
+- Stardate System (Pretty basic atm)
 
 WIP:
 - Passive Upgrades

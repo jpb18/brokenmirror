@@ -85,6 +85,7 @@
      <Compile Include="Assets\Scripts\SaveGame\MapInfo.js" />
      <Compile Include="Assets\Scripts\SaveGame\SaveGame.js" />
      <Compile Include="Assets\Scripts\SaveGame\SaveScript.js" />
+     <Compile Include="Assets\Scripts\SaveGame\Stardate.js" />
      <Compile Include="Assets\Scripts\Statics.js" />
      <Compile Include="Assets\Scripts\UnitTests\MissionUnitTest.js" />
      <Compile Include="Assets\Scripts\Upgrades\Passive.js" />

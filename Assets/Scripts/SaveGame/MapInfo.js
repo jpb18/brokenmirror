@@ -450,6 +450,7 @@ private var areaRect : Rect;
 private var message : ShowMessage;
 private var hud : HUDStatus;
 private var save : SaveGame;
+private var stardate : Stardate;
 
 public static var LIGHT_YEAR : float = 2.9f;
 
@@ -458,7 +459,9 @@ function Start() {
 
 	message = GameObject.FindGameObjectWithTag("ShowMessage").GetComponent(ShowMessage);
 	hud = GameObject.FindGameObjectWithTag("GlobalInfo").GetComponent(HUDStatus);
-	save = GameObject.FindGameObjectWithTag("SaveGame").GetComponent(SaveGame);
+	var saveGo : GameObject = GameObject.FindGameObjectWithTag("SaveGame");
+	save = saveGo.GetComponent(SaveGame);
+	stardate = saveGo.GetComponent(Stardate);
 
 }
 
@@ -733,6 +736,13 @@ function goWarp(destiny : String) {
 	var fuel : ShipFuel = playerShip.GetComponent(ShipFuel);
 	fuel.consume(distance);
 	
+	//calculate travel time;
+	var time : int = getTime(origin, dest);
+	
+	//apply it
+	stardate.addDays(time);
+	message.AddMessage("Current Stardate: " + stardate.getCurrentStardate());
+	
 	//save game first
  	save.Save(destiny);
 	
@@ -818,7 +828,7 @@ function getCurrentReputation() : int {
 	}
 }
 
-function getDistance(origin : PlanetInfo, destiny : PlanetInfo) : int{
+function getDistance(origin : PlanetInfo, destiny : PlanetInfo) : float{
 	var a : Vector2 = new Vector2();
 	if(origin) {
 		a = new Vector2(origin.cood.x, origin.cood.y);
@@ -826,6 +836,36 @@ function getDistance(origin : PlanetInfo, destiny : PlanetInfo) : int{
 	var b : Vector2 = new Vector2(destiny.cood.x, destiny.cood.y);
 	return Vector2.Distance(a, b) * LIGHT_YEAR;
 
+}
+
+function getTime(origin : PlanetInfo, destiny : PlanetInfo) : float {
+	var distance : float = getDistance(origin , destiny);
+	var speed : float = calculateWarpSpeed(getPlayerWarpFactor());
+	return distance/speed;
+
+}
+
+function calculateWarpSpeed(w : int) : float {
+	var velocity : float;
+	
+	velocity = 1 * Mathf.Pow(w, 3.3333 + f(w));
+	
+	return velocity/365;
+}
+
+function getPlayerWarpFactor() : int {
+	var player : GameObject = save.getPlayerShip();
+	var props : shipProperties = player.GetComponent(shipProperties);
+	return props.getWarpSpeed();
+}
+
+private function f(w : int) : float  {
+	if(w > 9 && w <= 10) {
+		return -0.5 * Mathf.Log10(10 - w);
+	} else {
+		return 0;
+	}
+	
 }
 
 function getPlanetCount() : int {

@@ -1,20 +1,15 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\SaveGame\MapInfo.js">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\SaveGame\Stardate.js">
     <Files>
-      <File FileName="Assets\Scripts\SaveGame\MapInfo.js" Line="290" Column="59" />
-      <File FileName="Assets\Load\changelog.txt" Line="15" Column="12" />
-      <File FileName="Assets\Scripts\station\StationInterface.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\SaveGame\MapInfo.js" Line="290" Column="59" />
-      <File FileName="Assets\Scripts\newGui\NewHUD\RadarObject.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\newGui\CommPanel.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Upgrades\Upgrades.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\SaveGame\Stardate.js" Line="7" Column="1" />
+      <File FileName="Assets\Scripts\ship\shipProperties.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\SaveGame\MapInfo.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\SaveGame\SaveGame.js" Line="1" Column="1" />
       <File FileName="Assets\Scripts\SaveGame\HUDStatus.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\menus\GameOver.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\newGui\PlanetPanel.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\station\StationInt.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Interfaces\IPopuleable.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\newGui\NewHUD\HUDRedAlert.js" Line="34" Column="54" />
+      <File FileName="Assets\Scripts\ship\shipTriggers.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\newGui\NewHUD\HUDTarget.js" Line="1" Column="1" />
+      <File FileName="Assets\Load\changelog.txt" Line="24" Column="36" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -24,14 +19,16 @@
           </Node>
           <Node name="Assembly-CSharp-firstpass" expanded="True" />
           <Node name="Assembly-UnityScript" expanded="True">
+            <Node name="Load" expanded="True" />
             <Node name="Scripts" expanded="True">
               <Node name="Interfaces" expanded="True" />
               <Node name="newGui" expanded="True">
                 <Node name="NewHUD" expanded="True" />
               </Node>
               <Node name="SaveGame" expanded="True">
-                <Node name="MapInfo.js" selected="True" />
+                <Node name="Stardate.js" selected="True" />
               </Node>
+              <Node name="ship" expanded="True" />
             </Node>
           </Node>
         </State>
@@ -40,7 +37,7 @@
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
-      <Breakpoint file="C:\UnityProjects\BM3\Assets\Scripts\SaveGame\MapInfo.js" line="756" />
+      <Breakpoint file="C:\UnityProjects\BM3\Assets\Scripts\newGui\NewHUD\HUDTarget.js" line="81" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
