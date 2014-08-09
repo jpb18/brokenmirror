@@ -281,6 +281,16 @@ class MapGui { //this class stores all information related with the map GUI
 	
 	var hereTexture : Texture;
 	var hereRect : Rect;
+	
+	var timeInterval : float;
+	var pulseAmount : float;
+	
+	
+	function pulseRect() : Rect {
+		var extra : float = ((Mathf.Cos(Time.time * timeInterval)/2) + 0.5f) * pulseAmount;
+		return new Rect(0 ,0, hereRect.width + extra, hereRect.height + extra);	
+	}
+	
 }
 
 class SaveStation extends System.Object{
@@ -600,12 +610,13 @@ function CreatePlanetButton(planet : PlanetInfo, buttons : MapButtons, mapRect :
 }
 
 function drawHere(planet : PlanetInfo, rect : Rect) {
-	var hereRect = prepHereRect(rect, planet, map.hereRect);
+	var hereRect = prepHereRect(rect, planet, map.pulseRect());
 	GUI.DrawTexture(hereRect, map.hereTexture);
 }
 
 function isCurrentPlanet(planet : PlanetInfo) : boolean {
-	return planet.scene == Application.loadedLevelName;
+	var curScene : String = Application.loadedLevelName;
+	return planet.scene == curScene;
 }
 
 private function canWarp(destiny : PlanetInfo) : boolean {
