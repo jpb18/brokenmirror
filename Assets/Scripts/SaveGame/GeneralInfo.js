@@ -115,6 +115,14 @@ class FactionInfo {
 	 	return hostileFactions.Count > 0;
 	 }
 	 
+	 function isPlayerHostile() : boolean {
+	 	return isHostile(0);
+	 }
+	 
+	 function getHostileCount() : int {
+	 	return hostileFactions.Count;
+	 }
+	 
 	 function pickRandomEnemy() : int {
 	 	var rnd : int = Random.Range(0, hostileFactions.Count);
 	 	return hostileFactions[rnd];

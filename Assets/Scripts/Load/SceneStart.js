@@ -22,6 +22,7 @@ private var planet : PlanetInfo;
 private var message : ShowMessage;
 private var general : GeneralInfo;
 private var music : PlaybackScript;
+private var hud : HUDStatus;
 
 private var isInvasion : boolean = false;
 private var isInvaded : boolean = false;
@@ -48,7 +49,9 @@ function Start () {
 	save_scr = GameObject.FindGameObjectWithTag("SaveGame").GetComponent(SaveGame);
 	mapScr = GameObject.FindGameObjectWithTag("MapInfo").GetComponent(MapInfo);
 	planet = mapScr.findPlanet(Application.loadedLevelName);
+	hud = GameObject.FindGameObjectWithTag("GlobalInfo").GetComponent(HUDStatus);
 	save_scr.start = this;
+	hud.show();
 
 	playerStart();
 	spawnDefenseFleet();

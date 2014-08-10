@@ -3,13 +3,14 @@
 var image : Texture;
 var show : boolean = false;
 
+public static final var SCENE : String = "TransferScene";
 
 
-function LoadScene(destiny : String) {
+function LoadScene() {
 	
 
 	
-	Application.LoadLevel(destiny);
+	Application.LoadLevel(SCENE);
 	
 
 }
@@ -27,6 +28,10 @@ function LoadScene(destiny : String, menu : MenuScript) {
 
 function showScreen() {
 	show = true;
+}
+
+function setOff() {
+	show = false;
 }
 
 function OnGUI() {

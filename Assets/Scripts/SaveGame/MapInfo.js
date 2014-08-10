@@ -84,7 +84,21 @@ class PlanetInfo implements IPopuleable { //this class stores all planet informa
 	
 		return scene.Equals(this.scene);
 	 
-	} 
+	}
+	
+	function destroyRandomShip() {
+		if(defenseFleet.Count > 0) {
+			var num : int = Random.Range(0, defenseFleet.Count - 1);
+			defenseFleet.RemoveAt(num);			
+		}	
+	}
+	
+	function destroyRandomStation() {
+		if(stations.Count > 0) {
+			var num : int = Random.Range(0, stations.Count - 1);
+			stations.RemoveAt(num);	
+		}
+	}
 	
 	function getReputation() : int {
 		
@@ -94,6 +108,23 @@ class PlanetInfo implements IPopuleable { //this class stores all planet informa
 	
 	function getFaction() : int {
 		return faction;
+	}
+	
+	function hasDefenseFleet() : boolean {
+		return defenseFleet.Count > 0;
+	}
+	
+	function conquer(faction : int, fleet : List.<GameObject>) {
+		this.faction = faction;
+		setConquerFleet(fleet);
+	}
+	
+	private function setConquerFleet(fleet : List.<GameObject>) {
+		for(var x : int = 0; x < 6; x++) {
+			var ship : GameObject = fleet[Random.Range(0, fleet.Count - 1)];
+			var newShip : SaveShip = new SaveShip(ship);
+			defenseFleet.Add(newShip);
+		}
 	}
 	
 	function addReputation(amount : int) {
@@ -451,6 +482,7 @@ private var message : ShowMessage;
 private var hud : HUDStatus;
 private var save : SaveGame;
 private var stardate : Stardate;
+private var carry : SceneTransferCarry;
 
 public static var LIGHT_YEAR : float = 2.9f;
 
@@ -459,6 +491,7 @@ function Start() {
 
 	message = GameObject.FindGameObjectWithTag("ShowMessage").GetComponent(ShowMessage);
 	hud = GameObject.FindGameObjectWithTag("GlobalInfo").GetComponent(HUDStatus);
+	carry = GameObject.FindGameObjectWithTag("Transfer").GetComponent(SceneTransferCarry);
 	var saveGo : GameObject = GameObject.FindGameObjectWithTag("SaveGame");
 	save = saveGo.GetComponent(SaveGame);
 	stardate = saveGo.GetComponent(Stardate);
@@ -734,21 +767,21 @@ function goWarp(destiny : String) {
 	
 	//apply them
 	var fuel : ShipFuel = playerShip.GetComponent(ShipFuel);
-	fuel.consume(distance);
+	var consume : int = fuel.consume(distance);
 	
 	//calculate travel time;
 	var time : int = getTime(origin, dest);
-	
+	carry.setCarry(time, consume, destiny);
 	//apply it
 	stardate.addDays(time);
-	message.AddMessage("Current Stardate: " + stardate.getCurrentStardate());
+	//message.AddMessage("Current Stardate: " + stardate.getCurrentStardate());
 	
 	//save game first
  	save.Save(destiny);
 	
 	
 	
-	scr.LoadScene(destiny);
+	scr.LoadScene();
 	
 }
 

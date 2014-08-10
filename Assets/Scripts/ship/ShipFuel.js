@@ -19,8 +19,10 @@ class ShipFuel extends MonoBehaviour {
 	}
 	
 	
-	function consume(distance : int) {
-		current -= calculate(distance);
+	function consume(distance : int) : int {
+		var cons : int = calculate(distance);
+		current -= cons;
+		return cons;
 	}
 	
 	function hasEnough(distance : int) : boolean {

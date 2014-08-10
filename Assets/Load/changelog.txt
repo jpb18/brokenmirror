@@ -22,10 +22,12 @@ ADDED:
 - Map Location indicator
 - Population (Still pretty basic)
 - Stardate System (Pretty basic atm)
+- Middle scene between star systems
 
 WIP:
 - Passive Upgrades
 - Ship Energy (Weapons, Shields, Warp)
+- Government AI
 
 
 Version 0.2.1

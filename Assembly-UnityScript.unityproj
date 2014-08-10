@@ -53,6 +53,10 @@
      <Compile Include="Assets\Menus\MenuScript.js" />
      <Compile Include="Assets\NewBehaviourScript.js" />
      <Compile Include="Assets\Paragraph.js" />
+     <Compile Include="Assets\Scripts\Events\EventGenerator.js" />
+     <Compile Include="Assets\Scripts\Events\SceneTransfer.js" />
+     <Compile Include="Assets\Scripts\Events\SceneTransferCarry.js" />
+     <Compile Include="Assets\Scripts\Events\TransferTmp.js" />
      <Compile Include="Assets\Scripts\GlobalInfo.js" />
      <Compile Include="Assets\Scripts\Interfaces\IActive.js" />
      <Compile Include="Assets\Scripts\Interfaces\IDrawable.js" />

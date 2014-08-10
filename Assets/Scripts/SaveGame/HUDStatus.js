@@ -45,3 +45,10 @@ private function isGameOver() : boolean {
 	return over.isGameOver();
 }
 
+function hide() {
+	isHidden = true;
+}
+
+function show() {
+	isHidden = false;
+}

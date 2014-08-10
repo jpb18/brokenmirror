@@ -137,6 +137,15 @@ class SaveShip{
 		
 	}
 	
+	function SaveShip(ship : GameObject) {
+		shipInfo = new ShipInfo();
+		shipHea = new ShipHealth();
+		shipInv = new ShipInventory();
+		shipPrefab = null;
+		setShip(ship);
+		
+	}
+	
 	function getStrenght() : int {
 		return shipInfo.strenght;
 	}

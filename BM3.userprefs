@@ -1,35 +1,31 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\SaveGame\Stardate.js">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Load\changelog.txt">
     <Files>
       <File FileName="Assets\Scripts\SaveGame\Stardate.js" Line="7" Column="1" />
-      <File FileName="Assets\Scripts\ship\shipProperties.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\SaveGame\MapInfo.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\SaveGame\SaveGame.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\SaveGame\HUDStatus.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\ship\shipTriggers.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\newGui\NewHUD\HUDTarget.js" Line="1" Column="1" />
-      <File FileName="Assets\Load\changelog.txt" Line="24" Column="36" />
+      <File FileName="Assets\Scripts\SaveGame\MapInfo.js" Line="493" Column="79" />
+      <File FileName="Assets\Scripts\SaveGame\SaveGame.js" Line="145" Column="17" />
+      <File FileName="Assets\Scripts\Events\EventGenerator.js" Line="90" Column="49" />
+      <File FileName="Assets\Scripts\SaveGame\GeneralInfo.js" Line="57" Column="47" />
+      <File FileName="Assets\Scripts\Events\SceneTransferCarry.js" Line="1" Column="15" />
+      <File FileName="Assets\Scripts\Events\SceneTransfer.js" Line="6" Column="127" />
+      <File FileName="Assets\Scripts\Events\TransferTmp.js" Line="8" Column="105" />
+      <File FileName="Assets\Scripts\SaveGame\HUDStatus.js" Line="53" Column="19" />
+      <File FileName="Assets\Scripts\Load\SceneStart.js" Line="54" Column="13" />
+      <File FileName="Assets\Load\changelog.txt" Line="25" Column="36" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
-          <Node name="Assembly-CSharp" expanded="True">
-            <Node name="Load" expanded="True" />
-          </Node>
-          <Node name="Assembly-CSharp-firstpass" expanded="True" />
           <Node name="Assembly-UnityScript" expanded="True">
-            <Node name="Load" expanded="True" />
-            <Node name="Scripts" expanded="True">
-              <Node name="Interfaces" expanded="True" />
-              <Node name="newGui" expanded="True">
-                <Node name="NewHUD" expanded="True" />
-              </Node>
-              <Node name="SaveGame" expanded="True">
-                <Node name="Stardate.js" selected="True" />
-              </Node>
-              <Node name="ship" expanded="True" />
+            <Node name="Load" expanded="True">
+              <Node name="changelog.txt" selected="True" />
             </Node>
+            <Node name="Scripts" expanded="True">
+              <Node name="Events" expanded="True" />
+              <Node name="Load" expanded="True" />
+            </Node>
+            <Node name="UnityTestTools" expanded="True" />
           </Node>
         </State>
       </Pad>
@@ -38,6 +34,7 @@
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
       <Breakpoint file="C:\UnityProjects\BM3\Assets\Scripts\newGui\NewHUD\HUDTarget.js" line="81" />
+      <Breakpoint file="C:\UnityProjects\BM3\Assets\Scripts\Events\EventGenerator.js" line="46" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
