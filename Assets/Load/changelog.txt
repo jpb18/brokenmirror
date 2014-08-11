@@ -8,11 +8,12 @@ FIXED:
 
 CHANGED:
 - Added store function to Planet Panel
-- Now only Earth, Bajor and Cardassia can sell Dilithium
+- Now only Earth, Andoria, Farenginar, Iconia, Son'a, Bajor and Cardassia can sell Dilithium
 - Increased Message Window width from 300 to 400 pixels
 - Added upgrades to Save Game functionality
 - HUD has been refactored (invisible to the player, usefull to the developers)
 - Increased map mouse over dimensions
+- Andoria and Vulcan now belong to Earth Empire. Ferenginar is now Non-Aligned.
 
 ADDED:
 - Game Over Screen

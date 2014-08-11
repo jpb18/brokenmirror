@@ -4,6 +4,7 @@ var probability : float;
 var maximumCombat : int = 10;
 
 var destroyProbability : float;
+var aquisitionProbability : float = 1f;
 
 private var map : MapInfo;
 private var general : GeneralInfo;
@@ -26,13 +27,16 @@ function Start () {
 function generateGalacticEvents(days : int) { 
 	for(var x : int = 0; x < days; x++) {
 		if(probability >= Random.value) {
-			var pick : int = Random.Range(1, 3);
+			var pick : int = Random.Range(1, 4);
 			switch(pick) {
 				case 1:
 					generateInvasion();
 					break;
 				case 2:
 					generateConstruction();
+					break;
+				case 3:
+					generateShipAcquisition();
 					break;
 				default:
 					Debug.Log("Invalid value: " + pick);
@@ -44,8 +48,18 @@ function generateGalacticEvents(days : int) {
 
 
 private function generateInvasion() {
+	var i : int;
+	do{
+		i++;
+		var target : PlanetInfo = pickRandomPlanet();
+		
+		if(i > map.getPlanetCount() * 2) {
+			target = null;
+			break;
+		}
+		
+	} while(hasPlanetEnemiesExceptPlayer(target));
 	
-	var target : PlanetInfo = pickRandomPlanet();
 	if(target) {
 		var faction : FactionInfo = pickEnemyFaction(target);
 		if(general.getFactionId(faction) != 0) {
@@ -81,6 +95,23 @@ private function generateConstruction() {
 	Debug.Log("Not implemented");
 }
 
+private function generateShipAcquisition() {
+	if(!map.isPlayerOverlord() && Random.value <= aquisitionProbability) {
+		var planet : PlanetInfo;
+		do {
+			planet = pickRandomPlanet();
+		} while (planet.faction == 0);
+		var str : int = planet.getStrenght();
+		var faction : int = planet.faction;
+		var factionInfo : FactionInfo = general.getFactionInfo(faction);
+		var fleet : List.<GameObject> = factionInfo.invasionFleet;
+		if(fleet.Count > 0) {
+			var ship : GameObject = planet.addRandomShip(fleet);
+			var classeable : IClasseable = ship.GetComponent(typeof(IClasseable)) as IClasseable;
+			scene.addShipAcquisition(planet, factionInfo, classeable.getClass(), str);
+		}
+	}
+}
 
 
 private function pickRandomPlanet() : PlanetInfo {
@@ -89,13 +120,13 @@ private function pickRandomPlanet() : PlanetInfo {
 	
 	var planet : PlanetInfo;
 	var i : int = 0;
-	do {
+	
 		do {
 			var planetId : int = Random.Range(0, max - 1);
 			i++;
 		   planet = map.getPlanetByNumber(planetId);
 	   } while (!planet.isColonized);
-	} while(hasPlanetEnemiesExceptPlayer(planet) && i <= map.getPlanetCount());
+	
 	return planet;
 }
 
@@ -136,6 +167,7 @@ private function getDestroyProbability(target : PlanetInfo) : float {
 	}
 	return destroyProbability/planetStrength;
 }
+
 
 
 

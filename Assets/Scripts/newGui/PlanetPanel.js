@@ -202,7 +202,12 @@ class PlanetPanel extends FloatingWindow implements IFactionable, IHealtheable, 
 	}
 	
 	function drawFaction() {
-		var faction : String = faction.getName();
+		var faction : String;
+		if(planet.isColonized) {
+			faction = this.faction.getName();
+		} else {
+			faction = "Unclaimed";
+		}
 		GUI.Label(resizeRect(ownerRect), faction, skin.label);
 	}
 	

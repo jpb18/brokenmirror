@@ -1,35 +1,35 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Load\changelog.txt">
     <Files>
-      <File FileName="Assets\Scripts\Events\SceneTransferCarry.js" Line="1" Column="1" />
       <File FileName="Assets\Scripts\SaveGame\Stardate.js" Line="7" Column="1" />
-      <File FileName="Assets\Scripts\Colonization\IColonizable.js" Line="7" Column="2" />
-      <File FileName="Assets\Scripts\Colonization\IColonizer.js" Line="3" Column="2" />
-      <File FileName="Assets\Scripts\newGui\NewHUD\HUDTarget.js" Line="229" Column="44" />
-      <File FileName="Assets\Scripts\newGui\PlanetPanel.js" Line="337" Column="19" />
-      <File FileName="Assets\Scripts\station\StationStore.js" Line="148" Column="3" />
-      <File FileName="Assets\Scripts\Interfaces\IPriceable.js" Line="2" Column="28" />
-      <File FileName="Assets\Scripts\newGui\NewHUD\HUDWeapons.js" Line="159" Column="1" />
-      <File FileName="Assets\Scripts\SaveGame\Inventory.js" Line="90" Column="1" />
-      <File FileName="Assets\Load\changelog.txt" Line="26" Column="24" />
-      <File FileName="Assets\Scripts\SaveGame\MapInfo.js" Line="110" Column="18" />
+      <File FileName="Assets\Scripts\newGui\PlanetPanel.js" Line="194" Column="30" />
+      <File FileName="Assets\Scripts\station\StationStore.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\newGui\NewHUD\HUDWeapons.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\SaveGame\Inventory.js" Line="1" Column="1" />
+      <File FileName="Assets\Load\changelog.txt" Line="27" Column="24" />
+      <File FileName="Assets\Scripts\SaveGame\MapInfo.js" Line="89" Column="66" />
+      <File FileName="Assets\Scripts\Events\EventGenerator.js" Line="102" Column="32" />
+      <File FileName="Assets\Scripts\SaveGame\GeneralInfo.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Events\SceneTransfer.js" Line="25" Column="24" />
+      <File FileName="Assets\Scripts\ship\shipTriggers.js" Line="126" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
-          <Node name="Assembly-UnityScript" expanded="True">
+          <Node name="Assembly-CSharp" expanded="True">
             <Node name="Load" expanded="True">
               <Node name="changelog.txt" selected="True" />
             </Node>
+          </Node>
+          <Node name="Assembly-CSharp-firstpass" expanded="True" />
+          <Node name="Assembly-UnityScript" expanded="True">
             <Node name="Scripts" expanded="True">
-              <Node name="Colonization" expanded="True" />
-              <Node name="newGui" expanded="True">
-                <Node name="NewHUD" expanded="True" />
-              </Node>
+              <Node name="Events" expanded="True" />
+              <Node name="newGui" expanded="True" />
               <Node name="SaveGame" expanded="True" />
+              <Node name="ship" expanded="True" />
             </Node>
-            <Node name="UnityTestTools" expanded="True" />
           </Node>
         </State>
       </Pad>

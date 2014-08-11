@@ -86,6 +86,14 @@ class PlanetInfo implements IPopuleable { //this class stores all planet informa
 	 
 	}
 	
+	function addRandomShip(fleet : List.<GameObject>) : GameObject {
+		var num : int = Random.Range(0, fleet.Count-1);
+		var ship : GameObject = fleet[num];
+		var newShip : SaveShip = new SaveShip(ship, faction);
+		defenseFleet.Add(newShip);
+		return ship;
+	}
+	
 	function destroyRandomShip() {
 		if(defenseFleet.Count > 0) {
 			var num : int = Random.Range(0, defenseFleet.Count - 1);
@@ -274,15 +282,13 @@ class OverRect {
 			
 			GUI.Label(planet_label, planet.name, skin.GetStyle("PlanetOver")); //Show planet name
 			
-			//Get faction info
-			var facInfo : FactionInfo = GameObject.FindGameObjectWithTag("SaveGame").GetComponent(GeneralInfo).factionInfo[planet.faction];
-			var facName : String = facInfo.factionName;
 			
-			GUI.Label(faction_label, facName, factionStyle); //Show planet faction
 			
-			var facRace : String = facInfo.factionRace;
+			GUI.Label(faction_label, getFaction(planet), factionStyle); //Show planet faction
 			
-			GUI.Label(race_label, facRace, factionStyle);// Show planet master race
+			
+			
+			GUI.Label(race_label, getRace(planet), factionStyle);// Show planet master race
 			
 			//Draw strenght label
 			var strenght : int = planet.getStrenght();
@@ -295,6 +301,26 @@ class OverRect {
 		GUILayout.EndArea();
 	
 	
+	}
+	
+	function getFaction(planet : PlanetInfo) : String {
+		if(planet.isColonized) {
+			
+			var facInfo : FactionInfo = GameObject.FindGameObjectWithTag("SaveGame").GetComponent(GeneralInfo).factionInfo[planet.faction];
+			return facInfo.factionName;
+		} else {
+			return "Unclaimed";
+		}
+	
+	}
+	
+	function getRace(planet : PlanetInfo) : String {
+		if(planet.isColonized) {
+			var facInfo : FactionInfo = GameObject.FindGameObjectWithTag("SaveGame").GetComponent(GeneralInfo).factionInfo[planet.faction];
+			return facInfo.factionRace;
+		} else {
+			return "Unpopulated";
+		}
 	}
 
 }
@@ -953,4 +979,14 @@ private function getPlanetsList(stream : StreamReader) : List.<PlanetInfo> {
 	}
 	return list;
 	
+}
+
+function isPlayerOverlord() : boolean {
+	for(var planet : PlanetInfo in planets) {
+		if(planet.faction != 0) {
+			return false;
+		}
+	}
+	return true;
+
 }
