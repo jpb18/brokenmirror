@@ -2,17 +2,18 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Load\changelog.txt">
     <Files>
+      <File FileName="Assets\Scripts\Events\SceneTransferCarry.js" Line="1" Column="1" />
       <File FileName="Assets\Scripts\SaveGame\Stardate.js" Line="7" Column="1" />
-      <File FileName="Assets\Scripts\SaveGame\MapInfo.js" Line="493" Column="79" />
-      <File FileName="Assets\Scripts\SaveGame\SaveGame.js" Line="145" Column="17" />
-      <File FileName="Assets\Scripts\Events\EventGenerator.js" Line="90" Column="49" />
-      <File FileName="Assets\Scripts\SaveGame\GeneralInfo.js" Line="57" Column="47" />
-      <File FileName="Assets\Scripts\Events\SceneTransferCarry.js" Line="1" Column="15" />
-      <File FileName="Assets\Scripts\Events\SceneTransfer.js" Line="6" Column="127" />
-      <File FileName="Assets\Scripts\Events\TransferTmp.js" Line="8" Column="105" />
-      <File FileName="Assets\Scripts\SaveGame\HUDStatus.js" Line="53" Column="19" />
-      <File FileName="Assets\Scripts\Load\SceneStart.js" Line="54" Column="13" />
-      <File FileName="Assets\Load\changelog.txt" Line="25" Column="36" />
+      <File FileName="Assets\Scripts\Colonization\IColonizable.js" Line="7" Column="2" />
+      <File FileName="Assets\Scripts\Colonization\IColonizer.js" Line="3" Column="2" />
+      <File FileName="Assets\Scripts\newGui\NewHUD\HUDTarget.js" Line="229" Column="44" />
+      <File FileName="Assets\Scripts\newGui\PlanetPanel.js" Line="337" Column="19" />
+      <File FileName="Assets\Scripts\station\StationStore.js" Line="148" Column="3" />
+      <File FileName="Assets\Scripts\Interfaces\IPriceable.js" Line="2" Column="28" />
+      <File FileName="Assets\Scripts\newGui\NewHUD\HUDWeapons.js" Line="159" Column="1" />
+      <File FileName="Assets\Scripts\SaveGame\Inventory.js" Line="90" Column="1" />
+      <File FileName="Assets\Load\changelog.txt" Line="26" Column="24" />
+      <File FileName="Assets\Scripts\SaveGame\MapInfo.js" Line="110" Column="18" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -22,8 +23,11 @@
               <Node name="changelog.txt" selected="True" />
             </Node>
             <Node name="Scripts" expanded="True">
-              <Node name="Events" expanded="True" />
-              <Node name="Load" expanded="True" />
+              <Node name="Colonization" expanded="True" />
+              <Node name="newGui" expanded="True">
+                <Node name="NewHUD" expanded="True" />
+              </Node>
+              <Node name="SaveGame" expanded="True" />
             </Node>
             <Node name="UnityTestTools" expanded="True" />
           </Node>
@@ -34,7 +38,7 @@
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
       <Breakpoint file="C:\UnityProjects\BM3\Assets\Scripts\newGui\NewHUD\HUDTarget.js" line="81" />
-      <Breakpoint file="C:\UnityProjects\BM3\Assets\Scripts\Events\EventGenerator.js" line="46" />
+      <Breakpoint file="C:\UnityProjects\BM3\Assets\Scripts\newGui\NewHUD\HUDWeapons.js" line="150" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />

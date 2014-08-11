@@ -21,7 +21,7 @@ public class ChangeSceneOnFinish : MonoBehaviour
 		// Update is called once per frame
 		void Update ()
 		{
-				Debug.Log (animation.isPlaying.ToString ());
+				//Debug.Log (animation.isPlaying.ToString ());
 				if (canTerminate ()) {
 						StartCoroutine (terminate ());
 				} else if (isSkiping ()) {

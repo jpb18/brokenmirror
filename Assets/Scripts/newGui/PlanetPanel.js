@@ -1,7 +1,7 @@
 #pragma strict
 import System.Collections.Generic;
 
-class PlanetPanel extends FloatingWindow implements IFactionable, IHealtheable, ITextureable, IHailable, INameable {
+class PlanetPanel extends FloatingWindow implements IFactionable, IHealtheable, ITextureable, IHailable, INameable, IClasseable, IDescribable, IColonizable {
 
 	//stats
 	private var planet : PlanetInfo;
@@ -52,7 +52,7 @@ class PlanetPanel extends FloatingWindow implements IFactionable, IHealtheable, 
 		general = SaveGO.GetComponent(GeneralInfo);
 		save = SaveGO.GetComponent(SaveGame);
 		inventory = SaveGO.GetComponent(Inventory);
-		faction = general.getFactionInfo(planet.getFaction());
+		updateFaction();
 		message = GameObject.FindGameObjectWithTag("ShowMessage").GetComponent(ShowMessage);
 	}
 	
@@ -62,6 +62,10 @@ class PlanetPanel extends FloatingWindow implements IFactionable, IHealtheable, 
 			drawWindow();
 		}
 		
+	}
+	
+	function updateFaction() {
+		faction = general.getFactionInfo(planet.getFaction());
 	}
 	
 	function drawWindow() {
@@ -297,6 +301,10 @@ class PlanetPanel extends FloatingWindow implements IFactionable, IHealtheable, 
 		return CLASS;
 	}
 	
+	function getDescription() : String {
+		return planet.description;
+	}
+	
 	function getHullPercentage() : float {
 		return HEALTH;
 	}
@@ -319,6 +327,18 @@ class PlanetPanel extends FloatingWindow implements IFactionable, IHealtheable, 
 	
 	function closeComm() {
 		setOff();
+	}
+	
+	//pre: canColonize();
+	function colonize(faction : int, team : GameObject) {
+		planet.faction = faction;
+		var colonizer : IColonizer = team.GetComponent(typeof(IColonizer)) as IColonizer;
+		planet.population = colonizer.getPopulation();
+		updateFaction();
+	}
+	
+	function canColonize() : boolean {
+		return !planet.isColonized;
 	}
 
 }

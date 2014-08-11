@@ -131,6 +131,9 @@ class StationStore {
 				text = item.GetComponent(weaponScript).getImage();
 		} else if (item.tag == "Upgrade") {
 				text = item.GetComponent(Upgrade).getImage();
+		} else {
+			var imageable : IImageable = item.GetComponent(typeof(IImageable)) as IImageable;
+			text = imageable.getImage();
 		}
 		
 		
@@ -179,6 +182,9 @@ class StationStore {
 			name = item.GetComponent(weaponScript).getName();		
 		} else if (item.tag == "Upgrade") {
 			name = item.GetComponent(Upgrade).getName();
+		} else {
+			var nameable : INameable = item.GetComponent(typeof(INameable)) as INameable;
+			name = nameable.getName();
 		}
 		
 		return name;
@@ -195,6 +201,9 @@ class StationStore {
 			desc = item.GetComponent(weaponScript). getDescription();		
 		} else if (item.tag == "Upgrade") {
 			desc = item.GetComponent(Upgrade).getDescription();
+		} else {
+			var describable : IDescribable = item.GetComponent(typeof(IDescribable)) as IDescribable;
+			desc = describable.getDescription();
 		}
 		
 		return desc;
@@ -211,6 +220,9 @@ class StationStore {
 			price = item.GetComponent(weaponScript). getPrice();		
 		} else if (item.tag == "Upgrade") {
 			price = item.GetComponent(Upgrade).getCost();
+		} else {
+			var priceable : IPriceable = item.GetComponent(typeof(IPriceable)) as IPriceable;
+			price = priceable.getPrice();
 		}
 		
 		return price;

@@ -116,14 +116,16 @@ class PlanetInfo implements IPopuleable { //this class stores all planet informa
 	
 	function conquer(faction : int, fleet : List.<GameObject>) {
 		this.faction = faction;
-		setConquerFleet(fleet);
+		setConquerFleet(fleet, faction);
 	}
 	
-	private function setConquerFleet(fleet : List.<GameObject>) {
+	private function setConquerFleet(fleet : List.<GameObject>, faction : int) {
 		for(var x : int = 0; x < 6; x++) {
-			var ship : GameObject = fleet[Random.Range(0, fleet.Count - 1)];
-			var newShip : SaveShip = new SaveShip(ship);
-			defenseFleet.Add(newShip);
+			if(fleet.Count > 0) {
+				var ship : GameObject = fleet[Random.Range(0, fleet.Count - 1)];
+				var newShip : SaveShip = new SaveShip(ship, faction);
+				defenseFleet.Add(newShip);
+			}
 		}
 	}
 	

@@ -5,7 +5,7 @@ private var stardate : Stardate;
 private var load : LoadScene;
 private var hud : HUDStatus;
 
-public static final var MESSAGE : String = "Current stardate {0}.\nConsumed {1} dilithium in {2} days.\n" ;
+public static final var MESSAGE : String = "Current stardate: {0}.\nConsumed {1} dilithium in {2} days.\n" ;
 
 // Use this for initialization
 function Start () {

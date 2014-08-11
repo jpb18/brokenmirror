@@ -52,7 +52,7 @@ class ShipInfo {
 
 }
 
-class shipProperties extends MonoBehaviour implements IFactionable, INameable, ITextureable {
+class shipProperties extends MonoBehaviour implements IFactionable, INameable, ITextureable, IClasseable, IDescribable {
 
 	//use classes
 	var playerProps : ShipPlayerProps;

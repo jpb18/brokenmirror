@@ -224,13 +224,19 @@ class HUDTarget extends HUDTop {
 		return target.GetComponent(typeof(INameable)) as INameable;
 	}
 	
+	private function getTargetClasseable() : INameable {
+		var target : GameObject = super.target.getTarget();
+		return target.GetComponent(typeof(IClasseable)) as INameable;
+	}
+	
+	
 	private function getTargetName() : String {
 		var target : INameable = getTargetNameable();
 		return target.getName();
 	}
 	
 	private function getTargetClass() : String {
-		var target : INameable = getTargetNameable();
+		var target : IClasseable = getTargetNameable();
 		return target.getClass();
 	}
 	

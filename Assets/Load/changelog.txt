@@ -23,6 +23,7 @@ ADDED:
 - Population (Still pretty basic)
 - Stardate System (Pretty basic atm)
 - Middle scene between star systems
+- Colonization!!!!!!!!!
 
 WIP:
 - Passive Upgrades

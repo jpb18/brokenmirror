@@ -27,6 +27,10 @@ function Update () {
 
 function isShowingGui() : boolean {
 
+	if(!load) {
+		return false;
+	}
+	
 	return !isHidden && !load.show && isGame && !isGameOver();
 
 }

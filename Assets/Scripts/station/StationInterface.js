@@ -1,6 +1,6 @@
 ﻿import System.Collections.Generic;
 #pragma strict
-class StationInterface extends MonoBehaviour implements INameable, ITextureable, IHailable, IPopuleable {
+class StationInterface extends MonoBehaviour implements INameable, ITextureable, IHailable, IPopuleable, IDescribable, IClasseable {
 	//description stuff
 	var stName : String;
 	var stClass : String;
@@ -195,6 +195,10 @@ class StationInterface extends MonoBehaviour implements INameable, ITextureable,
 	
 	function getPopulation() : float {
 		return population;
+	}
+	
+	function getDescription() : String {
+		return description;
 	}
 
 }

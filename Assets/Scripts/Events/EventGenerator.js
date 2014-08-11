@@ -3,14 +3,16 @@
 var probability : float;
 var maximumCombat : int = 10;
 
+var destroyProbability : float;
+
 private var map : MapInfo;
 private var general : GeneralInfo;
 private var scene : SceneTransfer;
 private var carry : SceneTransferCarry;
-private var r : System.Random;
+
 
 function Start () {
-	r = new System.Random();
+
 	scene = gameObject.GetComponent(SceneTransfer);
 	carry = GameObject.FindGameObjectWithTag("Transfer").GetComponent(SceneTransferCarry);
 	general = GameObject.FindGameObjectWithTag("SaveGame").GetComponent(GeneralInfo);
@@ -24,7 +26,7 @@ function Start () {
 function generateGalacticEvents(days : int) { 
 	for(var x : int = 0; x < days; x++) {
 		if(probability >= Random.value) {
-			var pick : int = r.Next(2);
+			var pick : int = Random.Range(1, 3);
 			switch(pick) {
 				case 1:
 					generateInvasion();
@@ -33,7 +35,7 @@ function generateGalacticEvents(days : int) {
 					generateConstruction();
 					break;
 				default:
-					Debug.Log("Invalid value");
+					Debug.Log("Invalid value: " + pick);
 			}	
 		
 		}
@@ -46,27 +48,29 @@ private function generateInvasion() {
 	var target : PlanetInfo = pickRandomPlanet();
 	if(target) {
 		var faction : FactionInfo = pickEnemyFaction(target);
-		var str : int = target.getStrenght();
+		if(general.getFactionId(faction) != 0) {
+			var str : int = target.getStrenght();
+				
+			var prob : float = getDestroyProbability(target);
 			
-		var prob : float = getDestroyProbability(target);
-		
-		for(var x : int = 0; x < maximumCombat; x++) {
-			if(prob >= Random.value) {
-				if(target.hasDefenseFleet()) {
-					target.destroyRandomShip();
-				} else {
-					target.destroyRandomStation();
+			for(var x : int = 0; x < maximumCombat; x++) {
+				if(prob >= Random.value) {
+					if(target.hasDefenseFleet()) {
+						target.destroyRandomShip();
+					} else {
+						target.destroyRandomStation();
+					}
 				}
 			}
-		}
-		
-		if(target.getStrenght() == 0) {
-			scene.addConquest(target, faction);
 			
-			target.conquer(general.getFactionId(faction), faction.invasionFleet);			
-			
-		} else {
-			scene.addInvasion(target, faction, str);
+			if(target.getStrenght() == 0) {
+				scene.addConquest(target, faction);
+				
+				target.conquer(general.getFactionId(faction), faction.invasionFleet);			
+				
+			} else {
+				scene.addInvasion(target, faction, str);
+			}
 		}
 	}	
 
@@ -80,13 +84,17 @@ private function generateConstruction() {
 
 
 private function pickRandomPlanet() : PlanetInfo {
+
 	var max : int = map.getPlanetCount();
-	var planetId : int = r.Next(0, max);
+	
 	var planet : PlanetInfo;
 	var i : int = 0;
 	do {
-		i++;
-	   planet = map.getPlanetByNumber(planetId);
+		do {
+			var planetId : int = Random.Range(0, max - 1);
+			i++;
+		   planet = map.getPlanetByNumber(planetId);
+	   } while (!planet.isColonized);
 	} while(hasPlanetEnemiesExceptPlayer(planet) && i <= map.getPlanetCount());
 	return planet;
 }
@@ -112,14 +120,21 @@ private function hasPlanetEnemiesExceptPlayer(planet : PlanetInfo) : boolean {
 }
 
 private function pickEnemyFaction(target : PlanetInfo) : FactionInfo {
+	
 	var targetId : int = target.getFaction();
 	var targetFaction : FactionInfo = general.getFactionInfo(targetId);
-	var enemyId : int = targetFaction.pickRandomEnemy();
+	do {
+		var enemyId : int = targetFaction.pickRandomEnemy();
+	} while (enemyId == 0 && targetFaction.getHostileCount() > 1);
 	return general.getFactionInfo(enemyId);
 }
 
 private function getDestroyProbability(target : PlanetInfo) : float {
-	return 1/target.getStrenght();
+	var planetStrength : float = target.getStrenght();
+	if(planetStrength == 0) {
+		return 1;
+	}
+	return destroyProbability/planetStrength;
 }
 
 

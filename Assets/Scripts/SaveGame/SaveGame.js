@@ -1,7 +1,7 @@
 ﻿import System.Collections.Generic;
 #pragma strict
 
-class SaveShip{
+class SaveShip extends System.Object{
 	
 	var hasBeenSet : boolean = false;
 	
@@ -130,20 +130,29 @@ class SaveShip{
 	var dilithium : int;
 	
 	function SaveShip() {
-		shipInfo = new ShipInfo();
-		shipHea = new ShipHealth();
-		shipInv = new ShipInventory();
-		shipPrefab = null;
+		this.shipInfo = new ShipInfo();
+		this.shipHea = new ShipHealth();
+		this.shipInv = new ShipInventory();
+		this.shipPrefab = null;
+		this.dilithium = 0;
 		
 	}
 	
 	function SaveShip(ship : GameObject) {
-		shipInfo = new ShipInfo();
-		shipHea = new ShipHealth();
-		shipInv = new ShipInventory();
-		shipPrefab = null;
+		SaveShip();
 		setShip(ship);
 		
+	}
+	
+	function SaveShip(ship : GameObject, faction : int) {
+		this.shipInfo = new ShipInfo();
+		this.shipHea = new ShipHealth();
+		this.shipInv = new ShipInventory();
+		this.shipPrefab = null;
+		this.dilithium = 0;
+		
+		setShip(ship);
+		shipInfo.Faction = faction;
 	}
 	
 	function getStrenght() : int {
@@ -197,6 +206,7 @@ class SaveShip{
 		var shipWea : shipWeapons = ship.GetComponent(shipWeapons);
 		var shipFuel : ShipFuel = ship.GetComponent(ShipFuel);
 		var up : Upgrades = ship.GetComponent(Upgrades);
+		
 		
 		//now fill the ship info part
 		shipInfo.Name =  shipProps.shipInfo.shipName;
