@@ -153,7 +153,8 @@ class shipProperties extends MonoBehaviour implements IFactionable, INameable, I
 	}
 
 	function getName() : String {
-		return shipInfo.shipName;
+		var faction : FactionInfo = general.getFactionInfo(getFaction());
+		return faction.getPrefix() + " " + shipInfo.shipName;
 	}
 
 	function getFaction() : int {

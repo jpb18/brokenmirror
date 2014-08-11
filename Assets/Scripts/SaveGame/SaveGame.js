@@ -153,6 +153,12 @@ class SaveShip extends System.Object{
 		
 		setShip(ship);
 		shipInfo.Faction = faction;
+		
+		var general : GeneralInfo = GameObject.FindGameObjectWithTag("SaveGame").GetComponent(GeneralInfo);
+		var factionInfo : FactionInfo = general.getFactionInfo(faction);
+		var name : String = factionInfo.getRandomShipName();
+		shipInfo.Name = name;
+		
 	}
 	
 	function getStrenght() : int {

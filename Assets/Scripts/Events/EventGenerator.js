@@ -49,16 +49,18 @@ function generateGalacticEvents(days : int) {
 
 private function generateInvasion() {
 	var i : int;
+	var target : PlanetInfo;
 	do{
 		i++;
-		var target : PlanetInfo = pickRandomPlanet();
+
+		target = pickRandomPlanet();
 		
 		if(i > map.getPlanetCount() * 2) {
 			target = null;
 			break;
 		}
 		
-	} while(hasPlanetEnemiesExceptPlayer(target));
+	} while(!hasPlanetEnemiesExceptPlayer(target));
 	
 	if(target) {
 		var faction : FactionInfo = pickEnemyFaction(target);

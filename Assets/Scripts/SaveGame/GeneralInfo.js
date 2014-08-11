@@ -35,6 +35,8 @@ class FactionInfo {
 	var hostileFactions : List.<int>;
 	var alliedFactions : List.<int>;
 	var invasionFleet : List.<GameObject>;
+	var prefix : String;
+	var shipNames : List.<String>; 
 	
 	function FactionInfo() {
 		factionName = "";
@@ -109,6 +111,15 @@ class FactionInfo {
 	 	if(!hostileFactions.Contains(faction)) {
 	 		hostileFactions.Add(faction);
 	 	}
+	 }
+	 
+	 function getPrefix() : String {
+	 	return prefix;
+	 }
+	 
+	 function getRandomShipName() : String {
+	  	var num : int = Random.Range(0, shipNames.Count-1);
+	  	return shipNames[num];
 	 }
 	 
 	 function hasHostiles() : boolean {
