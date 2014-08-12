@@ -14,6 +14,7 @@ CHANGED:
 - HUD has been refactored (invisible to the player, usefull to the developers)
 - Increased map mouse over dimensions
 - Andoria and Vulcan now belong to Earth Empire. Ferenginar is now Non-Aligned.
+- Prefix is now defined in Faction Information
 
 ADDED:
 - Game Over Screen
@@ -25,6 +26,7 @@ ADDED:
 - Stardate System (Pretty basic atm)
 - Middle scene between star systems
 - Colonization!!!!!!!!!
+- Ships created during runtime are now named according to a list set in Faction Information.
 
 WIP:
 - Passive Upgrades

@@ -139,19 +139,13 @@ class SaveShip extends System.Object{
 	}
 	
 	function SaveShip(ship : GameObject) {
-		SaveShip();
+		this();
 		setShip(ship);
 		
 	}
 	
 	function SaveShip(ship : GameObject, faction : int) {
-		this.shipInfo = new ShipInfo();
-		this.shipHea = new ShipHealth();
-		this.shipInv = new ShipInventory();
-		this.shipPrefab = null;
-		this.dilithium = 0;
-		
-		setShip(ship);
+		this(ship);
 		shipInfo.Faction = faction;
 		
 		var general : GeneralInfo = GameObject.FindGameObjectWithTag("SaveGame").GetComponent(GeneralInfo);
