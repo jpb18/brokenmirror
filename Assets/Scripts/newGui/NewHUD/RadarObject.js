@@ -36,8 +36,11 @@ class RadarObject extends GuiElement {
 	}
 	
 	function OnGUI () {
-		if(hud.isShowingGui() && isOnScreen() && !isPlayer()) {
-			drawObject();
+		var player : GameObject = getPlayer();
+		if(player) {
+			if(hud.isShowingGui() && isOnScreen() && !isPlayer()) {
+				drawObject();
+			}
 		}
 	}
 	

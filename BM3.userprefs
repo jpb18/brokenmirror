@@ -1,22 +1,9 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\SaveGame\MapInfo.js">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\ship\ShipAI.js">
     <Files>
-      <File FileName="Assets\Scripts\SaveGame\MapInfo.js" Line="568" Column="65" />
-      <File FileName="Assets\Scripts\SaveGame\GeneralInfo.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\SaveGame\Stardate.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\newGui\PlanetPanel.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\station\StationStore.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\newGui\NewHUD\HUDWeapons.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\SaveGame\Inventory.js" Line="1" Column="1" />
-      <File FileName="Assets\Load\changelog.txt" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\SaveGame\MapInfo.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Events\EventGenerator.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Events\SceneTransfer.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\ship\ShipAI.js" Line="268" Column="46" />
       <File FileName="Assets\Scripts\ship\shipTriggers.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\ship\shipProperties.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\SaveGame\SaveGame.js" Line="156" Column="3" />
-      <File FileName="Assets\Scripts\Load\GameLoad.js" Line="1" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -31,11 +18,12 @@
             <Node name="Scripts" expanded="True">
               <Node name="Events" expanded="True" />
               <Node name="Load" expanded="True" />
+              <Node name="NewAI" expanded="True" />
               <Node name="newGui" expanded="True" />
-              <Node name="SaveGame" expanded="True">
-                <Node name="MapInfo.js" selected="True" />
+              <Node name="SaveGame" expanded="True" />
+              <Node name="ship" expanded="True">
+                <Node name="ShipAI.js" selected="True" />
               </Node>
-              <Node name="ship" expanded="True" />
             </Node>
           </Node>
         </State>
@@ -47,6 +35,7 @@
       <Breakpoint file="C:\UnityProjects\BM3\Assets\Scripts\newGui\NewHUD\HUDTarget.js" line="81" />
       <Breakpoint file="C:\UnityProjects\BM3\Assets\Scripts\newGui\NewHUD\HUDWeapons.js" line="150" />
       <Breakpoint file="C:\UnityProjects\BM3\Assets\Scripts\Events\EventGenerator.js" line="30" />
+      <Breakpoint file="C:\UnityProjects\BM3\Assets\Scripts\ship\ShipAI.js" line="76" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />

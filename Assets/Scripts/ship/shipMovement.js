@@ -159,6 +159,10 @@ function getShipSpeed() : float {
 	return speed + upgrades.getSpeedBonus();
 }
 
+function isStopping() : boolean {
+	return isChanging;
+}
+
 function fullStop() {
 	StartCoroutine(FullStop(speedStatus, properties.movement.acceleration));
 }

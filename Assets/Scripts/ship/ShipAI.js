@@ -74,7 +74,7 @@ function Update () {
 
 function botFunction() {
 	if(isDanger()) {
-	
+		dangerFunction();
 	} else if (isEscapePod()) {
 		//stay quiet (for the time being)
 	}
@@ -265,7 +265,7 @@ function isDanger() : boolean {
 	
 	var hitColliders : Collider[] = Physics.OverlapSphere(transform.position, minDistance);
 	
-	return triggers.triggerProps.isTurbulence && hitColliders.Length - countColliders(gameObject) > 0;
+	return triggers.triggerProps.isTurbulence || hitColliders.Length - countColliders(gameObject) > 0;
 
 }
 
@@ -296,12 +296,23 @@ function planetDanger() {
 	var planet : GameObject = getNearestPlanet();
 	
 	if(isPlanetInFront(planet)) {
+		
+		if(!move.isStopping()) {
+			move.fullStop();
+		}
+		
 		if(isPlanetAtLeft(planet)) {
 			move.turnRight();	
 		} else {
 			move.turnLeft();
 		}
 		
+	} else {
+		if(!move.isStopping()) {
+			if(!move.isAtMax()) {
+				move.increaseSpeed();
+			}
+		}
 	}
 	
 
@@ -686,6 +697,7 @@ function defend(target : GameObject) {
 ///<summary>This function controls the defend station position</summary>
 ///<param name="target">Object to be defended</param>
 function defendStation (target : GameObject) {
+	
 	if((transform.position - target.transform.position).sqrMagnitude > (defenseStation * defenseStation)) {
 		follow(target);
 	
