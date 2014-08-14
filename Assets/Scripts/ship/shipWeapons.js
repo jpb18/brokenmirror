@@ -12,8 +12,9 @@ class Phaser {
 	var duration : float = 1.0f;
 	var hullLayerMask : LayerMask;
 	var shieldLayerMask : LayerMask;
-	var ship : GameObject;
-	
+
+	///<summary>This will set a new phaser weapon</summary>
+	///<param name="phaser">New phaser weapon</param>
 	function setPhaser(phaser : GameObject) {
 		this.phaser = phaser;	
 	}
@@ -283,7 +284,7 @@ class Phaser {
 	}
 	
 	function registerHit(target : GameObject) {
-		if(target.tag == "Ship") {
+		if(target && target.tag == "Ship") {
 			registerShipHit(target);
 		}
 
@@ -426,7 +427,7 @@ function Start() {
 	properties = gameObject.GetComponent(shipProperties);
 	upgrades = gameObject.GetComponent(Upgrades);
 	reactor = gameObject.GetComponent(ShipReactor);
-	phaser.ship = gameObject;
+
 
 }
 
@@ -473,14 +474,15 @@ function botFire() {
 }
 
 function phaserFunction() {
-	var cost : float = phaser.getEnergyCost();
-	if(reactor.hasEnough(cost)) {
+	
+	
 		if(phaser.canFire(target.target, upgrades)) {
-			
-			phaser.fire(target.target, volleyNum(), this, upgrades);
-			reactor.spend(cost);		
+			var cost : float = phaser.getEnergyCost();
+			if(reactor.hasEnough(cost)) {
+				phaser.fire(target.target, volleyNum(), this, upgrades);
+				reactor.spend(cost);		
+			}
 		}
-	}
 	
 }
 
@@ -515,13 +517,15 @@ function hasTorpedoInRange(target : GameObject) : boolean {
 
 
 function torpFunction(torp : Torpedo) {
-	var cost : float = torp.getEnergyCost();
-	if(reactor.hasEnough(cost)) {
+	
+	
 		if(torp.canFire(target.target)) {
-			StartCoroutine(torp.fire(target.target, volleyNum(), upgrades));
-			reactor.spend(cost);
+			var cost : float = torp.getEnergyCost();
+			if(reactor.hasEnough(cost)) {
+				StartCoroutine(torp.fire(target.target, volleyNum(), upgrades));
+				reactor.spend(cost);
+			}
 		}
-	}
 
 }
 

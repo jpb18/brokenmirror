@@ -5,6 +5,8 @@ Version 0.2.2
 **********************************************************************
 FIXED:
 - GUI crash on Alpha Centauri
+- AI will now avoid planets (hopefully)
+- Vorcha and D'deridex weapons
 
 CHANGED:
 - Added store function to Planet Panel
@@ -15,6 +17,7 @@ CHANGED:
 - Increased map mouse over dimensions
 - Andoria and Vulcan now belong to Earth Empire. Ferenginar is now Non-Aligned.
 - Prefix is now defined in Faction Information
+- Galaxy and Negh'var now behave as cruisers.
 
 ADDED:
 - Game Over Screen

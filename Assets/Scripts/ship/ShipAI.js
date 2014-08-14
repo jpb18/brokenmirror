@@ -93,7 +93,7 @@ function dangerFunction () {
 	if(isPlanetDanger()) {
 		planetDanger();
 	} else {
-	
+		shipDanger();
 	}
 }
 
@@ -295,16 +295,22 @@ function getDanger() : GameObject {
 function planetDanger() {
 	var planet : GameObject = getNearestPlanet();
 	
-	if(isPlanetInFront(planet)) {
+	if(isObjectInFront(planet)) {
 		
-		if(!move.isStopping()) {
+		if(!move.isStopping() && !move.isStop()) {
 			move.fullStop();
 		}
 		
-		if(isPlanetAtLeft(planet)) {
+		if(isObjectAtLeft(planet)) {
 			move.turnRight();	
 		} else {
 			move.turnLeft();
+		}
+		
+		if(isObjectAbove(planet)) {
+			move.turnDown();
+		} else if(isObjectUnder(planet)) {
+			move.turnUp();		
 		}
 		
 	} else {
@@ -318,18 +324,59 @@ function planetDanger() {
 
 }
 
-///<summary>This function checks if the planet is in front of the ship</summary>
-//pre planet != null
-function isPlanetInFront(planet : GameObject) : boolean {
-	var v : Vector3 = transform.InverseTransformPoint(planet.transform.position);
+///<summary>This function controls the ship behaviour when there's a risk of colliding with another ship.</summary>
+function shipDanger() {
+	var danger : GameObject = getDanger();
+	
+	if(isObjectInFront(danger)) {
+		if(isObjectAtLeft(danger)) {
+			move.turnRight();
+		} else {
+			move.turnLeft();
+		}
+		
+		if(isObjectAbove(danger)) {
+			move.turnDown();
+		} else if (isObjectUnder(danger)) {
+			move.turnUp();		
+		}
+		
+		
+	}
+	
+}
+
+///<summary>This function checks if the object is above the ship</summary>
+///<param name="object">Object to be checked.</param>
+///<returns>True if it is, false if it isn't</returns>
+function isObjectAbove(object : GameObject) : boolean {
+	var v : Vector3 = transform.InverseTransformPoint(object.transform.position);
+	return v.z > 0;
+}
+
+
+///<summary>This function checks if the object is under the ship</summary>
+///<param name="object">Object to be checked.</param>
+///<returns>True if it is, false if it isn't</returns>
+function isObjectUnder(object : GameObject) : boolean {
+	var v : Vector3 = transform.InverseTransformPoint(object.transform.position);
+	return v.z < 0;
+}
+
+///<summary>This function checks if the object is in front of the ship</summary>
+///<param name="object">Object to be checked.</param>
+///<returns>True if it is, false if it isn't</returns>
+function isObjectInFront(object : GameObject) : boolean {
+	var v : Vector3 = transform.InverseTransformPoint(object.transform.position);
 	return v.x > 0;
 
 }
 
-///<summary>This function checks if the planet is at the left of the ship</summary>
-//pre planet != null
-function isPlanetAtLeft(planet : GameObject) : boolean {
-		var v : Vector3 = transform.InverseTransformPoint(planet.transform.position);
+///<summary>This function checks if the object is at the left of the ship</summary>
+///<param name="object">Object to be checked.</param>
+///<returns>True if it is, false if it isn't</returns>
+function isObjectAtLeft(object : GameObject) : boolean {
+		var v : Vector3 = transform.InverseTransformPoint(object.transform.position);
 		return v.y < 0;
  
 }
@@ -725,7 +772,7 @@ function defendShip (target : GameObject) {
 ///<summary>This function obtains an ally station in the scene</summary>
 function getStation() : GameObject {
 	var station : GameObject;
-	
+
 	var stations : GameObject[] = GameObject.FindGameObjectsWithTag("Station");
 	
 	var r : float = Random.value;

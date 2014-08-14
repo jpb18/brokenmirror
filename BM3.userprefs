@@ -1,29 +1,25 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\ship\ShipAI.js">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Load\changelog.txt">
     <Files>
-      <File FileName="Assets\Scripts\ship\ShipAI.js" Line="268" Column="46" />
+      <File FileName="Assets\Scripts\ship\ShipAI.js" Line="91" Column="1" />
       <File FileName="Assets\Scripts\ship\shipTriggers.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\newGui\NewHUD\RadarObject.js" Line="31" Column="21" />
+      <File FileName="Assets\Scripts\ship\shipMovement.js" Line="163" Column="20" />
+      <File FileName="Assets\Load\changelog.txt" Line="8" Column="39" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
-          <Node name="Assembly-CSharp" expanded="True">
-            <Node name="Load" expanded="True" />
-          </Node>
-          <Node name="Assembly-CSharp-firstpass" expanded="True">
-            <Node name="Load" expanded="True" />
-          </Node>
           <Node name="Assembly-UnityScript" expanded="True">
+            <Node name="Load" expanded="True">
+              <Node name="changelog.txt" selected="True" />
+            </Node>
             <Node name="Scripts" expanded="True">
-              <Node name="Events" expanded="True" />
-              <Node name="Load" expanded="True" />
-              <Node name="NewAI" expanded="True" />
-              <Node name="newGui" expanded="True" />
-              <Node name="SaveGame" expanded="True" />
-              <Node name="ship" expanded="True">
-                <Node name="ShipAI.js" selected="True" />
+              <Node name="newGui" expanded="True">
+                <Node name="NewHUD" expanded="True" />
               </Node>
+              <Node name="ship" expanded="True" />
             </Node>
           </Node>
         </State>
@@ -35,7 +31,8 @@
       <Breakpoint file="C:\UnityProjects\BM3\Assets\Scripts\newGui\NewHUD\HUDTarget.js" line="81" />
       <Breakpoint file="C:\UnityProjects\BM3\Assets\Scripts\newGui\NewHUD\HUDWeapons.js" line="150" />
       <Breakpoint file="C:\UnityProjects\BM3\Assets\Scripts\Events\EventGenerator.js" line="30" />
-      <Breakpoint file="C:\UnityProjects\BM3\Assets\Scripts\ship\ShipAI.js" line="76" />
+      <Breakpoint file="C:\UnityProjects\BM3\Assets\Scripts\ship\ShipAI.js" line="701" />
+      <Breakpoint file="C:\UnityProjects\BM3\Assets\Scripts\ship\ShipAI.js" line="101" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />

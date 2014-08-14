@@ -73,7 +73,7 @@ function getCargoItemsList(stream : StreamReader) : List.<Cargo> {
 	var count : int = int.Parse(stream.ReadLine());
 	var list : List.<Cargo> = new List.<Cargo>();
 	for(var x : int = 0; x < count; x++) {
-		var go : GameObject = Resources.Load(stream.ReadLine());
+		var go : GameObject = Resources.Load(stream.ReadLine()) as GameObject;
 		var size : int = int.Parse(stream.ReadLine());
 		var price : int = int.Parse(stream.ReadLine());
 		var cargo : Cargo = new Cargo(go, size, price);

@@ -236,7 +236,7 @@ class HUDTarget extends HUDTop {
 	}
 	
 	private function getTargetClass() : String {
-		var target : IClasseable = getTargetNameable();
+		var target : IClasseable = getTargetClasseable();
 		return target.getClass();
 	}
 	
