@@ -33,8 +33,10 @@ ADDED:
 
 WIP:
 - Passive Upgrades
+- Active Upgrades
 - Ship Energy (Weapons, Shields, Warp)
 - Government AI
+- Cloak
 
 
 Version 0.2.1

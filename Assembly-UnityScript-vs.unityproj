@@ -63,6 +63,7 @@
      <Compile Include="Assets\Scripts\GlobalInfo.js" />
      <Compile Include="Assets\Scripts\Interfaces\IActive.js" />
      <Compile Include="Assets\Scripts\Interfaces\IClasseable.js" />
+     <Compile Include="Assets\Scripts\Interfaces\ICloak.js" />
      <Compile Include="Assets\Scripts\Interfaces\IDescribable.js" />
      <Compile Include="Assets\Scripts\Interfaces\IDrawable.js" />
      <Compile Include="Assets\Scripts\Interfaces\IFactionable.js" />
@@ -99,8 +100,10 @@
      <Compile Include="Assets\Scripts\SaveGame\Stardate.js" />
      <Compile Include="Assets\Scripts\Statics.js" />
      <Compile Include="Assets\Scripts\UnitTests\MissionUnitTest.js" />
+     <Compile Include="Assets\Scripts\Upgrades\ActiveUpgrade.js" />
      <Compile Include="Assets\Scripts\Upgrades\Passive.js" />
      <Compile Include="Assets\Scripts\Upgrades\Upgrade.js" />
+     <Compile Include="Assets\Scripts\Upgrades\UpgradeClass.js" />
      <Compile Include="Assets\Scripts\Upgrades\Upgrades.js" />
      <Compile Include="Assets\Scripts\camera\MouseOrbit.js" />
      <Compile Include="Assets\Scripts\camera\SmoothFollow.js" />
@@ -178,6 +181,7 @@
      <Compile Include="Assets\Scripts\weapons\torpedoScript.js" />
      <Compile Include="Assets\Scripts\weapons\weaponScript.js" />
      <Compile Include="Assets\StartupScript.js" />
+     <Compile Include="Assets\Upgrades\Cloak.js" />
      <Compile Include="Assets\endoftheworldscript.js" />
      <Compile Include="Assets\loadNextScene.js" />
      <None Include="Assets\Standard Assets\Projectors\Guidelines.txt" />

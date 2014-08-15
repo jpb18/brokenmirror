@@ -1,5 +1,5 @@
 
-public class Upgrade extends MonoBehaviour {
+public class Upgrade extends MonoBehaviour implements INameable, IPriceable, IDescribable, IImageable{
 	
 	public var upgradeName : String;
 	public var cost : int;
@@ -23,6 +23,10 @@ public class Upgrade extends MonoBehaviour {
 	}
 
 	public function getCost() : int {
+		return cost;
+	}
+	
+	function getPrice() : int {
 		return cost;
 	}
 

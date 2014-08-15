@@ -2,6 +2,9 @@
 #pragma strict
 class Upgrades extends MonoBehaviour {
 	var upgrades : List.<GameObject>;
+	var activeUpgrades : List.<UpgradeClass>;
+	
+	public static var ACT_LIMIT : int = 5;
 
 	function Start () {
 
@@ -100,6 +103,15 @@ class Upgrades extends MonoBehaviour {
 		
 		}
 		return bonus;
+		
+	}
+	
+	function getActiveUpgrades() : List.<Active> {
+		var list : List.<Active> = new List.<Active>();
+		for(var up : UpgradeClass in activeUpgrades) {
+			list.Add(up as Active);
+		}
+		return list;
 		
 	}
 }
