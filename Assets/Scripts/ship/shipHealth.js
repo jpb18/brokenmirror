@@ -318,7 +318,7 @@ class shipHealth extends MonoBehaviour implements IHealtheable {
 
 	function isShieldUp() : boolean {
 
-		return shipHealth.hasShield(upgrades) && properties.getRedAlert() && !cloud.isShieldInibited();
+		return shipHealth.hasShield(upgrades) && properties.getRedAlert() && !properties.isCloaked() && !cloud.isShieldInibited();
 	}
 
 	//pre: isShieldUp()

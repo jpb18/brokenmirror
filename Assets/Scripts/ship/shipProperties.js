@@ -5,8 +5,17 @@
 //stores all player/ship properties
 class ShipPlayerProps {
 	var isPlayer : boolean = false;
+	var cloaked : boolean = false;
+	private final var cloakPress : float = 0.1f;
+	private var lastCloak : float;
 	
+	function setCloak() {
+		lastCloak = Time.time;
+	}
 	
+	function canCloak() : boolean {
+		return Time.time > lastCloak + cloakPress;
+	}
 	
 }
 
@@ -52,7 +61,7 @@ class ShipInfo {
 
 }
 
-class shipProperties extends MonoBehaviour implements IFactionable, INameable, ITextureable, IClasseable, IDescribable {
+class shipProperties extends MonoBehaviour implements IFactionable, INameable, ITextureable, IClasseable, IDescribable, ICloakable {
 
 	//use classes
 	var playerProps : ShipPlayerProps;
@@ -73,6 +82,7 @@ class shipProperties extends MonoBehaviour implements IFactionable, INameable, I
 	var cloud : ShipCloud;
 	var message : ShowMessage;
 	private var general : GeneralInfo;
+	var cloak : CloakScript;
 
 	//constants
 	public static var SHIELD_INIBITED : String = "Can't raise shields, shields inhibited.";
@@ -85,6 +95,7 @@ class shipProperties extends MonoBehaviour implements IFactionable, INameable, I
 		cloud = gameObject.GetComponent(ShipCloud);
 		message = GameObject.FindGameObjectWithTag("ShowMessage").GetComponent(ShowMessage);
 		general = GameObject.FindGameObjectWithTag("SaveGame").GetComponent(GeneralInfo);
+		cloak = gameObject.GetComponent(CloakScript);
 
 	}
 
@@ -111,6 +122,16 @@ class shipProperties extends MonoBehaviour implements IFactionable, INameable, I
 			map.swapStatus();
 			lastMap = Time.time;
 		}
+		
+		if(Input.GetAxis("Cloak") && playerProps.canCloak()) {
+			if(isCloaked()) {
+				setCloak(false);
+			} else {
+				setCloak(true);
+			}
+			playerProps.setCloak();
+		}
+		
 		
 
 	}
@@ -195,6 +216,19 @@ class shipProperties extends MonoBehaviour implements IFactionable, INameable, I
 	
 	function getWarpSpeed() : int {
 		return movement.warpSpeed;
+	}
+	
+	function isCloaked() : boolean {
+		return playerProps.cloaked;
+	}
+	
+	function setCloak(cloak : boolean) {
+		playerProps.cloaked = cloak;
+		if(cloak) {
+			this.cloak.hide(getPlayer());
+		} else {
+			this.cloak.show(getPlayer());
+		}
 	}
 
 }

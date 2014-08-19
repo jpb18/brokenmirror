@@ -1,30 +1,37 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Load\changelog.txt">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\CloakScript.js">
     <Files>
-      <File FileName="Assets\Scripts\ship\ShipAI.js" Line="297" Column="2" />
+      <File FileName="Assets\Scripts\Upgrades\Cloak.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\ship\ShipAI.js" Line="1" Column="1" />
       <File FileName="Assets\Scripts\ship\shipTriggers.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Interfaces\IActive.js" Line="30" Column="36" />
-      <File FileName="Assets\Scripts\Upgrades\UpgradeClass.js" Line="14" Column="5" />
-      <File FileName="Assets\Scripts\Upgrades\Upgrades.js" Line="111" Column="4" />
-      <File FileName="Assets\Upgrades\Cloak.js" Line="27" Column="41" />
-      <File FileName="Assets\Scripts\Upgrades\Upgrade.js" Line="2" Column="102" />
+      <File FileName="Assets\Scripts\Interfaces\IActive.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Upgrades\UpgradeClass.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Upgrades\Upgrades.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Upgrades\Upgrade.js" Line="1" Column="1" />
       <File FileName="Assets\UnityTestTools\changelog.txt" Line="1" Column="1" />
-      <File FileName="Assets\Load\changelog.txt" Line="27" Column="25" />
+      <File FileName="Assets\Load\changelog.txt" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\ship\shipProperties.js" Line="230" Column="30" />
+      <File FileName="Assets\Scripts\Interfaces\ICloakable.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\ship\shipHealth.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Interfaces\IUpgrade.js" Line="1" Column="1" />
+      <File FileName="Assets\New Shadders\DefaultResourcesExtra\Illumin-Diffuse.shader" Line="1" Column="33" />
+      <File FileName="Assets\New Shadders\DefaultResourcesExtra\Alpha-Diffuse.shader" Line="8" Column="54" />
+      <File FileName="Assets\Scripts\CloakScript.js" Line="77" Column="31" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
+          <Node name="Assembly-CSharp-firstpass" expanded="True">
+            <Node name="New Shadders" expanded="True">
+              <Node name="DefaultResourcesExtra" expanded="True" />
+            </Node>
+          </Node>
           <Node name="Assembly-UnityScript" expanded="True">
-            <Node name="Load" expanded="True">
-              <Node name="changelog.txt" selected="True" />
-            </Node>
             <Node name="Scripts" expanded="True">
-              <Node name="Interfaces" expanded="True" />
-              <Node name="Upgrades" expanded="True" />
+              <Node name="ship" expanded="True" />
+              <Node name="CloakScript.js" selected="True" />
             </Node>
-            <Node name="UnityTestTools" expanded="True" />
-            <Node name="Upgrades" expanded="True" />
           </Node>
         </State>
       </Pad>

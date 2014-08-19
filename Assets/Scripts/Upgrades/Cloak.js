@@ -4,6 +4,7 @@ class Cloak extends Upgrade implements IActive {
 	
 	var cooldown : float;
 	var duration : float;
+	var energy : float;
 	
 	function Cloak(name : String, cost : int, description : String, image : Texture, cooldown : float, duration : float) {
 		super(name, cost, description, image);
@@ -45,10 +46,14 @@ class Cloak extends Upgrade implements IActive {
 	
 	private function hide(target : GameObject) {
 		target.renderer.enabled = false;
+		var cloak : ICloakable = target.GetComponent(typeof(ICloakable)) as ICloakable;
+		cloak.setCloak(true);
 	}
 	
 	private function show(target : GameObject) {
 		target.renderer.enabled = true;
+		var cloak : ICloakable = target.GetComponent(typeof(ICloakable)) as ICloakable;
+		cloak.setCloak(false);
 	}
 
 }
