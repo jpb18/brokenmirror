@@ -129,7 +129,9 @@ function playerStart() {
 	//sanitize name
 	playerShip.name = save_scr.RemoveClone(playerShip.name);
 	
-
+	//just makign sure it has the right faction
+	var fact : IFactionable = playerShip.GetComponent(typeof(IFactionable)) as IFactionable;
+	fact.setFaction(0);
 	
 	//set camera
 	var cam : GameObject = Camera.main.gameObject;

@@ -1,7 +1,7 @@
 ﻿import System.Collections.Generic;
 #pragma strict
 
-private var materials : List.<Material>;
+var materials : List.<Material>;
 var time : float = 2f;
 
 private var changing : boolean = false;
@@ -24,18 +24,39 @@ function Start () {
 	if(gameObject.renderer) {
 		materials = new List.<Material>(renderer.materials);
 	} else {
-		for(var trans : Transform in transform) {
-			if(trans.tag != "Shields") {
-				var rend : Renderer = trans.renderer;
-				if(rend) {
-					materials.AddRange(rend.materials);
-					
-				}
-			}
-		
-		}
+		findMaterials(transform, materials);
 	
 	}
+}
+
+private function findMaterials(transf : Transform, mat : List.<Material>) {
+	
+
+	for(var trans : Transform in transf) {
+		//Debug.Log(trans.name + " " + trans.childCount + " " + transform.renderer.materials.Length);
+		if(trans.tag != "Shields") {
+			var rend : Renderer = trans.renderer;
+			if(rend && !(rend instanceof TrailRenderer)) {
+				//Debug.Log("Found " + rend.materials.Length + " materials at " + trans.name);
+				materials.AddRange(rend.materials);
+				
+			}
+		}
+
+		
+		if(trans.childCount > 0) {
+			//Debug.Log("Gets here");
+			findMaterials(trans, mat);
+			
+			
+		}
+		
+		
+		
+		
+	}
+
+	
 }
 
 function isChanging() : boolean {
@@ -54,7 +75,6 @@ function hide(player : boolean) {
 function show(player : boolean) {
 	lastChange = Time.time;
 	for(var material : Material in materials) {
-		
 		increaseAlpha(material, player);	
 	}
 }

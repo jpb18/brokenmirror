@@ -36,6 +36,7 @@ function Start () {
 }
 
 function OnGUI() {
+	Screen.showCursor = true;
 	if(gameOver) {
 		
 		var tmp : Color = GUI.color;

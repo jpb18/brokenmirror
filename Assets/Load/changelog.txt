@@ -7,6 +7,7 @@ FIXED:
 - GUI crash on Alpha Centauri
 - AI will now avoid planets (hopefully)
 - Vorcha and D'deridex weapons
+- Mouse Cursor won't disapear on game over screen
 
 CHANGED:
 - Added store function to Planet Panel
@@ -30,6 +31,8 @@ ADDED:
 - Middle scene between star systems
 - Colonization!!!!!!!!!
 - Ships created during runtime are now named according to a list set in Faction Information.
+- Defiant and Akira Classes
+- Cloak
 
 WIP:
 - Passive Upgrades

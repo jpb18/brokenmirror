@@ -3,6 +3,8 @@ interface IFactionable {
 
 	function getFaction() : int;
 	
+	function setFaction(faction : int);
+	
 	function isHostile(faction : int) : boolean;
 	
 	function isAllied(faction : int) : boolean;

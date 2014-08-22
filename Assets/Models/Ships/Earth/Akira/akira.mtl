@@ -1,0 +1,108 @@
+
+newmtl Material.000001
+Ka 0.588 0.588 0.588
+Kd 0.588 0.588 0.588
+Ks 0.9 0.9 0.9
+d 1
+Ns 10
+map_Kd ak2_glow.tga
+
+
+newmtl Material.0000c9
+Ka 0.588 0.588 0.588
+Kd 0.588 0.588 0.588
+Ks 0.9 0.9 0.9
+d 1
+Ns 10
+map_Kd ak5_glow.tga
+
+
+newmtl Material.0009c9
+Ka 0.588006 0.588006 0.588006
+Kd 0.588006 0.588006 0.588006
+Ks 0.899992 0.899992 0.899992
+d 1
+Ns 8.13559
+map_Kd ak1_glow.tga
+
+
+newmtl Material.000b83
+Ka 0.588 0.588 0.588
+Kd 0.588 0.588 0.588
+Ks 0.9 0.9 0.9
+d 1
+Ns 10
+map_Kd ak3_glow.tga
+
+
+newmtl Material.0011ba
+Ka 0.588 0.588 0.588
+Kd 0.588 0.588 0.588
+Ks 0.9 0.9 0.9
+d 1
+Ns 10
+map_Kd ak4_glow.tga
+
+
+newmtl Material.00139f
+Ka 0.588006 0.588006 0.588006
+Kd 0.588006 0.588006 0.588006
+Ks 0.899992 0.899992 0.899992
+d 1
+Ns 10
+map_Kd ak4_glow.tga
+
+
+newmtl Material.0016f6
+Ka 0.588 0.588 0.588
+Kd 0.588 0.588 0.588
+Ks 0.9 0.9 0.9
+d 1
+Ns 10
+map_Kd ak3_glow.tga
+
+
+newmtl Material.0017b9
+Ka 0.588 0.588 0.588
+Kd 0.588 0.588 0.588
+Ks 0.9 0.9 0.9
+d 1
+Ns 10
+map_Kd phasers.tga
+
+
+newmtl Material.00193e
+Ka 0.2 0.2 0.2
+Kd 0.8 0.8 0.8
+Ks 0 0 0
+d 1
+Ns 15
+map_Kd details.tga
+
+
+newmtl Material.001969
+Ka 1 1 1
+Kd 1 1 1
+Ks 1 1 1
+d 1
+Ns 0
+map_Kd details.tga
+
+
+newmtl Material.0019fb
+Ka 1 1 1
+Kd 1 1 1
+Ks 1 1 1
+d 1
+Ns 0
+map_Kd details.tga
+
+
+newmtl Material.001aa5
+Ka 1 1 1
+Kd 1 1 1
+Ks 1 1 1
+d 1
+Ns 0
+map_Kd details.tga
+
