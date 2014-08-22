@@ -432,7 +432,7 @@ function Start() {
 }
 
 function Update() {
-	if(properties.getRedAlert()) {
+	if(properties.getRedAlert() && !properties.isCloaked()) {
 		fire();
 	}
 

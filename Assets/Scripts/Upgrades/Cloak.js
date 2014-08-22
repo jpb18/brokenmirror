@@ -17,11 +17,15 @@ class Cloak extends Upgrade implements IActive {
 	///<pre>target.tag == "Ship" || target.tag == "Station"</pre>
 	function use(target : GameObject) {
 		hide(target);
-		setHide(target);
+		//setHide(target);
 	}
 	
 	function isDisabable() : boolean {
 		return true;
+	}
+	
+	function getConsumption() : float {
+		return energy;
 	}
 	
 	///<summary>Use this to set on the ships renderer.</summary>
@@ -45,13 +49,13 @@ class Cloak extends Upgrade implements IActive {
 	}
 	
 	private function hide(target : GameObject) {
-		target.renderer.enabled = false;
+		//target.renderer.enabled = false;
 		var cloak : ICloakable = target.GetComponent(typeof(ICloakable)) as ICloakable;
 		cloak.setCloak(true);
 	}
 	
 	private function show(target : GameObject) {
-		target.renderer.enabled = true;
+		//target.renderer.enabled = true;
 		var cloak : ICloakable = target.GetComponent(typeof(ICloakable)) as ICloakable;
 		cloak.setCloak(false);
 	}

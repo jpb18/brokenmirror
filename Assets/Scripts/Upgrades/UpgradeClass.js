@@ -10,11 +10,14 @@ class UpgradeClass extends Object implements Active {
 		var scr : IActive = getScript();
 		scr.use(target);
 		active = true;
-		var b : MonoBehaviour = new MonoBehaviour();
-		b.Invoke("setOff", getDuration());
+		
 	}
 	
 	function canUse() : boolean {
+		if(lastUse == 0) {
+			return true;
+		}
+		
 		var scr : IActive = getScript();
 		var cooldown : float = scr.getCooldown();
 		return lastUse + cooldown < Time.time;

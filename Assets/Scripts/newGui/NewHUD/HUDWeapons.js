@@ -29,6 +29,7 @@ class HUDWeapons extends HUDBottom {
 			super.drawBackground();
 			drawButtonBackground();
 			drawWeaponButtons();
+			drawUpgradeButtons();
 			drawInventoryButton();
 			drawTransportButton();
 		
@@ -47,6 +48,38 @@ class HUDWeapons extends HUDBottom {
 		drawWeaponButton(weapons.torp2, resizeRect(weaponRects[2]));
 		
 		
+	}
+	
+	function drawUpgradeButtons() {
+		var upgradesList : List.<Active> = upgrades.getActiveUpgradesList();
+		for(var x : int = 0; x < upgradesList.Count; x++) {
+			drawUpgradeButton(upgradesList[x], weaponRects[x+3]);
+		}		
+	}
+	
+	function drawUpgradeButton(up : Active, rect : Rect) {
+		var upgrade : GameObject = up.getUpgrade();
+		var active : IActive = upgrade.GetComponent(typeof(IActive)) as IActive;
+		var texture : Texture = active.getImage();
+		if(GUI.Button(rect, texture, skin.button)) {
+			setUpgrade(up);
+		}
+		
+		
+	}
+	
+	private function setUpgrade(up : Active) {
+		if(up.canUse()) {
+			if(!up.isActive()) {
+				up.use(player);
+				
+			} else {
+				if(up.isDisabable()) {
+					up.disable(player);
+				}
+			}
+			
+		}
 	}
 	
 	function drawWeaponButton(phaser : Phaser, rect : Rect) {

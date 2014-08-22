@@ -12,6 +12,8 @@ public interface IActive extends IUpgrade{
 	
 	function isDisabable() : boolean;
 	
+	function getConsumption() : float;
+	
 	
 }
 

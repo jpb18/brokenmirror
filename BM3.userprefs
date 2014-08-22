@@ -1,36 +1,41 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\CloakScript.js">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Upgrades\Cloak.js">
     <Files>
-      <File FileName="Assets\Scripts\Upgrades\Cloak.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\ship\ShipAI.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\ship\shipTriggers.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Interfaces\IActive.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Upgrades\UpgradeClass.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Upgrades\Upgrades.js" Line="26" Column="4" />
+      <File FileName="Assets\Scripts\ship\shipProperties.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Upgrades\Cloak.js" Line="28" Column="17" />
+      <File FileName="Assets\Scripts\Interfaces\IActive.js" Line="15" Column="36" />
+      <File FileName="Assets\Scripts\Upgrades\UpgradeClass.js" Line="11" Column="19" />
       <File FileName="Assets\Scripts\Upgrades\Upgrades.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Upgrades\Upgrade.js" Line="1" Column="1" />
-      <File FileName="Assets\UnityTestTools\changelog.txt" Line="1" Column="1" />
       <File FileName="Assets\Load\changelog.txt" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\ship\shipProperties.js" Line="230" Column="30" />
       <File FileName="Assets\Scripts\Interfaces\ICloakable.js" Line="1" Column="1" />
       <File FileName="Assets\Scripts\ship\shipHealth.js" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Interfaces\IUpgrade.js" Line="1" Column="1" />
-      <File FileName="Assets\New Shadders\DefaultResourcesExtra\Illumin-Diffuse.shader" Line="1" Column="33" />
-      <File FileName="Assets\New Shadders\DefaultResourcesExtra\Alpha-Diffuse.shader" Line="8" Column="54" />
-      <File FileName="Assets\Scripts\CloakScript.js" Line="77" Column="31" />
+      <File FileName="Assets\Scripts\ship\shipWeapons.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\station\StationStore.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Upgrades\Upgrade.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\ship\ShipReactor.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\ship\Reactor.js" Line="1" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
           <Node name="Assembly-CSharp-firstpass" expanded="True">
-            <Node name="New Shadders" expanded="True">
-              <Node name="DefaultResourcesExtra" expanded="True" />
-            </Node>
+            <Node name="Load" expanded="True" />
+            <Node name="New Shadders" expanded="True" />
           </Node>
           <Node name="Assembly-UnityScript" expanded="True">
             <Node name="Scripts" expanded="True">
+              <Node name="Interfaces" expanded="True" />
+              <Node name="newGui" expanded="True">
+                <Node name="NewHUD" expanded="True" />
+              </Node>
               <Node name="ship" expanded="True" />
-              <Node name="CloakScript.js" selected="True" />
+              <Node name="station" expanded="True" />
+              <Node name="Upgrades" expanded="True">
+                <Node name="Cloak.js" selected="True" />
+              </Node>
             </Node>
           </Node>
         </State>
@@ -39,7 +44,9 @@
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
-      <Breakpoint file="C:\UnityProjects\BM3\Assets\Scripts\newGui\NewHUD\HUDWeapons.js" line="150" />
+      <Breakpoint file="C:\UnityProjects\BM3\Assets\Scripts\newGui\NewHUD\HUDWeapons.js" line="183" />
+      <Breakpoint file="C:\UnityProjects\BM3\Assets\Scripts\CloakScript.js" line="46" />
+      <Breakpoint file="C:\UnityProjects\BM3\Assets\Scripts\CloakScript.js" line="55" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />

@@ -43,7 +43,7 @@ function Update () {
 		BotRedAlert();
 	}
 
-	
+	checkTargetIsCloaked();
 	
 
 }
@@ -167,6 +167,22 @@ function cancelTarget() {
 
 	if(Input.GetAxis("CancelLock")) {
 		target = null;
+	}
+
+}
+
+function checkTargetIsCloaked() {
+	if(target) {
+		var cloak : ICloakable = target.GetComponent(typeof(ICloakable)) as ICloakable;
+		
+		if(cloak && cloak.isCloaked()) {
+			var factionable : IFactionable = target.GetComponent(typeof(IFactionable)) as IFactionable;
+			var faction : int = factionable.getFaction();
+			if(!shipProps.isOwn(faction)) {
+				target = null;
+			}
+		}
+		
 	}
 
 }

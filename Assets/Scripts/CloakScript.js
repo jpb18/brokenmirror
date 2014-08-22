@@ -1,7 +1,7 @@
 ﻿import System.Collections.Generic;
 #pragma strict
 
-var materials : List.<Material>;
+private var materials : List.<Material>;
 var time : float = 2f;
 
 private var changing : boolean = false;
@@ -18,16 +18,19 @@ public static final var MIN_P : float = 0.2f;
 
 
 function Start () {
+	materials = new List.<Material>();
 	alpha_shader = Shader.Find(ALPHA_MAT);
 	normal_shader = Shader.Find(NORMAL_MAT);
 	if(gameObject.renderer) {
 		materials = new List.<Material>(renderer.materials);
 	} else {
 		for(var trans : Transform in transform) {
-			var rend : Renderer = trans.renderer;
-			if(rend) {
-				materials = new List.<Material>(rend.materials);
-				break;
+			if(trans.tag != "Shields") {
+				var rend : Renderer = trans.renderer;
+				if(rend) {
+					materials.AddRange(rend.materials);
+					
+				}
 			}
 		
 		}

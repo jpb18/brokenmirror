@@ -6,16 +6,7 @@
 class ShipPlayerProps {
 	var isPlayer : boolean = false;
 	var cloaked : boolean = false;
-	private final var cloakPress : float = 0.1f;
-	private var lastCloak : float;
 	
-	function setCloak() {
-		lastCloak = Time.time;
-	}
-	
-	function canCloak() : boolean {
-		return Time.time > lastCloak + cloakPress;
-	}
 	
 }
 
@@ -29,8 +20,18 @@ class ShipMovementProps {
 
 class ShipCombatStatus {
 	var isRedAlert : boolean; 
-	var lastRedPress : float;
-	var timeInt : float = 0.2f;
+	private var lastRedPress : float;
+	public static final var KEY_INT : float = 0.2f;
+	
+	function setRedAlert() {
+		isRedAlert = !isRedAlert;
+		lastRedPress = Time.time;
+	}
+	
+	function canRedAlert() : boolean {
+		return lastRedPress + KEY_INT < Time.time;
+	}
+	
 }
 
 //this contains the basic health status of the ship
@@ -74,7 +75,7 @@ class shipProperties extends MonoBehaviour implements IFactionable, INameable, I
 	var cam : MouseOrbit;
 
 	var lastMap : float;
-	var waitMap : float = 0.2f;
+	public static final var WAIT_MAP : float = 0.2f;
 
 	//other scripts
 	var health : shipHealth;
@@ -103,10 +104,10 @@ class shipProperties extends MonoBehaviour implements IFactionable, INameable, I
 
 		//change red alert status
 
-		if (Input.GetAxis("RedAlert") && Time.time >= combatStatus.lastRedPress + combatStatus.timeInt && playerProps.isPlayer)
+		if (Input.GetAxis("RedAlert") && combatStatus.canRedAlert && playerProps.isPlayer)
 		{
-			combatStatus.isRedAlert = !combatStatus.isRedAlert;
-			combatStatus.lastRedPress = Time.time;
+			combatStatus.setRedAlert();
+			
 			if(cloud.isShieldInibited()) {
 				if(getRedAlert()) message.AddMessage(SHIELD_INIBITED);
 			} else if (!health.isShieldUp()) {
@@ -118,19 +119,12 @@ class shipProperties extends MonoBehaviour implements IFactionable, INameable, I
 
 		//map status
 		//in case Map Input is pressed
-		if(Input.GetAxis("Map") && playerProps.isPlayer && lastMap + waitMap < Time.time) {
+		if(Input.GetAxis("Map") && playerProps.isPlayer && lastMap + WAIT_MAP < Time.time) {
 			map.swapStatus();
 			lastMap = Time.time;
 		}
 		
-		if(Input.GetAxis("Cloak") && playerProps.canCloak()) {
-			if(isCloaked()) {
-				setCloak(false);
-			} else {
-				setCloak(true);
-			}
-			playerProps.setCloak();
-		}
+		
 		
 		
 
@@ -225,8 +219,10 @@ class shipProperties extends MonoBehaviour implements IFactionable, INameable, I
 	function setCloak(cloak : boolean) {
 		playerProps.cloaked = cloak;
 		if(cloak) {
+			
 			this.cloak.hide(getPlayer());
 		} else {
+			
 			this.cloak.show(getPlayer());
 		}
 	}

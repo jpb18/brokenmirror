@@ -72,45 +72,49 @@ static function findAllEnemyStations(faction : FactionInfo, origin : GameObject)
 
 }
 
+
+
 //this method finds a suitable target for the game object that calls it
 static function FindTarget(origin : GameObject, range : float, faction : FactionInfo) : GameObject {
 
 	var gameObjs : GameObject[] = findAllEnemyShips(faction, origin);
 	var closest : GameObject;
 	var originPosition : Vector3 = origin.transform.position;
+	var cloak : ICloakable;
 	if(gameObjs.Length > 0) {
 		for(var go : GameObject in gameObjs) {
-			
-			if((originPosition - go.transform.position).sqrMagnitude <= range * range) {
-				
-				if (go.transform.parent == null) //check if it's parent GO
-				{
-					if(go != origin) //check if GO is diferent than origin
+			cloak = go.GetComponent(typeof(ICloakable)) as ICloakable;
+			if(!cloak.isCloaked()) {
+				if((originPosition - go.transform.position).sqrMagnitude <= range * range) {
+					
+					if (go.transform.parent == null) //check if it's parent GO
 					{
-						if (go.tag == "Ship") //check if GO is a ship 
+						if(go != origin) //check if GO is diferent than origin
 						{
-						
-													
-							if(closest == null) //if there's no go in closest
+							if (go.tag == "Ship") //check if GO is a ship 
 							{
-								closest = go;
-							}
-							else //if there is
-							{
-								//check if the new go is closer than the older one
-								if ((originPosition - closest.transform.position).sqrMagnitude >= (origin.transform.position - go.transform.position).sqrMagnitude)
+							
+														
+								if(closest == null) //if there's no go in closest
 								{
 									closest = go;
 								}
+								else //if there is
+								{
+									//check if the new go is closer than the older one
+									if ((originPosition - closest.transform.position).sqrMagnitude >= (origin.transform.position - go.transform.position).sqrMagnitude)
+									{
+										closest = go;
+									}
+								}
+								
+												
 							}
 							
-											
 						}
-						
 					}
 				}
-			
-			}
+			}	
 		} 
 		}else {
 		

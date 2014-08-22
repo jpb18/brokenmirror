@@ -19,7 +19,7 @@ class HUDRedAlert extends HUDTop {
 	}
 	
 	function drawRedAlert() {
-		if(props.getRedAlert()) {
+		if(props && props.getRedAlert()) {
 			GUI.color = new Color(1,1,1, getTransparency());
 			
 			drawBackground();
