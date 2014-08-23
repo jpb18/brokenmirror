@@ -50,14 +50,7 @@ private function setWeaponSystem(system : List.<WeaponPoints>, tag : String, wea
 
 private function getParent(go : Transform) : Transform {
 	
-	var trans : Transform = go;
-	
-	
-	while(trans.parent) {
-		trans = trans.parent.transform;
-	}
-
-	return trans;
+	return go.root;
 	
 }
 

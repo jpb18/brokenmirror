@@ -5,6 +5,7 @@ class Upgrades extends MonoBehaviour {
 	var activeUpgrades : List.<UpgradeClass>;
 	
 	private var reactor : ShipReactor;
+	private var props : shipProperties;
 	
 	public static final var ACT_LIMIT : int = 5;
 	public static final var UP_START : int = 4;
@@ -25,13 +26,15 @@ class Upgrades extends MonoBehaviour {
 			last[x] = 0;
 		}
 		reactor = gameObject.GetComponent(ShipReactor);
+		props = gameObject.GetComponent(shipProperties);
 
 	}
 
 	function Update () {
 		var activeList : List.<Active> = getActiveUpgradesList();
-		
-		checkUsage(activeList);
+		if(props.getPlayer()) {
+			checkUsage(activeList);
+		}
 		checkConsumption(activeList);
 		
 		
@@ -188,5 +191,14 @@ class Upgrades extends MonoBehaviour {
 	
 		return getActiveUpgradesList().ToArray();
 		
+	}
+	
+	function resetActiveUpgrades() {
+		activeUpgrades = new List.<UpgradeClass>();
+	}
+	
+	function setActiveUpgrade(upgrade : GameObject) {
+		var active : UpgradeClass = new UpgradeClass(upgrade);
+		activeUpgrades.Add(active);
 	}
 }

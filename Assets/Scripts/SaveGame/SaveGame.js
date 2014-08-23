@@ -74,6 +74,7 @@ class SaveShip extends System.Object{
 		var torp1 : GameObject;
 		var torp2 : GameObject;
 		var upgrades : List.<GameObject>;
+		var actives : List.<GameObject>;
 		
 		function ShipInventory() {
 			phaser = null;
@@ -92,6 +93,11 @@ class SaveShip extends System.Object{
 			for(var up : GameObject in upgrades) {
 				serie = serie + up.name + "\n";		
 			}
+			serie = serie + actives.Count + "\n";
+			
+			for(var ac : GameObject in actives) {
+				serie = serie + ac.name;
+			}
 			
 			return serie;
 		}
@@ -100,7 +106,8 @@ class SaveShip extends System.Object{
 			phaser = getGameObject(stream.ReadLine());
 			torp1 = getGameObject(stream.ReadLine());
 			torp2 = getGameObject(stream.ReadLine());
-			upgrades = getGameObjectList(stream);			
+			upgrades = getGameObjectList(stream);
+			actives = getGameObjectList(stream);			
 		}
 		
 		private function getGameObject(name : String) : GameObject{
@@ -189,6 +196,11 @@ class SaveShip extends System.Object{
 			var up : Upgrades = ship.GetComponent(Upgrades);
 			up.upgrades = shipInv.upgrades;
 			
+			up.resetActiveUpgrades();
+			for(var active : GameObject in shipInv.actives) {
+				up.setActiveUpgrade(active);
+			}
+			
 		}
 		
 		return ship;
@@ -228,6 +240,13 @@ class SaveShip extends System.Object{
 		
 		//get upgrades
 		shipInv.upgrades = up.upgrades;
+		shipInv.actives = new List.<GameObject>();
+		var actives : List.<Active> = up.getActiveUpgradesList();
+		for(var active : Active in actives) {
+			var go : GameObject = active.getUpgrade();
+			shipInv.actives.Add(go);
+		}
+		
 		
 		//get dilithium
 		dilithium = shipFuel.getCurrentLoad();

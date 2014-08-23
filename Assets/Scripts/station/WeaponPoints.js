@@ -262,24 +262,16 @@ public class WeaponPoints extends Object { //added this so I could use the const
 	}
 	
 	private function getParent(trans : Transform) : Transform {
-		var par : Transform = trans;
-	
-		while(par.parent) {
-			par = par.parent.transform;
-		}
 		
-		return par;
+		
+		return trans.root;
 	
 	}
 	
 	private function getParent(trans : GameObject) : GameObject {
-		var par : Transform = trans.transform;
-	
-		while(par.parent) {
-			par = par.parent.transform;
-		}
 		
-		return par.gameObject;
+		
+		return getParent(trans.transform).gameObject;
 	
 	}
 	

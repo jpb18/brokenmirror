@@ -53,6 +53,7 @@
      <Compile Include="Assets\Menus\MenuScript.js" />
      <Compile Include="Assets\NewBehaviourScript.js" />
      <Compile Include="Assets\Paragraph.js" />
+     <Compile Include="Assets\Scripts\Cheat.js" />
      <Compile Include="Assets\Scripts\CloakScript.js" />
      <Compile Include="Assets\Scripts\Colonization\Colonizer.js" />
      <Compile Include="Assets\Scripts\Colonization\IColonizable.js" />
@@ -68,6 +69,7 @@
      <Compile Include="Assets\Scripts\Interfaces\ICloakable.js" />
      <Compile Include="Assets\Scripts\Interfaces\IDescribable.js" />
      <Compile Include="Assets\Scripts\Interfaces\IDrawable.js" />
+     <Compile Include="Assets\Scripts\Interfaces\IEscapeable.js" />
      <Compile Include="Assets\Scripts\Interfaces\IFactionable.js" />
      <Compile Include="Assets\Scripts\Interfaces\IHailable.js" />
      <Compile Include="Assets\Scripts\Interfaces\IHealtheable.js" />

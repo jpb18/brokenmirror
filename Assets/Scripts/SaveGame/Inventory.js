@@ -124,3 +124,7 @@ private function getBiggerColonizationTeam() : GameObject {
 	}
 	return big;
 }
+
+function cheat() {
+	latinum = int.MaxValue;
+}

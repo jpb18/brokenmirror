@@ -279,15 +279,26 @@ function getDanger() : GameObject {
 	var danger : GameObject;
 
 	var hitColliders : Collider[] = Physics.OverlapSphere(transform.position, minDistance);
-	var listGO : GameObject[] = new GameObject[hitColliders.Length];
-	
+	var listGO : List.<GameObject> = new List.<GameObject>();
+	var trans : Transform;
 	for(var x : int = 0; x < hitColliders.Length; x++) {
-		listGO[x] = hitColliders[x].gameObject;
+		trans  = hitColliders[x].transform;
+		if(!listGO.Contains(trans.root.gameObject)) {
+			listGO.Add(trans.root.gameObject);
+		}
 	}
 	
-	danger = returnClosest(listGO);
+	danger = returnClosest(listGO.ToArray());
+	
+	
 	
 	return danger;
+}
+
+private function getParent(go : GameObject) : GameObject {
+	var trans : Transform = go.transform;
+	var parent : Transform = trans.root;
+	return parent.gameObject;
 }
 
 ///<summary>This function controls the ships behaviour when in risk of colliding with a planet</summary>
@@ -327,8 +338,9 @@ function planetDanger() {
 ///<summary>This function controls the ship behaviour when there's a risk of colliding with another ship.</summary>
 function shipDanger() {
 	var danger : GameObject = getDanger();
-	
-	if(isObjectInFront(danger)) {
+	//Debug.Log(gameObject.name + "In collision danger by " + danger.name);
+	if(danger && isObjectInFront(danger)) {
+		//Debug.Log("Danger " + danger.name + "is in front");
 		if(isObjectAtLeft(danger)) {
 			move.turnRight();
 		} else {
@@ -368,6 +380,7 @@ function isObjectUnder(object : GameObject) : boolean {
 ///<returns>True if it is, false if it isn't</returns>
 function isObjectInFront(object : GameObject) : boolean {
 	var v : Vector3 = transform.InverseTransformPoint(object.transform.position);
+	//Debug.Log(v);
 	return v.x > 0;
 
 }
@@ -387,11 +400,18 @@ private function getNearestPlanet() : GameObject {
 }
 
 private function returnClosest(list : GameObject[]) : GameObject{
-	var closest : GameObject = list[0];
+	var closest : GameObject;
 
 	for(var x : int = 1; x < list.Length; x++) {
-		if((closest.transform.position - transform.position).sqrMagnitude > (list[x].transform.position - transform.position).sqrMagnitude) {
+		var newGo : GameObject = getParent(list[x]);
+		if(newGo == gameObject) {
+		
+		} else if (!closest) {
 			closest = list[x];
+		} else if((closest.transform.position - transform.position).sqrMagnitude > (list[x].transform.position - transform.position).sqrMagnitude) {
+
+				closest = newGo;
+			
 		}
 	}
 

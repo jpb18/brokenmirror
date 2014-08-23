@@ -40,6 +40,7 @@ function instantiateEscapePod(position : Vector3, rotation : Quaternion) : GameO
 	var go : GameObject = Instantiate(pod, position, rotation);
 	var scr : shipProperties = go.GetComponent(shipProperties);
 	scr.setFaction(props.getFaction());	
+	scr.setName(props.getNameWithNoPrefix() + " escape pod " + podNumber);
 	return go;
 }
 

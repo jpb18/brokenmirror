@@ -127,7 +127,7 @@ class StationStore {
 		
 		if(item.tag == "Ship") {
 				text = item.GetComponent(shipProperties).getStoreImage();	
-		} else if(item.tag == "Torpedoes" || item.tag == "Phaser") {
+		} else if(item.tag == "Torpedoes" || item.tag == "Phaser" || item.tag == "Disruptor") {
 				text = item.GetComponent(weaponScript).getImage();
 		} else if (item.tag == "Upgrade") {
 				text = item.GetComponent(Upgrade).getImage();
@@ -178,7 +178,7 @@ class StationStore {
 		
 		if(item.tag == "Ship") {
 			name = item.GetComponent(shipProperties).getClass();
-		} else if (item.tag == "Torpedoes" || item.tag == "Phaser") {
+		} else if (item.tag == "Torpedoes" || item.tag == "Phaser" || item.tag == "Disruptor") {
 			name = item.GetComponent(weaponScript).getName();		
 		} else if (item.tag == "Upgrade") {
 			name = item.GetComponent(Upgrade).getName();
@@ -197,7 +197,7 @@ class StationStore {
 		
 		if(item.tag == "Ship") {
 			desc = item.GetComponent(shipProperties).getDescription();
-		} else if (item.tag == "Torpedoes" || item.tag == "Phaser") {
+		} else if (item.tag == "Torpedoes" || item.tag == "Phaser" || item.tag == "Disruptor") {
 			desc = item.GetComponent(weaponScript). getDescription();		
 		} else if (item.tag == "Upgrade") {
 			desc = item.GetComponent(Upgrade).getDescription();
@@ -216,7 +216,7 @@ class StationStore {
 		
 		if(item.tag == "Ship") {
 			price = item.GetComponent(shipProperties).getPrice();
-		} else if (item.tag == "Torpedoes" || item.tag == "Phaser") {
+		} else if (item.tag == "Torpedoes" || item.tag == "Phaser" || item.tag == "Disruptor") {
 			price = item.GetComponent(weaponScript). getPrice();		
 		} else if (item.tag == "Upgrade") {
 			price = item.GetComponent(Upgrade).getCost();

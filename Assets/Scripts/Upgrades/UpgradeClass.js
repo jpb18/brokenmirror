@@ -5,6 +5,12 @@ class UpgradeClass extends Object implements Active {
 	var upgrade : GameObject;
 	var lastUse : float;
 	var active : boolean;
+	
+	function UpgradeClass(upgrade : GameObject) {
+		this.upgrade = upgrade;
+		lastUse = 0;
+		active = false;
+	}
 
 	function use(target : GameObject) {
 		var scr : IActive = getScript();

@@ -23,6 +23,7 @@ private var message : ShowMessage;
 private var general : GeneralInfo;
 private var music : PlaybackScript;
 private var hud : HUDStatus;
+private var load : LoadScene;
 
 private var isInvasion : boolean = false;
 private var isInvaded : boolean = false;
@@ -50,6 +51,7 @@ function Start () {
 	mapScr = GameObject.FindGameObjectWithTag("MapInfo").GetComponent(MapInfo);
 	planet = mapScr.findPlanet(Application.loadedLevelName);
 	hud = GameObject.FindGameObjectWithTag("GlobalInfo").GetComponent(HUDStatus);
+	load = GameObject.FindGameObjectWithTag("LoadScene").GetComponent(LoadScene);
 	save_scr.start = this;
 	hud.show();
 
@@ -68,6 +70,7 @@ function Start () {
 	
 	//set new message
 	message.AddMessage(mapScr.buildSceneLoadMessage());
+	load.setOff();
 }
 
 
@@ -324,4 +327,5 @@ function isPlayerAlly() : boolean {
 	
 	return faction.isAllied(0);
 }
+
 

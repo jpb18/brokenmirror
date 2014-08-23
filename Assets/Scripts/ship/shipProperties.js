@@ -44,6 +44,7 @@ class ShipHealthProps {
 class ShipProps {
 	var shipStrenght : float; //this var contains the ship strenght... Used in AI, and calculating fleet and planet strenght
 	var baseCost : int; //this represents the base cost of the ship
+	var escapePod : boolean; //this says if the ship is an escape pod
 }
 
 class ShipModifiers {
@@ -62,7 +63,7 @@ class ShipInfo {
 
 }
 
-class shipProperties extends MonoBehaviour implements IFactionable, INameable, ITextureable, IClasseable, IDescribable, ICloakable {
+class shipProperties extends MonoBehaviour implements IFactionable, INameable, ITextureable, IClasseable, IDescribable, ICloakable, IEscapeable {
 
 	//use classes
 	var playerProps : ShipPlayerProps;
@@ -166,10 +167,18 @@ class shipProperties extends MonoBehaviour implements IFactionable, INameable, I
 		return shipInfo.shipDescription;
 
 	}
+	
+	function setName(name : String) {
+		shipInfo.shipName = name;
+	}
 
 	function getName() : String {
 		var faction : FactionInfo = general.getFactionInfo(getFaction());
 		return faction.getPrefix() + " " + shipInfo.shipName;
+	}
+	
+	function getNameWithNoPrefix() : String {
+		return shipInfo.shipName;
 	}
 
 	function getFaction() : int {
@@ -225,6 +234,10 @@ class shipProperties extends MonoBehaviour implements IFactionable, INameable, I
 			
 			this.cloak.show(getPlayer());
 		}
+	}
+	
+	function isEscapePod() : boolean {
+		return shipProps.escapePod;
 	}
 
 }

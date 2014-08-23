@@ -258,14 +258,9 @@ function getDamage(isShield : boolean) : float {
 }
 
 private function getParent(trans : Transform) : Transform {
-		var par : Transform = trans;
 		
-		while(par.parent) {
-			
-			par = par.parent.transform;
-		}
 		
-		return par;
+		return trans.root;
 	
 }
 
