@@ -435,6 +435,8 @@ function isPlayer(ship : GameObject) : boolean {
 
 function changeFormation() {
 	if(Input.GetAxis("Formation") && changedFormation + pressWait < Time.time && show.isGame && !load.show) {
+		
+	
 		changeFormation(playerFleet, start.playerFleet);
 		changedFormation = Time.time;
 	}
@@ -526,9 +528,19 @@ function changeFormation(fleet : Fleet, squad : List.<GameObject>) {
 function setFleetFormation (formation : Formation, fleet : List.<GameObject>) {
 	
 	for(var ship in fleet) {
-		ship.GetComponent(ShipAI).formation = formation;
+		if(ship) {
+			ship.GetComponent(ShipAI).formation = formation;
+		}
 	}
 
+}
+
+function takeShipCommand(ship : GameObject) {
+	playerFleet.setShip(ship);
+	var shipAi :  ShipAI = ship.GetComponent(ShipAI);
+	shipAi.setLeader(getPlayerShip());
+	shipAi.setFormation(playerFleet.formation);
+	
 }
 
 function makeNearFleet() {

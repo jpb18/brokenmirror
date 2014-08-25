@@ -54,7 +54,7 @@ class CommPanel extends FloatingWindow implements IHailable {
 		
 	function drawButtons() {
 		GUI.Button(resizeRect(tradeRect), "Trade", skin.GetStyle("CommButton"));
-		GUI.Button(resizeRect(boardRect), "Board", skin.GetStyle("CommButton"));
+		drawBoardButton();
 		drawCommandButton();
 		drawCloseButton();
 	}
@@ -62,14 +62,24 @@ class CommPanel extends FloatingWindow implements IHailable {
 	function drawCommandButton() {
 		if(isPlayerFaction()) {
 			if(GUI.Button(resizeRect(commandRect), "Command",skin.GetStyle("CommButton"))) {
-				
-				swapShip(gameObject, getPlayer());
-				
+					save.takeShipCommand(gameObject);
 			}
 		} else {
-			GUI.Button(resizeRect(commandRect), "", skin.GetStyle("CommButton"));
+			GUI.Button(resizeRect(commandRect), "",skin.GetStyle("CommButton"));
 		}
 	}
+	
+	function drawBoardButton() {
+		if(GUI.Button(resizeRect(boardRect), "Board", skin.GetStyle("CommButton"))) {
+			if(isPlayerFaction()) {
+				swapShip(gameObject, getPlayer());
+			} else {
+				//do hostile boarding
+			}
+		}
+	}
+	
+	
 	
 	function drawCloseButton() {
 		if(GUI.Button(closeRect, "X", this.skin.GetStyle("CloseComm"))) {

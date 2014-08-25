@@ -21,6 +21,7 @@ CHANGED:
 - Galaxy and Negh'var now behave as cruisers.
 - Ships will pick escape pods as targets as a last resort.
 - Escape pods will now carry its origin ship name.
+- When communicating with a ship, "Board" will allow the player to take personal control of the ship, "Command" will join the ship to the players fleet.
 
 ADDED:
 - Game Over Screen
@@ -36,6 +37,8 @@ ADDED:
 - Defiant and Akira Classes
 - Cloak
 - Pulse Phaser and Quantum Torpedo
+- Auto-aim feature (Press T to keep ship's nose aimed at target)
+- Debug Commands
 
 WIP:
 - Passive Upgrades

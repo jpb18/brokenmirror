@@ -11,6 +11,7 @@ var formation : Formation = Formation.standard;
 var leader : GameObject;
 var defence : boolean;
 var merchant : boolean;
+var dangerDistance : float = 1f; 
 var minDistance : float;
 var followDistance : float;
 var interceptRange : float;
@@ -263,7 +264,7 @@ function isTooClose(target : Vector3) : boolean {
 function isDanger() : boolean {
 	//ping for nearby ships
 	
-	var hitColliders : Collider[] = Physics.OverlapSphere(transform.position, minDistance);
+	var hitColliders : Collider[] = Physics.OverlapSphere(transform.position, dangerDistance);
 	
 	return triggers.triggerProps.isTurbulence || hitColliders.Length - countColliders(gameObject) > 0;
 
@@ -278,13 +279,15 @@ function isPlanetDanger() : boolean {
 function getDanger() : GameObject {
 	var danger : GameObject;
 
-	var hitColliders : Collider[] = Physics.OverlapSphere(transform.position, minDistance);
+	var hitColliders : Collider[] = Physics.OverlapSphere(transform.position, dangerDistance);
 	var listGO : List.<GameObject> = new List.<GameObject>();
 	var trans : Transform;
+	var root : Transform;
 	for(var x : int = 0; x < hitColliders.Length; x++) {
 		trans  = hitColliders[x].transform;
-		if(!listGO.Contains(trans.root.gameObject)) {
-			listGO.Add(trans.root.gameObject);
+		root = trans.root;
+		if(!listGO.Contains(root.gameObject)) {
+			listGO.Add(root.gameObject);
 		}
 	}
 	
@@ -325,11 +328,11 @@ function planetDanger() {
 		}
 		
 	} else {
-		if(!move.isStopping()) {
+		/*if(!move.isStopping()) {
 			if(!move.isAtMax()) {
 				move.increaseSpeed();
 			}
-		}
+		}*/
 	}
 	
 
@@ -337,6 +340,7 @@ function planetDanger() {
 
 ///<summary>This function controls the ship behaviour when there's a risk of colliding with another ship.</summary>
 function shipDanger() {
+	Debug.Log("DANGER! " + gameObject.name);	
 	var danger : GameObject = getDanger();
 	//Debug.Log(gameObject.name + "In collision danger by " + danger.name);
 	if(danger && isObjectInFront(danger)) {
@@ -363,7 +367,7 @@ function shipDanger() {
 ///<returns>True if it is, false if it isn't</returns>
 function isObjectAbove(object : GameObject) : boolean {
 	var v : Vector3 = transform.InverseTransformPoint(object.transform.position);
-	return v.z > 0;
+	return v.y > 0;
 }
 
 
@@ -372,7 +376,7 @@ function isObjectAbove(object : GameObject) : boolean {
 ///<returns>True if it is, false if it isn't</returns>
 function isObjectUnder(object : GameObject) : boolean {
 	var v : Vector3 = transform.InverseTransformPoint(object.transform.position);
-	return v.z < 0;
+	return v.y < 0;
 }
 
 ///<summary>This function checks if the object is in front of the ship</summary>
@@ -381,7 +385,7 @@ function isObjectUnder(object : GameObject) : boolean {
 function isObjectInFront(object : GameObject) : boolean {
 	var v : Vector3 = transform.InverseTransformPoint(object.transform.position);
 	//Debug.Log(v);
-	return v.x > 0;
+	return v.z > 0;
 
 }
 
@@ -390,7 +394,7 @@ function isObjectInFront(object : GameObject) : boolean {
 ///<returns>True if it is, false if it isn't</returns>
 function isObjectAtLeft(object : GameObject) : boolean {
 		var v : Vector3 = transform.InverseTransformPoint(object.transform.position);
-		return v.y < 0;
+		return v.x < 0;
  
 }
 
@@ -400,7 +404,7 @@ private function getNearestPlanet() : GameObject {
 }
 
 private function returnClosest(list : GameObject[]) : GameObject{
-	var closest : GameObject;
+	var closest : GameObject = list[0];
 
 	for(var x : int = 1; x < list.Length; x++) {
 		var newGo : GameObject = getParent(list[x]);

@@ -1,7 +1,7 @@
 //this script controls the ship movement
 #pragma strict
 
-var properties : shipProperties;
+
 
 var speedStatus : float; //from -.25 to 1, this controls the ship "impulse"
 var keys : KeyControlMovemnt; //this controls all keys related to movement
@@ -15,10 +15,23 @@ var redAlertSlowdown : float = 0.7f;
 
 var impulseParticleSystem : ParticleSystem;
 
+var auto : boolean;
+
 class KeyControlMovemnt {
 	var KeyDelay : float = 0.2f;
 	var SpeedIncreaseKey : float;
 	var SpeedDecreaseKey : float;
+	
+	var autoAim : float;
+	
+	function setAutoAim() {
+		autoAim = Time.time;
+	}
+	
+	function canAutoAim() : boolean {
+		return Time.time > autoAim + KeyDelay;
+	}
+	
 	
 }
 
@@ -48,6 +61,8 @@ private var impulseParticleSpeed : float;
 private var message : ShowMessage;
 private var upgrades : Upgrades;
 private var reactor : ShipReactor;
+private var target : shipTarget;
+private var properties : shipProperties;
 
 var warpParticle : ParticleSystem;
 
@@ -58,6 +73,7 @@ function Start () {
 	properties = gameObject.GetComponent(shipProperties);
 	upgrades = gameObject.GetComponent(Upgrades);
 	reactor = gameObject.GetComponent(ShipReactor);
+	target = gameObject.GetComponent(shipTarget);
 	
 	if(!impulseParticleSystem) {
 		Debug.LogWarning("Check if the impulse particle system exists at " + gameObject.name + ".");
@@ -77,7 +93,20 @@ function Update () {
 		sublight();
 	}
 	selectWarp();
+	toggleAutoAim();
 	
+}
+
+function toggleAutoAim() {
+	if(Input.GetAxis("AutoAim") && keys.canAutoAim()) {
+		keys.setAutoAim();
+		auto = !auto;
+	}
+	
+	if(!properties.getPlayer()) {
+		auto = false;
+	}
+
 }
 
 function sublight() {
@@ -174,7 +203,16 @@ function isStop() : boolean {
 function shipPlayer_movement () {
 	
 	
+	if(auto && target.hasTarget()) {
+		automaticMovement();
+	} else {
+		manualMovement();
+	}
+		
 	
+}
+
+function manualMovement() {
 		var shipAgility : float = shipAgility();
 		
 		//get axis input
@@ -184,8 +222,48 @@ function shipPlayer_movement () {
 		
 		//apply rotation
 		transform.Rotate(Vector3(inputVer * shipAgility, shipAgility * inputHor, inputRot * shipAgility));	
+
+}
+
+function automaticMovement() {
+	var tgt : GameObject = target.getTarget();
+	var position : Vector3 = tgt.transform.position;
+	var interval : float = shipAgility();
 	
+	if(isTargetAbove(position, interval)) {
+		turnUp();
+	} else if(isTargetUnder(position, interval)) {
+		turnDown();
+	}
 	
+	if(isTargetAtLeft(position, interval)) {
+		turnLeft();
+	} else if(isTargetAtRight(position, interval)) {
+		turnRight();
+	}
+	
+
+
+}
+
+function isTargetAbove(target : Vector3, interval : float) : boolean {
+	var v : Vector3 = transform.InverseTransformPoint(target);
+	return v.y > interval;
+}
+
+function isTargetUnder(target : Vector3, interval : float) : boolean {
+	var v : Vector3 = transform.InverseTransformPoint(target);
+	return v.y < -interval;
+}
+
+function isTargetAtLeft(target : Vector3, interval : float) : boolean {
+	var v : Vector3 = transform.InverseTransformPoint(target);
+	return v.x < -interval;
+}
+
+function isTargetAtRight(target : Vector3, interval : float) : boolean {
+	var v : Vector3 = transform.InverseTransformPoint(target);
+	return v.x > interval;
 }
 
 function shipAgility() : float {
@@ -414,7 +492,7 @@ private function warp() {
 	} else {
 		reactor.spend(consume);
 	
-		var shipSpeed : float = properties.movement.impulseSpeed * Time.deltaTime;
+		var shipSpeed : float = properties.movement.impulseSpeed * Time.deltaTime * properties.getWarpSpeed();
 		
 		var SpeedChange : float = curWarpMulti * shipSpeed;
 		

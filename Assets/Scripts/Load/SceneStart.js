@@ -79,7 +79,7 @@ function Update () {
 	if(!isInvasion && Time.time > lastCheck + enemyInterval) {
 		if(genRandom(maxProb) <= prob) {
 			setInvasion();
-			if(!music.getStatus(PlaybackStatus.HOSTILE)) music.setStatus(PlaybackStatus.HOSTILE);	
+			
 		} 
 		lastCheck = Time.time;
 	}
@@ -89,6 +89,17 @@ function Update () {
 		
 	}
 	
+
+}
+
+function checkInvasion() {
+	if(!isInvasion && Time.time > lastCheck + enemyInterval) {
+		if(genRandom(maxProb) <= prob) {
+			setInvasion();
+				
+		} 
+		lastCheck = Time.time;
+	}
 
 }
 
@@ -124,7 +135,8 @@ function playerStart() {
 	//get ship
 	playerShip = save_scr.playerShip.getShip();
 	//spawn game object looking at the planet
-	playerShip.transform.position = genSpawn(minRadius, maxRadius, transform.position);
+	playerSpawn = genSpawn(minRadius, maxRadius, transform.position);
+	playerShip.transform.position = playerSpawn;
 	playerShip.transform.rotation = Quaternion.identity;
 	playerShip.transform.LookAt(transform.position);
 	playerDir = playerShip.transform.rotation;
@@ -224,7 +236,9 @@ function setInvasion() {
 	
 	}
 
-
+	if(!music.getStatus(PlaybackStatus.HOSTILE)) {
+		music.setStatus(PlaybackStatus.HOSTILE);
+	}
 
 }
 
@@ -328,4 +342,7 @@ function isPlayerAlly() : boolean {
 	return faction.isAllied(0);
 }
 
+function cheat() {
+	setInvasion();
+}
 

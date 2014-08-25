@@ -1,38 +1,33 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Cheat.js">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Load\changelog.txt">
     <Files>
-      <File FileName="Assets\Scripts\menus\GameOver.js" Line="1" Column="1" />
-      <File FileName="Assets\Load\changelog.txt" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\ship\ShipAI.js" Line="271" Column="1" />
-      <File FileName="Assets\Scripts\Load\SceneStart.js" Line="73" Column="16" />
-      <File FileName="Assets\Scripts\weapons\torpedoScript.js" Line="260" Column="18" />
-      <File FileName="Assets\Scripts\ship\shipWeapons.js" Line="243" Column="20" />
-      <File FileName="Assets\Scripts\station\StationWeapons.js" Line="47" Column="3" />
-      <File FileName="Assets\Scripts\station\WeaponPoints.js" Line="274" Column="47" />
-      <File FileName="Assets\Scripts\ship\shipProperties.js" Line="232" Column="30" />
-      <File FileName="Assets\Scripts\Interfaces\IEscapeable.js" Line="6" Column="2" />
-      <File FileName="Assets\Scripts\Statics.js" Line="162" Column="27" />
-      <File FileName="Assets\Scripts\SaveGame\SaveGame.js" Line="199" Column="29" />
-      <File FileName="Assets\Scripts\Upgrades\Upgrades.js" Line="194" Column="17" />
-      <File FileName="Assets\Scripts\newGui\NewHUD\HUDHealth.js" Line="75" Column="1" />
-      <File FileName="Assets\Scripts\station\StationStore.js" Line="219" Column="87" />
-      <File FileName="Assets\Scripts\SaveGame\LoadScene.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Cheat.js" Line="27" Column="16" />
-      <File FileName="Assets\Scripts\SaveGame\Inventory.js" Line="129" Column="25" />
+      <File FileName="Assets\Scripts\ship\shipMovement.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\ship\shipTarget.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\ship\ShipAI.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\ship\shipProperties.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\newGui\CommPanel.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\SaveGame\SaveGame.js" Line="1" Column="1" />
+      <File FileName="Assets\Load\changelog.txt" Line="41" Column="17" />
+      <File FileName="Assets\Scripts\Cheat.js" Line="34" Column="40" />
+      <File FileName="Assets\Scripts\Load\SceneStart.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\ship\shipWeapons.js" Line="1" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
-          <Node name="Assembly-Boo-Editor" expanded="True" />
-          <Node name="Assembly-CSharp-Editor" expanded="True" />
+          <Node name="Assembly-CSharp-firstpass" expanded="True">
+            <Node name="Load" expanded="True">
+              <Node name="changelog.txt" selected="True" />
+            </Node>
+          </Node>
           <Node name="Assembly-UnityScript" expanded="True">
             <Node name="Scripts" expanded="True">
               <Node name="SaveGame" expanded="True" />
-              <Node name="Cheat.js" selected="True" />
+              <Node name="ship" expanded="True" />
             </Node>
+            <Node name="UnityTestTools" expanded="True" />
           </Node>
-          <Node name="Assembly-UnityScript-Editor" expanded="True" />
         </State>
       </Pad>
     </Pads>

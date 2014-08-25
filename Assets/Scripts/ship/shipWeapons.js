@@ -290,9 +290,13 @@ class Phaser {
 		health.setLastHitter(ship);
 	}
 	
-	function getEnergyCost() : float {
+	function getEnergyCost(num : int) : float {
 		var weap : weaponScript = phaser.GetComponent(weaponScript);
-		return weap.getEnergyCost();
+		if(getType() == WeaponType.pulse) {
+			return weap.getEnergyCost() * num;
+		} else {
+			return weap.getEnergyCost();
+		}
 	}
 
 	
@@ -385,9 +389,9 @@ class Torpedo {
 	
 	}
 	
-	function getEnergyCost() : float {
+	function getEnergyCost(num : int) : float {
 		var weap : weaponScript = torpedo.GetComponent(weaponScript);
-		return weap.getEnergyCost();
+		return weap.getEnergyCost() * num;
 	}
 
 }
@@ -472,7 +476,7 @@ function phaserFunction() {
 	
 	
 		if(phaser.canFire(target.target, upgrades)) {
-			var cost : float = phaser.getEnergyCost();
+			var cost : float = phaser.getEnergyCost(volleyNum());
 			if(reactor.hasEnough(cost)) {
 				phaser.fire(target.target, volleyNum(), this, upgrades);
 				reactor.spend(cost);		
@@ -515,7 +519,7 @@ function torpFunction(torp : Torpedo) {
 	
 	
 		if(torp.canFire(target.target)) {
-			var cost : float = torp.getEnergyCost();
+			var cost : float = torp.getEnergyCost(volleyNum());
 			if(reactor.hasEnough(cost)) {
 				StartCoroutine(torp.fire(target.target, volleyNum(), upgrades));
 				reactor.spend(cost);
