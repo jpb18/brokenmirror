@@ -74,10 +74,12 @@
      <Compile Include="Assets\Scripts\Interfaces\IHailable.js" />
      <Compile Include="Assets\Scripts\Interfaces\IHealtheable.js" />
      <Compile Include="Assets\Scripts\Interfaces\IImageable.js" />
+     <Compile Include="Assets\Scripts\Interfaces\IMaintainable.js" />
      <Compile Include="Assets\Scripts\Interfaces\INameable.js" />
      <Compile Include="Assets\Scripts\Interfaces\IPassive.js" />
      <Compile Include="Assets\Scripts\Interfaces\IPopuleable.js" />
      <Compile Include="Assets\Scripts\Interfaces\IPriceable.js" />
+     <Compile Include="Assets\Scripts\Interfaces\IProfitable.js" />
      <Compile Include="Assets\Scripts\Interfaces\ITextureable.js" />
      <Compile Include="Assets\Scripts\Interfaces\IUpgrade.js" />
      <Compile Include="Assets\Scripts\Load\GameLoad.js" />
@@ -93,6 +95,7 @@
      <Compile Include="Assets\Scripts\Missions\TradeMission.js" />
      <Compile Include="Assets\Scripts\Music\PlaybackScript.js" />
      <Compile Include="Assets\Scripts\Pooler\ObjectPooler.js" />
+     <Compile Include="Assets\Scripts\PreventObjectsGoingThrough.js" />
      <Compile Include="Assets\Scripts\SaveGame\CargoHold.js" />
      <Compile Include="Assets\Scripts\SaveGame\GeneralInfo.js" />
      <Compile Include="Assets\Scripts\SaveGame\HUDStatus.js" />
@@ -145,6 +148,7 @@
      <Compile Include="Assets\Scripts\newGui\NewHUD\HUDElement.js" />
      <Compile Include="Assets\Scripts\newGui\NewHUD\HUDHealth.js" />
      <Compile Include="Assets\Scripts\newGui\NewHUD\HUDHelm.js" />
+     <Compile Include="Assets\Scripts\newGui\NewHUD\HUDPower.js" />
      <Compile Include="Assets\Scripts\newGui\NewHUD\HUDRedAlert.js" />
      <Compile Include="Assets\Scripts\newGui\NewHUD\HUDTarget.js" />
      <Compile Include="Assets\Scripts\newGui\NewHUD\HUDTop.js" />
@@ -346,6 +350,7 @@
      <None Include="Assets\New Shadders\CGIncludes\TerrainEngine.cginc" />
      <None Include="Assets\New Shadders\DefaultResourcesExtra\uGUI\StencilMask.shader" />
      <None Include="Assets\New Shadders\DefaultResourcesExtra\Particle AddSmooth.shader" />
+     <None Include="Assets\HeatDistortion\HeatDistortion.shader" />
      <None Include="Assets\New Shadders\DefaultResourcesExtra\Unlit\Unlit-AlphaTest.shader" />
      <None Include="Assets\New Shadders\DefaultResourcesExtra\Alpha-BumpSpec.shader" />
      <None Include="Assets\New Shadders\DefaultResourcesExtra\Particle AddMultiply.shader" />

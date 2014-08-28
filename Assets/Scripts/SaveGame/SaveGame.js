@@ -166,6 +166,16 @@ class SaveShip extends System.Object{
 		return shipInfo.strenght;
 	}
 	
+	function getFaction() : int {
+		return shipInfo.Faction;
+	}
+	
+	function getMaintenance() : int {
+		var maint : IMaintainable = shipPrefab.GetComponent(typeof(IMaintainable)) as IMaintainable;
+		return maint.getMaintenanceCost();
+		
+	}
+	
 	//this function returns the ship stored here
 	function getShip() : GameObject {
 		var ship : GameObject = GameObject.Instantiate(shipPrefab);
@@ -383,6 +393,10 @@ class Fleet extends System.Object{
 		}
 		return list;
 	}
+	
+	function getFleet() : List.<SaveShip> {
+		return ships;
+	}
 
 }
 
@@ -426,6 +440,10 @@ function Update() {
 
 function getPlayerShip() : GameObject {
 	return playShip;
+}
+
+function getPlayerFleet() : List.<SaveShip> {
+	return playerFleet.getFleet();
 }
 
 function isPlayer(ship : GameObject) : boolean {

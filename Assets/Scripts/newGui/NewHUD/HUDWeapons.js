@@ -180,7 +180,7 @@ class HUDWeapons extends HUDBottom {
 	}
 	
 	function transport() {
-		missions.finishTradeMissionInSystem();
+		
 		
 		var planet : GameObject = findSystemPlanet();
 		
@@ -198,8 +198,12 @@ class HUDWeapons extends HUDBottom {
 				colonizable.colonize(faction, team);
 				message.AddMessage(COLONIZED);
 			}
+			return;
 		} 
-			
+		
+		
+		
+		missions.finishTradeMissionInSystem();		
 	}
 	
 	private function findSystemPlanet() : GameObject {

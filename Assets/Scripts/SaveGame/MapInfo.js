@@ -1,7 +1,7 @@
 ﻿import System.Collections.Generic;
 #pragma strict
 
-class PlanetInfo implements IPopuleable { //this class stores all planet information necessary for the map
+class PlanetInfo implements IPopuleable, IProfitable { //this class stores all planet information necessary for the map
 	var isEnabled : boolean;
 	var name : String;
 	var faction : int;
@@ -15,6 +15,7 @@ class PlanetInfo implements IPopuleable { //this class stores all planet informa
 	var population : float;
 	var reputation : int;
 	var dilithium : boolean;
+	var profit : int;
 	
 	var hasPlayerVisit : boolean = false;
 	var isColonized : boolean = false;
@@ -141,6 +142,10 @@ class PlanetInfo implements IPopuleable { //this class stores all planet informa
 		reputation += amount;
 	}
 	
+	function getProfit() : int {
+		return profit * population;	
+	}
+	
 	function getStrenght() : int {
 		var str : int = 0;
 		
@@ -156,7 +161,19 @@ class PlanetInfo implements IPopuleable { //this class stores all planet informa
 		return str;
 	}
 	
-	
+	function getDefenseShipsByFaction(faction : int) : List.<SaveShip> {
+		var list : List.<SaveShip> = new List.<SaveShip>();
+		
+		for(var ship : SaveShip in defenseFleet) {
+			
+			if(ship.getFaction() == faction) {
+				list.Add(ship);			
+			}		
+		
+		}
+		
+		return list;
+	}
 	
 	function hasDilithium() : boolean {
 		return dilithium;
@@ -226,7 +243,12 @@ class PlanetInfo implements IPopuleable { //this class stores all planet informa
 		return list;
 	}
 	
-
+	function colonize(faction : int, population : float) {
+		this.faction = faction;
+		this.population = population;
+		this.isColonized = true;
+		this.reputation = 100;
+	}
 
 }
 
@@ -800,8 +822,8 @@ function goWarp(destiny : String) {
 	//calculate travel time;
 	var time : int = getTime(origin, dest);
 	carry.setCarry(time, consume, destiny);
-	//apply it
-	stardate.addDays(time);
+
+	
 	//message.AddMessage("Current Stardate: " + stardate.getCurrentStardate());
 	
 	//save game first
@@ -989,4 +1011,25 @@ function isPlayerOverlord() : boolean {
 	}
 	return true;
 
+}
+
+function getShipsByFaction(faction : int) : List.<SaveShip> {
+	var list : List.<SaveShip> = new List.<SaveShip>();
+	
+	for(var planet : PlanetInfo in planets) {
+		list.AddRange(planet.getDefenseShipsByFaction(faction));
+	}
+	
+	return list;
+	
+}
+
+function getPlanetsByFaction(faction : int) : List.<PlanetInfo> {
+	var list : List.<PlanetInfo> = new List.<PlanetInfo>();
+	for(var planet : PlanetInfo in planets) {
+		if(planet.getFaction() == 0) {
+			list.Add(planet);
+		}
+	}
+	return list;
 }

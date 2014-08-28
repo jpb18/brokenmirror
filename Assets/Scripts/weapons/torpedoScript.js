@@ -34,6 +34,7 @@ var status : stats;
 var effect : Effects;
 var target : GameObject; //target ship
 var origin : GameObject; //origin ship
+private var originPoint : Transform;
 var launched : float; //launch time
 var isSpread : boolean = false; //checks if the torpedo is already a spread
 
@@ -82,14 +83,24 @@ function OnEnable() {
 	var audio : AudioSource = gameObject.GetComponent(AudioSource);
 	audio.Play();
 	
+	rigidbody.velocity = status.speed * transform.forward;
 	
 	if(target)
 	{	
-		transform.LookAt(target.transform);
+		var trans : Transform = target.transform;
+		var Pa : Vector3 = trans.position;
+		var Va : Vector3 = trans.rigidbody.velocity;
+		var Pb : Vector3 = transform.position;
+		var Vb : Vector3 = rigidbody.velocity;
+		var intersect : Vector3 = calculateIntersectPoint(Pa, Va, Pb, Vb);
+		//Debug.Log("First: " + transform.rotation);
+		transform.LookAt(intersect);
+		//Debug.Log("Seconds: " + transform.rotation);
+		rigidbody.velocity = status.speed * transform.forward;
 	}
 
 
-	rigidbody.velocity = status.speed * transform.forward;
+	
 	
 	launched = Time.time;
 	effect.setExploded(false);
@@ -238,7 +249,8 @@ function setTarget(target : GameObject) {
 //pre origin != null
 function setOrigin(origin : GameObject) {
 	trans.position = origin.transform.position;
-	this.origin = getParent(origin.transform).gameObject;
+	originPoint = origin.transform;
+	this.origin = origin.transform.root.gameObject;
 	
 }
 
@@ -279,4 +291,73 @@ private function registerShipHit(ship : GameObject) {
 function setUpgrade(upgrades : Upgrades) {
 	this.upgrades = upgrades;
 }
+
+///<summary>This function calculates the most likelly colision between two objects a (target) and b (projectille)</summary>
+///<param name="Pa">Vector3 with the position of object a</param>
+///<param name="Va">Vector3 with the velocity of object a</param>
+///<param name="Pb">Vector3 with the position of object b</param>
+///<param name="Vb">Vector3 with the velocity of object b</param>
+///<returns>Most likelly intersect point</returns>
+function calculateIntersectPoint(Pa : Vector3, Va : Vector3, Pb : Vector3, Vb : Vector3) : Vector3 {
+	var t : float = calculateIntersectTime(Pa, Va, Pb, Vb);
+	
+	var pos : Vector3 = calculatePosition(Pa, Va, t);
+	
+	return pos;
+}	
+
+function calculatePosition(p : Vector3, v : Vector3, t : float) : Vector3 {
+	return p + (v*t);
+}
+
+///<summary>This function calculates the intersect time</summary>
+///<param name="Pa">Vector3 with the position of object a</param>
+///<param name="Va">Vector3 with the velocity of object a</param>
+///<param name="Pb">Vector3 with the position of object b</param>
+///<param name="Vb">Vector3 with the velocity of object b</param>
+///<returns>Most likelly intersect point</returns>
+function calculateIntersectTime(Pa : Vector3, Va : Vector3, Pb : Vector3, Vb : Vector3) : float {
+	var Pab : Vector3 = Pa - Pb;
+	var Vab : Vector3 = Va - Vb;
+	var a  : float = Vector3.Dot(Vab, Vab);
+	var b : float = Vector3.Dot(Pab, Pab);
+	var c : float = b;
+	
+	var discriminant : float = calculateDiscriminant(a,b,c);
+	
+	var t : float;
+	
+	if(discriminant <= 0) {
+		t = calculateSinglePoint(a, b);
+	} else {
+		t = calculateTwoPoints(a, b, discriminant);
+	}
+	
+	
+	
+	if(t < 0) {
+		t = 0;
+	}
+	
+	return t;
+
+}
+
+///<summary>Calculates de discriminant of a quadratic function</summary>
+function calculateDiscriminant(a : float, b : float, c : float) : float {
+	return (b * b) - (4 * a * c);
+}
+
+function calculateSinglePoint(a : float, b : float) : float {
+	return -(b/(2*a));
+}
+
+function calculateTwoPoints(a : float, b : float, discriminant : float) : float {
+	var t0 : float = (-b + Mathf.Sqrt(discriminant))/(2*a);
+	var t1 : float = (-b - Mathf.Sqrt(discriminant))/(2*a);
+	
+	return Mathf.Min(-t0, -t1);
+}
+
+
 

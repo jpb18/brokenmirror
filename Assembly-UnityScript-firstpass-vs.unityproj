@@ -214,6 +214,7 @@
      <None Include="Assets\New Shadders\CGIncludes\TerrainEngine.cginc" />
      <None Include="Assets\New Shadders\DefaultResourcesExtra\uGUI\StencilMask.shader" />
      <None Include="Assets\New Shadders\DefaultResourcesExtra\Particle AddSmooth.shader" />
+     <None Include="Assets\HeatDistortion\HeatDistortion.shader" />
      <None Include="Assets\New Shadders\DefaultResourcesExtra\Unlit\Unlit-AlphaTest.shader" />
      <None Include="Assets\New Shadders\DefaultResourcesExtra\Alpha-BumpSpec.shader" />
      <None Include="Assets\New Shadders\DefaultResourcesExtra\Particle AddMultiply.shader" />

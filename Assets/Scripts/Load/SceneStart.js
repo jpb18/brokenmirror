@@ -248,18 +248,26 @@ function spawnInvasion () {
 	if(toBeSpawned.Count > 0) {
 		//first spawn the leader
 		var leader : GameObject = spawnLeader(toBeSpawned);
-			
+		var faction : FactionInfo;	
+		var props : shipProperties;
+		var ai : ShipAI;
+		var name : String;
+		var s : GameObject;
 		for(var ship : GameObject in toBeSpawned) {
 			if(ship != leader) {
-				var s : GameObject = Instantiate(ship, genSpawn(botMinRadius, botMaxRadius, leader.transform.position), leader.transform.rotation);
+				s = Instantiate(ship, genSpawn(botMinRadius, botMaxRadius, leader.transform.position), leader.transform.rotation);
 							
 				//set properties
-				var props : shipProperties = s.GetComponent(shipProperties);
+				props  = s.GetComponent(shipProperties);
 				props.shipInfo.faction = factionToSpawn;
-				props.playerProps.isPlayer = false;
+				faction  = general.getFactionInfo(factionToSpawn);
+				name = faction.getRandomShipName();
+				props.setPlayer(false);
+				props.setName(name);
+				
 				
 				//set leader
-				var ai : ShipAI = s.GetComponent(ShipAI);
+				ai = s.GetComponent(ShipAI);
 				ai.leader = leader;
 				
 				//remove clone

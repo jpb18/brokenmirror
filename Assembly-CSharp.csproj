@@ -59,6 +59,7 @@
      <Compile Include="Assets\Detonator Explosion Framework\System\DetonatorSound.cs" />
      <Compile Include="Assets\Detonator Explosion Framework\System\DetonatorSparks.cs" />
      <Compile Include="Assets\Detonator Explosion Framework\System\DetonatorSpray.cs" />
+     <Compile Include="Assets\HeatDistortion\FlickeringLight.cs" />
      <Compile Include="Assets\Lightbeam\Scripts\EnableDepthTexture.cs" />
      <Compile Include="Assets\Lightbeam\Scripts\Lightbeam.cs" />
      <Compile Include="Assets\Lightbeam\Scripts\LightbeamSettings.cs" />
@@ -273,6 +274,7 @@
      <None Include="Assets\New Shadders\CGIncludes\TerrainEngine.cginc" />
      <None Include="Assets\New Shadders\DefaultResourcesExtra\uGUI\StencilMask.shader" />
      <None Include="Assets\New Shadders\DefaultResourcesExtra\Particle AddSmooth.shader" />
+     <None Include="Assets\HeatDistortion\HeatDistortion.shader" />
      <None Include="Assets\New Shadders\DefaultResourcesExtra\Unlit\Unlit-AlphaTest.shader" />
      <None Include="Assets\New Shadders\DefaultResourcesExtra\Alpha-BumpSpec.shader" />
      <None Include="Assets\New Shadders\DefaultResourcesExtra\Particle AddMultiply.shader" />

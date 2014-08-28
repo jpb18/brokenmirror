@@ -10,6 +10,7 @@ class HUDElement extends GuiElement {
 	protected var target : shipTarget;
 	protected var upgrades : Upgrades;
 	protected var movement : shipMovement;
+	protected var reactor : ShipReactor;
 	protected var player : GameObject;
 	
 	protected var save : SaveGame;
@@ -54,6 +55,7 @@ class HUDElement extends GuiElement {
 		target = player.GetComponent(shipTarget);
 		upgrades = player.GetComponent(Upgrades);
 		movement = player.GetComponent(shipMovement);
+		reactor = player.GetComponent(ShipReactor);
 	}
 	
 	function checkPlayer() {

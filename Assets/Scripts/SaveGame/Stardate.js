@@ -18,3 +18,7 @@ function addDays(days : int) {
 function setStardate(day : int) {
 	stardate = day;
 }
+
+function getFutureDate(days : int) : float {
+	return getCurrentStardate() + days/DIV;
+}

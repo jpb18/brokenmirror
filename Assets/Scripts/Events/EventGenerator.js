@@ -10,33 +10,84 @@ private var map : MapInfo;
 private var general : GeneralInfo;
 private var scene : SceneTransfer;
 private var carry : SceneTransferCarry;
-
+private var inventory : Inventory;
+private var save : SaveGame;
+private var stardate : Stardate;
+//TODO: Add current date to messages
 
 function Start () {
 
 	scene = gameObject.GetComponent(SceneTransfer);
 	carry = GameObject.FindGameObjectWithTag("Transfer").GetComponent(SceneTransferCarry);
-	general = GameObject.FindGameObjectWithTag("SaveGame").GetComponent(GeneralInfo);
+	var saveGo : GameObject = GameObject.FindGameObjectWithTag("SaveGame");
+	general = saveGo.GetComponent(GeneralInfo);
+	inventory = saveGo.GetComponent(Inventory);
+	stardate = saveGo.GetComponent(Stardate);
+	save = saveGo.GetComponent(SaveGame);
 	map = GameObject.FindGameObjectWithTag("MapInfo").GetComponent(MapInfo);
 	
-	generateGalacticEvents(carry.getTime());
+	var time : int = carry.getTime();
+	
+	calculatePlayerEmpireProfits(time);
+	calculatePlayerEmpireMaintenanceCosts(time);
+	generateGalacticEvents(time);
+	stardate.addDays(time);
+	
 }
 
+function calculatePlayerEmpireProfits(time : int) {
+	var profit : int = 0;
+	var planets : List.<PlanetInfo> = map.getPlanetsByFaction(0);
+	for(var planet : PlanetInfo in planets) {
+		profit += planet.getProfit() * Random.value * time;
+	}
+	
+	if(profit != 0) {
+		scene.addEmpireProfit(profit);
+		inventory.addLatinum(profit);
+	}
+	
+}
+
+function calculatePlayerEmpireMaintenanceCosts(time : int) {
+	
+	var costs : int = getPlayerShipMaintenance();
+	var total : int = costs * time;
+	
+	if(total != 0) {
+		scene.addMaintenanceCosts(total);
+		inventory.spend(total);
+	}
+
+}
+
+private function getPlayerShipMaintenance() : int {
+	var ships : List.<SaveShip> = map.getShipsByFaction(0);
+	ships.AddRange(save.getPlayerFleet());
+	var cost : int = 0;
+	for(var ship : SaveShip in ships) {
+		cost += ship.getMaintenance();
+	}
+	return cost;
+	
+} 
 
 
 function generateGalacticEvents(days : int) { 
+	var date : float;
 	for(var x : int = 0; x < days; x++) {
 		if(probability >= Random.value) {
+			date = stardate.getFutureDate(x);
 			var pick : int = Random.Range(1, 4);
 			switch(pick) {
 				case 1:
-					generateInvasion();
+					generateInvasion(date);
 					break;
 				case 2:
-					generateConstruction();
+					generateConstruction(date);
 					break;
 				case 3:
-					generateShipAcquisition();
+					generateShipAcquisition(date);
 					break;
 				default:
 					Debug.Log("Invalid value: " + pick);
@@ -47,7 +98,7 @@ function generateGalacticEvents(days : int) {
 }
 
 
-private function generateInvasion() {
+private function generateInvasion(date : float) {
 	var i : int;
 	var target : PlanetInfo;
 	do{
@@ -80,12 +131,12 @@ private function generateInvasion() {
 			}
 			
 			if(target.getStrenght() == 0) {
-				scene.addConquest(target, faction);
+				scene.addConquest(target, faction, date);
 				
 				target.conquer(general.getFactionId(faction), faction.invasionFleet);			
 				
 			} else {
-				scene.addInvasion(target, faction, str);
+				scene.addInvasion(target, faction, str, date);
 			}
 		}
 	}	
@@ -93,11 +144,11 @@ private function generateInvasion() {
 }
 
 
-private function generateConstruction() {
+private function generateConstruction(date : float) {
 	Debug.Log("Not implemented");
 }
 
-private function generateShipAcquisition() {
+private function generateShipAcquisition(date : float) {
 	if(!map.isPlayerOverlord() && Random.value <= aquisitionProbability) {
 		var planet : PlanetInfo;
 		do {
@@ -110,7 +161,7 @@ private function generateShipAcquisition() {
 		if(fleet.Count > 0) {
 			var ship : GameObject = planet.addRandomShip(fleet);
 			var classeable : IClasseable = ship.GetComponent(typeof(IClasseable)) as IClasseable;
-			scene.addShipAcquisition(planet, factionInfo, classeable.getClass(), str);
+			scene.addShipAcquisition(planet, factionInfo, classeable.getClass(), str, date);
 		}
 	}
 }

@@ -264,6 +264,10 @@ function isTooClose(target : Vector3) : boolean {
 function isDanger() : boolean {
 	//ping for nearby ships
 	
+	if(move.isStop()) {
+		return false;
+	}
+	
 	var hitColliders : Collider[] = Physics.OverlapSphere(transform.position, dangerDistance);
 	
 	return triggers.triggerProps.isTurbulence || hitColliders.Length - countColliders(gameObject) > 0;

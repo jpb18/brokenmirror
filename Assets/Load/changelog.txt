@@ -22,6 +22,7 @@ CHANGED:
 - Ships will pick escape pods as targets as a last resort.
 - Escape pods will now carry its origin ship name.
 - When communicating with a ship, "Board" will allow the player to take personal control of the ship, "Command" will join the ship to the players fleet.
+- Invasion fleets now pick apropriate names for the ships.
 
 ADDED:
 - Game Over Screen
@@ -46,6 +47,8 @@ WIP:
 - Ship Energy (Weapons, Shields, Warp)
 - Government AI
 - Cloak
+- Economy
+- Energy (added meter)
 
 
 Version 0.2.1

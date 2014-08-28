@@ -60,10 +60,11 @@ class ShipInfo {
 	var shipClass : String; //this contains the ship class
 	var shipName : String; //this contains the ship name
 	var shipDescription : String;
+	var maintenanceCost : int = 150;
 
 }
 
-class shipProperties extends MonoBehaviour implements IFactionable, INameable, ITextureable, IClasseable, IDescribable, ICloakable, IEscapeable {
+class shipProperties extends MonoBehaviour implements IFactionable, INameable, ITextureable, IClasseable, IDescribable, ICloakable, IEscapeable, IMaintainable {
 
 	//use classes
 	var playerProps : ShipPlayerProps;
@@ -238,6 +239,10 @@ class shipProperties extends MonoBehaviour implements IFactionable, INameable, I
 	
 	function isEscapePod() : boolean {
 		return shipProps.escapePod;
+	}
+	
+	function getMaintenanceCost() : int {
+		return shipInfo.maintenanceCost;
 	}
 
 }

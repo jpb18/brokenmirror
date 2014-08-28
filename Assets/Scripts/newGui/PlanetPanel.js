@@ -336,9 +336,9 @@ class PlanetPanel extends FloatingWindow implements IFactionable, IHealtheable, 
 	
 	//pre: canColonize();
 	function colonize(faction : int, team : GameObject) {
-		planet.faction = faction;
+		
 		var colonizer : IColonizer = team.GetComponent(typeof(IColonizer)) as IColonizer;
-		planet.population = colonizer.getPopulation();
+		planet.colonize(faction, colonizer.getPopulation());
 		updateFaction();
 	}
 	

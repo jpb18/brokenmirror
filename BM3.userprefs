@@ -2,43 +2,21 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Load\changelog.txt">
     <Files>
-      <File FileName="Assets\Scripts\ship\shipMovement.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\ship\shipTarget.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\ship\ShipAI.js" Line="1" Column="1" />
+      <File FileName="Assets\Load\changelog.txt" Line="51" Column="23" />
+      <File FileName="Assets\Scripts\newGui\NewHUD\HUDPower.js" Line="45" Column="3" />
+      <File FileName="Assets\Scripts\newGui\NewHUD\HUDBottom.js" Line="28" Column="11" />
+      <File FileName="Assets\Scripts\ship\ShipReactor.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\ship\Reactor.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\newGui\NewHUD\HUDElement.js" Line="58" Column="46" />
+      <File FileName="Assets\Scripts\newGui\NewHUD\HUDHelm.js" Line="83" Column="30" />
+      <File FileName="Assets\Scripts\Events\SceneTransfer.js" Line="9" Column="92" />
+      <File FileName="Assets\Scripts\Load\SceneStart.js" Line="258" Column="6" />
+      <File FileName="Assets\Scripts\SaveGame\GeneralInfo.js" Line="268" Column="3" />
       <File FileName="Assets\Scripts\ship\shipProperties.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\newGui\CommPanel.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\SaveGame\SaveGame.js" Line="1" Column="1" />
-      <File FileName="Assets\Load\changelog.txt" Line="41" Column="17" />
-      <File FileName="Assets\Scripts\Cheat.js" Line="34" Column="40" />
-      <File FileName="Assets\Scripts\Load\SceneStart.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\ship\shipWeapons.js" Line="1" Column="1" />
     </Files>
-    <Pads>
-      <Pad Id="ProjectPad">
-        <State expanded="True">
-          <Node name="Assembly-CSharp-firstpass" expanded="True">
-            <Node name="Load" expanded="True">
-              <Node name="changelog.txt" selected="True" />
-            </Node>
-          </Node>
-          <Node name="Assembly-UnityScript" expanded="True">
-            <Node name="Scripts" expanded="True">
-              <Node name="SaveGame" expanded="True" />
-              <Node name="ship" expanded="True" />
-            </Node>
-            <Node name="UnityTestTools" expanded="True" />
-          </Node>
-        </State>
-      </Pad>
-    </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore>
-      <Breakpoint file="C:\UnityProjects\BM3\Assets\Scripts\newGui\NewHUD\HUDWeapons.js" line="183" />
-      <Breakpoint file="C:\UnityProjects\BM3\Assets\Scripts\CloakScript.js" line="67" />
-      <Breakpoint file="C:\UnityProjects\BM3\Assets\Scripts\CloakScript.js" line="76" />
-      <Breakpoint file="C:\UnityProjects\BM3\Assets\Scripts\ship\ShipAI.js" line="77" />
-    </BreakpointStore>
+    <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>
