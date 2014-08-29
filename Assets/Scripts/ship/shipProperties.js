@@ -64,7 +64,7 @@ class ShipInfo {
 
 }
 
-class shipProperties extends MonoBehaviour implements IFactionable, INameable, ITextureable, IClasseable, IDescribable, ICloakable, IEscapeable, IMaintainable {
+class shipProperties extends MonoBehaviour implements IFactionable, INameable, ITextureable, IClasseable, IDescribable, ICloakable, IEscapeable, IMaintainable, IPlayable {
 
 	//use classes
 	var playerProps : ShipPlayerProps;
@@ -137,6 +137,10 @@ class shipProperties extends MonoBehaviour implements IFactionable, INameable, I
 
 		return combatStatus.isRedAlert;
 
+	}
+	
+	function isPlayer() : boolean {
+		return getPlayer();
 	}
 
 	function getPlayer() : boolean {

@@ -1,9 +1,11 @@
 ﻿
 #pragma strict
 //lets start by creating some enumerations
-enum Formation {close, standard, loose}
+enum Formation {close, standard, loose, invalid}
 enum ShipType {EscapePod, Frigate, AttackShip, Cruiser, BattleShip, Boss}
 
+
+class ShipAI extends MonoBehaviour implements IMissionable, IFormeable {
 
 //now le variables
 var type : ShipType;
@@ -919,4 +921,6 @@ function orbit() {
 
 function isEscapePod() : boolean {
 	return type == ShipType.EscapePod;
+}
+
 }

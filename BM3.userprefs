@@ -1,18 +1,12 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Load\changelog.txt">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\newGui\FleetTemporaryPanel.js">
     <Files>
-      <File FileName="Assets\Load\changelog.txt" Line="51" Column="23" />
-      <File FileName="Assets\Scripts\newGui\NewHUD\HUDPower.js" Line="45" Column="3" />
-      <File FileName="Assets\Scripts\newGui\NewHUD\HUDBottom.js" Line="28" Column="11" />
-      <File FileName="Assets\Scripts\ship\ShipReactor.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\ship\Reactor.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\newGui\NewHUD\HUDElement.js" Line="58" Column="46" />
-      <File FileName="Assets\Scripts\newGui\NewHUD\HUDHelm.js" Line="83" Column="30" />
-      <File FileName="Assets\Scripts\Events\SceneTransfer.js" Line="9" Column="92" />
-      <File FileName="Assets\Scripts\Load\SceneStart.js" Line="258" Column="6" />
-      <File FileName="Assets\Scripts\SaveGame\GeneralInfo.js" Line="268" Column="3" />
-      <File FileName="Assets\Scripts\ship\shipProperties.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\newGui\FleetTemporaryPanel.js" Line="132" Column="9" />
+      <File FileName="Assets\Standard Assets\ComboBox.cs" Line="55" Column="1" />
+      <File FileName="Assets\Scripts\SaveGame\SaveGame.js" Line="551" Column="1" />
+      <File FileName="Assets\Scripts\Interfaces\IFormeable.js" Line="4" Column="28" />
+      <File FileName="Assets\Scripts\ship\ShipAI.js" Line="4" Column="48" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

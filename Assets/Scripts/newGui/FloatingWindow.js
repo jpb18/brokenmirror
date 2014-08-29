@@ -4,7 +4,13 @@ class FloatingWindow extends GuiElement {
 	var on : boolean;
 	protected var title : String;
 	
+	protected var hud : HUDStatus;
+	public static final var GLOBAL_INFO : String = "GlobalInfo";
 	
+	function initFloat() {
+		super.init();
+		hud = GameObject.FindGameObjectWithTag(GLOBAL_INFO).GetComponent(HUDStatus);
+	}	
 	
 	function draw() {
 		if(on) {
@@ -34,6 +40,10 @@ class FloatingWindow extends GuiElement {
 	
 	function isOn() : boolean {
 		return on;
+	}
+	
+	function toggle() {
+		on = !on;
 	}
 	
 

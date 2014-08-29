@@ -61,6 +61,11 @@ class PlanetInfo implements IPopuleable, IProfitable { //this class stores all p
 		return popul;
 	}
 	
+	function addDefenseShip(ship : GameObject) {
+		var s : SaveShip = new SaveShip(ship); 
+		defenseFleet.Add(s);
+	}
+	
 	function killPopulation(amount : float) {
 		population -= amount;
 	}
@@ -1032,4 +1037,9 @@ function getPlanetsByFaction(faction : int) : List.<PlanetInfo> {
 		}
 	}
 	return list;
+}
+
+function setShipAsDefence(ship : GameObject) {
+	var planet : PlanetInfo = getPlanetInCurrentScene();
+	planet.addDefenseShip(ship);
 }

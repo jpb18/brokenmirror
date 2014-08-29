@@ -342,6 +342,12 @@ class Fleet extends System.Object{
 		
 	}
 	
+	function setFormation(formation : Formation) {
+		this.formation = formation;
+		
+		
+	}
+	
 	
 	
 	function getFormation () : String {
@@ -543,8 +549,9 @@ function changeFormation(fleet : Fleet, squad : List.<GameObject>) {
 	
 }
 
+
 function setFleetFormation (formation : Formation, fleet : List.<GameObject>) {
-	
+	playerFleet.setFormation(formation);
 	for(var ship in fleet) {
 		if(ship) {
 			ship.GetComponent(ShipAI).formation = formation;

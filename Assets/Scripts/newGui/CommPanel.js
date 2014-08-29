@@ -13,17 +13,17 @@ class CommPanel extends FloatingWindow implements IHailable {
 	
 	var skin : GUISkin;
 	
-	private var hud : HUDStatus;
+	
 	private var save : SaveGame;
 	private var props : shipProperties;
 	
 	public static final var SAVE_GAME : String = "SaveGame";
-	public static final var GLOBAL_INFO : String = "GlobalInfo";
+
 	public static final var MESSAGE : String = "Hey Boss!\n This String here is just for testing the message box of the comm system!";
 
 	// Use this for initialization
 	function Start () {
-		init();
+		super.initFloat();
 		save = GameObject.FindGameObjectWithTag(SAVE_GAME).GetComponent(SaveGame);		
 		hud = GameObject.FindGameObjectWithTag(GLOBAL_INFO).GetComponent(HUDStatus);
 		props = gameObject.GetComponent(shipProperties);
