@@ -51,7 +51,7 @@ function getPress() {
 				if (hitGo.tag == "NewGame") {
 						startGame = true;
 				}
-				else if(hitGo.tag == "resume") {
+				else if(hitGo.tag == "resume" && saveGameExists()) {
 					loadLatestGame();
 				}
 		}
@@ -66,7 +66,17 @@ function getMouseOver() {
 	var layer : LayerMask = LayerMask.NameToLayer(MENU_LAYER);
 	if (Physics.Raycast (ray, hit, 1000.0f, ~layer.value)) {
 				var hitGo : GameObject = hit.transform.gameObject;
-				setMouseOver(getNumber(hitGo.tag));
+				var num : int = getNumber(hitGo.tag);
+			
+				if(num == 0) {
+					if(saveGameExists()) {
+						setMouseOver(0);
+					}
+				} else {
+					setMouseOver(num);
+				}
+				
+				
 		}
 	
 
@@ -150,7 +160,7 @@ function loadLatestGame() {
 	//first load save game
 	var go : GameObject = GameObject.FindGameObjectWithTag("SaveScript");
 	var save : SaveScript = go.GetComponent(SaveScript);
-	var file : String = EscMenu.SAVE_TEXT + EscMenu.SAVE_EXT;
+	var file : String = getFileName();
 	save.readFromFile(file);
 	
 	//then get latest loaded scene
@@ -168,4 +178,12 @@ function loadLatestGame() {
 	
 	
 	      
+}
+
+function saveGameExists() : boolean {
+	return System.IO.File.Exists(Application.dataPath + "\\" +getFileName());
+}
+
+function getFileName() : String {
+	return EscMenu.SAVE_TEXT + EscMenu.SAVE_EXT;
 }

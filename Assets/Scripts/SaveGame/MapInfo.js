@@ -206,7 +206,7 @@ class PlanetInfo implements IPopuleable, IProfitable { //this class stores all p
 		serie = serie + reputation + "\n";
 		serie = serie + hasPlayerVisit + "\n";
 		serie = serie + isColonized + "\n";
-		serie = serie + image.name + "\n";
+		//serie = serie + image.name + "\n";
 		return serie;
 	}
 	
@@ -223,7 +223,7 @@ class PlanetInfo implements IPopuleable, IProfitable { //this class stores all p
 		reputation = int.Parse(stream.ReadLine());
 		hasPlayerVisit = boolean.Parse(stream.ReadLine());
 		isColonized = boolean.Parse(stream.ReadLine());
-		image = Resources.Load(stream.ReadLine()) as Texture2D;
+		//image = Resources.Load(stream.ReadLine()) as Texture2D;
 		
 	}
 	
