@@ -318,13 +318,31 @@ function setFleet(fleetSetup : List.<GameObject>) : List.<GameObject> {
 	var fleet : List.<GameObject> = new List.<GameObject>();
 	
 	for(var x : int = 0; x < fleetSize; x++) {
-		var num : int = genRandom(fleetSetup.Count - 1);
-		fleet.Add(fleetSetup[num]);
+		var ship : GameObject = pickShip(fleetSetup);
+		fleet.Add(ship);
 	
 	}
 	
 	return fleet;
 
+}
+
+function pickShip(fleet : List.<GameObject>) : GameObject {
+	
+	var ship : GameObject;
+	var props : shipProperties;
+	var prob : float;
+	var num : int;
+	do {
+		num = Random.Range(0, fleet.Count);
+		ship = fleet[num];
+		props = ship.GetComponent(shipProperties);
+		prob = 1/props.getStrenght();
+		
+	} while(prob < Random.value);
+	
+	return ship;
+	
 }
 
 //this method gets the enemy list of the systems owner ship

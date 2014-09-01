@@ -12,6 +12,8 @@ class HUDWeapons extends HUDBottom {
 	
 	var emptyTexture : Texture;
 	
+	var overlay : Texture;
+	
 	public static final var ORBIT_ERROR = "Not in a planets orbit.";
 	public static final var COLONIZE_ERROR = "You need a colonization team to colonize a planet.";
 	public static final var COLONIZED = "Planet colonized.";
@@ -90,6 +92,20 @@ class HUDWeapons extends HUDBottom {
 				}
 						
 		}
+		
+		if(phaser.getNextShot(upgrades) > Time.time) {
+			//Calculate size
+			//Get total reload time and time remaining
+			var totalReload : float = phaser.getCooldown(upgrades);
+			var remainTime : float = phaser.getNextShot(upgrades) - Time.time;
+			var percentage : float = remainTime/totalReload;
+			if(percentage > 1) {
+				percentage = 1;
+			}
+			drawOverlay(rect, percentage);
+			
+		} 
+		
 	}
 	
 	function getPhaserTexture(phaser : Phaser) : Texture {
@@ -127,6 +143,20 @@ class HUDWeapons extends HUDBottom {
 				}
 						
 		}
+		
+		if(torpedo.getNextShot() > Time.time) {
+			//Calculate size
+			//Get total reload time and time remaining
+			var totalReload : float = torpedo.getCooldown(upgrades);
+			var remainTime : float = torpedo.getNextShot() - Time.time;
+			var percentage : float = remainTime/totalReload;
+			if(percentage > 1) {
+				percentage = 1;
+			}
+			drawOverlay(rect, percentage);
+			
+		} 
+		
 	}
 	
 	function getTorpedoTexture(torpedo : Torpedo) : Texture {
@@ -218,6 +248,28 @@ class HUDWeapons extends HUDBottom {
 		return null;
 	
 	}
+	
+	function drawOverlay(rect : Rect, perc : float) {
+		//Get overlay height
+			var overHeight : float = rect.height * perc;
+			
+			//get size diference
+			var sizeDif : float = rect.height - overHeight;
+		
+			//transparency
+			var overColor : Color = Color.white;
+			overColor.a = 0.75;
+			
+			GUI.color = overColor;
+		
+			GUI.DrawTexture(Rect(rect.x, rect.y + sizeDif, rect.width, overHeight), overlay);
+		
+			GUI.color = Color.white;
+	}
+	
+
+	
+	
 
 
 }

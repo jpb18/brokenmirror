@@ -32,7 +32,7 @@ ADDED:
 - Map Location indicator
 - Population (Still pretty basic)
 - Stardate System (Pretty basic atm)
-- Middle scene between star systems
+- Middle scene between star systems (replacing old loading screen)
 - Colonization!!!!!!!!!
 - Ships created during runtime are now named according to a list set in Faction Information.
 - Defiant and Akira Classes
@@ -40,6 +40,7 @@ ADDED:
 - Pulse Phaser and Quantum Torpedo
 - Auto-aim feature (Press T to keep ship's nose aimed at target)
 - Debug Commands
+
 
 WIP:
 - Passive Upgrades

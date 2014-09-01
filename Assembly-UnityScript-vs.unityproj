@@ -61,6 +61,7 @@
      <Compile Include="Assets\Scripts\Events\EventGenerator.js" />
      <Compile Include="Assets\Scripts\Events\SceneTransfer.js" />
      <Compile Include="Assets\Scripts\Events\SceneTransferCarry.js" />
+     <Compile Include="Assets\Scripts\Events\TransferGui.js" />
      <Compile Include="Assets\Scripts\Events\TransferTmp.js" />
      <Compile Include="Assets\Scripts\GlobalInfo.js" />
      <Compile Include="Assets\Scripts\Interfaces\IActive.js" />
@@ -189,7 +190,9 @@
      <Compile Include="Assets\Scripts\station\StationWeapons.js" />
      <Compile Include="Assets\Scripts\station\StoreMode.js" />
      <Compile Include="Assets\Scripts\station\WeaponPoints.js" />
+     <Compile Include="Assets\Scripts\weapons\Phaser.js" />
      <Compile Include="Assets\Scripts\weapons\RotateInEditor.js" />
+     <Compile Include="Assets\Scripts\weapons\Torpedo.js" />
      <Compile Include="Assets\Scripts\weapons\phaserScript.js" />
      <Compile Include="Assets\Scripts\weapons\torpedoScript.js" />
      <Compile Include="Assets\Scripts\weapons\weaponScript.js" />

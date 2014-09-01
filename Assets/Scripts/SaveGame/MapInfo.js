@@ -423,7 +423,7 @@ class SaveStation extends System.Object{
 	
 	//this function returns a station
 	function getStation() : GameObject {
-		var station : GameObject = GameObject.Instantiate(prefab, this.position, new Quaternion());
+		var station : GameObject = GameObject.Instantiate(prefab, this.position, prefab.transform.rotation);
 		
 		//set position
 		station.transform.position = position;
@@ -808,12 +808,12 @@ function goWarp(destiny : String) {
 	}
 	
 	//unload fade
-	fade.setFadeOff();
+	//fade.setFadeOff();
 	//load new scene
 	//show splash screen
 	var go : GameObject = GameObject.FindGameObjectWithTag("LoadScene");
 	var scr : LoadScene = go.GetComponent(LoadScene);
-	scr.showScreen();
+	//scr.showScreen();
 	
 	//calculate dilithium costs
 	var origin : PlanetInfo = findPlanet(Application.loadedLevelName);

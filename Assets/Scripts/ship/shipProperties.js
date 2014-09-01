@@ -106,7 +106,7 @@ class shipProperties extends MonoBehaviour implements IFactionable, INameable, I
 
 		//change red alert status
 
-		if (Input.GetAxis("RedAlert") && combatStatus.canRedAlert && playerProps.isPlayer)
+		if (Input.GetAxis("RedAlert") && combatStatus.canRedAlert() && playerProps.isPlayer)
 		{
 			combatStatus.setRedAlert();
 			
