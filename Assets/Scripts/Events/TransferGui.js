@@ -1,5 +1,4 @@
 ﻿#pragma strict
-@script ExecuteInEditMode()
 
 var eventsColor : Color;
 var eventsRect : Rect;

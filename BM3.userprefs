@@ -1,26 +1,8 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Load\changelog.txt">
+  <MonoDevelop.Ide.Workspace />
+  <MonoDevelop.Ide.Workbench ActiveDocument="..\EarthOrbitDefense\Assets\Planet.cs">
     <Files>
-      <File FileName="Assets\Scripts\Events\TransferGui.js" Line="126" Column="50" />
-      <File FileName="Assets\Scripts\newGui\FleetTemporaryPanel.js" Line="122" Column="56" />
-      <File FileName="Assets\Standard Assets\ComboBox.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\SaveGame\SaveGame.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Interfaces\IFormeable.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\ship\ShipAI.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Events\TransferTmp.js" Line="8" Column="113" />
-      <File FileName="Assets\Scripts\SaveGame\MapInfo.js" Line="426" Column="101" />
-      <File FileName="Assets\Scripts\SaveGame\LoadScene.js" Line="1" Column="1" />
-      <File FileName="Assets\Menus\MenuScript.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Load\SceneStart.js" Line="321" Column="47" />
-      <File FileName="Assets\Scripts\SaveGame\GeneralInfo.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\ship\shipProperties.js" Line="109" Column="62" />
-      <File FileName="Assets\Scripts\newGui\NewHUD\HUDWeapons.js" Line="270" Column="1" />
-      <File FileName="Assets\Scripts\weapons\Phaser.js" Line="2" Column="1" />
-      <File FileName="Assets\Scripts\ship\shipWeapons.js" Line="5" Column="1" />
-      <File FileName="Assets\Scripts\weapons\Torpedo.js" Line="2" Column="15" />
-      <File FileName="Assets\Scripts\menus\guiScript.js" Line="1417" Column="4" />
-      <File FileName="Assets\Load\changelog.txt" Line="10" Column="50" />
+      <File FileName="..\EarthOrbitDefense\Assets\Planet.cs" Line="64" Column="6" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
