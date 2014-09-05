@@ -5,7 +5,7 @@
 	<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
 	<ProductVersion>10.0.20506</ProductVersion>
 	<SchemaVersion>2.0</SchemaVersion>
-	<ProjectGuid>{43D61F62-2305-EBF0-82F5-94E943E2FE5F}</ProjectGuid>
+	<ProjectGuid>{EAC44D7B-79C0-441D-175C-89488A076EC9}</ProjectGuid>
 	<OutputType>Library</OutputType>
 	<AppDesignerFolder>Properties</AppDesignerFolder>
 	<RootNamespace></RootNamespace>
@@ -63,7 +63,6 @@
      <None Include="Assets\Standard Assets\Projectors\Sources\Shaders\Projector Multiply.shader" />
      <None Include="Assets\New Shadders\DefaultResourcesExtra\Lightmap-Bumped.shader" />
      <None Include="Assets\New Shadders\DefaultResources\Internal-BlitCopy.shader" />
-     <None Include="Assets\UnityTestTools\LICENSE.txt" />
      <None Include="Assets\Hard Surface Free\HardSurface Shaders\HardSurfacePro Hidden Front Transparent.shader" />
      <None Include="Assets\New Shadders\CGIncludes\AutoLight.cginc" />
      <None Include="Assets\New Shadders\DefaultResourcesExtra\Mobile\Mobile-Particle-Add.shader" />
@@ -84,7 +83,6 @@
      <None Include="Assets\New Shadders\DefaultResourcesExtra\Particle Multiply.shader" />
      <None Include="Assets\New Shadders\DefaultResources\Sprites-Default.shader" />
      <None Include="Assets\Hard Surface Free\HardSurface Shaders\HardSurface Free Transparent Bump.shader" />
-     <None Include="Assets\test-results\Assembly-UnityScript-Editor.unityproj-Debug-2014-03-20.xml" />
      <None Include="Assets\New Shadders\DefaultResourcesExtra\TerrainShaders\Splats\AddPass.shader" />
      <None Include="Assets\New Shadders\DefaultResourcesExtra\Illumin-Diffuse.shader" />
      <None Include="Assets\New Shadders\DefaultResources\Internal-GUITextureClip.shader" />
@@ -92,7 +90,6 @@
      <None Include="Assets\New Shadders\DefaultResourcesExtra\Normal-DiffuseDetail.shader" />
      <None Include="Assets\New Shadders\DefaultResources\Internal-GUITextureBlit.shader" />
      <None Include="Assets\New Shadders\DefaultResourcesExtra\Flare.shader" />
-     <None Include="Assets\test-results\Assembly-CSharp-Editor.csproj-Debug-2014-03-20.xml" />
      <None Include="Assets\Scripts\shaders\AlphaSelfIllum.shader" />
      <None Include="Assets\New Shadders\DefaultResources\Shadow-ScreenBlurRotated.shader" />
      <None Include="Assets\New Shadders\DefaultResourcesExtra\uGUI\GUI-Lit-Refraction(ProOnly).shader" />
@@ -121,7 +118,6 @@
      <None Include="Assets\New Shadders\DefaultResourcesExtra\Mobile\Mobile-Lightmap-Unlit.shader" />
      <None Include="Assets\New Shadders\DefaultResourcesExtra\AlphaTest-Diffuse.shader" />
      <None Include="Assets\Hard Surface Free\HardSurface Shaders\HardSurface Free Cut Out Opaque Diffuse.shader" />
-     <None Include="Assets\Start-TestResults.xml" />
      <None Include="Assets\Scripts\shaders\shield.shader" />
      <None Include="Assets\New Shadders\DefaultResourcesExtra\Nature\TreeCreator\TreeCreatorBarkRendertex.shader" />
      <None Include="Assets\New Shadders\DefaultResourcesExtra\Lightmap-Diffuse.shader" />
@@ -171,7 +167,6 @@
      <None Include="Assets\New Shadders\DefaultResourcesExtra\Decal.shader" />
      <None Include="Assets\Hard Surface Free\HardSurface Shaders\HardSurface Free Cut Out Opaque Specular.shader" />
      <None Include="Assets\SpaceUnity\Shaders\PlanetStandard.shader" />
-     <None Include="Assets\UnityTestTools\changelog.txt" />
      <None Include="Assets\New Shadders\DefaultResourcesExtra\uGUI\GUI-Lit-Transparent.shader" />
      <None Include="Assets\New Shadders\CGIncludes\Tessellation.cginc" />
      <None Include="Assets\New Shadders\DefaultResourcesExtra\Nature\Terrain\TerrBumpFirstPass.shader" />
@@ -223,7 +218,6 @@
      <None Include="Assets\New Shadders\DefaultResourcesExtra\uGUI\GUI-Lit-Bumped.shader" />
      <None Include="Assets\New Shadders\CGIncludes\Lighting.cginc" />
      <None Include="Assets\New Shadders\DefaultResourcesExtra\Lightmap-Glossy.shader" />
-     <None Include="Assets\test-results\Assembly-Boo-Editor.booproj-Debug-2014-03-20.xml" />
      <None Include="Assets\Lightbeam\Documentation\Readme.txt" />
      <None Include="Assets\New Shadders\DefaultResourcesExtra\Normal-Bumped.shader" />
      <None Include="Assets\New Shadders\DefaultResourcesExtra\Nature\TreeCreator\TreeCreatorLeavesOptimized.shader" />
