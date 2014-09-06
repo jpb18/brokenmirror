@@ -83,23 +83,22 @@ function OnEnable() {
 	var audio : AudioSource = gameObject.GetComponent(AudioSource);
 	audio.Play();
 	
-	rigidbody.velocity = status.speed * transform.forward;
+	var intersect : Vector3;
 	
 	if(target)
 	{	
-		var trans : Transform = target.transform;
-		var Pa : Vector3 = trans.position;
-		var Va : Vector3 = trans.rigidbody.velocity;
-		var Pb : Vector3 = transform.position;
-		var Vb : Vector3 = rigidbody.velocity;
-		var intersect : Vector3 = calculateIntersectPoint(Pa, Va, Pb, Vb);
-		//Debug.Log("First: " + transform.rotation);
-		transform.LookAt(intersect);
-		//Debug.Log("Seconds: " + transform.rotation);
-		rigidbody.velocity = status.speed * transform.forward;
+		var originPos : Vector3 = this.origin.transform.position;
+		var speed : float = status.speed;
+		var targetPos : Vector3 = target.transform.position;
+		var targetVel : Vector3 = target.rigidbody.velocity;
+		intersect = FindInterceptVector(originPos, speed, targetPos, targetVel);
+		
+		
+	} else {
+		intersect = transform.forward * status.speed;
 	}
 
-
+	rigidbody.velocity = intersect;
 	
 	
 	launched = Time.time;
@@ -359,5 +358,66 @@ function calculateTwoPoints(a : float, b : float, discriminant : float) : float 
 	return Mathf.Min(-t0, -t1);
 }
 
+private function FindInterceptVector(shotOrigin : Vector3,shotSpeed : float,targetOrigin : Vector3,targetVel : Vector3) : Vector3 {
+	var dirToTarget : Vector3 = Vector3.Normalize(targetOrigin - shotOrigin);
+	
+	// Decompose the target's velocity into the part parallel to the
+    // direction to the cannon and the part tangential to it.
+    // The part towards the cannon is found by projecting the target's
+    // velocity on dirToTarget using a dot product.
+	var targetVelOrth : Vector3 = Vector3.Dot(targetVel, dirToTarget) * dirToTarget;
+	
+	 // The tangential part is then found by subtracting the
+    // result from the target velocity.
+    var targetVelTang : Vector3 = targetVel - targetVelOrth;
+    
+    /*
+    * targetVelOrth
+    * |
+    * |
+    *
+    * ^...7  <-targetVel
+    * |  /.
+    * | / .
+    * |/ .
+    * t--->  <-targetVelTang
+    *
+    *
+    * s--->  <-shotVelTang
+    *
+    */
+    
+    // The tangential component of the velocities should be the same
+    // (or there is no chance to hit)
+    // THIS IS THE MAIN INSIGHT!
+    
+    var shotVelTang : Vector3 = targetVelTang;
+    
+     // Now all we have to find is the orthogonal velocity of the shot
+    var shotVelSpeed : float = shotVelTang.magnitude;
+    
+    
+    var vector : Vector3;
+    if(shotVelSpeed > shotSpeed) {
+    	  // Shot is too slow to intercept target, it will never catch up.
+        // Do our best by aiming in the direction of the targets velocity.
+        vector = targetVel.normalized * shotSpeed;
+    
+    } else {
+    
+	  	// We know the shot speed, and the tangential velocity.
+	    // Using pythagoras we can find the orthogonal velocity.
+	   var shotSpeedOrth : float =	Mathf.Sqrt(shotSpeed * shotSpeed - shotVelSpeed * shotVelSpeed);
+		var shotVelOrth : Vector3 = dirToTarget * shotSpeedOrth;
 
+		// Finally, add the tangential and orthogonal velocities.
+		vector = shotVelOrth + shotVelTang;
+	}
+	
+	return vector;
+	
+
+	
+    
+}
 

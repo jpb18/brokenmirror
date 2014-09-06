@@ -1,12 +1,14 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace />
-  <MonoDevelop.Ide.Workbench ActiveDocument="..\EarthOrbitDefense\Assets\Planet.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\weapons\torpedoScript.js">
     <Files>
-      <File FileName="..\EarthOrbitDefense\Assets\Planet.cs" Line="64" Column="6" />
+      <File FileName="Assets\Scripts\weapons\torpedoScript.js" Line="87" Column="2" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
+    <BreakpointStore>
+      <Breakpoint file="C:\UnityProjects\BM3\Assets\Scripts\weapons\torpedoScript.js" line="362" />
+    </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>
