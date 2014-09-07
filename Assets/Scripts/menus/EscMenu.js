@@ -6,6 +6,8 @@ var menu_rect : Rect;
 
 var skin : GUISkin;
 
+var persistentPrefab : GameObject;
+
 public static final var MENU_STYLE : String = "MenuButton";
 public static final var MAIN_MENU : String = "text";
 
@@ -95,6 +97,7 @@ function quit() {
 	stopComponents();
 	Destroy(camera.gameObject);
 	setOff();
+
 	Application.LoadLevel(MAIN_MENU);
 }
 
@@ -111,4 +114,10 @@ private function stopComponents() {
 	message.setOff();
 	music.stopPlaying();
 	hud.setGame(false);
+}
+
+private function handlePersistent() {
+	var persistent : GameObject = GameObject.FindGameObjectWithTag("Persistent");
+	Destroy(persistent);
+	Instantiate(persistentPrefab);
 }

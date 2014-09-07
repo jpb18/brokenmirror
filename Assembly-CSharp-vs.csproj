@@ -67,6 +67,7 @@
      <Compile Include="Assets\Scripts\ChangeSceneOnFinish.cs" />
      <Compile Include="Assets\Scripts\camera\screenshot.cs" />
      <Compile Include="Assets\Scripts\effects\AnimateTiledTexture.cs" />
+     <Compile Include="Assets\Scripts\menus\ChangeSceneOnPress.cs" />
      <Compile Include="Assets\Scripts\menus\LoaderButton.cs" />
      <Compile Include="Assets\SpaceUnity\Scripts\SU_Asteroid.cs" />
      <Compile Include="Assets\SpaceUnity\Scripts\SU_AsteroidField.cs" />

@@ -34,13 +34,13 @@ class AlertWarning extends HUDElement {
 
 	
 	function checkTurbulence() {
-		if(super.triggers.hasTurbulenceChanged()) {
-			if(isOn) {
-				setOff();
-			} else {
-				setGravity();
-			}
-		}
+		if(super.triggers.isTurbulence()) {
+			setGravity();
+			isOn = true;
+		} else {
+			isOn = false;
+		}		
+		
 		
 	}
 	

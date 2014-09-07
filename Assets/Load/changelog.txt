@@ -1,6 +1,19 @@
 Star Trek Broken Mirror
 Change Log
 
+Version 0.2.3
+**********************************************************************
+FIXED:
+- Credits are now skippable
+- Fixed bug where the gravity warning persisted after creating a new game.
+
+CHANGED:
+- Default vertical movement set to 'w' makes the ship tilt down and 's' makes it tilt up.
+- Map position indicator now rotates and fades in/out, instead of pulsing.
+
+
+
+
 Version 0.2.2
 **********************************************************************
 FIXED:

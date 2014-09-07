@@ -102,10 +102,14 @@
      <Compile Include="Assets\Scripts\PreventObjectsGoingThrough.js" />
      <Compile Include="Assets\Scripts\SaveGame\CargoHold.js" />
      <Compile Include="Assets\Scripts\SaveGame\GeneralInfo.js" />
+     <Compile Include="Assets\Scripts\SaveGame\GuiComponent.js" />
      <Compile Include="Assets\Scripts\SaveGame\HUDStatus.js" />
      <Compile Include="Assets\Scripts\SaveGame\Inventory.js" />
      <Compile Include="Assets\Scripts\SaveGame\LoadScene.js" />
+     <Compile Include="Assets\Scripts\SaveGame\Map.js" />
      <Compile Include="Assets\Scripts\SaveGame\MapInfo.js" />
+     <Compile Include="Assets\Scripts\SaveGame\PlanetInfo.js" />
+     <Compile Include="Assets\Scripts\SaveGame\PulseIndicator.js" />
      <Compile Include="Assets\Scripts\SaveGame\SaveGame.js" />
      <Compile Include="Assets\Scripts\SaveGame\SaveScript.js" />
      <Compile Include="Assets\Scripts\SaveGame\Stardate.js" />

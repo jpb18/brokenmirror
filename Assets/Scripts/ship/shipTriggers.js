@@ -1,3 +1,4 @@
+
 //this script controls all planetary triggers...
 #pragma strict
 
@@ -141,4 +142,8 @@ function getReentryParticles () : GameObject {
 
 function hasTurbulenceChanged() : boolean {
 	return triggerProps.hasTurbulenceChanged();
+}
+
+function isTurbulence() : boolean {
+	return triggerProps.isTurbulence;
 }
