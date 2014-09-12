@@ -234,6 +234,19 @@ function getFactionInfo(faction : int) : FactionInfo {
 
 }
 
+function getPlayerName() : String {
+	return playerInfo.name;
+}
+
+
+function getDificulty() : Dificulty {
+	return playerInfo.gameDificulty;
+}
+
+function getPlayerPrefix() : String {
+	return playerInfo.allegience.getPrefix();
+}
+
 function getFactionId(faction : FactionInfo) : int {
 	for(var i : int = 0; i < factionInfo.Count; i++) {
 		if(factionInfo[i] == faction) {

@@ -108,6 +108,7 @@ function leave() {
 function save() {
 	var fileName : String = SAVE_TEXT + SAVE_EXT;
 	saveScript.writeToFile(fileName);
+	saveScript.XmlSave();
 }
 
 private function stopComponents() {

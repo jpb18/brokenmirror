@@ -63,6 +63,10 @@
      <Compile Include="Assets\Scripts\Events\SceneTransferCarry.js" />
      <Compile Include="Assets\Scripts\Events\TransferGui.js" />
      <Compile Include="Assets\Scripts\Events\TransferTmp.js" />
+     <Compile Include="Assets\Scripts\GameSerialization\FactionData.js" />
+     <Compile Include="Assets\Scripts\GameSerialization\GameData.js" />
+     <Compile Include="Assets\Scripts\GameSerialization\InventoryData.js" />
+     <Compile Include="Assets\Scripts\GameSerialization\PlayerData.js" />
      <Compile Include="Assets\Scripts\GlobalInfo.js" />
      <Compile Include="Assets\Scripts\Interfaces\IActive.js" />
      <Compile Include="Assets\Scripts\Interfaces\IClasseable.js" />
@@ -353,6 +357,7 @@
      <None Include="Assets\Hard Surface Free\HardSurface Shaders\HardSurfacePro Hidden Front Cut Out Opaque Diffuse.shader" />
      <None Include="Assets\New Shadders\DefaultResourcesExtra\Normal-Glossy.shader" />
      <None Include="Assets\Hard Surface Free\HardSurface Shaders\HardSurfacePro Hidden Front Transparent Bump.shader" />
+     <None Include="Assets\TestSave.xml" />
      <None Include="Assets\New Shadders\DefaultResourcesExtra\Mobile\Mobile-Bumped.shader" />
      <None Include="Assets\New Shadders\DefaultResourcesExtra\Mobile\Mobile-VertexLit-OnlyDirectionalLights.shader" />
      <None Include="Assets\New Shadders\DefaultResourcesExtra\uGUI\GUI-Default.shader" />

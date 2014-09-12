@@ -11,7 +11,11 @@ CHANGED:
 - Default vertical movement set to 'w' makes the ship tilt down and 's' makes it tilt up.
 - Map position indicator now rotates and fades in/out, instead of pulsing.
 
+ADDED:
+- New Loading Screen tips
 
+WIP:
+- New XML-based Save System
 
 
 Version 0.2.2

@@ -201,6 +201,7 @@
      <None Include="Assets\Hard Surface Free\HardSurface Shaders\HardSurfacePro Hidden Front Cut Out Opaque Diffuse.shader" />
      <None Include="Assets\New Shadders\DefaultResourcesExtra\Normal-Glossy.shader" />
      <None Include="Assets\Hard Surface Free\HardSurface Shaders\HardSurfacePro Hidden Front Transparent Bump.shader" />
+     <None Include="Assets\TestSave.xml" />
      <None Include="Assets\New Shadders\DefaultResourcesExtra\Mobile\Mobile-Bumped.shader" />
      <None Include="Assets\New Shadders\DefaultResourcesExtra\Mobile\Mobile-VertexLit-OnlyDirectionalLights.shader" />
      <None Include="Assets\New Shadders\DefaultResourcesExtra\uGUI\GUI-Default.shader" />

@@ -9,7 +9,6 @@ private var cargo : CargoHold;
 
 private var folder : String;
 
-
 function Start () {
 	
 	var saveGO : GameObject = GameObject.FindGameObjectWithTag("SaveGame");
@@ -37,6 +36,25 @@ function writeToFile(name : String) {
 	}
 
 }
+
+function XmlSave() {
+	//Collect information for serialization
+	var dif : Dificulty = general.getDificulty();
+	var name : String = general.getPlayerName();
+	var system : String = Application.loadedLevelName;
+	var game : GameData = new GameData("TestSave", general, inventory);
+	
+	//build file destination
+	var path : String = Path.Combine(Application.dataPath, "TestSave.xml");
+	
+	//Serialize
+	var serializer : XmlSerializer = new XmlSerializer(GameData);
+ 	var stream : Stream = new FileStream(path, FileMode.Create);
+ 	serializer.Serialize(stream, game);
+ 	stream.Close();
+	
+}
+
 
 function serialize() : String {
 	var serie : String = "";

@@ -230,6 +230,7 @@
      <None Include="Assets\Hard Surface Free\HardSurface Shaders\HardSurfacePro Hidden Front Cut Out Opaque Diffuse.shader" />
      <None Include="Assets\New Shadders\DefaultResourcesExtra\Normal-Glossy.shader" />
      <None Include="Assets\Hard Surface Free\HardSurface Shaders\HardSurfacePro Hidden Front Transparent Bump.shader" />
+     <None Include="Assets\TestSave.xml" />
      <None Include="Assets\New Shadders\DefaultResourcesExtra\Mobile\Mobile-Bumped.shader" />
      <None Include="Assets\New Shadders\DefaultResourcesExtra\Mobile\Mobile-VertexLit-OnlyDirectionalLights.shader" />
      <None Include="Assets\New Shadders\DefaultResourcesExtra\uGUI\GUI-Default.shader" />
@@ -284,6 +285,9 @@
      <None Include="Assets\New Shadders\DefaultResourcesExtra\TerrainShaders\Details\WavingGrass.shader" />
  <Reference Include="Assembly-UnityScript-firstpass">
  <HintPath>C:/UnityProjects/BM3/Library/ScriptAssemblies/Assembly-UnityScript-firstpass.dll</HintPath>
+ </Reference>
+ <Reference Include="Assembly-UnityScript">
+ <HintPath>C:/UnityProjects/BM3/Library/ScriptAssemblies/Assembly-UnityScript.dll</HintPath>
  </Reference>
  <Reference Include="NSubstitute">
  <HintPath>C:/UnityProjects/BM3/Assets/UnityTestTools/UnitTesting/Editor/NSubstitute/NSubstitute.dll</HintPath>
