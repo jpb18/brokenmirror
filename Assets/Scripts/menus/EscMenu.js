@@ -17,8 +17,9 @@ private var timeInt : float = 0.2f;
 private var message : ShowMessage;
 private var saveScript : SaveScript;
 
-public static var SAVE_TEXT : String = "SaveGame";
-public static var SAVE_EXT : String = ".bm";
+public static var SAVE_TEXT : String = "save";
+public static var SAVE_EXT : String = ".xml";
+public static var LAST_SAVE : String = "last.xml";
 
 private var hud : HUDStatus;
 private var music : PlaybackScript;
@@ -107,8 +108,9 @@ function leave() {
 
 function save() {
 	var fileName : String = SAVE_TEXT + SAVE_EXT;
-	saveScript.writeToFile(fileName);
-	saveScript.XmlSave();
+	//saveScript.writeToFile(fileName);
+	saveScript.XmlSave(fileName);
+	saveScript.XmlSave(LAST_SAVE);
 }
 
 private function stopComponents() {

@@ -12,7 +12,9 @@ var texts : TextMesh[];
 var sColor : Color;
 var uColor : Color;
 
+
 public static final var MENU_LAYER : String = "MenuText";
+public static final var MAIN_LAYER : String = "MainMenu";
 
 private var hud : HUDStatus;
 private var show : ShowMessage;
@@ -20,6 +22,10 @@ private var music : PlaybackScript;
 
 private var load : LoadScene;
 private var fade : FadeInOut;
+private var save : SaveScript;
+
+private var create : NewGame;
+
 
 function Start () {
 	show = GameObject.FindGameObjectWithTag("ShowMessage").GetComponent(ShowMessage);
@@ -31,6 +37,9 @@ function Start () {
 	if(fade) {
 		fade.fadeIn();
 	}
+	
+	create = GameObject.FindGameObjectWithTag("Create").GetComponent(NewGame);
+	save = GameObject.FindGameObjectWithTag("SaveScript").GetComponent(SaveScript);
 
 }
 
@@ -49,10 +58,10 @@ function getPress() {
 		if (Physics.Raycast (ray, hit, 1000.0f, ~layer.value)) {
 				var hitGo : GameObject = hit.transform.gameObject;
 				if (hitGo.tag == "NewGame") {
-						startGame = true;
-				}
-				else if(hitGo.tag == "resume" && saveGameExists()) {
-					loadLatestGame();
+						Hide();
+						create.SetOn();			}
+				else if(hitGo.tag == "resume" && save.XmlExists(getFileName())) {
+					//loadLatestGame();
 				}
 		}
 	
@@ -69,7 +78,7 @@ function getMouseOver() {
 				var num : int = getNumber(hitGo.tag);
 			
 				if(num == 0) {
-					if(saveGameExists()) {
+					if(save.XmlExists(getFileName())) {
 						setMouseOver(0);
 					}
 				} else {
@@ -117,27 +126,12 @@ function getNumber(tag : String) : int {
 
 }
 
-function FixedUpdate() {
-	if (startGame) {
-			
-			Application.LoadLevel ("Intro");
-	}
 
-
-}
 
 function startComponents() {
 	show.setGame();
 	music.startPlaying();
 	hud.setGame(true);
-}
-
-function OnGUI ()
-{
-		if (showSplash) {
-				load.showScreen();
-				startGame = true;
-		}
 }
 
 function hideRoll() {
@@ -180,10 +174,24 @@ function loadLatestGame() {
 	      
 }
 
-function saveGameExists() : boolean {
-	return System.IO.File.Exists(Application.dataPath + "\\" +getFileName());
-}
+
 
 function getFileName() : String {
 	return EscMenu.SAVE_TEXT + EscMenu.SAVE_EXT;
+}
+
+
+// Turn off the bit using an AND operation with the complement of the shifted int:
+function Hide() {
+    Camera.main.cullingMask &=  ~(1 << LayerMask.NameToLayer(MAIN_LAYER));
+}
+
+// Turn on the bit using an OR operation:
+function Show() {
+    Camera.main.cullingMask |= 1 << LayerMask.NameToLayer(MAIN_LAYER);
+}
+
+// Toggle the bit using a XOR operation:
+function Toggle() {
+    Camera.main.cullingMask ^= 1 << LayerMask.NameToLayer(MAIN_LAYER);
 }

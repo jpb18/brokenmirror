@@ -63,10 +63,13 @@
      <Compile Include="Assets\Scripts\Events\SceneTransferCarry.js" />
      <Compile Include="Assets\Scripts\Events\TransferGui.js" />
      <Compile Include="Assets\Scripts\Events\TransferTmp.js" />
+     <Compile Include="Assets\Scripts\GameSerialization\CargoData.js" />
+     <Compile Include="Assets\Scripts\GameSerialization\CargoItemData.js" />
      <Compile Include="Assets\Scripts\GameSerialization\FactionData.js" />
      <Compile Include="Assets\Scripts\GameSerialization\GameData.js" />
      <Compile Include="Assets\Scripts\GameSerialization\InventoryData.js" />
      <Compile Include="Assets\Scripts\GameSerialization\PlayerData.js" />
+     <Compile Include="Assets\Scripts\GameSerialization\ShipData.js" />
      <Compile Include="Assets\Scripts\GlobalInfo.js" />
      <Compile Include="Assets\Scripts\Interfaces\IActive.js" />
      <Compile Include="Assets\Scripts\Interfaces\IClasseable.js" />
@@ -139,6 +142,7 @@
      <Compile Include="Assets\Scripts\environment\spaceGeneration.js" />
      <Compile Include="Assets\Scripts\menus\EscMenu.js" />
      <Compile Include="Assets\Scripts\menus\GameOver.js" />
+     <Compile Include="Assets\Scripts\menus\MainMenu\NewGame.js" />
      <Compile Include="Assets\Scripts\menus\RangeFinder.js" />
      <Compile Include="Assets\Scripts\menus\ResumeGame.js" />
      <Compile Include="Assets\Scripts\menus\ShowMessage.js" />
@@ -250,6 +254,7 @@
      <None Include="Assets\New Shadders\DefaultResourcesExtra\Flare.shader" />
      <None Include="Assets\test-results\Assembly-CSharp-Editor.csproj-Debug-2014-03-20.xml" />
      <None Include="Assets\Scripts\shaders\AlphaSelfIllum.shader" />
+     <None Include="Assets\SaveGames\last.xml" />
      <None Include="Assets\New Shadders\DefaultResources\Shadow-ScreenBlurRotated.shader" />
      <None Include="Assets\New Shadders\DefaultResourcesExtra\uGUI\GUI-Lit-Refraction(ProOnly).shader" />
      <None Include="Assets\New Shadders\DefaultResourcesExtra\Reflect-BumpSpec.shader" />
@@ -374,6 +379,7 @@
      <None Include="Assets\Models\Ships\Klingon\bird of prey\K_TNG_KVORT_VoxelizerDebug.txt" />
      <None Include="Assets\New Shadders\DefaultResources\Camera-DepthTexture.shader" />
      <None Include="Assets\New Shadders\DefaultResourcesExtra\Mobile\Mobile-Particle-Alpha-VertexLit.shader" />
+     <None Include="Assets\SaveGames\save.xml" />
      <None Include="Assets\New Shadders\DefaultResourcesExtra\Nature\TreeCreator\TreeCreatorLeaves.shader" />
      <None Include="Assets\Presets\Weapons\Torpedoes\Space Shooter\Info.txt" />
      <None Include="Assets\New Shadders\DefaultResourcesExtra\Alpha-VertexLit.shader" />

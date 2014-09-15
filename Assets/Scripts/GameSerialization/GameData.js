@@ -26,11 +26,11 @@ public class GameData {
 		factions = new List.<FactionData>();
 	}
 	
-	function GameData(name : String, general : GeneralInfo, inventory : Inventory) {
+	function GameData(name : String, general : GeneralInfo, inventory : Inventory, hold : CargoHold, save : SaveGame) {
 		this.name = name;
 		this.dificulty = general.getDificulty().ToString();
 		date = DateTime.Now.ToString();
-		player = new PlayerData(general.getPlayerName(), 0, inventory);
+		player = new PlayerData(general.getPlayerName(), 0, inventory, hold, save);
 		currentSystem = Application.loadedLevelName;
 		this.factions = new List.<FactionData>();
 		var facs : List.<FactionInfo> = general.factionInfo;

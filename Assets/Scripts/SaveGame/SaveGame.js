@@ -162,6 +162,10 @@ class SaveShip extends System.Object{
 		
 	}
 	
+	function getName() : String {
+		return shipInfo.Name;
+	}
+	
 	function getStrenght() : int {
 		return shipInfo.strenght;
 	}
@@ -170,10 +174,50 @@ class SaveShip extends System.Object{
 		return shipInfo.Faction;
 	}
 	
+	function isPlayer() : boolean {
+		return shipInfo.isPlayer;
+	}
+	
+	function isRedAlert() : boolean {
+		return shipInfo.isRedAlert;
+	}
+	
+	function getPhaser() : GameObject {
+		return shipInv.phaser;
+	}
+	
+	function getForwardTorpedo() : GameObject {
+		return shipInv.torp1;
+	}
+	
+	function getBackwardTorpedo() : GameObject {
+		return shipInv.torp2;
+	}
+	
+	function getUpgrades() : List.<GameObject> {
+		return shipInv.upgrades;
+	}
+	
+	function getActives() : List.<GameObject> {
+		return shipInv.actives;
+	}
+	
+	function getHull() : float {
+		return shipHea.curHull;
+	}
+	
+	function getShield() : float {
+		return shipHea.curShield;
+	}
+	
 	function getMaintenance() : int {
 		var maint : IMaintainable = shipPrefab.GetComponent(typeof(IMaintainable)) as IMaintainable;
 		return maint.getMaintenanceCost();
 		
+	}
+	
+	function getDilithium() : int {
+		return dilithium;
 	}
 	
 	//this function returns the ship stored here

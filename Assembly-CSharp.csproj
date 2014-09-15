@@ -160,6 +160,7 @@
      <None Include="Assets\New Shadders\DefaultResourcesExtra\Flare.shader" />
      <None Include="Assets\test-results\Assembly-CSharp-Editor.csproj-Debug-2014-03-20.xml" />
      <None Include="Assets\Scripts\shaders\AlphaSelfIllum.shader" />
+     <None Include="Assets\SaveGames\last.xml" />
      <None Include="Assets\New Shadders\DefaultResources\Shadow-ScreenBlurRotated.shader" />
      <None Include="Assets\New Shadders\DefaultResourcesExtra\uGUI\GUI-Lit-Refraction(ProOnly).shader" />
      <None Include="Assets\New Shadders\DefaultResourcesExtra\Reflect-BumpSpec.shader" />
@@ -284,6 +285,7 @@
      <None Include="Assets\Models\Ships\Klingon\bird of prey\K_TNG_KVORT_VoxelizerDebug.txt" />
      <None Include="Assets\New Shadders\DefaultResources\Camera-DepthTexture.shader" />
      <None Include="Assets\New Shadders\DefaultResourcesExtra\Mobile\Mobile-Particle-Alpha-VertexLit.shader" />
+     <None Include="Assets\SaveGames\save.xml" />
      <None Include="Assets\New Shadders\DefaultResourcesExtra\Nature\TreeCreator\TreeCreatorLeaves.shader" />
      <None Include="Assets\Presets\Weapons\Torpedoes\Space Shooter\Info.txt" />
      <None Include="Assets\New Shadders\DefaultResourcesExtra\Alpha-VertexLit.shader" />

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<GameData xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="save.xml" date="9/13/2014 2:02:21 PM" dificulty="Easy" current="Earth">
+  <player name="" faction="0">
+    <inventory latinum="5000" size="30">
+      <Items />
+    </inventory>
+    <cargo capacity="500">
+      <items />
+    </cargo>
+    <ship name="ISS Reliant" faction="0">
+      <player>true</player>
+      <alert>false</alert>
+      <hull>800</hull>
+      <shield>950</shield>
+      <phaser>phaser</phaser>
+      <forwardTorpedo>Photons</forwardTorpedo>
+      <backwardTorpedo>null</backwardTorpedo>
+      <upgrades />
+      <actives />
+      <resource />
+      <dilithium>796</dilithium>
+    </ship>
+  </player>
+  <factions>
+    <FactionData id="0" name="Player" race="PlayerRace" prefix="">
+      <Enemies>
+        <Enemy>2</Enemy>
+      </Enemies>
+      <Allies>
+        <Ally>1</Ally>
+      </Allies>
+      <Fleet />
+    </FactionData>
+    <FactionData id="1" name="Earth Empire" race="Human" prefix="ISS">
+      <Enemies>
+        <Enemy>2</Enemy>
+      </Enemies>
+      <Allies>
+        <Ally>0</Ally>
+      </Allies>
+      <Fleet>
+        <Ship>ConstitutionRefit</Ship>
+        <Ship>Excelsior</Ship>
+        <Ship>galaxy</Ship>
+        <Ship>Miranda</Ship>
+        <Ship>sovereign</Ship>
+        <Ship>voyager</Ship>
+        <Ship>DefiantClass</Ship>
+        <Ship>AkiraClass</Ship>
+      </Fleet>
+    </FactionData>
+    <FactionData id="2" name="Klingon Empire" race="Klingon" prefix="IKS">
+      <Enemies>
+        <Enemy>0</Enemy>
+        <Enemy>1</Enemy>
+      </Enemies>
+      <Allies />
+      <Fleet>
+        <Ship>NeghVarWar</Ship>
+        <Ship>VorchaUnity</Ship>
+        <Ship>brel</Ship>
+      </Fleet>
+    </FactionData>
+    <FactionData id="3" name="Romulan Empire" race="Romulan" prefix="RIS">
+      <Enemies />
+      <Allies>
+        <Ally>4</Ally>
+      </Allies>
+      <Fleet>
+        <Ship>Dderidex</Ship>
+      </Fleet>
+    </FactionData>
+    <FactionData id="4" name="Cardassian Union" race="Cardassian" prefix="CDS">
+      <Enemies />
+      <Allies>
+        <Ally>3</Ally>
+      </Allies>
+      <Fleet />
+    </FactionData>
+    <FactionData id="5" name="Non-Aligned" race="Various" prefix="">
+      <Enemies>
+        <Enemy>2</Enemy>
+      </Enemies>
+      <Allies>
+        <Ally>1</Ally>
+      </Allies>
+      <Fleet />
+    </FactionData>
+  </factions>
+</GameData>

@@ -19,7 +19,7 @@ function Start () {
 	
 	var mapGO : GameObject = GameObject.FindGameObjectWithTag("MapInfo");
 	map = mapGO.GetComponent(MapInfo);
-	folder = Application.dataPath;
+	folder = Path.Combine(Application.dataPath, "SaveGames");
 }
 
 
@@ -37,15 +37,16 @@ function writeToFile(name : String) {
 
 }
 
-function XmlSave() {
-	//Collect information for serialization
-	var dif : Dificulty = general.getDificulty();
-	var name : String = general.getPlayerName();
-	var system : String = Application.loadedLevelName;
-	var game : GameData = new GameData("TestSave", general, inventory);
+function XmlSave(name : String) {
+	
+	var game : GameData = new GameData(name, general, inventory, cargo, save);
+	
+	if(!Directory.Exists(folder)) {
+		Directory.CreateDirectory(folder);
+	}
 	
 	//build file destination
-	var path : String = Path.Combine(Application.dataPath, "TestSave.xml");
+	var path : String = Path.Combine(folder, name);
 	
 	//Serialize
 	var serializer : XmlSerializer = new XmlSerializer(GameData);
@@ -53,6 +54,30 @@ function XmlSave() {
  	serializer.Serialize(stream, game);
  	stream.Close();
 	
+}
+
+
+
+function XmlLoad(name : String) : GameData {
+	
+	//build file destination
+	var path : String = Path.Combine(folder, name);
+	
+	var serializer : XmlSerializer = new XmlSerializer(GameData);
+ 	var stream : Stream = new FileStream(path, FileMode.Open);
+	var game : GameData = serializer.Deserialize(stream) as GameData;
+ 	stream.Close();
+
+	return game;
+
+}
+
+function XmlExists(name : String) : boolean {
+	//build file destination
+	var path : String = Path.Combine(folder, name);
+	
+	return File.Exists(path);
+
 }
 
 
