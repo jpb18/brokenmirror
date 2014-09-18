@@ -166,6 +166,10 @@ class SaveShip extends System.Object{
 		return shipInfo.Name;
 	}
 	
+	function setName(name : String) {
+		shipInfo.Name = name;
+	}
+	
 	function getStrenght() : int {
 		return shipInfo.strenght;
 	}
@@ -472,6 +476,7 @@ function Start() {
 	show = GameObject.FindGameObjectWithTag("ShowMessage").GetComponent(ShowMessage);
 	load = GameObject.FindGameObjectWithTag("LoadScene").GetComponent(LoadScene);
 	
+	checkPlayerShip();
 }
 
 function Update() {
@@ -481,15 +486,31 @@ function Update() {
 		makeNearFleet();
 	}
 	
-	if(!playShip || !isPlayer(playShip)) {
-		playShip = FindPlayerShip();
-	}
 	
+	checkPlayerShip();
 
 }
 
+function checkPlayerShip() {
+	if(!playShip || !isPlayer(playShip)) {
+		playShip = FindPlayerShip();
+	}
+}
+
 function getPlayerShip() : GameObject {
+	if(!playShip) {
+		playShip = FindPlayerShip();
+	}
+
 	return playShip;
+}
+
+function setPlayerShipName(name : String) {
+	playerShip.setName(name);
+}
+
+function getPlayerShipName() : String {
+	return playerShip.getName();
 }
 
 function getPlayerFleet() : List.<SaveShip> {

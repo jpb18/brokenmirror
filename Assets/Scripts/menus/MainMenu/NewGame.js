@@ -59,6 +59,8 @@ var ship : GameObject;
 var creditsGO : GameObject;
 
 private var menu : MenuScript;
+private var general : GeneralInfo;
+private var save : SaveGame;
 private var tmp : GUISkin;
 
 public static final var BASE_HEIGHT = 1440f;
@@ -80,6 +82,13 @@ public static final var POINTS = "{0}/100";
 
 function Start () {
 	menu = Camera.main.gameObject.GetComponent(MenuScript);
+	var go : GameObject = GameObject.FindGameObjectWithTag("SaveGame");
+	general = go.GetComponent(GeneralInfo);
+	save = go.GetComponent(SaveGame);
+	reset();
+}
+
+function reset() {
 	charNameString = "";
 	customFactionString = "";
 	shipNameString = "";
@@ -164,10 +173,13 @@ private function DrawRight() {
 		GUI.Label(Resize(startingFactionLabel), FACTION_LABEL, skin.GetStyle("MidLabel"));
 		GUI.Label(Resize(shipClassLabel), SHIP_LABEL, skin.GetStyle("MidLabel"));
 		
-		GUI.Button(Resize(InvertXY(rightArea, continueRect)), "Continue");
+		if(GUI.Button(Resize(InvertXY(rightArea, continueRect)), "Continue")) {
+			setNewGame();
+		}
 		
 		if(GUI.Button(Resize(InvertY(rightArea, returnRect)), "Back")) {
 			SetOff();
+			reset();
 		}
 		
 	GUILayout.EndArea();
@@ -215,4 +227,14 @@ function SetOff() {
 	if(creditsGO) {
 		creditsGO.SetActive(true);
 	}
+}
+
+function setNewGame() {
+	general.setPlayerName(charNameString);
+	general.setPlayerFactionName(customFactionString);
+	general.setPlayerFactionPrefix("ISS");
+	save.setPlayerShipName(shipNameString);
+	
+	Application.LoadLevel("Intro");
+	
 }

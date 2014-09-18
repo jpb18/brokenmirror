@@ -65,6 +65,10 @@ class FactionInfo {
 	 	return factionName;
 	 }
 	 
+	 function setName(name : String) {
+	 	factionName = name;
+	 }
+	 
 	 function getRace() : String {
 	 	return factionRace;
 	 }
@@ -115,6 +119,10 @@ class FactionInfo {
 	 
 	 function getPrefix() : String {
 	 	return prefix;
+	 }
+	 
+	 function setPrefix(prefix : String) {
+	 	this.prefix = prefix;
 	 }
 	 
 	 function getRandomShipName() : String {
@@ -234,8 +242,20 @@ function getFactionInfo(faction : int) : FactionInfo {
 
 }
 
+function setPlayerFactionName(name : String) {
+	factionInfo[0].setName(name);
+}
+
+function setPlayerFactionPrefix(prefix : String) {
+	factionInfo[0].setPrefix(prefix);
+}
+
 function getPlayerName() : String {
 	return playerInfo.name;
+}
+
+function setPlayerName(name : String) {
+	playerInfo.name = name;
 }
 
 
