@@ -11,6 +11,7 @@ public class PlayerData {
 	var inventory : InventoryData;
 	var cargo : CargoData;
 	var ship : ShipData;
+	var fleet : FleetData;
 	
 	function PlayerData() {
 		name = "";
@@ -18,6 +19,7 @@ public class PlayerData {
 		inventory = new InventoryData();
 		cargo = new CargoData();
 		ship = new ShipData();
+		fleet = new FleetData();
 	}
 	
 	function PlayerData(name : String, faction : int, inventory : Inventory, hold : CargoHold, save : SaveGame) {
@@ -26,6 +28,7 @@ public class PlayerData {
 		this.inventory = new InventoryData(inventory);
 		this.cargo = new CargoData(hold);
 		this.ship = new ShipData(save.playerShip);
+		this.fleet = new FleetData(save.playerFleet);
 	}	
 
 

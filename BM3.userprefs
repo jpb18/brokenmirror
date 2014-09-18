@@ -1,11 +1,17 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\SaveGame\GeneralInfo.js">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\SaveGames\last.xml">
     <Files>
-      <File FileName="Assets\Scripts\Start\StartScript.js" Line="12" Column="22" />
+      <File FileName="Assets\Scripts\GameSerialization\FleetData.js" Line="24" Column="37" />
+      <File FileName="Assets\Scripts\Start\StartScript.js" Line="1" Column="1" />
       <File FileName="Assets\Scripts\ship\shipProperties.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\menus\MainMenu\NewGame.js" Line="235" Column="37" />
+      <File FileName="Assets\Scripts\menus\MainMenu\NewGame.js" Line="1" Column="1" />
       <File FileName="Assets\Scripts\SaveGame\GeneralInfo.js" Line="129" Column="14" />
+      <File FileName="Assets\Scripts\SaveGame\SaveGame.js" Line="359" Column="45" />
+      <File FileName="Assets\Scripts\GameSerialization\GameData.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\GameSerialization\ShipData.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\GameSerialization\PlayerData.js" Line="31" Column="48" />
+      <File FileName="Assets\SaveGames\last.xml" Line="194" Column="14" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

@@ -66,6 +66,7 @@
      <Compile Include="Assets\Scripts\GameSerialization\CargoData.js" />
      <Compile Include="Assets\Scripts\GameSerialization\CargoItemData.js" />
      <Compile Include="Assets\Scripts\GameSerialization\FactionData.js" />
+     <Compile Include="Assets\Scripts\GameSerialization\FleetData.js" />
      <Compile Include="Assets\Scripts\GameSerialization\GameData.js" />
      <Compile Include="Assets\Scripts\GameSerialization\InventoryData.js" />
      <Compile Include="Assets\Scripts\GameSerialization\PlayerData.js" />

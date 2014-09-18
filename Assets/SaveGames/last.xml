@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="Windows-1252"?>
-<GameData xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="last.xml" date="9/13/2014 2:02:21 PM" dificulty="Easy" current="Earth">
-  <player name="" faction="0">
-    <inventory latinum="5000" size="30">
+<GameData xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="last.xml" date="9/18/2014 4:48:48 PM" dificulty="Easy" current="Earth">
+  <player name="Jonathan Archer" faction="0">
+    <inventory latinum="2144638562" size="30">
       <Items />
     </inventory>
     <cargo capacity="500">
       <items />
     </cargo>
-    <ship name="ISS Reliant" faction="0">
+    <ship name="Enterprise" faction="0">
       <player>true</player>
       <alert>false</alert>
       <hull>800</hull>
@@ -20,9 +20,134 @@
       <resource />
       <dilithium>796</dilithium>
     </ship>
+    <fleet formation="loose">
+      <fleet>
+        <ShipData name="Uss Constitution" faction="0">
+          <player>false</player>
+          <alert>false</alert>
+          <hull>850</hull>
+          <shield>1000</shield>
+          <phaser>phaser</phaser>
+          <forwardTorpedo>Photons</forwardTorpedo>
+          <backwardTorpedo>Photons</backwardTorpedo>
+          <upgrades />
+          <actives />
+          <resource />
+          <dilithium>5000</dilithium>
+        </ShipData>
+        <ShipData name="ISS Reliant" faction="0">
+          <player>false</player>
+          <alert>false</alert>
+          <hull>800</hull>
+          <shield>950</shield>
+          <phaser>phaser</phaser>
+          <forwardTorpedo>Photons</forwardTorpedo>
+          <backwardTorpedo>null</backwardTorpedo>
+          <upgrades />
+          <actives />
+          <resource />
+          <dilithium>1000</dilithium>
+        </ShipData>
+        <ShipData name="Uss Akira" faction="0">
+          <player>false</player>
+          <alert>false</alert>
+          <hull>1500</hull>
+          <shield>2000</shield>
+          <phaser>phaser</phaser>
+          <forwardTorpedo>Photons</forwardTorpedo>
+          <backwardTorpedo>Photons</backwardTorpedo>
+          <upgrades />
+          <actives />
+          <resource />
+          <dilithium>5000</dilithium>
+        </ShipData>
+        <ShipData name="ISS Reliant" faction="0">
+          <player>false</player>
+          <alert>false</alert>
+          <hull>800</hull>
+          <shield>950</shield>
+          <phaser>phaser</phaser>
+          <forwardTorpedo>Photons</forwardTorpedo>
+          <backwardTorpedo>null</backwardTorpedo>
+          <upgrades />
+          <actives />
+          <resource />
+          <dilithium>1000</dilithium>
+        </ShipData>
+        <ShipData name="Defiant" faction="0">
+          <player>false</player>
+          <alert>false</alert>
+          <hull>1200</hull>
+          <shield>1500</shield>
+          <phaser>phaser_pulse</phaser>
+          <forwardTorpedo>QuantumTorpedoes</forwardTorpedo>
+          <backwardTorpedo>Photons</backwardTorpedo>
+          <upgrades />
+          <actives>
+            <string>CloakingDevice</string>
+          </actives>
+          <resource />
+          <dilithium>5000</dilithium>
+        </ShipData>
+        <ShipData name="Uss Akira" faction="0">
+          <player>false</player>
+          <alert>false</alert>
+          <hull>1500</hull>
+          <shield>2000</shield>
+          <phaser>phaser</phaser>
+          <forwardTorpedo>Photons</forwardTorpedo>
+          <backwardTorpedo>Photons</backwardTorpedo>
+          <upgrades />
+          <actives />
+          <resource />
+          <dilithium>5000</dilithium>
+        </ShipData>
+        <ShipData name="Defiant" faction="0">
+          <player>false</player>
+          <alert>false</alert>
+          <hull>1200</hull>
+          <shield>1500</shield>
+          <phaser>phaser_pulse</phaser>
+          <forwardTorpedo>QuantumTorpedoes</forwardTorpedo>
+          <backwardTorpedo>Photons</backwardTorpedo>
+          <upgrades />
+          <actives>
+            <string>CloakingDevice</string>
+          </actives>
+          <resource />
+          <dilithium>5000</dilithium>
+        </ShipData>
+        <ShipData name="Uss Akira" faction="0">
+          <player>false</player>
+          <alert>false</alert>
+          <hull>1500</hull>
+          <shield>2000</shield>
+          <phaser>phaser</phaser>
+          <forwardTorpedo>Photons</forwardTorpedo>
+          <backwardTorpedo>Photons</backwardTorpedo>
+          <upgrades />
+          <actives />
+          <resource />
+          <dilithium>5000</dilithium>
+        </ShipData>
+        <ShipData name="Uss Constitution" faction="0">
+          <player>false</player>
+          <alert>false</alert>
+          <hull>850</hull>
+          <shield>1000</shield>
+          <phaser>phaser</phaser>
+          <forwardTorpedo>Photons</forwardTorpedo>
+          <backwardTorpedo>Photons</backwardTorpedo>
+          <upgrades />
+          <actives />
+          <resource />
+          <dilithium>5000</dilithium>
+        </ShipData>
+      </fleet>
+    </fleet>
   </player>
   <factions>
-    <FactionData id="0" name="Player" race="PlayerRace" prefix="">
+    <FactionData id="0" name="New Terran Empire" race="PlayerRace" prefix="ISS">
       <Enemies>
         <Enemy>2</Enemy>
       </Enemies>
