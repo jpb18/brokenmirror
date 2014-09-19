@@ -1,5 +1,5 @@
 ﻿#pragma strict
-class Health extends MonoBehaviour implements IHealtheable {
+class Health extends MonoBehaviour implements IHealtheable, IDamageable {
 var hull : float;
 var maxHull : float;
 var shield : float;
@@ -45,6 +45,10 @@ function getDamage(damage : float, isEnergy : boolean) {
 	
 	lastHit = Time.time;
 	
+}
+
+function setDamage(damage : float, isEnergy : boolean) {
+	getDamage(damage, isEnergy);
 }
 
 //this method reduces shield integrity

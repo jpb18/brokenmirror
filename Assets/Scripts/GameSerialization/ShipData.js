@@ -3,7 +3,7 @@ import System.Xml.Serialization;
 import System.Collections.Generic;
 
 @XmlRoot("ShipData")
-public class ShipData {
+public class ShipData extends Data {
 	@XmlAttribute("name")
 	var name : String;
 	@XmlAttribute("faction")
@@ -63,8 +63,34 @@ public class ShipData {
 		}
 		
 		dilithium = ship.getDilithium();
+		resource = ship.getPrefabName();
 						
 	}
+	
+	function getPhaser() : GameObject {
+		return getGameObject(phaser);
+	}
+	
+	function getForwardTorpedo() : GameObject {
+		return getGameObject(forwardTorpedo);
+	}
+	
+	function getBackwardTorpedo() : GameObject {
+		return getGameObject(backwardTorpedo);
+	}
+	
+	function getUpgrades() : List.<GameObject> {
+		return getGameObjectList(upgrades);
+	}
+	
+	function getActives() : List.<GameObject> {
+		return getGameObjectList(actives);
+	}
+	
+	function getPrefab() : GameObject {
+		return getGameObject(resource);
+	}
+	
 	
 
 }

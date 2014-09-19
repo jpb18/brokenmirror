@@ -75,7 +75,7 @@ class ShieldRegeneration {
 
 }
 
-class shipHealth extends MonoBehaviour implements IHealtheable {
+class shipHealth extends MonoBehaviour implements IHealtheable, IDamageable {
 
 	var shipHealth : ship_Health;
 
@@ -353,6 +353,10 @@ class shipHealth extends MonoBehaviour implements IHealtheable {
 		} else {
 			shipHealth.health -= damage;
 		}
+	}
+	
+	function setDamage(damage : float, isEnergy : boolean) {
+		setDamage(damage);
 	}
 
 	function setLastHitter(ship : GameObject) {

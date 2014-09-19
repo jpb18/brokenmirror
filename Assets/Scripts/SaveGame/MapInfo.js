@@ -132,8 +132,24 @@ class SaveStation extends System.Object{
 	//prefab
 	var prefab : GameObject;
 	
-	function SaveStation(stream : StreamReader) {
-		readFromFile(stream);
+	function SaveStation() {
+		items = new List.<GameObject>();
+		ships = new List.<GameObject>();
+		plans = new List.<GameObject>();
+		upgrades = new List.<GameObject>();
+				
+	}
+	
+	function SaveStation(station : StationData) {
+		this();
+		name = station.name;
+		faction = station.faction;
+		position = station.position;
+		items = station.getItems();
+		ships = station.getShips();
+		plans = station.getPlans();
+		upgrades = station.getUpgrades();
+		prefab = station.getPrefab();
 	}
 	
 	//this function sets the station information
@@ -181,80 +197,13 @@ class SaveStation extends System.Object{
 		return station;
 	}
 	
-	function serialize() : String {
-		var serie : String = name + "\n";
-		
-		serie = serie + faction + "\n";
-		serie = serie + serializeVector3(position);
-		
-		
-		//items
-		serie = serie + serializeGoList(items);
-		
-		//ships
-		serie = serie + serializeGoList(ships);
-		
-		//plans
-		serie = serie + serializeGoList(plans);
-		
-		//upgrades
-		serie = serie + serializeGoList(upgrades);
-		
-		serie = serie + prefab.name + "\n";
-		
-		return serie;
-		
-	}
-	
-	
-	
-	private function serializeVector3(vector : Vector3) {
-		return vector.x + "\n" + vector.y + "\n" + vector.z + "\n";
-	}
-	
-	private function serializeGoList(list : List.<GameObject>) {
-		var serie : String = list.Count + "\n";
-		for(var item : GameObject in list) {
-			serie = serie + item.name + "\n";
-		}
-		return serie;
-	}
-	
-	function readFromFile(stream : StreamReader) {
-		name = stream.ReadLine();
-		faction = int.Parse(stream.ReadLine());
-		position = readVector3(stream);
-		items = readGoList(stream);
-		ships = readGoList(stream);
-		plans = readGoList(stream);
-		upgrades = readGoList(stream);
-		prefab = Resources.Load(stream.ReadLine()) as GameObject;
-		
-	}
-	
-	private function readVector3(stream : StreamReader) : Vector3 {
-		var x : float = float.Parse(stream.ReadLine());
-		var y : float = float.Parse(stream.ReadLine());
-		var z : float = float.Parse(stream.ReadLine());
-		return new Vector3(x, y, z);
-	}
-	
-	private function readGoList(stream : StreamReader) : List.<GameObject> {
-		var count : int = int.Parse(stream.ReadLine());
-		var list : List.<GameObject> = new List.<GameObject>();
-		for(var x : int = 0; x < count; x++) {
-			var name : String = stream.ReadLine();
-			var go : GameObject = Resources.Load(name) as GameObject;
-			list.Add(go);
-		}
-		return list;
-	
-	}
 	
 	function getStrenght() : int {
 		var station : Station = prefab.GetComponent(Station);
 		return station.getStrenght();
 	}
+	
+	
 
 }
 
@@ -720,31 +669,7 @@ function addReputationToEmpire(faction : int, amount : int) {
 
 }
 
-function serialize() : String {
-	var serie : String = planets.Count + "\n";
-	
-	for(var planet : PlanetInfo in planets) {
-		serie = serie + planet.serialize();
-	}
-	
-	return serie; 
-	  
-}
 
-function readFromFile(stream : StreamReader) {
-	planets = getPlanetsList(stream);
-}
-
-private function getPlanetsList(stream : StreamReader) : List.<PlanetInfo> {
-	var count : int = int.Parse(stream.ReadLine());
-	var list : List.<PlanetInfo> = new List.<PlanetInfo>();
-	for(var x : int = 0; x < count; x++) {
-		var planet : PlanetInfo = new PlanetInfo(stream);
-		list.Add(planet);
-	}
-	return list;
-	
-}
 
 function isPlayerOverlord() : boolean {
 	for(var planet : PlanetInfo in planets) {
@@ -780,4 +705,12 @@ function getPlanetsByFaction(faction : int) : List.<PlanetInfo> {
 function setShipAsDefence(ship : GameObject) {
 	var planet : PlanetInfo = getPlanetInCurrentScene();
 	planet.addDefenseShip(ship);
+}
+
+function setMap(planets : List.<PlanetData>) {
+	this.planets = new List.<PlanetInfo>();
+	for(var planet : PlanetData in planets) {
+		this.planets.Add(new PlanetInfo(planet));
+	}
+	
 }

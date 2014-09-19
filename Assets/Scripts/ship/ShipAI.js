@@ -1,7 +1,7 @@
 ﻿
 #pragma strict
 //lets start by creating some enumerations
-enum Formation {close, standard, loose, invalid}
+
 enum ShipType {EscapePod, Frigate, AttackShip, Cruiser, BattleShip, Boss}
 
 

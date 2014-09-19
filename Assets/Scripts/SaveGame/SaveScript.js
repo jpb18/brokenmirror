@@ -6,6 +6,8 @@ private var general : GeneralInfo;
 private var map : MapInfo;
 private var inventory : Inventory;
 private var cargo : CargoHold;
+private var stardate : Stardate;
+private var missions : Missions;
 
 private var folder : String;
 
@@ -16,30 +18,21 @@ function Start () {
 	general = saveGO.GetComponent(GeneralInfo);
 	inventory = saveGO.GetComponent(Inventory);
 	cargo = saveGO.GetComponent(CargoHold);
+	stardate = saveGO.GetComponent(Stardate);
 	
 	var mapGO : GameObject = GameObject.FindGameObjectWithTag("MapInfo");
 	map = mapGO.GetComponent(MapInfo);
+	
+	var missionGo : GameObject = GameObject.FindGameObjectWithTag("Missions");
+	missions = missionGo.GetComponent(Missions);
+	
 	folder = Path.Combine(Application.dataPath, "SaveGames");
 }
 
 
-function writeToFile(name : String) {
-	try {
-		var outfile : StreamWriter = new StreamWriter(folder + "\\" + name);
-		outfile.Write(serialize());
-		
-	} catch (e : IOException) {
-		Debug.LogError("Can't write to file.\n" + e);
-	} finally {
-		outfile.Flush();
-		outfile.Close();
-	}
-
-}
-
 function XmlSave(name : String) {
 	
-	var game : GameData = new GameData(name, general, inventory, cargo, save);
+	var game : GameData = new GameData(name, general, inventory, cargo, save, stardate, map, missions);
 	
 	if(!Directory.Exists(folder)) {
 		Directory.CreateDirectory(folder);
@@ -57,7 +50,7 @@ function XmlSave(name : String) {
 }
 
 
-
+//pre XmlExists(name)
 function XmlLoad(name : String) : GameData {
 	
 	//build file destination
@@ -76,39 +69,20 @@ function XmlExists(name : String) : boolean {
 	//build file destination
 	var path : String = Path.Combine(folder, name);
 	
-	return File.Exists(path);
-
-}
-
-
-function serialize() : String {
-	var serie : String = "";
+	if(File.Exists(path)) {
 	
-	
-	serie = serie + general.serialize();
-	serie = serie + save.serialize();
-	serie = serie + map.serialize();
-	serie = serie + inventory.serialize();
-	serie = serie + cargo.serialize();
-		
-	return serie;
-	
-}
-
-function readFromFile(name : String) {
-	
-	try {
-		var reader : StreamReader = new StreamReader(folder + "\\" + name);
-		general.readFromFile(reader);
-		save.readFromFile(reader);
-		map.readFromFile(reader);
-		inventory.readFromFile(reader);
-		cargo.readFromFile(reader);
-		
-	} catch (e : IOException) {
-		Debug.LogError("Can't write to file.\n" + e);
-	} finally {
-		reader.Close();
+		try {
+			var serializer : XmlSerializer = new XmlSerializer(GameData);
+	 		var stream : Stream = new FileStream(path, FileMode.Open);
+			var game : GameData = serializer.Deserialize(stream) as GameData;
+			return true;
+	 		
+		} catch (e : Exception) {
+			return false;
+		} finally {
+			stream.Close();
+		}
 	}
+	return false;
 
 }

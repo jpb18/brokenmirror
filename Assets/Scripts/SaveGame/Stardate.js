@@ -6,7 +6,6 @@ public static final var START_DATE : int = 568449;
 public static final var DIV : float = 10.0f;
 
 
-
 function getCurrentStardate() : float {
 	return (START_DATE + stardate)/DIV;
 }

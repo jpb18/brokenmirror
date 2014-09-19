@@ -120,7 +120,7 @@ class Phaser {
 		var i : float = 0;
 		var phaserGO : GameObject;
 		isFiring = true;
-		
+
 		while (i < 1) {
 			if(target){
 				i += rate * Time.deltaTime; 
@@ -140,7 +140,7 @@ class Phaser {
 			}
 			yield;
 		}
-		GameObject.Destroy(phaserGO);
+		phaserGO.SetActive(false);
 		registerHit(target);
 		isFiring = false;
 	}
@@ -187,7 +187,8 @@ class Phaser {
 			line.SetPosition(1, point);
 			
 			
-		} 
+		}
+		
 		
 		return phaserGO;
 	
@@ -199,7 +200,8 @@ class Phaser {
 				//do phaser logic here
 				//get target health script
 				var ship : GameObject = getParent(hit.transform).gameObject;
-				ship.GetComponent(shipHealth).damageHull(getDamage(upgrades) * Time.deltaTime);
+				var dmg : IDamageable = ship.GetComponent(typeof(IDamageable)) as IDamageable;
+				dmg.setDamage(getDamage(upgrades) * Time.deltaTime, true);
 				
 				//get hit point
 				var point : Vector3 = hit.point;

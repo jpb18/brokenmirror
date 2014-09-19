@@ -21,5 +21,17 @@ public class CargoData {
 		}
 	}
 	
+	
+	function getCargo() : List.<Cargo> {
+		var c : List.<Cargo> = new List.<Cargo>();
+		
+		for(var i : CargoItemData in items) {
+			c.Add(i.getCargo());
+		}
+		
+		return c;
+	
+	}
+	
 
 }

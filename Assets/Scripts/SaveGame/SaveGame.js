@@ -162,6 +162,24 @@ class SaveShip extends System.Object{
 		
 	}
 	
+	function SaveShip(ship : ShipData) {
+		this();
+		setName(ship.name);
+		setFaction(ship.faction);
+		setPlayer(ship.player);
+		setRedAlert(ship.alert);
+		setHull(ship.hull);
+		setShield(ship.shield);
+		setPhaser(ship.getPhaser());
+		setForwardTorpedo(ship.getForwardTorpedo());
+		setBackwardTorpedo(ship.getBackwardTorpedo());
+		setUpgrades(ship.getUpgrades());
+		setActives(ship.getActives());
+		setPrefab(ship.getPrefab());
+		setDilithium(ship.dilithium);
+		
+	}
+	
 	function getName() : String {
 		return shipInfo.Name;
 	}
@@ -178,40 +196,80 @@ class SaveShip extends System.Object{
 		return shipInfo.Faction;
 	}
 	
+	function setFaction(faction : int) {
+		shipInfo.Faction = faction;
+	}
+	
 	function isPlayer() : boolean {
 		return shipInfo.isPlayer;
+	}
+	
+	function setPlayer(player : boolean) {
+		shipInfo.isPlayer = player;
 	}
 	
 	function isRedAlert() : boolean {
 		return shipInfo.isRedAlert;
 	}
 	
+	function setRedAlert(alert : boolean) {
+		shipInfo.isRedAlert = alert;
+	}
+	
 	function getPhaser() : GameObject {
 		return shipInv.phaser;
+	}
+	
+	function setPhaser(phaser : GameObject) {
+		shipInv.phaser = phaser;
 	}
 	
 	function getForwardTorpedo() : GameObject {
 		return shipInv.torp1;
 	}
 	
+	function setForwardTorpedo(torpedo : GameObject) {
+		shipInv.torp1 = torpedo;
+	} 
+	
 	function getBackwardTorpedo() : GameObject {
 		return shipInv.torp2;
+	}
+	
+	function setBackwardTorpedo(torpedo : GameObject) {
+		shipInv.torp2 = torpedo;
 	}
 	
 	function getUpgrades() : List.<GameObject> {
 		return shipInv.upgrades;
 	}
 	
+	function setUpgrades(upgrades : List.<GameObject>) {
+		shipInv.upgrades = upgrades;
+	}
+	
 	function getActives() : List.<GameObject> {
 		return shipInv.actives;
+	}
+	
+	function setActives(actives : List.<GameObject>) {
+		shipInv.actives = actives;
 	}
 	
 	function getHull() : float {
 		return shipHea.curHull;
 	}
 	
+	function setHull(hull : float) {
+		shipHea.curHull = hull;
+	}
+	
 	function getShield() : float {
 		return shipHea.curShield;
+	}
+	
+	function setShield(shield : float) {
+		shipHea.curShield = shield;
 	}
 	
 	function getMaintenance() : int {
@@ -222,6 +280,18 @@ class SaveShip extends System.Object{
 	
 	function getDilithium() : int {
 		return dilithium;
+	}
+	
+	function setDilithium(dilithium : int) {
+		this.dilithium = dilithium;
+	}
+	
+	function getPrefabName() : String {
+		return shipPrefab.name;
+	} 
+	
+	function setPrefab(prefab : GameObject) {
+		shipPrefab = prefab;
 	}
 	
 	//this function returns the ship stored here
@@ -314,40 +384,9 @@ class SaveShip extends System.Object{
 		
 	}
 	
-	function serialize() : String {
-		var serie : String = "";
-		
-		serie = serie + shipPrefab.name + "\n";
 
-		
-		
-		serie = serie + dilithium + "\n";
-		serie = serie + shipInfo.serialize();
-		serie = serie + shipHea.serialize();
-		serie = serie + shipInv.serialize();
-		
-		return serie;
 	
-	}
-	
-	function readFromFile(stream : StreamReader) {
-		shipPrefab = getGameObject(stream.ReadLine());
-		dilithium = int.Parse(stream.ReadLine());
-		shipInfo = new ShipInfo();
-		shipInfo.readFromFile(stream);
-		shipHea = new ShipHealth();
-		shipHea.readFromFile(stream);
-		shipInv = new ShipInventory();
-		shipInv.readFromFile(stream);
-	}
-	
-	private function getGameObject(name : String) : GameObject {
-		if(name == "null") {
-			return null;
-		} else {
-			return Resources.Load(name) as GameObject;
-		}
-	}
+
 	
 }
 
@@ -355,6 +394,20 @@ class Fleet extends System.Object{
 	
 	var ships : List.<SaveShip>;
 	var formation : Formation = Formation.standard;
+	
+	function Fleet() {
+		ships = new List.<SaveShip>();
+		formation = formation.standard;
+	}
+	
+	function Fleet(fleet : FleetData) {
+		this();
+		for(var ship : ShipData in fleet.fleet) {
+			ships.Add(new SaveShip(ship));
+		}
+		formation = fleet.getFormation();
+		
+	}
 	
 	function getShip(ship : int) : GameObject {
 	
@@ -419,34 +472,7 @@ class Fleet extends System.Object{
 		return ships.Count;
 	}
 	
-	function serialize() : String {
-		var serie : String = formation.ToString() + "\n";
-		
-		serie = serie + ships.Count + "\n";
-		for(var s : SaveShip in ships) {
-			serie = serie + s.serialize();	
-		}
-		
-		return serie;
-		
-	}
-	
-	function readFromFile(stream : StreamReader) {
-		formation = System.Enum.Parse(typeof(Formation), stream.ReadLine());
-		ships = getSaveShipList(stream);
-		
-	}
-	
-	private function getSaveShipList(stream : StreamReader) : List.<SaveShip> {
-		var count : int = int.Parse(stream.ReadLine());
-		var list : List.<SaveShip> = new List.<SaveShip>();
-		for(var x : int = 0; x < count; x++) {
-			var ship : SaveShip = new SaveShip();
-			ship.readFromFile(stream);
-			list.Add(ship);
-		}
-		return list;
-	}
+
 	
 	function getFleet() : List.<SaveShip> {
 		return ships;
@@ -503,6 +529,12 @@ function getPlayerShip() : GameObject {
 	}
 
 	return playShip;
+}
+
+function setPlayer(ship : ShipData, fleet : FleetData) {
+	playerShip = new SaveShip(ship);
+	playerFleet = new Fleet(fleet);
+
 }
 
 function setPlayerShipName(name : String) {
@@ -665,17 +697,4 @@ function getLastScene() : String {
 	return lastSceneLoaded;
 }
 
-function serialize() : String {
-	var serie : String = lastSceneLoaded + "\n";
-	
-	serie = serie + playerShip.serialize();
-	serie = serie + playerFleet.serialize();
-	
-	return serie;
-}
 
-function readFromFile(stream : StreamReader) {
-	lastSceneLoaded = stream.ReadLine();
-	playerShip.readFromFile(stream);
-	playerFleet.readFromFile(stream);
-}

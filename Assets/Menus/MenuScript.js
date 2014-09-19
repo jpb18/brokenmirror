@@ -23,6 +23,7 @@ private var music : PlaybackScript;
 private var load : LoadScene;
 private var fade : FadeInOut;
 private var save : SaveScript;
+private var loadGame : LoadGame;
 
 private var create : NewGame;
 
@@ -40,7 +41,7 @@ function Start () {
 	
 	create = GameObject.FindGameObjectWithTag("Create").GetComponent(NewGame);
 	save = GameObject.FindGameObjectWithTag("SaveScript").GetComponent(SaveScript);
-
+	loadGame = GameObject.FindGameObjectWithTag("SaveScript").GetComponent(LoadGame);
 }
 
 function Update () {
@@ -61,7 +62,7 @@ function getPress() {
 						Hide();
 						create.SetOn();			}
 				else if(hitGo.tag == "resume" && save.XmlExists(getFileName())) {
-					//loadLatestGame();
+					loadLatestGame();
 				}
 		}
 	
@@ -151,26 +152,15 @@ function hideRoll() {
 }
 
 function loadLatestGame() {
-	//first load save game
-	var go : GameObject = GameObject.FindGameObjectWithTag("SaveScript");
-	var save : SaveScript = go.GetComponent(SaveScript);
-	var file : String = getFileName();
-	save.readFromFile(file);
 	
-	//then get latest loaded scene
-	var saveGo : GameObject = GameObject.FindGameObjectWithTag("SaveGame");
-	var saveGame : SaveGame = saveGo.GetComponent(SaveGame);
-	var scene : String = saveGame.getLastScene();
+	if(save.XmlExists(getLastFileName())) {
 	
-	
+		var game : GameData = save.XmlLoad(getLastFileName());
+		loadGame.LoadGame(game);
 		
-	//load new scene
-	var loadGo : GameObject = GameObject.FindGameObjectWithTag("LoadScene");
-	var load : LoadScene = loadGo.GetComponent(LoadScene);
+		load.LoadScene(game.currentSystem, this);
 	
-	load.LoadScene(scene, this);
-	
-	
+	}
 	      
 }
 
@@ -180,6 +170,9 @@ function getFileName() : String {
 	return EscMenu.SAVE_TEXT + EscMenu.SAVE_EXT;
 }
 
+function getLastFileName() : String {
+	return EscMenu.LAST_SAVE;
+}
 
 // Turn off the bit using an AND operation with the complement of the shifted int:
 function Hide() {

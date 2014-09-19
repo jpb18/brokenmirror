@@ -3,7 +3,7 @@ import System.Xml.Serialization;
 import System.Collections.Generic;
 
 @XmlRoot("InventoryData")
-public class InventoryData {
+public class InventoryData extends Data {
 	@XmlAttribute("latinum")
 	var latinum : int;
 	@XmlAttribute("size")
@@ -32,13 +32,7 @@ public class InventoryData {
 	}
 	
 	function getItems() : List.<GameObject> {
-		var i : List.<GameObject> = new List.<GameObject>();
-		
-		for(var it : String in items) {
-			i.Add(Resources.Load(it));
-		}
-		
-		return i;
+		return super.getGameObjectList(items);
 	}
 
 

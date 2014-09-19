@@ -81,3 +81,8 @@ function getCargoItemsList(stream : StreamReader) : List.<Cargo> {
 	}
 	return list;
 }
+
+function setHold(data : CargoData) {
+	capacity = data.capacity;
+	cargoItems = data.getCargo();
+}

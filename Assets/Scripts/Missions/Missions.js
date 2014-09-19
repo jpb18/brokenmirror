@@ -1,12 +1,12 @@
 import System.Collections.Generic;
 
 var tradeMissions : List.<TradeMission>;
-private var tradeMissionsCompleted : int;
-private var tradeMissionsAccepted : int;
+var tradeMissionsCompleted : int;
+var tradeMissionsAccepted : int;
 
 var combatMissions : List.<CombatMission>;
-private var combatMissionsCompleted : int;
-private var combatMissionsAccepted : int;
+var combatMissionsCompleted : int;
+var combatMissionsAccepted : int;
 
 
 private var inventory : Inventory;
@@ -189,5 +189,17 @@ function clearCombatMissions() {
 			combatMissions.Remove(combatMissions[x-1]);
 		}
 	}
+
+}
+
+function setMissions(missions : MissionsData) {
+	tradeMissions = missions.getTradeMissions();
+	combatMissions = missions.getCombatMissions();
+	
+	tradeMissionsAccepted = missions.tradeMissionsAccepted;
+	tradeMissionsCompleted = missions.tradeMissionsCompleted;
+	
+	combatMissionsAccepted = missions.combatMissionsAccepted;
+	combatMissionsCompleted = missions.combatMissionsCompleted;
 
 }

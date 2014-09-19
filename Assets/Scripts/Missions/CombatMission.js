@@ -22,6 +22,14 @@ class CombatMission extends Mission {
 		current = 0;
 	}
 	
+	function CombatMission(data : CombatMissionData) {
+		super(data as MissionData);
+		hostile = new FactionInfo(data.hostile);
+		issued = new FactionInfo(data.issued);
+		objective = data.objective;
+		current = data.current;
+	} 
+	
 	function getObjective() : int {
 		return objective;
 	}

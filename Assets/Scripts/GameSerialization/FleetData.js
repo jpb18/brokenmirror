@@ -27,5 +27,9 @@ public class FleetData {
 		
 	}
 	
+	function getFormation() : Formation {
+		return Enum.Parse(typeof(Formation), formation);
+	}
+	
 
 }

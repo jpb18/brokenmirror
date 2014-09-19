@@ -4,8 +4,6 @@ import System.Collections.Generic;
 
 @XmlRoot("FactionData")
 public class FactionData {
-	@XmlAttribute("id")
-	var id : int;
 	@XmlAttribute("name")	
 	var name : String;
 	@XmlAttribute("race")
@@ -26,7 +24,6 @@ public class FactionData {
 	var ships : List.<String>;
 	
 	function FactionData() {
-		id = 0;
 		name = "";
 		race = "";
 		prefix = "";
@@ -35,8 +32,8 @@ public class FactionData {
 		ships = new List.<String>();
 	}
 	
-	function FactionData(id : int, name : String, race : String, prefix : String, enemies : List.<int>, allies : List.<int>, ships : List.<GameObject>) {
-		this.id = id;
+	function FactionData(name : String, race : String, prefix : String, enemies : List.<int>, allies : List.<int>, ships : List.<GameObject>) {
+
 		this.name = name;
 		this.race = race;
 		this.prefix = prefix;
@@ -46,6 +43,10 @@ public class FactionData {
 		for(var ship : GameObject in ships) {
 			this.ships.Add(ship.name);
 		}	
+	}
+	
+	function FactionData(faction : FactionInfo) {
+		this(faction.getName(), faction.getRace(), faction.getPrefix(), faction.hostileFactions, faction.alliedFactions, faction.invasionFleet);
 	}
 	
 	function getFleet() : List.<GameObject> {

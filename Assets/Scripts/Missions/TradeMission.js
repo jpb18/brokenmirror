@@ -19,6 +19,12 @@ class TradeMission extends Mission {
 		
 	}
 	
+	function TradeMission(data : TradeMissionData) {
+		destination = data.destination;
+		cargo = data.cargo.getCargo();
+		super(data as MissionData);
+	}
+	
 	function getDestination() : String {
 		return destination;
 	}

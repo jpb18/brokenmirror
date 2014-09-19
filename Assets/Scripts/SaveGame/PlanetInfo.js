@@ -20,8 +20,36 @@ class PlanetInfo implements IPopuleable, IProfitable { //this class stores all p
 	var hasPlayerVisit : boolean = false;
 	var isColonized : boolean = false;
 	
-	function PlanetInfo(stream : StreamReader) {
-		readFromFile(stream);
+	
+	function PlanetInfo() {
+		defenseFleet = new List.<SaveShip>();
+		stations = new List.<SaveStation>();
+		cood = new PlanetCood();
+	}
+	
+	function PlanetInfo(planet : PlanetData) {
+		this();
+		name = planet.name;
+		faction = planet.faction;
+		scene = planet.scene;
+		description = planet.description;
+		image = planet.getImage();
+		cood.setVector(planet.cood);
+		population = planet.population;
+		reputation = planet.reputation;
+		dilithium = planet.dilithium;
+		profit = planet.profit;
+		isEnabled = planet.isEnabled;
+		hasPlayerVisit = planet.hasPlayerVisit;
+		isColonized = planet.isColonized;
+		for(var ship : ShipData in planet.defenseFleet) {
+			defenseFleet.Add(new SaveShip(ship));
+		}
+		
+		for(var station : StationData in planet.stations) {
+			stations.Add(new SaveStation(station));
+		}
+	
 	}
 	
 	class PlanetCood {
@@ -29,12 +57,19 @@ class PlanetInfo implements IPopuleable, IProfitable { //this class stores all p
 		var x : int;
 		var y : int;
 		
-		function PlanetCood(stream : StreamReader) {
-			readFromFile(stream);
+		
+		function PlanetCood() {
+			x = 0;
+			y = 0;
 		}
 		
 		function getVector() : Vector2 {
 			return new Vector2(x,y);
+		}
+		
+		function setVector(vector : Vector2) {
+			x = vector.x;
+			y = vector.y;
 		}
 		
 		function serialize() : String {
@@ -189,68 +224,8 @@ class PlanetInfo implements IPopuleable, IProfitable { //this class stores all p
 	}
 	
 	
-	function serialize() : String {
-		var serie : String = "";
-		
-		serie = serie + isEnabled + "\n";
-		serie = serie + name + "\n";
-		serie = serie + faction + "\n";
-		serie = serie + scene + "\n";
-		serie = serie + description + "\n";
-		//TODO : Planet images
-		serie = serie + cood.serialize();
-		serie = serie + defenseFleet.Count + "\n";
-		for(var ship : SaveShip in defenseFleet) {
-			serie = serie + ship.serialize();
-		}
-		serie = serie + stations.Count + "\n";
-		for(var station : SaveStation in stations) {
-			serie = serie + station.serialize();
-		}
-		serie = serie + reputation + "\n";
-		serie = serie + hasPlayerVisit + "\n";
-		serie = serie + isColonized + "\n";
-		//serie = serie + image.name + "\n";
-		return serie;
-	}
 	
-	function readFromFile(stream : StreamReader) {
-		isEnabled = boolean.Parse(stream.ReadLine());
-		name = stream.ReadLine();
-		faction = int.Parse(stream.ReadLine());
-		scene = stream.ReadLine();
-		description = stream.ReadLine();
-		//TODO : Planet Images
-		cood = new PlanetCood(stream);
-		defenseFleet = getSaveShipList(stream);
-		stations = getSaveStationList(stream);
-		reputation = int.Parse(stream.ReadLine());
-		hasPlayerVisit = boolean.Parse(stream.ReadLine());
-		isColonized = boolean.Parse(stream.ReadLine());
-		//image = Resources.Load(stream.ReadLine()) as Texture2D;
-		
-	}
-	
-	private function getSaveShipList(stream : StreamReader) : List.<SaveShip> {
-		var count : int = int.Parse(stream.ReadLine());
-		var list : List.<SaveShip> = new List.<SaveShip>();
-		for(var x : int = 0; x < count; x++) {
-			var ship : SaveShip = new SaveShip();
-			ship.readFromFile(stream);
-			list.Add(ship);
-		}
-		return list;
-	}
-	
-	private function getSaveStationList(stream : StreamReader) : List.<SaveStation> {
-		var count : int = int.Parse(stream.ReadLine());
-		var list : List.<SaveStation> = new List.<SaveStation>();
-		for(var x : int = 0; x < count; x++) {
-			var station : SaveStation = new SaveStation(stream);
-			list.Add(station);
-		}
-		return list;
-	}
+
 	
 	function colonize(faction : int, population : float) {
 		this.faction = faction;

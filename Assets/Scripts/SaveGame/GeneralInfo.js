@@ -5,27 +5,20 @@ class PlayerInfo {
 	var name : String;
 	var gameDificulty : Dificulty;
 	var allegience : FactionInfo;
-	var empireName : String;
+	
+	
+	function PlayerInfo(player : PlayerData) {
+		this.name = player.name;
+			
+	}
 	
 	function setAllegience(faction : FactionInfo) {
 		allegience = faction;
 	}
 	
-	function serialize() : String {
-		var serie : String = name + "\n";
-		serie = serie + gameDificulty.ToString() + "\n";
-		serie = serie + empireName + "\n";
-		serie = serie + allegience.serialize();
-		return serie;		
-	}
+
 	
-	function readFromFile(stream : StreamReader) {
-		name = stream.ReadLine();
-		gameDificulty = System.Enum.Parse(typeof(Dificulty), stream.ReadLine());
-		empireName = stream.ReadLine();
-		allegience.readFromFile(stream);
-		
-	}
+	
 		
 }
 
@@ -44,6 +37,17 @@ class FactionInfo {
 		hostileFactions = new List.<int>();
 		alliedFactions = new List.<int>();
 		invasionFleet = new List.<GameObject>();
+	}
+	
+	function FactionInfo(faction : FactionData) {
+		this();
+		factionName = faction.name;
+		factionRace = faction.race;
+		prefix = faction.prefix;
+		invasionFleet = getGameObjectList(faction.ships);
+		hostileFactions = faction.enemies;
+		alliedFactions = faction.allies;
+		
 	}
 	
 	function getInfo() : FactionInfo {
@@ -162,60 +166,31 @@ class FactionInfo {
 	 	return getCommonEnemies(faction).Count > 0;
 	 }
 	 
-	 function serialize() : String {
-	 	var serie : String = factionName + "\n";
-	 	
-	 	serie = serie + factionRace + "\n";
-	 	serie = serie + hostileFactions.Count + "\n";
-	 	
-	 	for(var i : int in hostileFactions) {
-	 		serie = serie + i + "\n";
-	 	}
-	 	
-	 	serie = serie + alliedFactions.Count + "\n";
-	 	
-	 	for(var a : int in alliedFactions) {
-	 		serie = serie + a + "\n";
-	 	}
-	 	
-	 	serie = serie + invasionFleet.Count + "\n";
-	 	for(var ship : GameObject in invasionFleet) {
-	 		serie = serie + ship.name + "\n";
-	 	}
-	 	
-	 	return serie;
-	 
-	 }
-	 
-	 function readFromFile(stream : StreamReader) {
-	 	factionName = stream.ReadLine();
-	 	factionRace = stream.ReadLine();
-	 	
-	 	//get hostile list
-	 	hostileFactions = getIntList(stream);
-	 	
-	 	//get allied list
-	 	alliedFactions = getIntList(stream);
-	 	
-	 	//get fleet list
-	 	invasionFleet = getGameObjectList(stream);
+	function Equals(obj : Object) {
+		
+		if(!(obj instanceof FactionInfo)) {
+			return false;
+		}
+		
+		var fac : FactionInfo = obj as FactionInfo;
+		
+		if(this.factionName != fac.getName()) {
+			return false;
+		}
+		
+		return true;
 	
-	 }
+	}
 	 
-	 private function getIntList(stream : StreamReader) : List.<int> {
-	 	var count : int = int.Parse(stream.ReadLine());
-	 	var list : List.<int> = new List.<int>();
-	 	for(var x : int = 0; x < count; x++) {
-	 		list.Add(int.Parse(stream.ReadLine()));
-	 	}
-	 	return list;
-	 }
+
 	 
-	 private function getGameObjectList(stream : StreamReader) : List.<GameObject> {
-	 	var count : int = int.Parse(stream.ReadLine());
+
+	 
+	 private function getGameObjectList(names : List.<String>) : List.<GameObject> {
+	 	
 	 	var list : List.<GameObject> = new List.<GameObject>();
-	 	for(var x : int = 0; x < count; x++) {
-	 		var name : String = stream.ReadLine();
+	 	for(var x : int = 0; x < names.Count; x++) {
+	 		var name : String = names[x];
 	 		list.Add(Resources.Load(name) as GameObject);
 	 	}
 	 	return list;
@@ -239,6 +214,19 @@ var factionInfo : List.<FactionInfo>;
 function getFactionInfo(faction : int) : FactionInfo {
 
 	return factionInfo[faction];
+
+}
+
+function setPlayer(player : PlayerData) {
+	playerInfo = new PlayerInfo(player);
+}
+
+function setFactions(factions : List.<FactionData>) {
+	factionInfo = new List.<FactionInfo>();
+	
+	for(var faction : FactionData in factions) {
+		factionInfo.Add(new FactionInfo(faction));
+	}
 
 }
 
@@ -291,32 +279,5 @@ function isFactionAllies(faction1 : int, faction2 : int) : boolean {
 	return faction.isAllied(faction2);
 }
 
-function serialize() {
-	var serie : String = playerInfo.serialize();
-	
-	serie = serie + factionInfo.Count + "\n";
-	
-	for(var fac : FactionInfo in factionInfo) {
-		serie = serie + fac.serialize();
-	}
-	
-	return serie;
-	
-}
 
-function readFromFile(stream : StreamReader)  {
-	playerInfo.readFromFile(stream);
-	factionInfo = getFactionInfoList(stream);
-	
-}
 
-private function getFactionInfoList(stream : StreamReader) : List.<FactionInfo> {
-	var count : int = int.Parse(stream.ReadLine());
-	var factions : List.<FactionInfo> = new List.<FactionInfo>();
-	for(var x : int =0; x < count; x++) {
-		var faction : FactionInfo = new FactionInfo();
-		faction.readFromFile(stream);
-		factions.Add(faction);
-	}
-	return factions;
-}

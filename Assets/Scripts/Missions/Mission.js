@@ -15,6 +15,13 @@ class Mission extends Object {
 		
 	}
 	
+	function Mission(data : MissionData) {
+		started = data.started;
+		finished = data.finished;
+		name = data.name;
+		description = data.description;
+	}
+	
 	function start() {
 		started = true;
 	}

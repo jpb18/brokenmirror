@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="Windows-1252"?>
-<GameData xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="last.xml" date="9/18/2014 4:48:48 PM" dificulty="Easy" current="Earth">
-  <player name="Jonathan Archer" faction="0">
-    <inventory latinum="2144638562" size="30">
+<GameData xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="last.xml" date="9/19/2014 6:50:01 PM" stardate="113" current="Earth">
+  <player name="John Smith" faction="0">
+    <inventory latinum="5000" size="30">
       <Items />
     </inventory>
     <cargo capacity="500">
-      <items />
+      <items>
+        <CargoItemData cargo="UnknownCargo" size="43" price="50" />
+        <CargoItemData cargo="UnknownCargo" size="47" price="50" />
+        <CargoItemData cargo="UnknownCargo" size="37" price="50" />
+      </items>
     </cargo>
     <ship name="Enterprise" faction="0">
       <player>true</player>
@@ -17,137 +21,15 @@
       <backwardTorpedo>null</backwardTorpedo>
       <upgrades />
       <actives />
-      <resource />
+      <resource>Miranda</resource>
       <dilithium>796</dilithium>
     </ship>
-    <fleet formation="loose">
-      <fleet>
-        <ShipData name="Uss Constitution" faction="0">
-          <player>false</player>
-          <alert>false</alert>
-          <hull>850</hull>
-          <shield>1000</shield>
-          <phaser>phaser</phaser>
-          <forwardTorpedo>Photons</forwardTorpedo>
-          <backwardTorpedo>Photons</backwardTorpedo>
-          <upgrades />
-          <actives />
-          <resource />
-          <dilithium>5000</dilithium>
-        </ShipData>
-        <ShipData name="ISS Reliant" faction="0">
-          <player>false</player>
-          <alert>false</alert>
-          <hull>800</hull>
-          <shield>950</shield>
-          <phaser>phaser</phaser>
-          <forwardTorpedo>Photons</forwardTorpedo>
-          <backwardTorpedo>null</backwardTorpedo>
-          <upgrades />
-          <actives />
-          <resource />
-          <dilithium>1000</dilithium>
-        </ShipData>
-        <ShipData name="Uss Akira" faction="0">
-          <player>false</player>
-          <alert>false</alert>
-          <hull>1500</hull>
-          <shield>2000</shield>
-          <phaser>phaser</phaser>
-          <forwardTorpedo>Photons</forwardTorpedo>
-          <backwardTorpedo>Photons</backwardTorpedo>
-          <upgrades />
-          <actives />
-          <resource />
-          <dilithium>5000</dilithium>
-        </ShipData>
-        <ShipData name="ISS Reliant" faction="0">
-          <player>false</player>
-          <alert>false</alert>
-          <hull>800</hull>
-          <shield>950</shield>
-          <phaser>phaser</phaser>
-          <forwardTorpedo>Photons</forwardTorpedo>
-          <backwardTorpedo>null</backwardTorpedo>
-          <upgrades />
-          <actives />
-          <resource />
-          <dilithium>1000</dilithium>
-        </ShipData>
-        <ShipData name="Defiant" faction="0">
-          <player>false</player>
-          <alert>false</alert>
-          <hull>1200</hull>
-          <shield>1500</shield>
-          <phaser>phaser_pulse</phaser>
-          <forwardTorpedo>QuantumTorpedoes</forwardTorpedo>
-          <backwardTorpedo>Photons</backwardTorpedo>
-          <upgrades />
-          <actives>
-            <string>CloakingDevice</string>
-          </actives>
-          <resource />
-          <dilithium>5000</dilithium>
-        </ShipData>
-        <ShipData name="Uss Akira" faction="0">
-          <player>false</player>
-          <alert>false</alert>
-          <hull>1500</hull>
-          <shield>2000</shield>
-          <phaser>phaser</phaser>
-          <forwardTorpedo>Photons</forwardTorpedo>
-          <backwardTorpedo>Photons</backwardTorpedo>
-          <upgrades />
-          <actives />
-          <resource />
-          <dilithium>5000</dilithium>
-        </ShipData>
-        <ShipData name="Defiant" faction="0">
-          <player>false</player>
-          <alert>false</alert>
-          <hull>1200</hull>
-          <shield>1500</shield>
-          <phaser>phaser_pulse</phaser>
-          <forwardTorpedo>QuantumTorpedoes</forwardTorpedo>
-          <backwardTorpedo>Photons</backwardTorpedo>
-          <upgrades />
-          <actives>
-            <string>CloakingDevice</string>
-          </actives>
-          <resource />
-          <dilithium>5000</dilithium>
-        </ShipData>
-        <ShipData name="Uss Akira" faction="0">
-          <player>false</player>
-          <alert>false</alert>
-          <hull>1500</hull>
-          <shield>2000</shield>
-          <phaser>phaser</phaser>
-          <forwardTorpedo>Photons</forwardTorpedo>
-          <backwardTorpedo>Photons</backwardTorpedo>
-          <upgrades />
-          <actives />
-          <resource />
-          <dilithium>5000</dilithium>
-        </ShipData>
-        <ShipData name="Uss Constitution" faction="0">
-          <player>false</player>
-          <alert>false</alert>
-          <hull>850</hull>
-          <shield>1000</shield>
-          <phaser>phaser</phaser>
-          <forwardTorpedo>Photons</forwardTorpedo>
-          <backwardTorpedo>Photons</backwardTorpedo>
-          <upgrades />
-          <actives />
-          <resource />
-          <dilithium>5000</dilithium>
-        </ShipData>
-      </fleet>
+    <fleet formation="standard">
+      <fleet />
     </fleet>
   </player>
   <factions>
-    <FactionData id="0" name="New Terran Empire" race="PlayerRace" prefix="ISS">
+    <FactionData name="New Earth Empire" race="PlayerRace" prefix="ISS">
       <Enemies>
         <Enemy>2</Enemy>
       </Enemies>
@@ -156,7 +38,7 @@
       </Allies>
       <Fleet />
     </FactionData>
-    <FactionData id="1" name="Earth Empire" race="Human" prefix="ISS">
+    <FactionData name="Earth Empire" race="Human" prefix="ISS">
       <Enemies>
         <Enemy>2</Enemy>
       </Enemies>
@@ -174,7 +56,7 @@
         <Ship>AkiraClass</Ship>
       </Fleet>
     </FactionData>
-    <FactionData id="2" name="Klingon Empire" race="Klingon" prefix="IKS">
+    <FactionData name="Klingon Empire" race="Klingon" prefix="IKS">
       <Enemies>
         <Enemy>0</Enemy>
         <Enemy>1</Enemy>
@@ -186,7 +68,7 @@
         <Ship>brel</Ship>
       </Fleet>
     </FactionData>
-    <FactionData id="3" name="Romulan Empire" race="Romulan" prefix="RIS">
+    <FactionData name="Romulan Empire" race="Romulan" prefix="RIS">
       <Enemies />
       <Allies>
         <Ally>4</Ally>
@@ -195,14 +77,14 @@
         <Ship>Dderidex</Ship>
       </Fleet>
     </FactionData>
-    <FactionData id="4" name="Cardassian Union" race="Cardassian" prefix="CDS">
+    <FactionData name="Cardassian Union" race="Cardassian" prefix="CDS">
       <Enemies />
       <Allies>
         <Ally>3</Ally>
       </Allies>
       <Fleet />
     </FactionData>
-    <FactionData id="5" name="Non-Aligned" race="Various" prefix="">
+    <FactionData name="Non-Aligned" race="Various" prefix="">
       <Enemies>
         <Enemy>2</Enemy>
       </Enemies>
@@ -212,4 +94,905 @@
       <Fleet />
     </FactionData>
   </factions>
+  <map>
+    <planets>
+      <PlanetData name="Earth" faction="1" scene="Earth" enabled="true">
+        <description>One of the few existing resource heavy planets in the quadrant.  Earth is home to the human race and capital of the Terran Empire.  Earth is a heavily fortified planet and is highly discriminatory towards other races, utilizing most as slaves.  Earth's resources allows for the construction of the Empire's great fleets and continuing hold on the quadrant.</description>
+        <image>null</image>
+        <cood>
+          <x>-40</x>
+          <y>-58</y>
+        </cood>
+        <defenseFleet>
+          <ShipData name="Noble" faction="1">
+            <player>false</player>
+            <alert>false</alert>
+            <hull>2000</hull>
+            <shield>3000</shield>
+            <phaser>phaser</phaser>
+            <forwardTorpedo>Photons</forwardTorpedo>
+            <backwardTorpedo>Photons</backwardTorpedo>
+            <upgrades />
+            <actives />
+            <resource>sovereign</resource>
+            <dilithium>0</dilithium>
+          </ShipData>
+          <ShipData name="Voyager" faction="1">
+            <player>false</player>
+            <alert>false</alert>
+            <hull>1500</hull>
+            <shield>2000</shield>
+            <phaser>phaser</phaser>
+            <forwardTorpedo>Photons</forwardTorpedo>
+            <backwardTorpedo>Photons</backwardTorpedo>
+            <upgrades />
+            <actives />
+            <resource>voyager</resource>
+            <dilithium>0</dilithium>
+          </ShipData>
+          <ShipData name="Yamato" faction="1">
+            <player>false</player>
+            <alert>false</alert>
+            <hull>2500</hull>
+            <shield>2500</shield>
+            <phaser>phaser</phaser>
+            <forwardTorpedo>Photons</forwardTorpedo>
+            <backwardTorpedo>Photons</backwardTorpedo>
+            <upgrades />
+            <actives />
+            <resource>galaxy</resource>
+            <dilithium>0</dilithium>
+          </ShipData>
+          <ShipData name="Excelsior" faction="1">
+            <player>false</player>
+            <alert>false</alert>
+            <hull>1500</hull>
+            <shield>1500</shield>
+            <phaser>phaser</phaser>
+            <forwardTorpedo>Photons</forwardTorpedo>
+            <backwardTorpedo>Photons</backwardTorpedo>
+            <upgrades />
+            <actives />
+            <resource>Excelsior</resource>
+            <dilithium>0</dilithium>
+          </ShipData>
+          <ShipData name="Miranda" faction="1">
+            <player>false</player>
+            <alert>false</alert>
+            <hull>1000</hull>
+            <shield>700</shield>
+            <phaser>phaser</phaser>
+            <forwardTorpedo>Photons</forwardTorpedo>
+            <backwardTorpedo>null</backwardTorpedo>
+            <upgrades />
+            <actives />
+            <resource>Miranda</resource>
+            <dilithium>0</dilithium>
+          </ShipData>
+          <ShipData name="Reliant" faction="1">
+            <player>false</player>
+            <alert>false</alert>
+            <hull>1000</hull>
+            <shield>700</shield>
+            <phaser>phaser</phaser>
+            <forwardTorpedo>Photons</forwardTorpedo>
+            <backwardTorpedo>null</backwardTorpedo>
+            <upgrades />
+            <actives />
+            <resource>Miranda</resource>
+            <dilithium>0</dilithium>
+          </ShipData>
+          <ShipData name="Yamato" faction="1">
+            <player>false</player>
+            <alert>false</alert>
+            <hull>3500</hull>
+            <shield>4000</shield>
+            <phaser>phaser</phaser>
+            <forwardTorpedo>QuantumTorpedoes</forwardTorpedo>
+            <backwardTorpedo>Photons</backwardTorpedo>
+            <upgrades />
+            <actives>
+              <string>CloakingDevice</string>
+            </actives>
+            <resource>galdread</resource>
+            <dilithium>5000</dilithium>
+          </ShipData>
+        </defenseFleet>
+        <stations>
+          <StationData name="Earth Spacedock I" faction="1" prefab="Terran Spacedock">
+            <position>
+              <x>26.34402</x>
+              <y>17.65103</y>
+              <z>0</z>
+            </position>
+            <items>
+              <string>CloakingDevice</string>
+              <string>SmallColonizationTeam</string>
+              <string>QuantumTorpedoes</string>
+              <string>Photons</string>
+              <string>phaser</string>
+              <string>phaser_pulse</string>
+              <string>BasicPowerRelay</string>
+            </items>
+            <ships>
+              <string>sovereign</string>
+              <string>galaxy</string>
+              <string>voyager</string>
+              <string>Excelsior</string>
+              <string>AkiraClass</string>
+              <string>DefiantClass</string>
+            </ships>
+            <plans />
+            <upgrades />
+          </StationData>
+          <StationData name="Earth Spacedock II" faction="1" prefab="Terran Spacedock">
+            <position>
+              <x>-13.48394</x>
+              <y>28.96578</y>
+              <z>-9.278098</z>
+            </position>
+            <items>
+              <string>CloakingDevice</string>
+              <string>SmallColonizationTeam</string>
+              <string>QuantumTorpedoes</string>
+              <string>Photons</string>
+              <string>phaser</string>
+              <string>phaser_pulse</string>
+              <string>BasicPowerRelay</string>
+            </items>
+            <ships>
+              <string>sovereign</string>
+              <string>galaxy</string>
+              <string>voyager</string>
+              <string>Excelsior</string>
+              <string>AkiraClass</string>
+              <string>DefiantClass</string>
+            </ships>
+            <plans />
+            <upgrades />
+          </StationData>
+        </stations>
+        <population>8.2</population>
+        <reputation>0</reputation>
+        <dilithium>true</dilithium>
+        <profit>0</profit>
+        <hasPlayerVisit>true</hasPlayerVisit>
+        <isColonized>true</isColonized>
+      </PlanetData>
+      <PlanetData name="Alpha Centauri" faction="2" scene="AlphaCentauri" enabled="true">
+        <description>No description available.</description>
+        <image>null</image>
+        <cood>
+          <x>-30</x>
+          <y>-65</y>
+        </cood>
+        <defenseFleet>
+          <ShipData name="Buruk" faction="2">
+            <player>false</player>
+            <alert>false</alert>
+            <hull>2000</hull>
+            <shield>3000</shield>
+            <phaser>plasma_phaser</phaser>
+            <forwardTorpedo>Photons</forwardTorpedo>
+            <backwardTorpedo>Photons</backwardTorpedo>
+            <upgrades />
+            <actives>
+              <string>CloakingDevice</string>
+            </actives>
+            <resource>NeghVarWar</resource>
+            <dilithium>5000</dilithium>
+          </ShipData>
+          <ShipData name="Lurin" faction="2">
+            <player>false</player>
+            <alert>false</alert>
+            <hull>2000</hull>
+            <shield>3000</shield>
+            <phaser>plasma_phaser</phaser>
+            <forwardTorpedo>Photons</forwardTorpedo>
+            <backwardTorpedo>Photons</backwardTorpedo>
+            <upgrades />
+            <actives>
+              <string>CloakingDevice</string>
+            </actives>
+            <resource>NeghVarWar</resource>
+            <dilithium>5000</dilithium>
+          </ShipData>
+          <ShipData name="Koraga" faction="2">
+            <player>false</player>
+            <alert>false</alert>
+            <hull>2000</hull>
+            <shield>3000</shield>
+            <phaser>plasma_phaser</phaser>
+            <forwardTorpedo>Photons</forwardTorpedo>
+            <backwardTorpedo>Photons</backwardTorpedo>
+            <upgrades />
+            <actives>
+              <string>CloakingDevice</string>
+            </actives>
+            <resource>NeghVarWar</resource>
+            <dilithium>5000</dilithium>
+          </ShipData>
+          <ShipData name="Slivin" faction="2">
+            <player>false</player>
+            <alert>true</alert>
+            <hull>1500</hull>
+            <shield>1500</shield>
+            <phaser>plasma_phaser</phaser>
+            <forwardTorpedo>Photons</forwardTorpedo>
+            <backwardTorpedo>Photons</backwardTorpedo>
+            <upgrades />
+            <actives>
+              <string>CloakingDevice</string>
+            </actives>
+            <resource>VorchaUnity</resource>
+            <dilithium>5000</dilithium>
+          </ShipData>
+          <ShipData name="Korinar" faction="2">
+            <player>false</player>
+            <alert>false</alert>
+            <hull>2000</hull>
+            <shield>3000</shield>
+            <phaser>plasma_phaser</phaser>
+            <forwardTorpedo>Photons</forwardTorpedo>
+            <backwardTorpedo>Photons</backwardTorpedo>
+            <upgrades />
+            <actives>
+              <string>CloakingDevice</string>
+            </actives>
+            <resource>NeghVarWar</resource>
+            <dilithium>5000</dilithium>
+          </ShipData>
+          <ShipData name="Worf" faction="2">
+            <player>false</player>
+            <alert>true</alert>
+            <hull>1500</hull>
+            <shield>1500</shield>
+            <phaser>plasma_phaser</phaser>
+            <forwardTorpedo>Photons</forwardTorpedo>
+            <backwardTorpedo>Photons</backwardTorpedo>
+            <upgrades />
+            <actives>
+              <string>CloakingDevice</string>
+            </actives>
+            <resource>VorchaUnity</resource>
+            <dilithium>5000</dilithium>
+          </ShipData>
+        </defenseFleet>
+        <stations />
+        <population>5</population>
+        <reputation>0</reputation>
+        <dilithium>false</dilithium>
+        <profit>0</profit>
+        <hasPlayerVisit>true</hasPlayerVisit>
+        <isColonized>true</isColonized>
+      </PlanetData>
+      <PlanetData name="Andoria" faction="1" scene="Andoria" enabled="true">
+        <description>Homeworld of the Andorians, it's cold temperatures makes it excelent for Dilithium production.</description>
+        <image>null</image>
+        <cood>
+          <x>-32</x>
+          <y>-42</y>
+        </cood>
+        <defenseFleet>
+          <ShipData name="Thingy" faction="1">
+            <player>false</player>
+            <alert>false</alert>
+            <hull>800</hull>
+            <shield>950</shield>
+            <phaser>phaser</phaser>
+            <forwardTorpedo>Photons</forwardTorpedo>
+            <backwardTorpedo>null</backwardTorpedo>
+            <upgrades />
+            <actives />
+            <resource>Miranda</resource>
+            <dilithium>0</dilithium>
+          </ShipData>
+          <ShipData name="Blingy" faction="1">
+            <player>false</player>
+            <alert>false</alert>
+            <hull>800</hull>
+            <shield>950</shield>
+            <phaser>phaser</phaser>
+            <forwardTorpedo>Photons</forwardTorpedo>
+            <backwardTorpedo>null</backwardTorpedo>
+            <upgrades />
+            <actives />
+            <resource>Miranda</resource>
+            <dilithium>0</dilithium>
+          </ShipData>
+          <ShipData name="Power" faction="1">
+            <player>false</player>
+            <alert>false</alert>
+            <hull>2500</hull>
+            <shield>2500</shield>
+            <phaser>phaser</phaser>
+            <forwardTorpedo>Photons</forwardTorpedo>
+            <backwardTorpedo>Photons</backwardTorpedo>
+            <upgrades />
+            <actives />
+            <resource>galaxy</resource>
+            <dilithium>0</dilithium>
+          </ShipData>
+          <ShipData name="Barrage" faction="1">
+            <player>false</player>
+            <alert>false</alert>
+            <hull>1500</hull>
+            <shield>2000</shield>
+            <phaser>null</phaser>
+            <forwardTorpedo>null</forwardTorpedo>
+            <backwardTorpedo>null</backwardTorpedo>
+            <upgrades />
+            <actives />
+            <resource>voyager</resource>
+            <dilithium>5000</dilithium>
+          </ShipData>
+          <ShipData name="Voyager" faction="1">
+            <player>false</player>
+            <alert>false</alert>
+            <hull>2500</hull>
+            <shield>2500</shield>
+            <phaser>phaser</phaser>
+            <forwardTorpedo>Photons</forwardTorpedo>
+            <backwardTorpedo>Photons</backwardTorpedo>
+            <upgrades />
+            <actives />
+            <resource>voyager</resource>
+            <dilithium>5000</dilithium>
+          </ShipData>
+          <ShipData name="Galaxy" faction="1">
+            <player>false</player>
+            <alert>false</alert>
+            <hull>2500</hull>
+            <shield>2500</shield>
+            <phaser>null</phaser>
+            <forwardTorpedo>null</forwardTorpedo>
+            <backwardTorpedo>null</backwardTorpedo>
+            <upgrades />
+            <actives />
+            <resource>galaxy</resource>
+            <dilithium>5000</dilithium>
+          </ShipData>
+          <ShipData name="Simon Hawk" faction="1">
+            <player>false</player>
+            <alert>false</alert>
+            <hull>2500</hull>
+            <shield>2500</shield>
+            <phaser>phaser</phaser>
+            <forwardTorpedo>Photons</forwardTorpedo>
+            <backwardTorpedo>Photons</backwardTorpedo>
+            <upgrades />
+            <actives />
+            <resource>voyager</resource>
+            <dilithium>5000</dilithium>
+          </ShipData>
+        </defenseFleet>
+        <stations>
+          <StationData name="Andoria Outpost" faction="1" prefab="Command Post">
+            <position>
+              <x>50</x>
+              <y>50</y>
+              <z>50</z>
+            </position>
+            <items />
+            <ships>
+              <string>Miranda</string>
+              <string>ConstitutionRefit</string>
+              <string>DefiantClass</string>
+            </ships>
+            <plans />
+            <upgrades />
+          </StationData>
+        </stations>
+        <population>3</population>
+        <reputation>0</reputation>
+        <dilithium>true</dilithium>
+        <profit>0</profit>
+        <hasPlayerVisit>true</hasPlayerVisit>
+        <isColonized>true</isColonized>
+      </PlanetData>
+      <PlanetData name="Vulcan" faction="1" scene="Vulcan" enabled="true">
+        <description>No description available.</description>
+        <image>null</image>
+        <cood>
+          <x>-35</x>
+          <y>-29</y>
+        </cood>
+        <defenseFleet />
+        <stations>
+          <StationData name="Vulcan Spacedock" faction="1" prefab="Terran Spacedock">
+            <position>
+              <x>1.810869</x>
+              <y>25.01469</y>
+              <z>-60.82241</z>
+            </position>
+            <items />
+            <ships>
+              <string>Miranda</string>
+              <string>ConstitutionRefit</string>
+              <string>Excelsior</string>
+              <string>voyager</string>
+              <string>galaxy</string>
+              <string>sovereign</string>
+            </ships>
+            <plans />
+            <upgrades />
+          </StationData>
+        </stations>
+        <population>5</population>
+        <reputation>0</reputation>
+        <dilithium>false</dilithium>
+        <profit>0</profit>
+        <hasPlayerVisit>true</hasPlayerVisit>
+        <isColonized>true</isColonized>
+      </PlanetData>
+      <PlanetData name="Ferenginar" faction="5" scene="Ferenginar" enabled="true">
+        <description>No description available.</description>
+        <image>null</image>
+        <cood>
+          <x>-67</x>
+          <y>-150</y>
+        </cood>
+        <defenseFleet />
+        <stations />
+        <population>6</population>
+        <reputation>0</reputation>
+        <dilithium>true</dilithium>
+        <profit>0</profit>
+        <hasPlayerVisit>true</hasPlayerVisit>
+        <isColonized>true</isColonized>
+      </PlanetData>
+      <PlanetData name="Romulas/Remus" faction="3" scene="Romulus_Remus" enabled="true">
+        <description>No description available.</description>
+        <image>null</image>
+        <cood>
+          <x>7</x>
+          <y>-105</y>
+        </cood>
+        <defenseFleet />
+        <stations />
+        <population>0</population>
+        <reputation>0</reputation>
+        <dilithium>false</dilithium>
+        <profit>0</profit>
+        <hasPlayerVisit>true</hasPlayerVisit>
+        <isColonized>true</isColonized>
+      </PlanetData>
+      <PlanetData name="Bajor" faction="4" scene="Bajor" enabled="true">
+        <description>A widely disputed planet, Bajor has been in the sights of the Cardassians for many years.  The Bajornas themselves are known for deep spiritual practises and uncanny guerilla warfare tactics.  The Earth Empire employs a great many Bajorans in its military and Bajor itself is a well protected planet due to it being on the border of Cardassian space.</description>
+        <image>null</image>
+        <cood>
+          <x>-110</x>
+          <y>-10</y>
+        </cood>
+        <defenseFleet />
+        <stations>
+          <StationData name="Terok'Nor" faction="4" prefab="ds9">
+            <position>
+              <x>-45.05865</x>
+              <y>90.2197</y>
+              <z>-421.9202</z>
+            </position>
+            <items />
+            <ships />
+            <plans />
+            <upgrades />
+          </StationData>
+        </stations>
+        <population>0.3</population>
+        <reputation>0</reputation>
+        <dilithium>true</dilithium>
+        <profit>0</profit>
+        <hasPlayerVisit>true</hasPlayerVisit>
+        <isColonized>true</isColonized>
+      </PlanetData>
+      <PlanetData name="Ty'gokor" faction="2" scene="Tygokor" enabled="true">
+        <description>No description available.</description>
+        <image>null</image>
+        <cood>
+          <x>127</x>
+          <y>51</y>
+        </cood>
+        <defenseFleet>
+          <ShipData name="Worf" faction="2">
+            <player>false</player>
+            <alert>false</alert>
+            <hull>2500</hull>
+            <shield>2500</shield>
+            <phaser>plasma_phaser</phaser>
+            <forwardTorpedo>Photons</forwardTorpedo>
+            <backwardTorpedo>Photons</backwardTorpedo>
+            <upgrades />
+            <actives />
+            <resource>NeghVarWar</resource>
+            <dilithium>0</dilithium>
+          </ShipData>
+          <ShipData name="Ty'Gokor" faction="2">
+            <player>false</player>
+            <alert>false</alert>
+            <hull>2500</hull>
+            <shield>2500</shield>
+            <phaser>plasma_phaser</phaser>
+            <forwardTorpedo>Photons</forwardTorpedo>
+            <backwardTorpedo>Photons</backwardTorpedo>
+            <upgrades />
+            <actives />
+            <resource>NeghVarWar</resource>
+            <dilithium>0</dilithium>
+          </ShipData>
+          <ShipData name="Blargh" faction="2">
+            <player>false</player>
+            <alert>false</alert>
+            <hull>1500</hull>
+            <shield>1500</shield>
+            <phaser>plasma_phaser</phaser>
+            <forwardTorpedo>Photons</forwardTorpedo>
+            <backwardTorpedo>Photons</backwardTorpedo>
+            <upgrades />
+            <actives />
+            <resource>VorchaUnity</resource>
+            <dilithium>0</dilithium>
+          </ShipData>
+          <ShipData name="Vorcha" faction="2">
+            <player>false</player>
+            <alert>false</alert>
+            <hull>1500</hull>
+            <shield>1500</shield>
+            <phaser>plasma_phaser</phaser>
+            <forwardTorpedo>Photons</forwardTorpedo>
+            <backwardTorpedo>Photons</backwardTorpedo>
+            <upgrades />
+            <actives />
+            <resource>VorchaUnity</resource>
+            <dilithium>0</dilithium>
+          </ShipData>
+          <ShipData name="K'Plah" faction="2">
+            <player>false</player>
+            <alert>false</alert>
+            <hull>1500</hull>
+            <shield>1500</shield>
+            <phaser>plasma_phaser</phaser>
+            <forwardTorpedo>Photons</forwardTorpedo>
+            <backwardTorpedo>Photons</backwardTorpedo>
+            <upgrades />
+            <actives />
+            <resource>VorchaUnity</resource>
+            <dilithium>0</dilithium>
+          </ShipData>
+        </defenseFleet>
+        <stations>
+          <StationData name="Ty'Gokor Station" faction="2" prefab="tygokor">
+            <position>
+              <x>-49.23684</x>
+              <y>45.00483</y>
+              <z>33.54768</z>
+            </position>
+            <items />
+            <ships>
+              <string>brel</string>
+              <string>VorchaUnity</string>
+              <string>NeghVarWar</string>
+            </ships>
+            <plans />
+            <upgrades />
+          </StationData>
+        </stations>
+        <population>0</population>
+        <reputation>0</reputation>
+        <dilithium>false</dilithium>
+        <profit>0</profit>
+        <hasPlayerVisit>true</hasPlayerVisit>
+        <isColonized>true</isColonized>
+      </PlanetData>
+      <PlanetData name="Son'a" faction="2" scene="Sona" enabled="true">
+        <description>No description available.</description>
+        <image>null</image>
+        <cood>
+          <x>-18</x>
+          <y>15</y>
+        </cood>
+        <defenseFleet>
+          <ShipData name="Icarus" faction="2">
+            <player>false</player>
+            <alert>false</alert>
+            <hull>0</hull>
+            <shield>0</shield>
+            <phaser>null</phaser>
+            <forwardTorpedo>null</forwardTorpedo>
+            <backwardTorpedo>null</backwardTorpedo>
+            <upgrades />
+            <actives />
+            <resource>sonabattleship</resource>
+            <dilithium>50</dilithium>
+          </ShipData>
+        </defenseFleet>
+        <stations />
+        <population>0</population>
+        <reputation>0</reputation>
+        <dilithium>true</dilithium>
+        <profit>0</profit>
+        <hasPlayerVisit>true</hasPlayerVisit>
+        <isColonized>true</isColonized>
+      </PlanetData>
+      <PlanetData name="Orion" faction="1" scene="Orion" enabled="true">
+        <description>Formerly, Orion was the home of the quadrants largest slave trade.  During the Dominion war, however, Orion was strip mined for its resources.  As such, it is now an uninhabitable ball of rock.  One of the war's largest battles took place in the space above Orion.  In an attempt to win the battle, the Terran Empire detonated the warp cores of the entire fleet fighting the battle, thus obliterating the Dominion forces.  The resulting breaches have left a vaporous cloud of anti-matter and dilithium.</description>
+        <image>null</image>
+        <cood>
+          <x>-38</x>
+          <y>-13</y>
+        </cood>
+        <defenseFleet>
+          <ShipData name="Enterprise-D" faction="1">
+            <player>false</player>
+            <alert>false</alert>
+            <hull>3500</hull>
+            <shield>4000</shield>
+            <phaser>phaser</phaser>
+            <forwardTorpedo>QuantumTorpedoes</forwardTorpedo>
+            <backwardTorpedo>Photons</backwardTorpedo>
+            <upgrades />
+            <actives />
+            <resource>galdread</resource>
+            <dilithium>5000</dilithium>
+          </ShipData>
+          <ShipData name="Nelson" faction="1">
+            <player>false</player>
+            <alert>false</alert>
+            <hull>1500</hull>
+            <shield>2000</shield>
+            <phaser>phaser</phaser>
+            <forwardTorpedo>Photons</forwardTorpedo>
+            <backwardTorpedo>Photons</backwardTorpedo>
+            <upgrades />
+            <actives />
+            <resource>AkiraClass</resource>
+            <dilithium>5000</dilithium>
+          </ShipData>
+          <ShipData name="Nelson" faction="1">
+            <player>false</player>
+            <alert>false</alert>
+            <hull>1500</hull>
+            <shield>2000</shield>
+            <phaser>phaser</phaser>
+            <forwardTorpedo>Photons</forwardTorpedo>
+            <backwardTorpedo>Photons</backwardTorpedo>
+            <upgrades />
+            <actives />
+            <resource>AkiraClass</resource>
+            <dilithium>5000</dilithium>
+          </ShipData>
+          <ShipData name="Valiant" faction="1">
+            <player>false</player>
+            <alert>false</alert>
+            <hull>1200</hull>
+            <shield>1500</shield>
+            <phaser>phaser</phaser>
+            <forwardTorpedo>QuantumTorpedoes</forwardTorpedo>
+            <backwardTorpedo>Photons</backwardTorpedo>
+            <upgrades />
+            <actives />
+            <resource>DefiantClass</resource>
+            <dilithium>5000</dilithium>
+          </ShipData>
+          <ShipData name="Ravager" faction="1">
+            <player>false</player>
+            <alert>false</alert>
+            <hull>1200</hull>
+            <shield>1500</shield>
+            <phaser>phaser</phaser>
+            <forwardTorpedo>QuantumTorpedoes</forwardTorpedo>
+            <backwardTorpedo>Photons</backwardTorpedo>
+            <upgrades />
+            <actives />
+            <resource>DefiantClass</resource>
+            <dilithium>5000</dilithium>
+          </ShipData>
+          <ShipData name="Hunter" faction="1">
+            <player>false</player>
+            <alert>false</alert>
+            <hull>1200</hull>
+            <shield>1500</shield>
+            <phaser>phaser</phaser>
+            <forwardTorpedo>QuantumTorpedoes</forwardTorpedo>
+            <backwardTorpedo>Photons</backwardTorpedo>
+            <upgrades />
+            <actives />
+            <resource>DefiantClass</resource>
+            <dilithium>5000</dilithium>
+          </ShipData>
+        </defenseFleet>
+        <stations>
+          <StationData name="Orion Outpost" faction="1" prefab="Command Post">
+            <position>
+              <x>250</x>
+              <y>15</y>
+              <z>25</z>
+            </position>
+            <items />
+            <ships>
+              <string>galdread</string>
+            </ships>
+            <plans />
+            <upgrades />
+          </StationData>
+        </stations>
+        <population>0.02</population>
+        <reputation>0</reputation>
+        <dilithium>false</dilithium>
+        <profit>0</profit>
+        <hasPlayerVisit>true</hasPlayerVisit>
+        <isColonized>true</isColonized>
+      </PlanetData>
+      <PlanetData name="Cardassia" faction="4" scene="Cardassia" enabled="true">
+        <description>No description available.</description>
+        <image>null</image>
+        <cood>
+          <x>-123</x>
+          <y>-15</y>
+        </cood>
+        <defenseFleet />
+        <stations>
+          <StationData name="Terak'Nor" faction="4" prefab="ds9">
+            <position>
+              <x>-157.5519</x>
+              <y>90.2197</y>
+              <z>208.509</z>
+            </position>
+            <items />
+            <ships />
+            <plans />
+            <upgrades />
+          </StationData>
+          <StationData name="Serak'Nor" faction="4" prefab="ds9">
+            <position>
+              <x>-214.6605</x>
+              <y>17.64716</y>
+              <z>223.6003</z>
+            </position>
+            <items />
+            <ships />
+            <plans />
+            <upgrades />
+          </StationData>
+          <StationData name="Tirik'Nor" faction="4" prefab="ds9">
+            <position>
+              <x>-191.4866</x>
+              <y>67.68051</y>
+              <z>229.7113</z>
+            </position>
+            <items />
+            <ships />
+            <plans />
+            <upgrades />
+          </StationData>
+          <StationData name="Sorak'Nor" faction="4" prefab="ds9">
+            <position>
+              <x>-179.2385</x>
+              <y>57.18855</y>
+              <z>188.0129</z>
+            </position>
+            <items />
+            <ships />
+            <plans />
+            <upgrades />
+          </StationData>
+        </stations>
+        <population>0</population>
+        <reputation>0</reputation>
+        <dilithium>true</dilithium>
+        <profit>0</profit>
+        <hasPlayerVisit>true</hasPlayerVisit>
+        <isColonized>true</isColonized>
+      </PlanetData>
+      <PlanetData name="Iconia" faction="5" scene="Iconia" enabled="true">
+        <description>No description available.</description>
+        <image>null</image>
+        <cood>
+          <x>160</x>
+          <y>-40</y>
+        </cood>
+        <defenseFleet />
+        <stations />
+        <population>0</population>
+        <reputation>0</reputation>
+        <dilithium>true</dilithium>
+        <profit>150</profit>
+        <hasPlayerVisit>true</hasPlayerVisit>
+        <isColonized>false</isColonized>
+      </PlanetData>
+    </planets>
+  </map>
+  <missions>
+    <trade>
+      <TradeMissionData started="true" finished="false" name="Trade Mission" destination="Andoria">
+        <description>Deliver Unknown Cargo to Andoria.</description>
+        <cargo cargo="UnknownCargo" size="43" price="50" />
+      </TradeMissionData>
+      <TradeMissionData started="true" finished="false" name="Trade Mission" destination="Bajor">
+        <description>Deliver Unknown Cargo to Bajor.</description>
+        <cargo cargo="UnknownCargo" size="47" price="50" />
+      </TradeMissionData>
+      <TradeMissionData started="true" finished="false" name="Trade Mission" destination="Son'a">
+        <description>Deliver Unknown Cargo to Son'a.</description>
+        <cargo cargo="UnknownCargo" size="37" price="50" />
+      </TradeMissionData>
+    </trade>
+    <combat>
+      <CombatMissionData started="true" finished="false" name="Combat Mission" objective="3" current="0">
+        <description>Destroy 3 ships belonging to the Klingon Empire.</description>
+        <hostile name="Klingon Empire" race="Klingon" prefix="IKS">
+          <Enemies>
+            <Enemy>0</Enemy>
+            <Enemy>1</Enemy>
+          </Enemies>
+          <Allies />
+          <Fleet>
+            <Ship>NeghVarWar</Ship>
+            <Ship>VorchaUnity</Ship>
+            <Ship>brel</Ship>
+          </Fleet>
+        </hostile>
+        <issued name="New Earth Empire" race="PlayerRace" prefix="ISS">
+          <Enemies>
+            <Enemy>2</Enemy>
+          </Enemies>
+          <Allies>
+            <Ally>1</Ally>
+          </Allies>
+          <Fleet />
+        </issued>
+      </CombatMissionData>
+      <CombatMissionData started="true" finished="false" name="Combat Mission" objective="3" current="0">
+        <description>Destroy 3 ships belonging to the Klingon Empire.</description>
+        <hostile name="Klingon Empire" race="Klingon" prefix="IKS">
+          <Enemies>
+            <Enemy>0</Enemy>
+            <Enemy>1</Enemy>
+          </Enemies>
+          <Allies />
+          <Fleet>
+            <Ship>NeghVarWar</Ship>
+            <Ship>VorchaUnity</Ship>
+            <Ship>brel</Ship>
+          </Fleet>
+        </hostile>
+        <issued name="New Earth Empire" race="PlayerRace" prefix="ISS">
+          <Enemies>
+            <Enemy>2</Enemy>
+          </Enemies>
+          <Allies>
+            <Ally>1</Ally>
+          </Allies>
+          <Fleet />
+        </issued>
+      </CombatMissionData>
+      <CombatMissionData started="true" finished="false" name="Combat Mission" objective="5" current="0">
+        <description>Destroy 5 ships belonging to the Klingon Empire.</description>
+        <hostile name="Klingon Empire" race="Klingon" prefix="IKS">
+          <Enemies>
+            <Enemy>0</Enemy>
+            <Enemy>1</Enemy>
+          </Enemies>
+          <Allies />
+          <Fleet>
+            <Ship>NeghVarWar</Ship>
+            <Ship>VorchaUnity</Ship>
+            <Ship>brel</Ship>
+          </Fleet>
+        </hostile>
+        <issued name="New Earth Empire" race="PlayerRace" prefix="ISS">
+          <Enemies>
+            <Enemy>2</Enemy>
+          </Enemies>
+          <Allies>
+            <Ally>1</Ally>
+          </Allies>
+          <Fleet />
+        </issued>
+      </CombatMissionData>
+    </combat>
+    <tradeMissionsCompleted>0</tradeMissionsCompleted>
+    <tradeMissionsAccepted>3</tradeMissionsAccepted>
+    <combatMissionsCompleted>0</combatMissionsCompleted>
+    <combatMissionsAccepted>3</combatMissionsAccepted>
+  </missions>
 </GameData>
