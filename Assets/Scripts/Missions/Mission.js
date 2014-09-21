@@ -1,11 +1,24 @@
 ﻿#pragma strict
 
-class Mission extends Object {
+class Mission extends Object implements IMission {
 
 	var started : boolean;
 	var finished : boolean;
 	var name : String;
 	var description : String;
+	
+	function Mission() {
+		started = false;
+		finished = false;
+		name = "";
+		description = "";
+	}
+	
+	function Mission(name : String, description : String, finished : boolean) {
+		this(name, description);
+		this.finished = finished;
+		started = true;
+	}
 	
 	function Mission(name : String, description : String) {
 		this.started = false;

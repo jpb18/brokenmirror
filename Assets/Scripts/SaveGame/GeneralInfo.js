@@ -3,13 +3,14 @@ import System.IO;
 
 class PlayerInfo {
 	var name : String;
+	var race : Race;
 	var gameDificulty : Dificulty;
 	var allegience : FactionInfo;
 	
 	
 	function PlayerInfo(player : PlayerData) {
 		this.name = player.name;
-			
+		this.race = Enum.Parse(typeof(Race), player.race);
 	}
 	
 	function setAllegience(faction : FactionInfo) {
@@ -24,7 +25,7 @@ class PlayerInfo {
 
 class FactionInfo {
 	var factionName : String;
-	var factionRace : String;
+	var factionRace : Race;
 	var hostileFactions : List.<int>;
 	var alliedFactions : List.<int>;
 	var invasionFleet : List.<GameObject>;
@@ -33,7 +34,7 @@ class FactionInfo {
 	
 	function FactionInfo() {
 		factionName = "";
-		factionRace = "";
+		factionRace = Race.Unknown;
 		hostileFactions = new List.<int>();
 		alliedFactions = new List.<int>();
 		invasionFleet = new List.<GameObject>();
@@ -42,7 +43,7 @@ class FactionInfo {
 	function FactionInfo(faction : FactionData) {
 		this();
 		factionName = faction.name;
-		factionRace = faction.race;
+		factionRace = Enum.Parse(typeof(Race), faction.race);
 		prefix = faction.prefix;
 		invasionFleet = getGameObjectList(faction.ships);
 		hostileFactions = faction.enemies;
@@ -73,7 +74,7 @@ class FactionInfo {
 	 	factionName = name;
 	 }
 	 
-	 function getRace() : String {
+	 function getRace() : Race {
 	 	return factionRace;
 	 }
 	 
@@ -246,6 +247,14 @@ function setPlayerName(name : String) {
 	playerInfo.name = name;
 }
 
+function getPlayerRace() : Race {
+	return playerInfo.race;
+}
+
+function setPlayerRace(race : Race) {
+	playerInfo.race = race;
+	factionInfo[0].factionRace = race;
+}
 
 function getDificulty() : Dificulty {
 	return playerInfo.gameDificulty;

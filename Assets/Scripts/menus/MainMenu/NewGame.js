@@ -21,6 +21,9 @@ var shipNameText : Rect;
 private var shipNameString : String;
 
 var speciesLabel : Rect;
+var speciesArea : Rect;
+var selectedRace : Race;
+
 
 var startingFactionLabel : Rect;
 
@@ -170,6 +173,9 @@ private function DrawRight() {
 		
 
 		GUI.Label(Resize(speciesLabel), SPECIES_LABEL, skin.GetStyle("MidLabel"));
+		
+		drawSpeciesButtons();
+		
 		GUI.Label(Resize(startingFactionLabel), FACTION_LABEL, skin.GetStyle("MidLabel"));
 		GUI.Label(Resize(shipClassLabel), SHIP_LABEL, skin.GetStyle("MidLabel"));
 		
@@ -184,6 +190,24 @@ private function DrawRight() {
 		
 	GUILayout.EndArea();
 }
+
+private function drawSpeciesButtons() {
+	GUILayout.BeginArea(Resize(speciesArea));
+	GUILayout.BeginHorizontal();
+		for(var r : Race in Enum.GetValues(typeof(Race))) {
+			if(r == selectedRace) {
+				GUI.color = Color.yellow;
+			}
+			if(GUILayout.Button(r.ToString(), skin.GetStyle("RaceButton"))) {
+				selectedRace = r;
+			}
+			GUI.color = Color.white;		
+		}
+	
+	GUILayout.EndHorizontal();
+	GUILayout.EndArea();
+}
+
 
 private function GetScale() : float {
 	var height : float = Screen.height;
@@ -233,6 +257,7 @@ function setNewGame() {
 	general.setPlayerName(charNameString);
 	general.setPlayerFactionName(customFactionString);
 	general.setPlayerFactionPrefix("ISS");
+	general.setPlayerRace(selectedRace);
 	save.setPlayerShipName(shipNameString);
 	
 	Application.LoadLevel("Intro");

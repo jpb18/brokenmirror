@@ -6,6 +6,9 @@ var maximumCombat : int = 10;
 var destroyProbability : float;
 var aquisitionProbability : float = 1f;
 
+var averagePopulationLoss : float = 1f;
+var populationLossPeriod : float = 100f;
+
 private var map : MapInfo;
 private var general : GeneralInfo;
 private var scene : SceneTransfer;
@@ -30,6 +33,7 @@ function Start () {
 	
 	calculatePlayerEmpireProfits(time);
 	calculatePlayerEmpireMaintenanceCosts(time);
+	calculateGalacticPopulationLoss(time);
 	generateGalacticEvents(time);
 	stardate.addDays(time);
 	
@@ -60,6 +64,31 @@ function calculatePlayerEmpireMaintenanceCosts(time : int) {
 	}
 
 }
+
+function calculateGalacticPopulationLoss(time : int) {
+
+	
+	var ratio : float = time/populationLossPeriod;
+	var rnd : float;
+	var population : float;
+	for(var planet : PlanetInfo in map.planets) {
+		if(planet.getStrenght() == 0 && planet.isColonized) {
+			rnd = Random.Range(0.1f,1.9f);
+			population = averagePopulationLoss * ratio * rnd;
+			population = planet.killPopulation(population);
+			if(planet.getPopulation() > 0) {
+				scene.addPopulationRemoval(planet, population, stardate.getCurrentStardate());
+			} else {
+				scene.addPlanetDeserted(planet, stardate.getCurrentStardate());
+			}
+		} 
+	
+	}
+	
+
+}
+
+
 
 private function getPlayerShipMaintenance() : int {
 	var ships : List.<SaveShip> = map.getShipsByFaction(0);

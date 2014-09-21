@@ -29,7 +29,7 @@ class OverRect {
 	//skin
 	var skin : GUISkin;
 	
-
+	public static final var POPULATION : String = "Population: {0:0.00} Billion";
 	
 	
 	function Draw(button : Rect, planet : PlanetInfo) {
@@ -40,6 +40,8 @@ class OverRect {
 		var CoodX : int = button.x;
 		var CoodY : int = button.y - position.height;
 		var overRect : Rect = new Rect(CoodX, CoodY, position.width, position.height);
+		
+		
 		
 		//prepare to draw
 		GUILayout.BeginArea(overRect);
@@ -59,7 +61,7 @@ class OverRect {
 			var strenght : int = planet.getStrenght();
 			GUI.Label(strLabel, "Strength: " + strenght.ToString(), factionStyle);
 			//Draw Population label
-			GUI.Label(popLabel, "Population: " + planet.getPopulation() + " Billion", factionStyle);
+			GUI.Label(popLabel, String.Format(POPULATION, planet.getPopulation()), factionStyle);
 			
 			
 		
@@ -82,7 +84,7 @@ class OverRect {
 	function getRace(planet : PlanetInfo) : String {
 		if(planet.isColonized) {
 			var facInfo : FactionInfo = GameObject.FindGameObjectWithTag("SaveGame").GetComponent(GeneralInfo).factionInfo[planet.faction];
-			return facInfo.factionRace;
+			return facInfo.factionRace.ToString();
 		} else {
 			return "Unpopulated";
 		}

@@ -7,6 +7,8 @@ public class PlayerData {
 	var name : String;
 	@XmlAttribute("faction")
 	var faction : int;
+	@XmlAttribute("race")
+	var race : String;
 	
 	var inventory : InventoryData;
 	var cargo : CargoData;
@@ -15,6 +17,7 @@ public class PlayerData {
 	
 	function PlayerData() {
 		name = "";
+		race = "";
 		faction = 0;
 		inventory = new InventoryData();
 		cargo = new CargoData();
@@ -22,13 +25,14 @@ public class PlayerData {
 		fleet = new FleetData();
 	}
 	
-	function PlayerData(name : String, faction : int, inventory : Inventory, hold : CargoHold, save : SaveGame) {
+	function PlayerData(name : String, race : Race, faction : int, inventory : Inventory, hold : CargoHold, save : SaveGame) {
 		this.name = name;
 		this.faction = faction;
 		this.inventory = new InventoryData(inventory);
 		this.cargo = new CargoData(hold);
 		this.ship = new ShipData(save.playerShip);
 		this.fleet = new FleetData(save.playerFleet);
+		this.race = race.ToString();
 	}	
 
 

@@ -8,6 +8,8 @@ public static final var INVASION : String = "Stardate {0:0.0}: {1} has been atta
 public static final var STR_REDUCED : String = "Planet strength reduced from {0} to {1}.";
 public static final var CONQUEST : String = "Stardate {0:0.0}: {1} was conquered by {2}. {2} has placed a fleet guarding the planet. \n";
 public static final var AQUISITION : String = "Stardate {0:0.0}: {1} acquired a {2} at {3}. Planet strength increased from {4} to {5}.\n";
+public static final var POPULATION_REDUCTION : String = "Stardate {0:0.0}: {1} has lost {2:0.0} billion inhabitants.\n";
+public static final var PLANET_DESERTED : String = "Stardate {0:0.0}: {1} is now uninhabited.\n";
 
 function addInvasion(target : PlanetInfo, attacker : FactionInfo, originalStrenght : int, date : float) {
 	var message : String = String.Format(INVASION, date, target.name, attacker.getName());
@@ -45,5 +47,15 @@ function addMaintenanceCosts(costs : int) {
 
 function addEmpireProfit(profit : int) {
 	var message : String = String.Format(PROFIT, profit);
+	messages.Add(message);
+}
+
+function addPopulationRemoval(planet : PlanetInfo, population : float, date : float) {
+	var message : String = String.Format(POPULATION_REDUCTION, date, planet.name, population);
+	messages.Add(message);
+}
+
+function addPlanetDeserted(planet : PlanetInfo, date : float) {
+	var message : String = String.Format(PLANET_DESERTED, date, planet.name);
 	messages.Add(message);
 }

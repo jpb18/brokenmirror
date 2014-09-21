@@ -1,7 +1,7 @@
 import System.Collections.Generic;
 #pragma strict
 
-class PlanetInfo implements IPopuleable, IProfitable { //this class stores all planet information necessary for the map
+class PlanetInfo implements IPopuleable, IProfitable, IConquerable { //this class stores all planet information necessary for the map
 	var isEnabled : boolean;
 	var name : String;
 	var faction : int;
@@ -105,12 +105,22 @@ class PlanetInfo implements IPopuleable, IProfitable { //this class stores all p
 		defenseFleet.Add(s);
 	}
 	
-	function killPopulation(amount : float) {
-		population -= amount;
+	function killPopulation(amount : float) : float {
+		var ret : float = 0;
+		if(amount >= population) {
+			ret = amount - population;
+			population = 0;
+			isColonized = false;
+		} else {
+			ret = amount;
+			population -= amount;
+		}
+		return ret;
 	}
 	
-	function growPopulation(amount : float) {
+	function growPopulation(amount : float) : float {
 		population += amount;
+		return population;
 	}
 	
 	function getImage() : Texture {
@@ -224,14 +234,28 @@ class PlanetInfo implements IPopuleable, IProfitable { //this class stores all p
 	}
 	
 	
-	
-
-	
 	function colonize(faction : int, population : float) {
 		this.faction = faction;
 		this.population = population;
 		this.isColonized = true;
 		this.reputation = 100;
+	}
+	
+	function canConquer(faction : int) : boolean {
+		if(this.faction == faction) {
+			return false;
+		}
+		
+		if(getStrenght() > 0) {
+			return false;
+		}
+		
+		return true; 
+		
+	}
+	
+	function conquer(faction : int) {
+		this.faction = faction;
 	}
 
 }

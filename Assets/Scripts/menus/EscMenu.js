@@ -10,6 +10,7 @@ var persistentPrefab : GameObject;
 
 public static final var MENU_STYLE : String = "MenuButton";
 public static final var MAIN_MENU : String = "text";
+public static final var LOAD_SCENE : String = "gameLoad";
 
 private var lastPress : float;
 private var timeInt : float = 0.2f;
@@ -99,7 +100,7 @@ function quit() {
 	Destroy(camera.gameObject);
 	setOff();
 
-	Application.LoadLevel(MAIN_MENU);
+	Application.LoadLevel(LOAD_SCENE);
 }
 
 function leave() {

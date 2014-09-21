@@ -236,6 +236,7 @@ class HUDWeapons extends HUDBottom {
 		missions.finishTradeMissionInSystem();		
 	}
 	
+	
 	private function findSystemPlanet() : GameObject {
 		var planets : GameObject[] = GameObject.FindGameObjectsWithTag("Planet");
 		

@@ -33,7 +33,7 @@ public class GameData {
 		this.name = name;
 		this.stardate = stardate.stardate;
 		date = DateTime.Now.ToString();
-		player = new PlayerData(general.getPlayerName(), 0, inventory, hold, save);
+		player = new PlayerData(general.getPlayerName(), general.getPlayerRace(), 0, inventory, hold, save);
 		currentSystem = Application.loadedLevelName;
 		this.factions = new List.<FactionData>();
 		var facs : List.<FactionInfo> = general.factionInfo;

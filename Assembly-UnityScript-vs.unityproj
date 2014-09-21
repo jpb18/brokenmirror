@@ -59,6 +59,8 @@
      <Compile Include="Assets\Scripts\Colonization\IColonizable.js" />
      <Compile Include="Assets\Scripts\Colonization\IColonizer.js" />
      <Compile Include="Assets\Scripts\Enumerations\Formation.js" />
+     <Compile Include="Assets\Scripts\Enumerations\ObjectiveType.js" />
+     <Compile Include="Assets\Scripts\Enumerations\Race.js" />
      <Compile Include="Assets\Scripts\Events\EventGenerator.js" />
      <Compile Include="Assets\Scripts\Events\SceneTransfer.js" />
      <Compile Include="Assets\Scripts\Events\SceneTransferCarry.js" />
@@ -85,6 +87,7 @@
      <Compile Include="Assets\Scripts\Interfaces\IClasseable.js" />
      <Compile Include="Assets\Scripts\Interfaces\ICloak.js" />
      <Compile Include="Assets\Scripts\Interfaces\ICloakable.js" />
+     <Compile Include="Assets\Scripts\Interfaces\IConquerable.js" />
      <Compile Include="Assets\Scripts\Interfaces\IDamageable.js" />
      <Compile Include="Assets\Scripts\Interfaces\IDescribable.js" />
      <Compile Include="Assets\Scripts\Interfaces\IDrawable.js" />
@@ -95,6 +98,7 @@
      <Compile Include="Assets\Scripts\Interfaces\IHealtheable.js" />
      <Compile Include="Assets\Scripts\Interfaces\IImageable.js" />
      <Compile Include="Assets\Scripts\Interfaces\IMaintainable.js" />
+     <Compile Include="Assets\Scripts\Interfaces\IMission.js" />
      <Compile Include="Assets\Scripts\Interfaces\IMissionable.js" />
      <Compile Include="Assets\Scripts\Interfaces\INameable.js" />
      <Compile Include="Assets\Scripts\Interfaces\IPassive.js" />
@@ -102,6 +106,7 @@
      <Compile Include="Assets\Scripts\Interfaces\IPopuleable.js" />
      <Compile Include="Assets\Scripts\Interfaces\IPriceable.js" />
      <Compile Include="Assets\Scripts\Interfaces\IProfitable.js" />
+     <Compile Include="Assets\Scripts\Interfaces\IStarteable.js" />
      <Compile Include="Assets\Scripts\Interfaces\ITextureable.js" />
      <Compile Include="Assets\Scripts\Interfaces\IUpgrade.js" />
      <Compile Include="Assets\Scripts\Load\GameLoad.js" />

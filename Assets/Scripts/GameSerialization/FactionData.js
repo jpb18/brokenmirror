@@ -32,10 +32,10 @@ public class FactionData {
 		ships = new List.<String>();
 	}
 	
-	function FactionData(name : String, race : String, prefix : String, enemies : List.<int>, allies : List.<int>, ships : List.<GameObject>) {
+	function FactionData(name : String, race : Race, prefix : String, enemies : List.<int>, allies : List.<int>, ships : List.<GameObject>) {
 
 		this.name = name;
-		this.race = race;
+		this.race = race.ToString();
 		this.prefix = prefix;
 		this.enemies = enemies;
 		this.allies = allies;

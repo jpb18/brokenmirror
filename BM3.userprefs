@@ -2,12 +2,25 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Load\changelog.txt">
     <Files>
-      <File FileName="Assets\Scripts\SaveGame\LoadGame.js" Line="42" Column="29" />
-      <File FileName="Assets\Scripts\weapons\Phaser.js" Line="204" Column="37" />
-      <File FileName="Assets\Scripts\Interfaces\IDamageable.js" Line="5" Column="2" />
-      <File FileName="Assets\Scripts\ship\shipHealth.js" Line="359" Column="21" />
-      <File FileName="Assets\Scripts\station\Health.js" Line="51" Column="30" />
-      <File FileName="Assets\Load\changelog.txt" Line="13" Column="12" />
+      <File FileName="Assets\Scripts\SaveGame\LoadGame.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\weapons\Phaser.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\ship\shipHealth.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\station\Health.js" Line="1" Column="1" />
+      <File FileName="Assets\Load\changelog.txt" Line="47" Column="41" />
+      <File FileName="Assets\Scripts\SaveGame\PlanetInfo.js" Line="123" Column="21" />
+      <File FileName="Assets\Scripts\Interfaces\IConquerable.js" Line="2" Column="19" />
+      <File FileName="Assets\Scripts\newGui\NewHUD\HUDWeapons.js" Line="238" Column="2" />
+      <File FileName="Assets\Scripts\Events\SceneTransfer.js" Line="12" Column="96" />
+      <File FileName="Assets\Scripts\Events\EventGenerator.js" Line="10" Column="40" />
+      <File FileName="Assets\Scripts\SaveGame\MapInfo.js" Line="115" Column="2" />
+      <File FileName="Assets\Scripts\SaveGame\Stardate.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Interfaces\IPopuleable.js" Line="8" Column="49" />
+      <File FileName="Assets\Scripts\menus\EscMenu.js" Line="103" Column="34" />
+      <File FileName="Assets\Scripts\newGui\NewHUD\AlertWarning.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\GameSerialization\FactionData.js" Line="38" Column="29" />
+      <File FileName="Assets\Scripts\Enumerations\Race.js" Line="3" Column="9" />
+      <File FileName="Assets\Scripts\menus\MainMenu\NewGame.js" Line="260" Column="38" />
+      <File FileName="Assets\Scripts\SaveGame\GeneralInfo.js" Line="256" Column="36" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

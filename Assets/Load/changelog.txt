@@ -5,8 +5,9 @@ Version 0.2.3
 **********************************************************************
 FIXED:
 - Credits are now skippable
-- Fixed bug where the gravity warning persisted after creating a new game.
+- Fixed bug where old data would persist from a previous left game (unless the client was reseted).
 - Fixed bug where phasers would hang if they took down a stations shields.
+
 
 CHANGED:
 - Default vertical movement set to 'w' makes the ship tilt down and 's' makes it tilt up.
@@ -14,6 +15,9 @@ CHANGED:
 
 ADDED:
 - New Loading Screen tips
+- Planets now loose population if they have 0 Strength.
+- Planets become unhinabitated if their population and strength reaches 0.
+
 
 WIP:
 - New XML-based Save System
