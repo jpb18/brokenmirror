@@ -21,3 +21,7 @@ function setStardate(day : int) {
 function getFutureDate(days : int) : float {
 	return getCurrentStardate() + days/DIV;
 }
+
+static function calculateStardate(days : int) : float {
+	return (START_DATE + days)/DIV;
+}

@@ -10,6 +10,7 @@ class FloatingWindow extends GuiElement {
 	function initFloat() {
 		super.init();
 		hud = GameObject.FindGameObjectWithTag(GLOBAL_INFO).GetComponent(HUDStatus);
+		on = false;
 	}	
 	
 	function draw() {

@@ -2,12 +2,16 @@
 #pragma strict
 
 
-//@tooltip("Items on inventory.")
+@Tooltip("Items on inventory.")
 var items : List.<GameObject>;
-//@tooltip("Maximum capacity of inventory.")
+@Tooltip("Plans on inventory.")
+var plans : List.<GameObject>;
+@Tooltip("Maximum capacity of inventory.")
 var maxSize : int = 30;
-//@tooltip("Player's latinum.")
+@Tooltip("Player's latinum.")
 var latinum : int = 5000;
+@Tooltip("Player's deuranium.")
+var deuranium : int = 15000;
 
 
 //var guiInventory : ResourcePanel;
@@ -55,8 +59,22 @@ function addLatinum(latinum : int) {
 	this.latinum += latinum;
 }
 
+function addDeuranium(deuranium : int) {
+	this.deuranium += deuranium;
+}
+
 function getLatinum() : int {
 	return this.latinum;
+}
+
+function addPlan(plan : GameObject) {
+	if(!hasPlan(plan)) {
+		plans.Add(plan);
+	}
+}
+
+function hasPlan(plan : GameObject) {
+	return plans.Contains(plan);
 }
 
 

@@ -1,6 +1,6 @@
 ﻿import System.Collections.Generic;
 #pragma strict
-class StationInterface extends MonoBehaviour implements INameable, ITextureable, IHailable, IPopuleable, IDescribable, IClasseable {
+class StationInterface extends MonoBehaviour implements INameable, IBuildable, ITextureable, IImageable, IHailable, IPopuleable, IDescribable, IClasseable, ITradeable, IPriceable, IReputable {
 	//description stuff
 	var stName : String;
 	var stClass : String;
@@ -8,6 +8,14 @@ class StationInterface extends MonoBehaviour implements INameable, ITextureable,
 	var population : float;
 	var image : Texture2D;
 	var storeImage : Texture;
+	@Tooltip("Station's plan cost in GPL.")
+	var planCost : int;
+	@Tooltip("Station construction cost in duranium.")
+	var constructionCost : int;
+	@Tooltip("Construction time.")
+	var buildTime : int = 100;
+	@Tooltip("Reputation bonus.")
+	var reputationBonus : int = 5;
 
 	//services
 	var isRefuel : boolean;
@@ -122,7 +130,7 @@ class StationInterface extends MonoBehaviour implements INameable, ITextureable,
 		return cood.x > 0 && cood.x < Screen.width && cood.y > 0 && cood.y < Screen.height && cood.z > 0;
 	}
 
-	function getStore(mode : StoreMode) {
+	function getStore(mode : StoreMode) : List.<GameObject> {
 		var res : List.<GameObject>;
 		
 		switch (mode) {
@@ -185,6 +193,10 @@ class StationInterface extends MonoBehaviour implements INameable, ITextureable,
 		return storeImage;
 	}
 	
+	function getImage() : Texture {
+		return storeImage;
+	}
+	
 	function openComm() {
 		openGUI();
 	}
@@ -199,6 +211,38 @@ class StationInterface extends MonoBehaviour implements INameable, ITextureable,
 	
 	function getDescription() : String {
 		return description;
+	}
+	
+	function getShipList() : List.<GameObject> {
+		return ships;
+	}
+	
+	function getItemList() : List.<GameObject> {
+		return items;
+	}
+	
+	function getUpgradeList() : List.<GameObject>{
+		return upgrades;
+	}
+	
+	function getPlanList() : List.<GameObject> {
+		return plans;
+	}
+	
+	function getDuration() : int {
+		return buildTime;
+	}
+	
+	function getPrice() : int {
+		return planCost;
+	}
+	
+	function getRawMaterialCost() : int {
+		return constructionCost;
+	}
+	
+	function getReputationBonus() : int {
+		return reputationBonus;
 	}
 
 }

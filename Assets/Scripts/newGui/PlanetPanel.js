@@ -40,12 +40,13 @@ class PlanetPanel extends FloatingWindow implements IFactionable, IHealtheable, 
 	var skin : GUISkin;
 		
 	public static final var DILITHIUM_COST : int = 3;
+	public static final var DEURANIUM_COST : int = 1;
 	public static final var SPAWN_RADIUS : int = 5;
 	public static final var CLASS : String = "Planet";
 	public static final var HEALTH : float = 1f;
 	
 	function Start() {
-		init();
+		initFloat();
 		map = GameObject.FindGameObjectWithTag("MapInfo").GetComponent(MapInfo);
 		planet = map.getPlanetInCurrentScene();
 		var SaveGO : GameObject = GameObject.FindGameObjectWithTag("SaveGame");
@@ -77,6 +78,7 @@ class PlanetPanel extends FloatingWindow implements IFactionable, IHealtheable, 
 		drawBackground();
 		drawImage();
 		drawDilithium();
+		drawDeuranium();
 		drawClose();
 		drawStatsLabels();
 		drawDescription();
@@ -109,6 +111,14 @@ class PlanetPanel extends FloatingWindow implements IFactionable, IHealtheable, 
 		}
 	}
 	
+	function drawDeuranium() {
+		if(planet.deuranium) {
+			if(GUI.Button(resizeRect(deuraniumRect), deuImage, skin.GetStyle("PlanetButton"))) {
+				buyDeuranium();
+			}
+		}
+	}
+	
 	function buyDilithium() {
 		var player : GameObject = save.getPlayerShip();
 		var fuel : ShipFuel = player.GetComponent(ShipFuel);
@@ -127,6 +137,17 @@ class PlanetPanel extends FloatingWindow implements IFactionable, IHealtheable, 
 			message.AddMessage("Tanks are filled.");
 		}
 		  
+	
+	}
+	
+	function buyDeuranium() {
+		var cost : int = DEURANIUM_COST * 1000;
+		if(!inventory.canBuy(cost)) {
+			message.AddMessage("Not enough latinum.");
+		} else {
+			inventory.spend(cost);
+			inventory.addDeuranium(1000);
+		}
 	
 	}
 	
@@ -172,6 +193,7 @@ class PlanetPanel extends FloatingWindow implements IFactionable, IHealtheable, 
 	
 	function drawStatsLabels() {
 		drawDilithiumStats();
+		drawDeuraniumStats();
 		drawStoreMouseOvers();
 	}
 	
@@ -179,6 +201,13 @@ class PlanetPanel extends FloatingWindow implements IFactionable, IHealtheable, 
 		if(isInRect(resizeRect(dilithiumRect))) {
 			drawStats("Dilithium", getDilithiumCost(save.getPlayerShip()).ToString());
 		}
+	}
+	
+	function drawDeuraniumStats() {
+		if(isInRect(resizeRect(deuraniumRect))) {
+			drawStats("Deuranium", (DEURANIUM_COST * 1000).ToString());
+		}
+	
 	}
 	
 	function drawStoreButtons() {

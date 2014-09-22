@@ -11,10 +11,12 @@ class PlanetInfo implements IPopuleable, IProfitable, IConquerable { //this clas
 	var cood : PlanetCood;
 	var defenseFleet : List.<SaveShip>;
 	var stations : List.<SaveStation>;
+	var constructions : List.<Construction>;
 	
 	var population : float;
 	var reputation : int;
 	var dilithium : boolean;
+	var deuranium : boolean = true;
 	var profit : int;
 	
 	var hasPlayerVisit : boolean = false;
@@ -25,6 +27,7 @@ class PlanetInfo implements IPopuleable, IProfitable, IConquerable { //this clas
 		defenseFleet = new List.<SaveShip>();
 		stations = new List.<SaveStation>();
 		cood = new PlanetCood();
+		constructions = new List.<Construction>();
 	}
 	
 	function PlanetInfo(planet : PlanetData) {
@@ -105,6 +108,22 @@ class PlanetInfo implements IPopuleable, IProfitable, IConquerable { //this clas
 		defenseFleet.Add(s);
 	}
 	
+	function addStation(station : SaveStation) {
+		stations.Add(station);
+	}
+	
+	function removeFinishedConstructions() {
+		for(var x : int = constructions.Count - 1; x >= 0; x--) {
+			if(constructions[x].end) {
+				constructions.RemoveAt(x);
+			}
+		
+		}
+	}
+	function addConstruction(construction : Construction) {
+		constructions.Add(construction);
+	}
+	
 	function killPopulation(amount : float) : float {
 		var ret : float = 0;
 		if(amount >= population) {
@@ -168,6 +187,8 @@ class PlanetInfo implements IPopuleable, IProfitable, IConquerable { //this clas
 		return reputation;
 		
 	}
+	
+
 	
 	function getFaction() : int {
 		return faction;

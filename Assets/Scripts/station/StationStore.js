@@ -17,6 +17,10 @@ class StationStore {
 	
 	var mode : StoreMode = StoreMode.ships;
 	
+	
+	
+	public static final var MONEY_ERROR = "Not enough latinum.";
+	
 	function draw(info : StationInterface, skin : GUISkin, inv : Inventory) {
 		GUILayout.BeginArea(area);
 			//Draw background
@@ -83,6 +87,9 @@ class StationStore {
 			case StoreMode.ships:
 				buyShip(inv, item, info);
 				break;
+			case StoreMode.plans:
+				buyPlan(inv, item, info);
+				break;
 		
 		}
 	
@@ -95,7 +102,7 @@ class StationStore {
 			message.AddMessage("Inventory is full.");
 		} else if (!inv.canBuy(getPrice(item))) {
 			
-			message.AddMessage("Not enough credits.");
+			message.AddMessage(MONEY_ERROR);
 		} else {
 			
 			inv.addItem(item);
@@ -106,7 +113,7 @@ class StationStore {
 	private function buyShip(inv : Inventory, item : GameObject, info : StationInterface) {
 		if (!inv.canBuy(getPrice(item))) {
 			var message : ShowMessage = info.getMessage();
-			message.AddMessage("Not enough latinum.");
+			message.AddMessage(MONEY_ERROR);
 		} else {
 			inv.spend(getPrice(item));
 			
@@ -120,6 +127,25 @@ class StationStore {
 		
 	
 	}
+	
+	private function buyPlan(inv : Inventory, item : GameObject, info : StationInterface) {
+		var message : ShowMessage = info.getMessage();
+		if(!inv.canBuy(getPrice(item))) {
+			
+			message.AddMessage(MONEY_ERROR);
+		} else if (inv.hasPlan(item)) {
+			
+			message.AddMessage("Already own that blueprint.");
+		} else {
+			inv.addPlan(item);
+			inv.spend(getPrice(item)); 
+		
+		}
+	
+	
+	}
+	
+	
 	
 	private function getImage(item : GameObject) : Texture {
 	

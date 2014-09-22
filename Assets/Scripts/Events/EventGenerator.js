@@ -36,6 +36,7 @@ function Start () {
 	calculateGalacticPopulationLoss(time);
 	generateGalacticEvents(time);
 	stardate.addDays(time);
+	calculateStationConstruction(time);
 	
 }
 
@@ -77,9 +78,9 @@ function calculateGalacticPopulationLoss(time : int) {
 			population = averagePopulationLoss * ratio * rnd;
 			population = planet.killPopulation(population);
 			if(planet.getPopulation() > 0) {
-				scene.addPopulationRemoval(planet, population, stardate.getCurrentStardate());
+				scene.addPopulationRemoval(planet, population, stardate.getFutureDate(time));
 			} else {
-				scene.addPlanetDeserted(planet, stardate.getCurrentStardate());
+				scene.addPlanetDeserted(planet, stardate.getFutureDate(time));
 			}
 		} 
 	
@@ -88,7 +89,20 @@ function calculateGalacticPopulationLoss(time : int) {
 
 }
 
-
+function calculateStationConstruction(time : int) {
+	
+	for(var planet : PlanetInfo in map.planets) {
+		for(var construction : Construction in planet.constructions) {
+			if(construction.hasFinished(stardate.getFutureDate(time))) {
+				planet.addStation(construction.finish());
+				scene.addStationFinished(planet, construction.getClass(), Stardate.calculateStardate(construction.getFinishDate()));
+			}
+			
+		}
+		planet.removeFinishedConstructions();
+	}
+	
+} 
 
 private function getPlayerShipMaintenance() : int {
 	var ships : List.<SaveShip> = map.getShipsByFaction(0);

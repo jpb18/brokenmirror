@@ -8,6 +8,7 @@ class Station extends MonoBehaviour implements IFactionable {
 	var faction : int = -1;
 	var rotation : Vector3;
 	var strenght : int;
+	
 
 	private var general : GeneralInfo;
 
@@ -117,5 +118,7 @@ class Station extends MonoBehaviour implements IFactionable {
 	function isOwn(faction : int) : boolean {
 		return this.faction == faction;
 	}
+	
+	
 	
 }

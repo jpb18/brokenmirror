@@ -142,6 +142,23 @@ class SaveStation extends System.Object{
 				
 	}
 	
+	
+	function SaveStation(prefab : GameObject, name : String, faction : int, position : Vector3) {
+		this();
+		this.prefab = prefab;
+		this.name = name;
+		this.faction = faction;
+		this.position = position;
+		
+		var trade : ITradeable = prefab.GetComponent(typeof(ITradeable)) as ITradeable;
+		items = trade.getItemList();
+		ships = trade.getShipList();
+		plans = trade.getPlanList();
+		upgrades = trade.getUpgradeList();		
+		
+		
+	}
+	
 	function SaveStation(station : StationData) {
 		this();
 		name = station.name;
@@ -176,6 +193,8 @@ class SaveStation extends System.Object{
 		prefab = Resources.Load(station.name) as GameObject;
 	
 	}
+	
+	
 	
 	//this function returns a station
 	function getStation() : GameObject {
@@ -716,3 +735,12 @@ function setMap(planets : List.<PlanetData>) {
 	}
 	
 }
+
+function setConstruction(construction : Construction) {
+
+	var planet : PlanetInfo = getPlanetInCurrentScene();
+	planet.addConstruction(construction);
+	
+
+}
+

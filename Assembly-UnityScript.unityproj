@@ -58,8 +58,8 @@
      <Compile Include="Assets\Scripts\Colonization\Colonizer.js" />
      <Compile Include="Assets\Scripts\Colonization\IColonizable.js" />
      <Compile Include="Assets\Scripts\Colonization\IColonizer.js" />
+     <Compile Include="Assets\Scripts\Construction\Construction.js" />
      <Compile Include="Assets\Scripts\Enumerations\Formation.js" />
-     <Compile Include="Assets\Scripts\Enumerations\ObjectiveType.js" />
      <Compile Include="Assets\Scripts\Enumerations\Race.js" />
      <Compile Include="Assets\Scripts\Events\EventGenerator.js" />
      <Compile Include="Assets\Scripts\Events\SceneTransfer.js" />
@@ -84,10 +84,12 @@
      <Compile Include="Assets\Scripts\GameSerialization\TradeMissionData.js" />
      <Compile Include="Assets\Scripts\GlobalInfo.js" />
      <Compile Include="Assets\Scripts\Interfaces\IActive.js" />
+     <Compile Include="Assets\Scripts\Interfaces\IBuildable.js" />
      <Compile Include="Assets\Scripts\Interfaces\IClasseable.js" />
      <Compile Include="Assets\Scripts\Interfaces\ICloak.js" />
      <Compile Include="Assets\Scripts\Interfaces\ICloakable.js" />
      <Compile Include="Assets\Scripts\Interfaces\IConquerable.js" />
+     <Compile Include="Assets\Scripts\Interfaces\IConstructable.js" />
      <Compile Include="Assets\Scripts\Interfaces\IDamageable.js" />
      <Compile Include="Assets\Scripts\Interfaces\IDescribable.js" />
      <Compile Include="Assets\Scripts\Interfaces\IDrawable.js" />
@@ -106,8 +108,9 @@
      <Compile Include="Assets\Scripts\Interfaces\IPopuleable.js" />
      <Compile Include="Assets\Scripts\Interfaces\IPriceable.js" />
      <Compile Include="Assets\Scripts\Interfaces\IProfitable.js" />
-     <Compile Include="Assets\Scripts\Interfaces\IStarteable.js" />
+     <Compile Include="Assets\Scripts\Interfaces\IReputable.js" />
      <Compile Include="Assets\Scripts\Interfaces\ITextureable.js" />
+     <Compile Include="Assets\Scripts\Interfaces\ITradeable.js" />
      <Compile Include="Assets\Scripts\Interfaces\IUpgrade.js" />
      <Compile Include="Assets\Scripts\Load\GameLoad.js" />
      <Compile Include="Assets\Scripts\Load\SceneStart.js" />
@@ -168,6 +171,7 @@
      <Compile Include="Assets\Scripts\menus\mainMenu.js" />
      <Compile Include="Assets\Scripts\menus\setupMenu.js" />
      <Compile Include="Assets\Scripts\menus\testMenu.js" />
+     <Compile Include="Assets\Scripts\newGui\BuildPanel.js" />
      <Compile Include="Assets\Scripts\newGui\CombatMissionDialogue.js" />
      <Compile Include="Assets\Scripts\newGui\CommPanel.js" />
      <Compile Include="Assets\Scripts\newGui\FleetTemporaryPanel.js" />
@@ -194,6 +198,7 @@
      <Compile Include="Assets\Scripts\newGui\ReputationPanel.js" />
      <Compile Include="Assets\Scripts\newGui\ResourcePanel.js" />
      <Compile Include="Assets\Scripts\newGui\TradeMissionDialogue.js" />
+     <Compile Include="Assets\Scripts\newGui\ViewProps.js" />
      <Compile Include="Assets\Scripts\shields\shieldImp.js" />
      <Compile Include="Assets\Scripts\shields\shieldImpPoints.js" />
      <Compile Include="Assets\Scripts\ship\Reactor.js" />
