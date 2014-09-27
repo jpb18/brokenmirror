@@ -2,8 +2,8 @@ import System.Collections.Generic;
 #pragma strict
 
 class PlanetInfo implements IPopuleable, IProfitable, IConquerable { //this class stores all planet information necessary for the map
-	var isEnabled : boolean;
 	var name : String;
+	var isEnabled : boolean;
 	var faction : int;
 	var scene : String;
 	var description : String;
@@ -251,6 +251,10 @@ class PlanetInfo implements IPopuleable, IProfitable, IConquerable { //this clas
 		
 		for(var station : SaveStation in stations) {
 			str += station.getStrenght();
+		}
+		
+		if(constructions.Count > 0) {
+			str++;
 		}
 		
 		

@@ -22,25 +22,7 @@ class SaveShip extends System.Object{
 		}
 		
 		
-		function serialize() : String {
-			var serie : String = "";
-			
-			serie = serie + Name + "\n";
-			serie = serie + Faction + "\n"; 		
-			serie = serie + isPlayer + "\n";
-			serie = serie + isRedAlert + "\n";
-			serie = serie + strenght + "\n";
-
-			return serie;
-		}
 		
-		function readFromFile(stream : StreamReader) {
-			Name = stream.ReadLine();
-			Faction = int.Parse(stream.ReadLine());
-			isPlayer = boolean.Parse(stream.ReadLine());
-			isRedAlert = boolean.Parse(stream.ReadLine());
-			strenght = int.Parse(stream.ReadLine());
-		}
 	
 	}
 	
@@ -53,19 +35,7 @@ class SaveShip extends System.Object{
 			curShield = 0;
 		}
 		
-		function serialize() : String {
-			var serie : String = "";
-			
-			serie = serie + curHull + "\n";
-			serie = serie + curShield + "\n";
-			
-			return serie;
-		}
 		
-		function readFromFile(stream : StreamReader) {
-			curHull = float.Parse(stream.ReadLine());
-			curShield = float.Parse(stream.ReadLine());
-		}
 	
 	}
 
@@ -83,49 +53,9 @@ class SaveShip extends System.Object{
 			upgrades = new List.<GameObject>();
 		}
 		
-		function serialize() : String {
-			var serie : String = "";
-			
-			serie = serie + (phaser ? phaser.name : "null") + "\n";
-			serie = serie + (torp1 ? torp1.name : "null") + "\n";
-			serie = serie + (torp2 ? torp2.name : "null") + "\n";
-			serie = serie + upgrades.Count + "\n";
-			for(var up : GameObject in upgrades) {
-				serie = serie + up.name + "\n";		
-			}
-			serie = serie + actives.Count + "\n";
-			
-			for(var ac : GameObject in actives) {
-				serie = serie + ac.name;
-			}
-			
-			return serie;
-		}
 		
-		function readFromFile(stream : StreamReader) {
-			phaser = getGameObject(stream.ReadLine());
-			torp1 = getGameObject(stream.ReadLine());
-			torp2 = getGameObject(stream.ReadLine());
-			upgrades = getGameObjectList(stream);
-			actives = getGameObjectList(stream);			
-		}
 		
-		private function getGameObject(name : String) : GameObject{
-			if(name == "null") {
-				return null;
-			} else {
-				return Resources.Load(name) as GameObject;
-			}
-		}
 		
-		private function getGameObjectList(stream : StreamReader) : List.<GameObject> {
-			var count  : int = int.Parse(stream.ReadLine());
-			var list : List.<GameObject> = new List.<GameObject>();
-			for(var x : int = 0; x < count; x++) {
-				list.Add(getGameObject(stream.ReadLine()));
-			}
-			return list;		
-		}
 		
 	}
 	

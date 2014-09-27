@@ -123,12 +123,14 @@ public class BuildPanel extends FloatingWindow {
 				
 				if(GUI.Button(selfBuild, "Build")) {
 					orderBuild(selected, getPlayerCoordinates(), 0);
+					super.setOff();
 				}
 				
 				if(GUI.Button(offerBuild, "Offer")) {
 					var planet : PlanetInfo = map.getPlanetInCurrentScene();
 					orderBuild(selected, getPlayerCoordinates(), planet.faction);
 					planet.addReputation(getReputationBonus(selected));
+					super.setOff();
 				}
 				
 			
