@@ -15,6 +15,7 @@ CHANGED:
 
 ADDED:
 - New Loading Screen tips
+- Planets can conquer planets with 0 Strength.
 - Planets now loose population if they have 0 Strength.
 - Planets become unhinabitated if their population and strength reaches 0.
 

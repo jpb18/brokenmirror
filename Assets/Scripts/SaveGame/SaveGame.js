@@ -384,7 +384,20 @@ class SaveShip extends System.Object{
 		
 	}
 	
-
+	function Equals(ship : GameObject) {
+		
+		if(ship.tag != "Ship") return false;
+		
+		var props : shipProperties = ship.GetComponent(shipProperties);
+		if(props.getNameWithNoPrefix() != shipInfo.Name) return false;
+		
+		var pprops : shipProperties = shipPrefab.GetComponent(shipProperties);
+		if(props.getClass() != pprops.getClass()) return false;
+		
+		
+		return true;
+	
+	}
 	
 
 	

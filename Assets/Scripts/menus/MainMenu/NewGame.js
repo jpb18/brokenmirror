@@ -65,9 +65,11 @@ private var menu : MenuScript;
 private var general : GeneralInfo;
 private var save : SaveGame;
 private var tmp : GUISkin;
+private var baseWidth : float;
 
 public static final var BASE_HEIGHT = 1440f;
-public static final var BASE_WIDTH = 2550f;
+public static final var BASE_WIDTH_19 = 2550f;
+public static final var BASE_WIDTH_4 = 1920f;
 public static final var CREATE_TITLE = "Create Profile";
 public static final var CHARACTER = "Character Name:";
 public static final var FACTION = "Custom Faction:";
@@ -89,6 +91,9 @@ function Start () {
 	general = go.GetComponent(GeneralInfo);
 	save = go.GetComponent(SaveGame);
 	reset();
+	
+
+	
 }
 
 function reset() {
@@ -99,10 +104,21 @@ function reset() {
 
 function Update () {
 
+
 }
 
 function OnGUI() {
+	if(Camera.main.aspect > 1) {
+		baseWidth = BASE_WIDTH_19;
+	} else {
+		baseWidth = BASE_WIDTH_4;
+	}
+
 	tmp = GUI.skin;
+	var h : float = Screen.height/BASE_HEIGHT;
+	var w : float = Screen.width/baseWidth;
+	GUIUtility.ScaleAroundPivot(new Vector2(w,h), new Vector2() );
+
 	GUI.skin = skin;
 	if(on) {
 		
@@ -110,14 +126,16 @@ function OnGUI() {
 	}
 	
 	GUI.skin = tmp;
-	
+	GUIUtility.ScaleAroundPivot( new Vector2(1,1), new Vector2());
 	
 
 
 }
 
 private function Draw() {
-	GUILayout.BeginArea(Resize(InvertXY(area)));
+	
+	
+	GUILayout.BeginArea(InvertXY(area));
 		DrawLeft();
 		DrawRight();
 	GUILayout.EndArea();
@@ -125,30 +143,30 @@ private function Draw() {
 }
 
 private function DrawLeft() {
-	var area : Rect = Resize(leftArea);
+	var area : Rect = leftArea;
 	GUILayout.BeginArea(area);
 		GUI.Box(new Rect(0,0, area.width, area.height), "");
 	  	
-	  	GUI.Label(Resize(playerNameLabel), charNameString, skin.GetStyle("NameLabel1"));
-		GUI.Label(Resize(shipLabel), "ISS " + shipNameString, skin.GetStyle("NameLabel2"));
-		GUI.Label(Resize(empireLabel), customFactionString, skin.GetStyle("NameLabel1"));	   
+	  	GUI.Label(playerNameLabel, charNameString, skin.GetStyle("NameLabel1"));
+		GUI.Label(shipLabel, "ISS " + shipNameString, skin.GetStyle("NameLabel2"));
+		GUI.Label(empireLabel, customFactionString, skin.GetStyle("NameLabel1"));	   
 	  	
-	  	GUI.DrawTexture(Resize(empireLogoRect), empireLogo);
+	  	GUI.DrawTexture(empireLogoRect, empireLogo);
 	  	
-	  	GUI.Label(Resize(navLabelRect), NAVIGATION, skin.GetStyle("SkillLabel"));
-	  	GUI.Label(Resize(tacLabelRect), TACTICAL, skin.GetStyle("SkillLabel"));
-	  	GUI.Label(Resize(engLabelRect), ENGINEERING, skin.GetStyle("SkillLabel"));
-	  	GUI.Label(Resize(sciLabelRect), SCIENCE, skin.GetStyle("SkillLabel"));
-	  	GUI.Label(Resize(comLabelRect), COMMAND, skin.GetStyle("SkillLabel"));
+	  	GUI.Label(navLabelRect, NAVIGATION, skin.GetStyle("SkillLabel"));
+	  	GUI.Label(tacLabelRect, TACTICAL, skin.GetStyle("SkillLabel"));
+	  	GUI.Label(engLabelRect, ENGINEERING, skin.GetStyle("SkillLabel"));
+	  	GUI.Label(sciLabelRect, SCIENCE, skin.GetStyle("SkillLabel"));
+	  	GUI.Label(comLabelRect, COMMAND, skin.GetStyle("SkillLabel"));
 	  	
-	  	GUI.Label(Resize(navPointsRect), String.Format(POINTS, 15), skin.GetStyle("SkillPoints"));
-	  	GUI.Label(Resize(tacPointsRect), String.Format(POINTS, 15), skin.GetStyle("SkillPoints"));
-	  	GUI.Label(Resize(engPointsRect), String.Format(POINTS, 15), skin.GetStyle("SkillPoints"));
-	  	GUI.Label(Resize(sciPointsRect), String.Format(POINTS, 15), skin.GetStyle("SkillPoints"));
+	  	GUI.Label(navPointsRect, String.Format(POINTS, 15), skin.GetStyle("SkillPoints"));
+	  	GUI.Label(tacPointsRect, String.Format(POINTS, 15), skin.GetStyle("SkillPoints"));
+	  	GUI.Label(engPointsRect, String.Format(POINTS, 15), skin.GetStyle("SkillPoints"));
+	  	GUI.Label(sciPointsRect, String.Format(POINTS, 15), skin.GetStyle("SkillPoints"));
 	  	
-	  	GUI.Label(Resize(comPointsRect), "15", skin.GetStyle("CommandPoints"));
+	  	GUI.Label(comPointsRect, "15", skin.GetStyle("CommandPoints"));
 	  	
-	  	GUI.DrawTexture(Resize(line3), verLine);
+	  	GUI.DrawTexture(line3, verLine);
 	  	
 	GUILayout.EndArea();
 }
@@ -210,6 +228,7 @@ private function drawSpeciesButtons() {
 
 
 private function GetScale() : float {
+	return 1f;
 	var height : float = Screen.height;
 	return height/BASE_HEIGHT;
 }
@@ -227,7 +246,7 @@ private function InvertY(parent : Rect, rect : Rect) : Rect {
 
 private function InvertXY(rect : Rect) : Rect {
 	var y : float = BASE_HEIGHT - rect.height - rect.y;
-	var x : float = BASE_WIDTH - rect.width - rect.x;
+	var x : float = baseWidth - rect.width - rect.x;
 	return new Rect(x, y, rect.width, rect.height);
 }
 
@@ -245,6 +264,7 @@ function SetOn() {
 }
 
 function SetOff() {
+	reset();
 	on = false;
 	menu.Show();
 	ship.SetActive(false);

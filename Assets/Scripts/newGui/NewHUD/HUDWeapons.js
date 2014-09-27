@@ -216,25 +216,34 @@ class HUDWeapons extends HUDBottom {
 		
 		var colonizable : IColonizable = planet.GetComponent(IColonizable) as IColonizable;
 		var inventory : Inventory = GameObject.FindGameObjectWithTag("SaveGame").GetComponent(Inventory);
-		
+		var factionable : IFactionable = player.GetComponent(IFactionable) as IFactionable;
+		var faction : int = factionable.getFaction();
 					
 		if(colonizable.canColonize()) {
 			if(!inventory.hasColonizationTeams()) {
 				message.AddMessage(COLONIZE_ERROR);
 			} else {
 				var team : GameObject = inventory.getColonizationTeam();
-				var factionable : IFactionable = player.GetComponent(IFactionable) as IFactionable;
-				var faction : int = factionable.getFaction();
+				
+				
 				colonizable.colonize(faction, team);
 				message.AddMessage(COLONIZED);
 			}
 			return;
 		} 
 		
+		var conquerable : IConquerable = planet.GetComponent(IConquerable) as IConquerable;
+		
+		if(conquerable.canConquer(faction)) {
+			conquerable.conquer(faction);
+			return;
+		}
 		
 		
 		missions.finishTradeMissionInSystem();		
 	}
+	
+	
 	
 	
 	private function findSystemPlanet() : GameObject {

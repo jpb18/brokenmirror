@@ -744,3 +744,8 @@ function setConstruction(construction : Construction) {
 
 }
 
+function removeShipFromDefense(planet : String, ship : GameObject) {
+	var p: PlanetInfo = findPlanet(planet);
+	p.removeDefenseShip(ship);
+}
+

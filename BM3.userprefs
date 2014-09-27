@@ -1,30 +1,26 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Events\EventGenerator.js">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Load\changelog.txt">
     <Files>
-      <File FileName="Assets\Scripts\newGui\BuildPanel.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Construction\Construction.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\station\Station.js" Line="104" Column="3" />
-      <File FileName="Assets\Scripts\Interfaces\IBuildable.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\SaveGame\Inventory.js" Line="63" Column="19" />
-      <File FileName="Assets\Scripts\station\StationStore.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\station\StationInterface.js" Line="245" Column="26" />
-      <File FileName="Assets\Scripts\Interfaces\IImageable.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\newGui\BuildPanel.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\newGui\FleetTemporaryPanel.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\menus\ShowMessage.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\newGui\ViewProps.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\SaveGame\PlanetInfo.js" Line="19" Column="33" />
-      <File FileName="Assets\Scripts\SaveGame\MapInfo.js" Line="741" Column="51" />
-      <File FileName="Assets\Scripts\SaveGame\SaveGame.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Interfaces\IReputable.js" Line="4" Column="38" />
-      <File FileName="Assets\Scripts\newGui\PlanetPanel.js" Line="49" Column="12" />
-      <File FileName="Assets\Scripts\newGui\FloatingWindow.js" Line="13" Column="14" />
-      <File FileName="Assets\Scripts\Events\EventGenerator.js" Line="102" Column="40" />
+      <File FileName="Assets\Scripts\newGui\BuildPanel.js" Line="158" Column="2" />
+      <File FileName="Assets\Scripts\menus\MainMenu\NewGame.js" Line="120" Column="43" />
+      <File FileName="Assets\Load\changelog.txt" Line="18" Column="47" />
+      <File FileName="Assets\Scripts\ship\shipHealth.js" Line="198" Column="24" />
+      <File FileName="Assets\Scripts\SaveGame\MapInfo.js" Line="749" Column="3" />
+      <File FileName="Assets\Scripts\SaveGame\SaveGame.js" Line="387" Column="29" />
+      <File FileName="Assets\Scripts\ship\shipProperties.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\SaveGame\PlanetInfo.js" Line="279" Column="28" />
+      <File FileName="Assets\Scripts\newGui\NewHUD\HUDWeapons.js" Line="243" Column="1" />
+      <File FileName="Assets\Scripts\Interfaces\IConquerable.js" Line="6" Column="34" />
+      <File FileName="Assets\Scripts\Colonization\IColonizable.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\newGui\PlanetPanel.js" Line="304" Column="2" />
+      <File FileName="Assets\Menus\MenuScript.js" Line="48" Column="6" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
+    <BreakpointStore>
+      <Breakpoint file="C:\UnityProjects\BM3\Assets\Scripts\newGui\NewHUD\HUDWeapons.js" line="219" />
+    </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>

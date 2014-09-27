@@ -108,6 +108,27 @@ class PlanetInfo implements IPopuleable, IProfitable, IConquerable { //this clas
 		defenseFleet.Add(s);
 	}
 	
+	function hasShipDefense(ship : GameObject) : int {
+		
+		for(var x : int = 0; x < defenseFleet.Count; x++) {
+			if(defenseFleet[x].Equals(ship)) {
+				return x;
+			}
+		
+		}
+		
+		return -1;
+		
+	}
+	
+	function removeDefenseShip(ship : GameObject) {
+		var pos : int = hasShipDefense(ship);
+		if(pos > -1) {
+			defenseFleet.RemoveAt(pos);
+		}
+	
+	}
+	
 	function addStation(station : SaveStation) {
 		stations.Add(station);
 	}
@@ -254,6 +275,9 @@ class PlanetInfo implements IPopuleable, IProfitable, IConquerable { //this clas
 		return dilithium;
 	}
 	
+	function canColonize() : boolean {
+		return population <= 0 && !isColonized;
+	}
 	
 	function colonize(faction : int, population : float) {
 		this.faction = faction;

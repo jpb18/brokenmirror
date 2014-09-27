@@ -101,6 +101,8 @@ class shipHealth extends MonoBehaviour implements IHealtheable, IDamageable {
 	private var over : GameOver;
 	private var upgrades : Upgrades;
 	private var reactor : ShipReactor;
+	private var ai : ShipAI;
+	private var map : MapInfo;
 
 	function Start () {
 
@@ -111,10 +113,12 @@ class shipHealth extends MonoBehaviour implements IHealtheable, IDamageable {
 		escape = gameObject.GetComponent(shipEscapePods);
 		upgrades = gameObject.GetComponent(Upgrades);
 		reactor = gameObject.GetComponent(ShipReactor);
+		ai = gameObject.GetComponent(ShipAI);
 		
 		missions = GameObject.FindGameObjectWithTag("Missions").GetComponent(Missions);
 		general = GameObject.FindGameObjectWithTag("SaveGame").GetComponent(GeneralInfo);
 		over = GameObject.FindGameObjectWithTag("GameOver").GetComponent(GameOver);
+		map = GameObject.FindGameObjectWithTag("MapInfo").GetComponent(MapInfo);
 		
 		//get health stats
 		shipHealth.maxHealth = properties.ShipHealth.basicHealth;
@@ -191,6 +195,7 @@ class shipHealth extends MonoBehaviour implements IHealtheable, IDamageable {
 				gameOver();
 			}
 			instantiatePods();
+			removeFromDefense();
 		}
 		
 
@@ -422,6 +427,12 @@ class shipHealth extends MonoBehaviour implements IHealtheable, IDamageable {
 	
 	function getShieldPercentage() : float {
 		return getShield()/getMaxShield();
+	}
+	
+	function removeFromDefense() {
+		if(ai.defence) {
+			map.removeShipFromDefense(Application.loadedLevelName, gameObject);
+		}
 	}
 
 }

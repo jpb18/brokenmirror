@@ -288,6 +288,9 @@
  <Reference Include="Assembly-UnityScript-firstpass">
  <HintPath>C:/UnityProjects/BM3/Library/ScriptAssemblies/Assembly-UnityScript-firstpass.dll</HintPath>
  </Reference>
+ <Reference Include="Assembly-UnityScript">
+ <HintPath>C:/UnityProjects/BM3/Library/ScriptAssemblies/Assembly-UnityScript.dll</HintPath>
+ </Reference>
  <Reference Include="NSubstitute">
  <HintPath>C:/UnityProjects/BM3/Assets/UnityTestTools/UnitTesting/Editor/NSubstitute/NSubstitute.dll</HintPath>
  </Reference>

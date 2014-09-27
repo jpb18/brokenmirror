@@ -45,8 +45,10 @@ function Start () {
 }
 
 function Update () {
-	getPress();
-	getMouseOver();
+	if(!create.on) {
+		getPress();
+		getMouseOver();
+	}
 
 }
 
