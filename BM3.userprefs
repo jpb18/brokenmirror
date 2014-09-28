@@ -1,16 +1,17 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\newGui\FleetTemporaryPanel.js">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\skills\Skills.js">
     <Files>
-      <File FileName="Assets\Scripts\newGui\BuildPanel.js" Line="133" Column="21" />
-      <File FileName="Assets\Scripts\menus\MainMenu\NewGame.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\newGui\BuildPanel.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\menus\MainMenu\NewGame.js" Line="83" Column="41" />
       <File FileName="Assets\Load\changelog.txt" Line="1" Column="1" />
       <File FileName="Assets\Scripts\ship\shipHealth.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\SaveGame\MapInfo.js" Line="749" Column="3" />
-      <File FileName="Assets\Scripts\SaveGame\SaveGame.js" Line="58" Column="3" />
+      <File FileName="Assets\Scripts\SaveGame\MapInfo.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\SaveGame\SaveGame.js" Line="1" Column="1" />
       <File FileName="Assets\Scripts\ship\shipProperties.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\SaveGame\PlanetInfo.js" Line="257" Column="10" />
+      <File FileName="Assets\Scripts\SaveGame\PlanetInfo.js" Line="1" Column="1" />
       <File FileName="Assets\Scripts\newGui\FleetTemporaryPanel.js" Line="121" Column="51" />
+      <File FileName="Assets\Scripts\skills\Skills.js" Line="35" Column="14" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
