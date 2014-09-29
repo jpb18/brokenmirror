@@ -17,6 +17,9 @@ class HUDWeapons extends HUDBottom {
 	public static final var ORBIT_ERROR = "Not in a planets orbit.";
 	public static final var COLONIZE_ERROR = "You need a colonization team to colonize a planet.";
 	public static final var COLONIZED = "Planet colonized.";
+	public static final var INVASION_ERROR = "You need an invasion force to ocupy the planet.";
+	public static final var INVASION_FAILED = "Your invasion force has been defeated.";
+	public static final var INVADED = "Planet ocupied.";
 
 	
 	function OnGUI() {
@@ -224,8 +227,6 @@ class HUDWeapons extends HUDBottom {
 				message.AddMessage(COLONIZE_ERROR);
 			} else {
 				var team : GameObject = inventory.getColonizationTeam();
-				
-				
 				colonizable.colonize(faction, team);
 				message.AddMessage(COLONIZED);
 			}
@@ -233,10 +234,25 @@ class HUDWeapons extends HUDBottom {
 		} 
 		
 		var conquerable : IConquerable = planet.GetComponent(IConquerable) as IConquerable;
+		var populable : IPopuleable = planet.GetComponent(IPopuleable) as IPopuleable;
 		
 		if(conquerable.canConquer(faction)) {
-			conquerable.conquer(faction);
-			return;
+		
+			if(!inventory.hasInvasionForce(populable.getPopulation())) {
+				message.AddMessage(INVASION_ERROR);
+			} else {
+				var force : GameObject = inventory.getInvasionForce();
+				var invade : IInvasion = force.GetComponent(IInvasion) as IInvasion;
+				if(!invade.canInvade(populable.getPopulation())) {
+					message.AddMessage(INVASION_FAILED);
+				} else {
+					invade.invade(conquerable, faction);
+					message.AddMessage(INVADED);
+				}				
+				
+			}
+			return;		
+			
 		}
 		
 		

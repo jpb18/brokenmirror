@@ -126,3 +126,49 @@ function setInventory(inventory : InventoryData) {
 	latinum = inventory.latinum;
 	items = inventory.getItems();
 }
+
+function hasInvasionForce(population : float) : boolean {
+
+	for(var go : GameObject in items) {
+		if(go.tag == "Invasion") {
+			var inv : IInvasion = go.GetComponent(typeof(IInvasion)) as IInvasion;
+			if(inv.getPopulation() >= population) return true;
+		}
+	}
+	
+	return false;
+	
+}
+
+function getInvasionForce() : GameObject {
+	var inv : GameObject = getBiggerInvasionForce();
+	items.Remove(inv);
+	return inv;
+}
+
+
+private function getBiggerInvasionForce() : GameObject {
+
+	var big : GameObject;
+	var bigInvasion : IInvasion;
+	for(var go : GameObject in items) {
+		if(go.tag == "Invasion") {
+			if(!big) {
+				big = go;
+				bigInvasion = big.GetComponent(typeof(IInvasion)) as IInvasion;
+			} else {
+				var bigSize : float = bigInvasion.getPopulation();
+				var newInvasion : IInvasion = go.GetComponent(typeof(IInvasion)) as IInvasion;
+				var newSize : float = newInvasion.getPopulation();
+				if(bigSize < newSize) {
+					big = go;
+					bigInvasion = newInvasion;
+				}
+			}
+		}
+	
+	}
+	return big;
+
+}
+

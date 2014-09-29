@@ -112,6 +112,8 @@
      <Compile Include="Assets\Scripts\Interfaces\ITextureable.js" />
      <Compile Include="Assets\Scripts\Interfaces\ITradeable.js" />
      <Compile Include="Assets\Scripts\Interfaces\IUpgrade.js" />
+     <Compile Include="Assets\Scripts\Invasion\IInvasion.js" />
+     <Compile Include="Assets\Scripts\Invasion\InvasionForce.js" />
      <Compile Include="Assets\Scripts\Load\GameLoad.js" />
      <Compile Include="Assets\Scripts\Load\SceneStart.js" />
      <Compile Include="Assets\Scripts\Load\dontDestroy.js" />

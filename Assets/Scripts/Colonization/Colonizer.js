@@ -1,4 +1,4 @@
-
+#pragma strict
 
 class Colonizer extends MonoBehaviour implements IColonizer, INameable, IImageable, IDescribable, IPriceable {
 	

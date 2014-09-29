@@ -1,7 +1,7 @@
 #pragma strict
 import System.Collections.Generic;
 
-class PlanetPanel extends FloatingWindow implements IFactionable, IHealtheable, ITextureable, IHailable, INameable, IClasseable, IDescribable, IColonizable, IConquerable {
+class PlanetPanel extends FloatingWindow implements IFactionable, IHealtheable, ITextureable, IHailable, IPopuleable, INameable, IClasseable, IDescribable, IColonizable, IConquerable {
 
 	//stats
 	private var planet : PlanetInfo;
@@ -382,6 +382,19 @@ class PlanetPanel extends FloatingWindow implements IFactionable, IHealtheable, 
 	function conquer(faction : int) {
 		planet.conquer(faction);
 		updateFaction();
+	}
+	
+	
+	function getPopulation() : float {
+		return planet.population;
+	}
+	
+	function killPopulation(amount : float) : float {
+		planet.killPopulation(amount);
+	}
+	
+	function growPopulation(amount : float) : float {
+		planet.growPopulation(amount);
 	}
 
 }
