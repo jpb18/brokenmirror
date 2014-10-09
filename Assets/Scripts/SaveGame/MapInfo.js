@@ -749,3 +749,6 @@ function removeShipFromDefense(planet : String, ship : GameObject) {
 	p.removeDefenseShip(ship);
 }
 
+function isMapOn() : boolean {
+	return isMap;
+}

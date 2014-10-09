@@ -9,6 +9,7 @@ private var shipProps : shipProperties;
 private var general : GeneralInfo;
 private var shipWeps : shipWeapons;
 private var gui : guiScript;
+private var guiStatus : GUIStatus;
 
 var repeatClick : boolean = false;
 
@@ -24,6 +25,7 @@ function Start () {
 	shipWeps = gameObject.GetComponent(shipWeapons);
 	gui = gameObject.GetComponent(guiScript);
 	general = GameObject.FindGameObjectWithTag("SaveGame").GetComponent(GeneralInfo);
+	guiStatus = GameObject.FindGameObjectWithTag("GUI").GetComponent.<GUIStatus>();
 	
 	
 
@@ -121,9 +123,10 @@ function ClickTarget() {
 }
 
 function controlDoubleClick(obj : GameObject) {
-	
-	var hail : IHailable = obj.GetComponent(typeof(IHailable)) as IHailable;
-	hail.openComm();
+	if(!guiStatus.isAnyWindowUp())	{
+		var hail : IHailable = obj.GetComponent(typeof(IHailable)) as IHailable;
+		hail.openComm();
+	}
 
 }
 

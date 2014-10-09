@@ -178,6 +178,7 @@
      <Compile Include="Assets\Scripts\newGui\CommPanel.js" />
      <Compile Include="Assets\Scripts\newGui\FleetTemporaryPanel.js" />
      <Compile Include="Assets\Scripts\newGui\FloatingWindow.js" />
+     <Compile Include="Assets\Scripts\newGui\GUIStatus.js" />
      <Compile Include="Assets\Scripts\newGui\GuiElement.js" />
      <Compile Include="Assets\Scripts\newGui\Icon.js" />
      <Compile Include="Assets\Scripts\newGui\MissionDialogue.js" />

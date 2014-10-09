@@ -24,6 +24,7 @@ ADDED:
 WIP:
 - New XML-based Save System
 - New Game screen
+- New GUI Filter algorythm to prevent opening undesired windows.
 
 
 Version 0.2.2
