@@ -151,6 +151,7 @@
      <Compile Include="Assets\Scripts\Upgrades\Upgrade.js" />
      <Compile Include="Assets\Scripts\Upgrades\UpgradeClass.js" />
      <Compile Include="Assets\Scripts\Upgrades\Upgrades.js" />
+     <Compile Include="Assets\Scripts\camera\FreeCamera.js" />
      <Compile Include="Assets\Scripts\camera\MouseOrbit.js" />
      <Compile Include="Assets\Scripts\camera\SmoothFollow.js" />
      <Compile Include="Assets\Scripts\camera\flareOclusion.js" />

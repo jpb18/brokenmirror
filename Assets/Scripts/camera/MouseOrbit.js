@@ -19,7 +19,8 @@ private var y = 0.0;
 var rotation : Quaternion;
 var position;
 
-
+private var forked = false;
+var freeCamera : GameObject;
 
 function Start () {
     var angles = transform.eulerAngles;
@@ -32,7 +33,21 @@ function Start () {
 }
 
 function LateUpdate () {
-	if (target) {
+
+    if(!forked) {
+    	CameraScript();
+    }
+    
+    
+    if(Input.GetAxis("FreeCamera")) {
+		fork();
+	}
+    
+    
+}
+
+function CameraScript() {
+		if (target) {
 		//obtain red alert status
 		
 		var go : GameObject = target.gameObject;
@@ -70,9 +85,7 @@ function LateUpdate () {
     	rotateCam();
     
     }
-    
-    
-    
+
 }
 
 function rotateCam() {
@@ -171,3 +184,24 @@ static function ClampAngle (angle : float, min : float, max : float) {
 		angle -= 360;
 	return Mathf.Clamp (angle, min, max);
 }
+
+function fork() {
+	forked = true;
+	var audio : AudioListener = gameObject.GetComponent.<AudioListener>();
+	audio.enabled = false;
+	Camera.main.enabled = false;
+	
+	var cam : GameObject = GameObject.Instantiate(freeCamera, transform.position, transform.rotation);
+	var script : FreeCamera = cam.GetComponent.<FreeCamera>();
+	script.init(gameObject);
+	
+	
+
+}
+
+function join() {
+	forked = false;
+	var audio : AudioListener = gameObject.GetComponent.<AudioListener>();
+	audio.enabled = true;
+	Camera.main.enabled = true;
+} 
