@@ -210,12 +210,21 @@ enum Dificulty {
 
 var playerInfo : PlayerInfo;
 var factionInfo : List.<FactionInfo>;
-
+var merchantFleet : GameObject[];
 
 function getFactionInfo(faction : int) : FactionInfo {
 
 	return factionInfo[faction];
 
+}
+
+function getFactionIdByName(name : String) : int {
+	for(var i : int = 0; i < factionInfo.Count; i++) {
+		if(factionInfo[i].getName().Equals(name)) {
+			return i;
+		}
+	}
+	return -1;
 }
 
 function setPlayer(player : PlayerData) {
@@ -288,5 +297,7 @@ function isFactionAllies(faction1 : int, faction2 : int) : boolean {
 	return faction.isAllied(faction2);
 }
 
-
+function getRandomMerchantShip() : GameObject {
+	return merchantFleet[Random.value * (merchantFleet.Length -1)];
+}
 

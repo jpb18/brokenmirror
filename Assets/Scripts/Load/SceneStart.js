@@ -41,8 +41,16 @@ var invasionMessage3 : String = " seconds.";
 var arriveMessage : String = "Hostile fleet has arrived.";
 var fleetSize : int;
 
+var merchantCount : int;
+private var merchants : GameObject[];
+
 
 function Start () {
+	
+	if(merchantCount == 0) {
+		merchantCount = Random.value * 10;
+	}
+
 	//set SaveGame start
 	music = GameObject.FindGameObjectWithTag("OST").GetComponent(PlaybackScript);
 	general = GameObject.FindGameObjectWithTag("SaveGame").GetComponent(GeneralInfo);
@@ -59,6 +67,7 @@ function Start () {
 	spawnDefenseFleet();
 	spawnPlayerFleet();
 	spawnStations();
+	spawnMerchants();
 	
 	if(isPlayerEnemy()) {
 		if(!music.getStatus(PlaybackStatus.HOSTILE)) music.setStatus(PlaybackStatus.HOSTILE);
@@ -222,6 +231,10 @@ static function genSpawn(min : float, max : float, trans : Vector3) : Vector3 {
 
 }
 
+function getSpawnCoordinates() : Vector3 {
+	return genSpawn(minRadius, maxRadius, transform.position);
+}
+
 //this method controls the invasion settings in the scene
 function setInvasion() {
 	
@@ -372,3 +385,29 @@ function cheat() {
 	setInvasion();
 }
 
+
+function spawnMerchants() {
+	
+	merchants = new GameObject[merchantCount];
+	for(var i : int = 0; i < merchantCount; i++) {
+		merchants[i] = createMerchant();
+	}
+
+}
+
+function createMerchant() : GameObject {
+	var position : Vector3 = getSpawnCoordinates();
+	var prefab : GameObject = general.getRandomMerchantShip();
+	
+	var ship : GameObject = Instantiate(prefab, position, new Quaternion());
+	ship.transform.LookAt(transform.position);
+	
+	var mission : IMissionable = ship.GetComponent(typeof(IMissionable));
+	mission.setMerchant();
+	
+	var faction : IFactionable = ship.GetComponent(typeof(IFactionable));
+	var fac : int = general.getFactionIdByName("Non-Aligned");
+	faction.setFaction(fac);
+	
+	return ship;
+}

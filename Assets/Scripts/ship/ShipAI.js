@@ -1,5 +1,4 @@
-﻿
-#pragma strict
+﻿#pragma strict
 //lets start by creating some enumerations
 
 enum ShipType {EscapePod, Frigate, AttackShip, Cruiser, BattleShip, Boss}
@@ -67,9 +66,7 @@ function Update () {
 	
 	if(!props.playerProps.isPlayer)
 	{
-		
 		botFunction();
-		
 	}
 	
 
@@ -78,10 +75,10 @@ function Update () {
 function botFunction() {
 	if(isDanger()) {
 		dangerFunction();
-	} else if (isEscapePod()) {
+	} else if (type == ShipType.EscapePod) {
 		//stay quiet (for the time being)
 	}
-	else if(hasLeader()) {
+	else if(leader != null) {
 		leaderFunction();	
 	} else if (defence) {
 		defenseFunction();
@@ -101,155 +98,92 @@ function dangerFunction () {
 }
 
 function defenseFunction () {
-	if(hasTarget()) {
-		intercept(getTarget());
-	} else if (hasStation()){
-		defend(getStation());
-	} else {
-		patrol();
+	var target : GameObject = target.getTarget();
+	if(target) {
+		intercept(target);
+		return;
 	}
+	
+	var stations : GameObject[] = GameObject.FindGameObjectsWithTag("Station");
+	if (stations.Length > 0){
+		var station : GameObject = stations[Random.value * (stations.length-1)];
+		defend(station);
+		return;
+	} 
+	
+	patrol();
+	
 
 }
 
 function leaderFunction () {
 	
 	if(formation == Formation.close) {
-				follow(leader);			
-	} else if(formation == Formation.standard) {
-		if(hasTarget() && isInRange(getTarget().transform.position)) {
-			intercept(getTarget());
-		} else {
-			follow(leader);
-		}
-		
-	} else {
-		if(hasTarget()) {
-			intercept(getTarget());
-		} else {
-			follow(leader);
-		}
-	
+				follow(leader);	
+				return;		
 	}
+	
+	var target : GameObject = this.target.getTarget();
+	if(formation == Formation.standard) {
+		
+		if(target != null && (transform.position - target.transform.position).sqrMagnitude <= interceptRange * interceptRange) {
+			intercept(target);
+			
+		} else {
+			follow(leader);
+			
+		}
+		return;
+	} 
+	
+	if(target != null) {
+		intercept(target);
+		return;
+	} else {
+		follow(leader);
+		return;
+	}
+	
+	
 
 }
 
 
 function merchantFunction () {
-	if(hasStation()) {
+	var stations : GameObject[] = GameObject.FindGameObjectsWithTag("Station");
+	if(stations.Length > 0) {
 		if(!dockTarget || dockTarget.tag == "Ship") {
-			dockTarget = getStation();
+			dockTarget = stations[Random.value * (stations.Length - 1)];
 		} else {
 			dock(dockTarget);
 		}
+		return;
+	} 
 	
-	} else if(hasShip()) {
+	var ships : GameObject[] = GameObject.FindGameObjectsWithTag("Ship");
+	if(ships.Length - 1 > 0) {
 		if(!dockTarget || dockTarget.tag == "Station") {
-			dockTarget = getShip();
+			dockTarget = ships[Random.value * (ships.length - 1)];
 		} else {
 			dock(dockTarget);
 		}
-	
-	} else {
-		orbit();
+		return;
 	}
+	
+	 
+	orbit();
+	
 
 }
 
 function freeShip() {
-	if(hasHostileShip() || hasHostileStation()) {
-		intercept(getTarget());
+	var target : GameObject = this.target.getTarget();
+	if(target) {
+		intercept(target);
 	} 
 
 }
 
-
-//this function checks if the target position is inside range
-function isInRange(target : Vector3) {
-	
-	return (transform.position - target).sqrMagnitude <= interceptRange * interceptRange;
-
-}
-
-
-//this function checks if there's a leader
-function hasLeader() : boolean {
-
-	return leader != null;
-
-}
-
-//this function checks if the ship's a merchant
-function isMerchant() : boolean {
-	return merchant;
-}
-
-//this function checks if the ship belongs to some system defense
-function isDefence() : boolean {
-	return defence;
-}
-
-//this function checks if the ship has a target
-function hasTarget() : boolean {
-	return target.getTarget() != null;
-} 
-
-//this function searches for stations in the system
-function hasStation() : boolean {
-	var stations : GameObject[] = GameObject.FindGameObjectsWithTag("Station");
-	return stations.Length > 0;
-
-
-}
-
-//this function searches for ships in the system
-//pre isMerchant()
-function hasShip() : boolean {
-	var ships : GameObject[] = GameObject.FindGameObjectsWithTag("Ship");
-	return ships.Length - 1 > 0;
-}
-
-//this function searches for hostile ships in the system
-//pre !isMerchant(), !isDefense(), !hasLeader(), !isDanger()
-function hasHostileShip() : boolean {
-	var isHostile : boolean = false;
-	var ships : GameObject[] = GameObject.FindGameObjectsWithTag("Ship");
-	var factionInfo : FactionInfo = general.getFactionInfo(props.shipInfo.faction);
-	
-	for(var x : int = 0; x < ships.Length && !isHostile; x++) {
-	
-		var faction : int = ships[x].GetComponent(shipProperties).shipInfo.faction;
-		
-			isHostile = factionInfo.isHostile(faction);
-			
-				
-	}
-	
-	return isHostile;
-	
-
-}
-
-///<summary>Checks if there're any hostile stations</summary>
-function hasHostileStation() : boolean {
-	var isHostile : boolean = false;
-	var ships : GameObject[] = GameObject.FindGameObjectsWithTag("Station");
-	var factionInfo : FactionInfo = general.getFactionInfo(props.shipInfo.faction);
-	
-	for(var x : int = 0; x < ships.Length && !isHostile; x++) {
-	
-		var faction : int = ships[x].GetComponent(Station).faction;
-		isHostile = factionInfo.isHostile(faction);
-				
-	}
-	
-	return isHostile;
-}
-
-//checks if the ship is in follow distance from game object
-function isFollowDistance(target : Vector3) : boolean {
-	var distance : float = (target - transform.position).sqrMagnitude;
-	return distance <= (followDistance * followDistance);
-}
 
 //checks if the ship is too close to another one
 //pre target != null
@@ -619,7 +553,8 @@ function follow(target : GameObject) {
 			move.decreaseSpeed();
 		}
 	}
-	else if(!isFollowDistance(pos)) {
+	
+	else if((target.transform.position - transform.position).sqrMagnitude > (followDistance * followDistance)) {
 		if(!move.isAtMax()) {
 			move.increaseSpeed();
 		}
@@ -762,19 +697,6 @@ function LookAway(target : GameObject) {
 ///<summary>function containing the defensive behaviour - guard something</summary>
 ///<param name="target">Object to be defended</param>
 function defend(target : GameObject) {
-	if(target.tag == "Station") {
-		defendStation(target);
-	} else if (target.tag == "Ship") {
-		defendShip(target);
-	}
-
-
-}
-
-///<summary>This function controls the defend station position</summary>
-///<param name="target">Object to be defended</param>
-function defendStation (target : GameObject) {
-	
 	if((transform.position - target.transform.position).sqrMagnitude > (defenseStation * defenseStation)) {
 		follow(target);
 	
@@ -786,33 +708,19 @@ function defendStation (target : GameObject) {
 
 }
 
-///<summary>This function controls the defend ship stance</summary>
-///<param name="target">Object to be defended</param>
-function defendShip (target : GameObject) {
-	if((transform.position - target.transform.position).sqrMagnitude > (defenseShip * defenseShip)) {
-		follow(target);
-	} else {
-		if(!move.isStop() && !move.isChanging) {
-			move.fullStop();
-		}
-	}//if it doesn't enter, it must hold position in the perimeter
-
-}
 
 ///<summary>This function obtains an ally station in the scene</summary>
 function getStation() : GameObject {
-	var station : GameObject;
-
 	var stations : GameObject[] = GameObject.FindGameObjectsWithTag("Station");
 	
-	var r : float = Random.value;
-	var num : int = (stations.length - 1) * r;
-	
-	station = stations[num];
-		
-	return station;
+	return getRandomGameObject(stations);
 }
 
+function getRandomGameObject(list : GameObject[]) {
+	var r : float = Random.value;
+	var num : int = (list.length - 1) * r;
+	return list[num];
+}
 
 ///<summary>This function makes the ship go on patrol</summary>
 function patrol() {
@@ -824,7 +732,8 @@ function patrol() {
 	
 	if(isPatroling) {
 		if((patrolPoint - transform.position).sqrMagnitude > patrolDistance * patrolDistance) {
-			goToPoint(patrolPoint);		
+			goToPoint(patrolPoint);
+			
 		}
 	
 	
@@ -919,8 +828,6 @@ function orbit() {
 
 }
 
-function isEscapePod() : boolean {
-	return type == ShipType.EscapePod;
-}
+
 
 }

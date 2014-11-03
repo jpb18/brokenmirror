@@ -1,6 +1,13 @@
 Star Trek Broken Mirror
 Change Log
 
+
+Version 0.2.4
+**********************************************************************
+ADDED:
+- Free floating camera.
+- Merchant ships.
+
 Version 0.2.3
 **********************************************************************
 FIXED:
@@ -12,6 +19,7 @@ FIXED:
 CHANGED:
 - Default vertical movement set to 'w' makes the ship tilt down and 's' makes it tilt up.
 - Map position indicator now rotates and fades in/out, instead of pulsing.
+- Optimized the Ship AI a bit.
 
 ADDED:
 - New Loading Screen tips
@@ -25,6 +33,7 @@ WIP:
 - New XML-based Save System
 - New Game screen
 - New GUI Filter algorythm to prevent opening undesired windows.
+
 
 
 Version 0.2.2

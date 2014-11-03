@@ -1,21 +1,6 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\camera\MouseOrbit.js">
-    <Files>
-      <File FileName="Assets\Scripts\camera\MouseOrbit.js" Line="190" Column="72" />
-      <File FileName="Assets\Scripts\ship\shipWeapons.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\menus\MainMenu\NewGame.js" Line="1" Column="1" />
-      <File FileName="Assets\Load\changelog.txt" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\ship\shipHealth.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\SaveGame\MapInfo.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\newGui\PlanetPanel.js" Line="1" Column="1" />
-      <File FileName="Assets\Detonator Explosion Framework\Resources\Detonator\Textures\HeatDistort.shader" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\newGui\GUIStatus.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\newGui\FloatingWindow.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\ship\shipTarget.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\camera\FreeCamera.js" Line="24" Column="70" />
-    </Files>
-  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workbench />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
