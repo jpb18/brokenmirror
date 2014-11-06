@@ -8,6 +8,9 @@ ADDED:
 - Free floating camera.
 - Merchant ships.
 
+WIP:
+- Inventory menu.
+
 Version 0.2.3
 **********************************************************************
 FIXED:

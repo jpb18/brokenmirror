@@ -27,14 +27,12 @@ class GuiElement extends MonoBehaviour {
 	}
 	
 	function draw() {
-		if(background) {
-			
-			GUI.DrawTexture(getResizedPosition(), background);
-		}
+		drawBackground();
+		
 	}
 	
 	function drawBackground() {
-	
+		if(background)
 		GUI.DrawTexture(getResizedPosition(), background);
 	}	
 	
@@ -60,8 +58,9 @@ class GuiElement extends MonoBehaviour {
 	
 	
 	function centerOnScreen() {
-		var x : int = Screen.width/2 - position.width/2;
-		var y : int = Screen.height/2 - position.height/2;
+		var pos : Rect = resizeRect(position);
+		var x : int = Screen.width/2 - pos.width/2;
+		var y : int = Screen.height/2 - pos.height/2;
 		position.x = x;
 		position.y = y;		
 	}	

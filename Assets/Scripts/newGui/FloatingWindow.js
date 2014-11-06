@@ -14,13 +14,13 @@ class FloatingWindow extends GuiElement {
 	}	
 	
 	function draw() {
-		if(on) {
+		if(on && hud.isShowingGui()) {
 			super.position = GUI.Window(super.getId(), super.position, window, title);	
 		}
 	}
 	
 	function window() {
-		drag();	
+		super.drawBackground();
 	}
 	
 	function drag() {
@@ -44,6 +44,9 @@ class FloatingWindow extends GuiElement {
 	}
 	
 	function toggle() {
+		if(!on) {
+			centerOnScreen();
+		}
 		on = !on;
 	}
 	

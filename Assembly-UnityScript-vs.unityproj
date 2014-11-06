@@ -197,6 +197,7 @@
      <Compile Include="Assets\Scripts\newGui\NewHUD\HUDTop.js" />
      <Compile Include="Assets\Scripts\newGui\NewHUD\HUDTorpedo.js" />
      <Compile Include="Assets\Scripts\newGui\NewHUD\HUDWeapons.js" />
+     <Compile Include="Assets\Scripts\newGui\NewHUD\InventoryPanel.js" />
      <Compile Include="Assets\Scripts\newGui\NewHUD\RadarObject.js" />
      <Compile Include="Assets\Scripts\newGui\PlanetPanel.js" />
      <Compile Include="Assets\Scripts\newGui\ReputationPanel.js" />
