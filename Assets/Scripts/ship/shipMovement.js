@@ -185,7 +185,7 @@ function shipPlayer_speed () {
 
 function getShipSpeed() : float {
 	var speed : float = properties.getSpeed();
-	return speed + upgrades.getSpeedBonus();
+	return speed;
 }
 
 function isStopping() : boolean {
@@ -267,7 +267,7 @@ function isTargetAtRight(target : Vector3, interval : float) : boolean {
 }
 
 function shipAgility() : float {
-	return (properties.movement.agility + upgrades.getAgilityBonus()) * Time.deltaTime;
+	return (properties.getAgility()) * Time.deltaTime;
 }
 
 function FullStop (currentSpeed : float, acceleration : float)

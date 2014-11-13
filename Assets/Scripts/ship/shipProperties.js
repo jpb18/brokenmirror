@@ -64,7 +64,7 @@ class ShipInfo {
 
 }
 
-class shipProperties extends MonoBehaviour implements IFactionable, INameable, ITextureable, IClasseable, IDescribable, ICloakable, IEscapeable, IMaintainable, IPlayable {
+class shipProperties extends MonoBehaviour implements IFactionable, IStrenghteable, IMovable, INameable, ITextureable, IClasseable, IDescribable, ICloakable, IEscapeable, IMaintainable, IPlayable {
 
 	//use classes
 	var playerProps : ShipPlayerProps;
@@ -85,6 +85,7 @@ class shipProperties extends MonoBehaviour implements IFactionable, INameable, I
 	var cloud : ShipCloud;
 	var message : ShowMessage;
 	private var general : GeneralInfo;
+	private var upgrades : Upgrades;
 	var cloak : CloakScript;
 
 	//constants
@@ -96,6 +97,7 @@ class shipProperties extends MonoBehaviour implements IFactionable, INameable, I
 		health = gameObject.GetComponent(shipHealth);
 		map = GameObject.FindGameObjectWithTag("MapInfo").GetComponent(MapInfo);
 		cloud = gameObject.GetComponent(ShipCloud);
+		upgrades = gameObject.GetComponent.<Upgrades>();
 		message = GameObject.FindGameObjectWithTag("ShowMessage").GetComponent(ShowMessage);
 		general = GameObject.FindGameObjectWithTag("SaveGame").GetComponent(GeneralInfo);
 		cloak = gameObject.GetComponent(CloakScript);
@@ -219,7 +221,11 @@ class shipProperties extends MonoBehaviour implements IFactionable, INameable, I
 	}
 
 	function getSpeed() : float {
-		return movement.impulseSpeed;
+		return movement.impulseSpeed + upgrades.getSpeedBonus();
+	}
+	
+	function getAgility() : float {
+		return movement.agility + upgrades.getAgilityBonus();
 	}
 	
 	function getWarpSpeed() : int {
@@ -248,5 +254,6 @@ class shipProperties extends MonoBehaviour implements IFactionable, INameable, I
 	function getMaintenanceCost() : int {
 		return shipInfo.maintenanceCost;
 	}
+	
 
 }

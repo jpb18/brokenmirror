@@ -67,7 +67,7 @@ class GuiElement extends MonoBehaviour {
 	
 	function resizeRect(rect : Rect) : Rect {
 		
-		return new Rect(Mathf.Floor(rect.x * ratio), Mathf.Floor(rect.y * ratio), Mathf.Floor(rect.width * ratio), Mathf.Floor(rect.height * ratio));
+		return new Rect(Mathf.CeilToInt(rect.x * ratio), Mathf.CeilToInt(rect.y * ratio), Mathf.CeilToInt(rect.width * ratio), Mathf.CeilToInt(rect.height * ratio));
 	
 	}
 	

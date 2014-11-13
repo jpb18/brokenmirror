@@ -1,13 +1,13 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Load\changelog.txt">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\newGui\InventoryPanel\ShipStatus.js">
     <Files>
-      <File FileName="Assets\Scripts\newGui\NewHUD\InventoryPanel.js" Line="39" Column="1" />
-      <File FileName="Assets\Scripts\newGui\FloatingWindow.js" Line="42" Column="28" />
-      <File FileName="Assets\Scripts\newGui\GuiElement.js" Line="52" Column="23" />
-      <File FileName="Assets\Scripts\SaveGame\HUDStatus.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\newGui\MissionDialogue.js" Line="1" Column="1" />
-      <File FileName="Assets\Load\changelog.txt" Line="12" Column="18" />
+      <File FileName="Assets\Scripts\newGui\InventoryPanel\InventoryPanel.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\newGui\FloatingWindow.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\ship\shipProperties.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\newGui\InventoryPanel\ShipStatus.js" Line="57" Column="3" />
+      <File FileName="Assets\Scripts\Interfaces\IStrenghteable.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\newGui\GuiElement.js" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
