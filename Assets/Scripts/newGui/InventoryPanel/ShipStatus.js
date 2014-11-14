@@ -15,10 +15,10 @@ public class ShipStatus extends Object {
 	
 	var phaserLabelRect : Rect;
 	var phaserValueRect : Rect;
-	var torp1LabelRect : Rect;
-	var torp1ValueRect : Rect;
-	var torp2LabelRect : Rect;
-	var torp2ValueRect : Rect;
+	var fwdTorpLabelRect : Rect;
+	var fwdTorpValueRect : Rect;
+	var bwdTorpLabelRect : Rect;
+	var bwdTorpValueRect : Rect;
 		
 	var dividerRect : Rect;
 	var dividerTexture : Texture2D;
@@ -29,7 +29,7 @@ public class ShipStatus extends Object {
 		this.parent = parent;
 	}
 
-	function draw(health : IHealtheable, move : IMovable, strenght : IStrenghteable, skin : GUISkin) {
+	function draw(health : IHealtheable, move : IMovable, strenght : IStrenghteable, weapon : IWeaponable, skin : GUISkin) {
 		GUILayout.BeginArea(parent.resizeRect(statusRect));
 			
 			var labelStyle : GUIStyle = skin.GetStyle("StatusLabel");
@@ -51,8 +51,21 @@ public class ShipStatus extends Object {
 			GUI.Label(parent.resizeRect(agilityValueRect), move.getAgility().ToString(), valueStyle);
 			
 			GUI.Label(parent.resizeRect(powerLabelRect), "Power", labelStyle);
-			GUI.Label(parent.resizeRect(powerValueRect), strenght.getStrenght().ToString(), valueStyle);	
-						
+			GUI.Label(parent.resizeRect(powerValueRect), strenght.getStrenght().ToString(), valueStyle);
+			
+			var name : String;
+			var weaponGo : GameObject = weapon.getPhaser();
+			name = weaponGo ? getWeaponName(weaponGo) : "None";
+			drawSet(phaserLabelRect, phaserValueRect, "Phasers", name, labelStyle, valueStyle);
+			
+			weaponGo = weapon.getForwardTorpedo();
+			name = weaponGo ? getWeaponName(weaponGo) : "None";
+			drawSet(fwdTorpLabelRect, fwdTorpValueRect, "Forward Torp", name, labelStyle, valueStyle);
+			
+			weaponGo = weapon.getBackwardTorpedo();
+			name = weaponGo ? getWeaponName(weaponGo) : "None";
+			drawSet(bwdTorpLabelRect, bwdTorpValueRect, "Aft Torp", name, labelStyle, valueStyle);
+				
 		GUILayout.EndArea();
 	}
 	
@@ -60,6 +73,14 @@ public class ShipStatus extends Object {
 		GUI.Label(parent.resizeRect(labelRect), label, labelStyle);
 		GUI.Label(parent.resizeRect(valueRect), val, valueStyle);
 	
+	}
+	
+	///<summary>This fetches the weapon name</summary>
+	///<param name="weapon">Weapon to fetch</param>
+	///<returns>Name of the weapon</returns>
+	private function getWeaponName(weapon : GameObject) : String {
+		var nameable : INameable = weapon.GetComponent(typeof(INameable)) as INameable;
+		return nameable.getName();		
 	}
 
 

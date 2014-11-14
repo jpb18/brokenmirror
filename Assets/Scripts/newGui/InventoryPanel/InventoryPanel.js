@@ -7,7 +7,7 @@ public class InventoryPanel extends FloatingWindow {
 var backgroundRect : Rect;
 
 var shipStatus : ShipStatus;
-
+var mainDisplay : MainDisplay;
 
 var skin : GUISkin;
 
@@ -21,6 +21,8 @@ private var save : SaveGame;
 private var health : IHealtheable;
 private var move : IMovable;
 private var strenght : IStrenghteable;
+private var weapon : IWeaponable;
+private var name : INameable;
 
 //handle gameobject
 private var ship : GameObject;
@@ -34,16 +36,18 @@ function Start () {
 	inventory  = saveGo.GetComponent.<Inventory>();
 	
 	shipStatus.Set(this);
-	
+	mainDisplay.Set(this);
 }
 
 function Update() {
-	if(super.hud.isShowingGui()) {	
-		if(ship == null || health == null) {
-			ship = save.getPlayerShip();
+	if(super.hud.isShowingGui()) {
+		var storedShip = save.getPlayerShip();	
+		if(ship == null || ship != storedShip) {
+			ship = storedShip;
 			health = ship.GetComponent(typeof(IHealtheable)) as IHealtheable;
 			move = ship.GetComponent(typeof(IMovable)) as IMovable;
 			strenght = ship.GetComponent(typeof(IStrenghteable)) as IStrenghteable;
+			weapon = ship.GetComponent(typeof(IWeaponable)) as IWeaponable;
 		}
 		
 		if(Input.GetAxis("Inventory") && lastPress + TIME <= Time.time) {
@@ -69,7 +73,7 @@ function drawWindow() {
 function window() {
 
 	GUI.DrawTexture(resizeRect(backgroundRect), super.background);
-	shipStatus.draw(health, move, strenght, skin);
+	shipStatus.draw(health, move, strenght, weapon, skin);
 	
 	super.drag();
 			
