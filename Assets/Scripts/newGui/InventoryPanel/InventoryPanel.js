@@ -22,7 +22,8 @@ private var health : IHealtheable;
 private var move : IMovable;
 private var strenght : IStrenghteable;
 private var weapon : IWeaponable;
-private var name : INameable;
+private var nameable : INameable;
+private var classe : IClasseable;
 
 //handle gameobject
 private var ship : GameObject;
@@ -48,6 +49,8 @@ function Update() {
 			move = ship.GetComponent(typeof(IMovable)) as IMovable;
 			strenght = ship.GetComponent(typeof(IStrenghteable)) as IStrenghteable;
 			weapon = ship.GetComponent(typeof(IWeaponable)) as IWeaponable;
+			nameable = ship.GetComponent(typeof(INameable)) as INameable;
+			classe = ship.GetComponent(typeof(IClasseable)) as IClasseable;
 		}
 		
 		if(Input.GetAxis("Inventory") && lastPress + TIME <= Time.time) {
@@ -74,7 +77,7 @@ function window() {
 
 	GUI.DrawTexture(resizeRect(backgroundRect), super.background);
 	shipStatus.draw(health, move, strenght, weapon, skin);
-	
+	mainDisplay.draw(nameable, classe, skin);
 	super.drag();
 			
 }
