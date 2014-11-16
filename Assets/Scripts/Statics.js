@@ -265,3 +265,14 @@ public static function RemoveClone(name : String) : String {
 		return name.Substring(0, name.Length - 7);
 
 }
+
+public static function DrawDebugRect(rect : Rect, color : Color) {
+		var texture : Texture2D = new Texture2D(1,1);
+		texture.SetPixel(0,0,color);
+		texture.Apply();
+		
+		GUI.DrawTexture(rect, texture);
+		
+
+		
+}

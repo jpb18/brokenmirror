@@ -8,6 +8,8 @@ var backgroundRect : Rect;
 
 var shipStatus : ShipStatus;
 var mainDisplay : MainDisplay;
+var categories : CategoriesPanel;
+var items : AvailableItemsPanel;
 
 var skin : GUISkin;
 
@@ -25,6 +27,7 @@ private var weapon : IWeaponable;
 private var nameable : INameable;
 private var classe : IClasseable;
 
+
 //handle gameobject
 private var ship : GameObject;
 
@@ -38,6 +41,8 @@ function Start () {
 	
 	shipStatus.Set(this);
 	mainDisplay.Set(this);
+	categories.Set(this);
+	items.Set(this);
 }
 
 function Update() {
@@ -78,8 +83,19 @@ function window() {
 	GUI.DrawTexture(resizeRect(backgroundRect), super.background);
 	shipStatus.draw(health, move, strenght, weapon, skin);
 	mainDisplay.draw(nameable, classe, skin);
+	categories.draw(skin);
+	drawInventory();
 	super.drag();
 			
+}
+
+private function drawInventory() {
+	var items : GameObject[];
+	if(categories.isInventory) {
+		items = inventory.getItems();
+		this.items.draw(items, skin);
+	}
+
 }
 
 

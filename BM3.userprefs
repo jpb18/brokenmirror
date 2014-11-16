@@ -1,13 +1,14 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\newGui\InventoryPanel\MainDisplay.js">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\newGui\InventoryPanel\AvailableItemsPanel.js">
     <Files>
-      <File FileName="Assets\Scripts\newGui\InventoryPanel\InventoryPanel.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\newGui\InventoryPanel\InventoryPanel.js" Line="45" Column="18" />
       <File FileName="Assets\Scripts\newGui\FloatingWindow.js" Line="1" Column="1" />
       <File FileName="Assets\Scripts\ship\shipProperties.js" Line="1" Column="1" />
       <File FileName="Assets\Scripts\newGui\InventoryPanel\ShipStatus.js" Line="39" Column="4" />
-      <File FileName="Assets\Scripts\newGui\InventoryPanel\MainDisplay.js" Line="22" Column="1" />
-      <File FileName="Assets\Scripts\Interfaces\INameable.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\newGui\InventoryPanel\AvailableItemsPanel.js" Line="27" Column="59" />
+      <File FileName="Assets\Scripts\SaveGame\Inventory.js" Line="35" Column="1" />
+      <File FileName="Assets\Scripts\weapons\weaponScript.js" Line="11" Column="81" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

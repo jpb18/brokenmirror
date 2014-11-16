@@ -8,7 +8,7 @@
 
 	}
 
-public class weaponScript extends MonoBehaviour implements INameable {
+public class weaponScript extends MonoBehaviour implements INameable, IImageable {
 
 	var type : WeaponType;
 	var firingAngle : float;

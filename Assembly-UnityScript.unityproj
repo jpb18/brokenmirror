@@ -185,6 +185,8 @@
      <Compile Include="Assets\Scripts\newGui\GUIStatus.js" />
      <Compile Include="Assets\Scripts\newGui\GuiElement.js" />
      <Compile Include="Assets\Scripts\newGui\Icon.js" />
+     <Compile Include="Assets\Scripts\newGui\InventoryPanel\AvailableItemsPanel.js" />
+     <Compile Include="Assets\Scripts\newGui\InventoryPanel\CategoriesPanel.js" />
      <Compile Include="Assets\Scripts\newGui\InventoryPanel\InventoryPanel.js" />
      <Compile Include="Assets\Scripts\newGui\InventoryPanel\MainDisplay.js" />
      <Compile Include="Assets\Scripts\newGui\InventoryPanel\ShipStatus.js" />

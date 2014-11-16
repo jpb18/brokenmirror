@@ -172,3 +172,6 @@ private function getBiggerInvasionForce() : GameObject {
 
 }
 
+function getItems() : GameObject[] {
+	return items.ToArray();
+}
