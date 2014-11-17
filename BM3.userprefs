@@ -1,7 +1,8 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Colonization\Colonizer.js">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\menus\MainMenu\NewGame.js">
     <Files>
+      <File FileName="Assets\Scripts\menus\MainMenu\NewGame.js" Line="118" Column="44" />
       <File FileName="Assets\Scripts\Colonization\Colonizer.js" Line="30" Column="107" />
       <File FileName="Assets\Scripts\newGui\InventoryPanel\InventoryPanel.js" Line="1" Column="1" />
       <File FileName="Assets\Scripts\newGui\FloatingWindow.js" Line="1" Column="1" />
@@ -12,8 +13,7 @@
       <File FileName="Assets\Scripts\Interfaces\IDescribable.js" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Upgrades\Upgrade.js" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Upgrades\Passive.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Colonization\Colonizer.js" Line="30" Column="107" />
-      <File FileName="Assets\Scripts\Invasion\InvasionForce.js" Line="34" Column="107" />
+      <File FileName="Assets\Scripts\Invasion\InvasionForce.js" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

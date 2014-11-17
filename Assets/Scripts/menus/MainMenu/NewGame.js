@@ -117,7 +117,8 @@ function OnGUI() {
 	tmp = GUI.skin;
 	var h : float = Screen.height/BASE_HEIGHT;
 	var w : float = Screen.width/baseWidth;
-	GUIUtility.ScaleAroundPivot(new Vector2(w,h), new Vector2() );
+	var ratio : float = w < h ? w : h;	
+	GUIUtility.ScaleAroundPivot(new Vector2(ratio,ratio), new Vector2() );
 
 	GUI.skin = skin;
 	if(on) {
