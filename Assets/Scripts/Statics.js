@@ -1,6 +1,7 @@
 ﻿import System.Collections.Generic;
 #pragma strict
 
+public static var debugTexture : Texture2D = null;
 
 ///<summary>This searches for all ships in enemy list</summary>
 ///<param name="enemyList">List with all enemy faction ids</param>
@@ -267,12 +268,17 @@ public static function RemoveClone(name : String) : String {
 }
 
 public static function DrawDebugRect(rect : Rect, color : Color) {
-		var texture : Texture2D = new Texture2D(1,1);
-		texture.SetPixel(0,0,color);
-		texture.Apply();
+	if(debugTexture == null) {
+		var text : Texture2D = new Texture2D(1,1);
+		text.SetPixel(0,0,Color.white);
+		text.Apply();
+		debugTexture = text;
+	}
 		
-		GUI.DrawTexture(rect, texture);
-		
+	var tmp : Color = GUI.color;
+	GUI.color = color;	
+	GUI.DrawTexture(rect, debugTexture);
+	GUI.color = tmp;
 
 		
 }

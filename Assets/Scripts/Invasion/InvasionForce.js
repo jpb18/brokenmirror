@@ -29,6 +29,13 @@ class InvasionForce extends MonoBehaviour implements INameable, IImageable, IDes
 		return description;
 	}
 	
+	function getDetailsDescription() : String {
+		var description : String = description + "\n";
+		description = description + "Population: " + population.ToString("F", CultureInfo.InvariantCulture) + " millions.\n";
+		return description;
+	
+	}
+	
 	function getPrice() : int {
 		return price;
 	}

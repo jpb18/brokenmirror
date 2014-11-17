@@ -1,14 +1,19 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\newGui\InventoryPanel\AvailableItemsPanel.js">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Colonization\Colonizer.js">
     <Files>
-      <File FileName="Assets\Scripts\newGui\InventoryPanel\InventoryPanel.js" Line="45" Column="18" />
+      <File FileName="Assets\Scripts\Colonization\Colonizer.js" Line="30" Column="107" />
+      <File FileName="Assets\Scripts\newGui\InventoryPanel\InventoryPanel.js" Line="1" Column="1" />
       <File FileName="Assets\Scripts\newGui\FloatingWindow.js" Line="1" Column="1" />
       <File FileName="Assets\Scripts\ship\shipProperties.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\newGui\InventoryPanel\ShipStatus.js" Line="39" Column="4" />
-      <File FileName="Assets\Scripts\newGui\InventoryPanel\AvailableItemsPanel.js" Line="27" Column="59" />
-      <File FileName="Assets\Scripts\SaveGame\Inventory.js" Line="35" Column="1" />
-      <File FileName="Assets\Scripts\weapons\weaponScript.js" Line="11" Column="81" />
+      <File FileName="Assets\Scripts\newGui\InventoryPanel\ShipStatus.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\newGui\InventoryPanel\AvailableItemsPanel.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\newGui\InventoryPanel\InfoPanel.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Interfaces\IDescribable.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Upgrades\Upgrade.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Upgrades\Passive.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Colonization\Colonizer.js" Line="30" Column="107" />
+      <File FileName="Assets\Scripts\Invasion\InvasionForce.js" Line="34" Column="107" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

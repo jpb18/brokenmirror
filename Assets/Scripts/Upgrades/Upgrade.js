@@ -37,5 +37,9 @@ public class Upgrade extends MonoBehaviour implements INameable, IPriceable, IDe
 	public function getImage() : Texture {
 		return image;
 	}
+	
+	function getDetailsDescription() : String {
+		return description;
+	}
 
 }

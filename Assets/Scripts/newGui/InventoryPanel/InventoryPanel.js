@@ -10,6 +10,7 @@ var shipStatus : ShipStatus;
 var mainDisplay : MainDisplay;
 var categories : CategoriesPanel;
 var items : AvailableItemsPanel;
+var info : InfoPanel;
 
 var skin : GUISkin;
 
@@ -43,6 +44,7 @@ function Start () {
 	mainDisplay.Set(this);
 	categories.Set(this);
 	items.Set(this);
+	info.Set(this);
 }
 
 function Update() {
@@ -70,7 +72,7 @@ function OnGUI() {
 	if(super.on && super.hud.isShowingGui()) {
 		drawWindow();
 	}
-	
+	items.clear();
 
 }
 
@@ -85,23 +87,31 @@ function window() {
 	mainDisplay.draw(nameable, classe, skin);
 	categories.draw(skin);
 	drawInventory();
+	drawMouseOver();
+
 	super.drag();
 			
 }
 
 private function drawInventory() {
 	var items : GameObject[];
-	if(categories.isInventory) {
+	if(categories.isInventory()) {
 		items = inventory.getItems();
 		this.items.draw(items, skin);
+	} else if (categories.isCargo) {
+	
 	}
 
 }
 
 
+private function drawMouseOver() {
 
+	if(categories.isInventory()) {
+		var obj : GameObject = this.items.getMouseOver();
+		info.draw(obj, skin);
+	}
 
-
-
+}
 
 }

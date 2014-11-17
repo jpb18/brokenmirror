@@ -1,4 +1,5 @@
 #pragma strict
+import System.Globalization;
 
 class Colonizer extends MonoBehaviour implements IColonizer, INameable, IImageable, IDescribable, IPriceable {
 	
@@ -22,6 +23,13 @@ class Colonizer extends MonoBehaviour implements IColonizer, INameable, IImageab
 
 	function getDescription() : String {
 		return description;
+	}
+	
+	function getDetailsDescription() : String {
+		var description : String = description + "\n";
+		description = description + "Population: " + population.ToString("F", CultureInfo.InvariantCulture) + " millions.\n";
+		return description;
+	
 	}
 	
 	function getPrice() : int {

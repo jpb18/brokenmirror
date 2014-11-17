@@ -8,7 +8,7 @@
 
 	}
 
-public class weaponScript extends MonoBehaviour implements INameable, IImageable {
+public class weaponScript extends MonoBehaviour implements INameable, IImageable, IDescribable {
 
 	var type : WeaponType;
 	var firingAngle : float;
@@ -100,6 +100,10 @@ public class weaponScript extends MonoBehaviour implements INameable, IImageable
 		return dmg;
 
 	}
+	
+	function getDamage() : float {
+		return getDamage(true) > getDamage(false) ? getDamage(true) : getDamage(false);
+	}
 
 	//this method gets the weapon range
 	function getRange() : float {
@@ -190,6 +194,17 @@ public class weaponScript extends MonoBehaviour implements INameable, IImageable
 
 	function getEnergyCost() : float {
 		return energyCost;
+	}
+	
+	
+	function getDetailsDescription() : String {
+		var description : String = getDescription() + "\n";
+		description = description + "Damage: " + getDamage().ToString() + "\n";
+		description = description + "Cooldown: " + getCooldown().ToString() + "\n";
+		description = description + "Range: " + getRange().ToString() + "\n";
+		description = description + "Firing Angle: " + firingAngle.ToString() + "\n";
+		description = description + "Energy Cost: " + energyCost.ToString();
+		return description;
 	}
 
 }

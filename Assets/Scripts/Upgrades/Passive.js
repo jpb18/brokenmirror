@@ -1,5 +1,5 @@
-
-
+#pragma strict
+import System.Globalization;
 
 public class Passive extends Upgrade {
 	
@@ -54,6 +54,48 @@ public class Passive extends Upgrade {
 	
 	function getReactorRechargeBonus() : float {
 		return reactorRecharge;
-	} 
+	}
+	
+	function getDetailsDescription() : String {
+		var description : String = super.description + "\n";
+		if(weaponRecharge != 0) {
+			description = description + "Weapon Recharge Bonus: " + formatValue(weaponRecharge) + "\n";
+		}
+		
+		if(weaponDamage != 0) {
+			description = description + "Weapon Damage Bonus: " + formatValue(weaponDamage) + "\n";
+		}
+		
+		if(shieldRecharge != 0) {
+			description = description + "Shield Recharge Bonus: " + formatValue(shieldRecharge) + "\n";
+		}
+		
+		if(shieldStrenght != 0) {
+			description = description + "Shield Strenght Bonus: " + formatValue(shieldStrenght) + "\n";
+		}
+		
+		if(hullStrenght != 0) {
+			description = description + "Hull Strenght Bonus: " + formatValue(hullStrenght) + "\n";
+		}
+		
+		if(speedIncrease != 0) {
+			description = description + "Speed Increase Bonus: " + formatValue(speedIncrease) + "\n";
+		}
+		
+		if(agilityTurn != 0) {
+			description = description + "Agility Bonus: " + formatValue(agilityTurn) + "\n";
+		}
+		
+		if(this.reactorRecharge != 0) {
+			description = description + "Reactor Recharge Bonus: " + formatValue(reactorRecharge) + "\n";
+		}
+		
+		
+		return description;
+	}
+	
+	private function formatValue(val : float) : String {
+		return val.ToString("F", CultureInfo.InvariantCulture);
+	}
 
 }
