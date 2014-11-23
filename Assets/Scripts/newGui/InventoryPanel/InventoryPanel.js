@@ -20,6 +20,7 @@ private var lastPress : float;
 
 //handle scripts
 private var inventory : Inventory;
+private var hold : CargoHold;
 private var save : SaveGame;
 private var health : IHealtheable;
 private var move : IMovable;
@@ -39,6 +40,8 @@ function Start () {
 	var saveGo : GameObject = GameObject.FindGameObjectWithTag("SaveGame");
 	save = saveGo.GetComponent.<SaveGame>();
 	inventory  = saveGo.GetComponent.<Inventory>();
+	hold = saveGo.GetComponent.<CargoHold>();
+	
 	
 	shipStatus.Set(this);
 	mainDisplay.Set(this);
@@ -63,6 +66,7 @@ function Update() {
 		if(Input.GetAxis("Inventory") && lastPress + TIME <= Time.time) {
 			lastPress = Time.time;
 			super.toggle();
+			this.resetStatus();
 		}
 	}
 }
@@ -94,24 +98,32 @@ function window() {
 }
 
 private function drawInventory() {
-	var items : GameObject[];
-	if(categories.isInventory()) {
-		items = inventory.getItems();
-		this.items.draw(items, skin);
-	} else if (categories.isCargo) {
 	
+	if(categories.isInventory()) {
+		var items : GameObject[] = inventory.getItems();
+		this.items.draw(items, skin);
+	} else if (categories.isCargo()) {
+		var cargo : Cargo[] = hold.getCargoArray();
+		this.items.draw(cargo, skin);
 	}
 
 }
-
 
 private function drawMouseOver() {
 
 	if(categories.isInventory()) {
 		var obj : GameObject = this.items.getMouseOver();
 		info.draw(obj, skin);
+	} else if (categories.isCargo()) {
+		var cargo : Cargo = this.items.getMouseOver();
+		info.draw(cargo, skin);
 	}
 
+}
+
+private function resetStatus() {
+	ship = null;
+	categories.reset();
 }
 
 }

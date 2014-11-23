@@ -1,22 +1,26 @@
 ﻿#pragma strict
 
-var itemName : String;
-var description : String;
-var cost : int;
-var image : Texture;
+public class CargoItem extends MonoBehaviour implements IImageable {
 
-function getCost() : int {
-	return cost;
-}
+	var itemName : String;
+	var description : String;
+	var cost : int;
+	var image : Texture;
 
-function getDescription() : String {
-	return description;
-}
+	function getCost() : int {
+		return cost;
+	}
 
-function getImage() : Texture {
-	return image;
-}
+	function getDescription() : String {
+		return description;
+	}
 
-function getName() : String {
-	return itemName;
+	function getImage() : Texture {
+		return image;
+	}
+
+	function getName() : String {
+		return itemName;
+	}
+
 }

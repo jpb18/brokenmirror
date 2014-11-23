@@ -44,6 +44,10 @@ public class CategoriesPanel {
 	function isStatus() : boolean {
 		return category == Category.STATUS;
 	}
+	
+	function reset() {
+		category = Category.INVENTORY;
+	}
 
 	private function drawButton(rect : Rect, text : String, option : Category, style : GUIStyle) {
 		

@@ -86,3 +86,7 @@ function setHold(data : CargoData) {
 	capacity = data.capacity;
 	cargoItems = data.getCargo();
 }
+
+function getCargoArray() : Cargo[] {
+	return cargoItems.ToArray();
+}

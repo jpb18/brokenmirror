@@ -15,6 +15,7 @@ class MissionDialogue extends FloatingWindow {
 	public var skin : GUISkin;
 	
 	function Start() {
+		super.initFloat();
 		id = GUIUtility.GetControlID(FocusType.Passive);
 		missions = GameObject.FindGameObjectWithTag("Missions").GetComponent(Missions);
 	}

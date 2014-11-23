@@ -16,7 +16,7 @@ public class InfoPanel {
 		this.parent = parent;
 	}
 
-	function draw(object : GameObject, skin : GUISkin) {
+	function draw(object : Object, skin : GUISkin) {
 		var resized : Rect = parent.resizeRect(area);
 		//Statics.DrawDebugRect(resized, Color.red);
 		GUILayout.BeginArea(resized);
@@ -36,27 +36,38 @@ public class InfoPanel {
 		GUI.Label(resized, NONE, style);
 	}
 	
-	private function drawItem(object : GameObject, skin : GUISkin) {
+	private function drawItem(object : Object, skin : GUISkin) {
 		var nameStyle : GUIStyle = skin.GetStyle("NameInfoLabel");
 		var descStyle : GUIStyle = skin.GetStyle("DescriptionInfoLabel");
 		
-		var resized : Rect = parent.resizeRect(name);
-		GUI.Label(resized, fetchName(object), nameStyle);
+		var resizedName : Rect = parent.resizeRect(name);
+		var resizedDesc = parent.resizeRect(desc);
 		
-		resized = parent.resizeRect(desc);
-		GUI.Label(resized, fetchDescription(object), descStyle);
-		
+		if(object instanceof GameObject) {
+			drawInventoryDescription(resizedName, resizedDesc, object, nameStyle, descStyle);
+		} else if (object instanceof Cargo) {
+			drawCargoDescription(resizedName, resizedDesc, object, nameStyle, descStyle);
+		}
 		  
 	}
-
-	private function fetchDescription(object : GameObject) : String {
+	
+	private function drawInventoryDescription(nameRect : Rect, descRect : Rect, object : GameObject, nameStyle : GUIStyle, descStyle : GUIStyle) {
 		var describable : IDescribable = object.GetComponent(typeof(IDescribable)) as IDescribable;
-		return describable.getDetailsDescription();
+		var description = describable.getDetailsDescription();
+		
+		var nameable : INameable = object.GetComponent(typeof(INameable)) as INameable;
+		var name = nameable.getName();
+		
+		
+		GUI.Label(nameRect, name, nameStyle);
+		GUI.Label(descRect, description, descStyle);
+	
 	}
 	
-	private function fetchName(object : GameObject) : String {
-		var nameable : INameable = object.GetComponent(typeof(INameable)) as INameable;
-		return nameable.getName();
+
+	private function drawCargoDescription(nameRect : Rect, descRect : Rect , object : Cargo, nameStyle : GUIStyle, descStyle : GUIStyle) {
+		GUI.Label(nameRect, object.getName(), nameStyle);
+		GUI.Label(descRect, object.getDetailsDescription(), descStyle);
 	}
 
 }
