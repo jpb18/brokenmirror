@@ -25,6 +25,7 @@ private var music : PlaybackScript;
 private var hud : HUDStatus;
 private var load : LoadScene;
 
+var invasion : boolean = true;
 private var isInvasion : boolean = false;
 private var isInvaded : boolean = false;
 var spawnEnemy : float = 60.0f; //seconds
@@ -80,20 +81,23 @@ function Start () {
 	//set new message
 	message.AddMessage(mapScr.buildSceneLoadMessage());
 	load.setOff();
+	
+	SetInventoryPanel();
+	
 }
 
+protected function SetInventoryPanel() {
+	//set inventory scene start component
+	var go : GameObject = GameObject.FindGameObjectWithTag("GUI");
+	var inv : InventoryPanel = go.GetComponent.<InventoryPanel>();
+	inv.setSceneStart(this);
+}
 
 function Update () {
 
-	if(!isInvasion && Time.time > lastCheck + enemyInterval) {
-		if(genRandom(maxProb) <= prob) {
-			setInvasion();
-			
-		} 
-		lastCheck = Time.time;
-	}
+	checkInvasion();
 	
-	if(isInvasion && !isInvaded && Time.time > spawnTime) {
+	if(invasion && isInvasion && !isInvaded && Time.time > spawnTime) {
 		spawnInvasion();
 		
 	}
@@ -102,7 +106,7 @@ function Update () {
 }
 
 function checkInvasion() {
-	if(!isInvasion && Time.time > lastCheck + enemyInterval) {
+	if(invasion && !isInvasion && Time.time > lastCheck + enemyInterval) {
 		if(genRandom(maxProb) <= prob) {
 			setInvasion();
 				
@@ -410,4 +414,8 @@ function createMerchant() : GameObject {
 	faction.setFaction(fac);
 	
 	return ship;
+}
+
+function LoadNewSquadShip(ship : GameObject) {
+	playerFleet.Add(ship);
 }

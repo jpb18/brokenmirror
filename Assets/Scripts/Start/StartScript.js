@@ -11,6 +11,9 @@ function Start () {
 	var props : shipProperties = ship.GetComponent(shipProperties);
 	props.setName(name);
 	
+	var scene : StartSceneStart = GameObject.FindGameObjectWithTag("SceneStart").GetComponent.<StartSceneStart>();
+	scene.playerShip = ship;
+	
 	
 	
 }

@@ -17,9 +17,13 @@ class StationStore {
 	
 	var mode : StoreMode = StoreMode.ships;
 	
-	
+
 	
 	public static final var MONEY_ERROR = "Not enough latinum.";
+	
+	
+
+	
 	
 	function draw(info : StationInterface, skin : GUISkin, inv : Inventory) {
 		GUILayout.BeginArea(area);
