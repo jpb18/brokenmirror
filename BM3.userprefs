@@ -1,22 +1,17 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\newGui\InventoryPanel\FleetDisplay.js">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Statics.js">
     <Files>
-      <File FileName="Assets\Scripts\newGui\InventoryPanel\FleetDisplay.js" Line="65" Column="58" />
-      <File FileName="Assets\Scripts\newGui\InventoryPanel\InventoryPanel.js" Line="135" Column="1" />
-      <File FileName="Assets\Scripts\Colonization\Colonizer.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\SaveGame\CargoHold.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\newGui\InventoryPanel\AvailableItemsPanel.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Missions\Cargo.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Statics.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Interfaces\ITextureable.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\station\StationStore.js" Line="20" Column="1" />
-      <File FileName="Assets\Scripts\station\StationInterface.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\station\StationGui.js" Line="27" Column="31" />
-      <File FileName="Assets\Scripts\Load\StartSceneStart.js" Line="13" Column="1" />
+      <File FileName="BM3.sln" Line="64" Column="1" />
+      <File FileName="Assets\Scripts\newGui\InventoryPanel\MainDisplay.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\newGui\InventoryPanel\FleetDisplay.js" Line="133" Column="8" />
+      <File FileName="Assets\Scripts\newGui\InventoryPanel\InventoryPanel.js" Line="133" Column="51" />
+      <File FileName="Assets\Scripts\ship\shipProperties.js" Line="1" Column="1" />
       <File FileName="Assets\Scripts\newGui\CommPanel.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Start\StartScript.js" Line="14" Column="29" />
-      <File FileName="Assets\Scripts\Load\SceneStart.js" Line="98" Column="18" />
+      <File FileName="Assets\Scripts\SaveGame\SaveGame.js" Line="623" Column="39" />
+      <File FileName="Assets\Scripts\Load\SceneStart.js" Line="196" Column="28" />
+      <File FileName="Assets\Scripts\Load\StartSceneStart.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Statics.js" Line="253" Column="64" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

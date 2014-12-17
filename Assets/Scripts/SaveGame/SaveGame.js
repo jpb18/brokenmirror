@@ -446,7 +446,7 @@ static final var CLONE_NUM : int = 7; //number of chars in "(Clone)"
 function Start() {
 	show = GameObject.FindGameObjectWithTag("ShowMessage").GetComponent(ShowMessage);
 	load = GameObject.FindGameObjectWithTag("LoadScene").GetComponent(LoadScene);
-	
+//	start = GameObject.FindGameObjectWithTag("SceneStart").GetComponent.<SceneStart>();
 	checkPlayerShip();
 }
 
@@ -603,11 +603,12 @@ function setFleetFormation (formation : Formation, fleet : List.<GameObject>) {
 }
 
 function takeShipCommand(ship : GameObject) {
+
 	playerFleet.setShip(ship);
 	var shipAi :  ShipAI = ship.GetComponent(ShipAI);
 	shipAi.setLeader(getPlayerShip());
 	shipAi.setFormation(playerFleet.formation);
-	
+	start.LoadNewSquadShip(ship);
 }
 
 function makeNearFleet() {
@@ -620,18 +621,10 @@ function makeNearFleet() {
 	
 	//now lets set all ships to follow the player
 	for(var ship : GameObject in ships) {
-		
-		ship.GetComponent(ShipAI).setLeader(player);
-		Debug.Log("Gets here" + ship.GetComponent(shipProperties).getName());
+		takeShipCommand(ship);
 	}
-	
-	//and now set the new list in the fleet
-	playerFleet.clearList();
-	for(var ship : GameObject in ships) {
-		playerFleet.setShip(ship);
-	}
-	
-	
+
+
 }
 
 function SaveScene(scene : String) {
@@ -642,4 +635,7 @@ function getLastScene() : String {
 	return lastSceneLoaded;
 }
 
+function SetSceneStart(script : SceneStart) {
+	this.start = script;
+}
 

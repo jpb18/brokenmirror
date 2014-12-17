@@ -240,15 +240,17 @@ static function isFaster(target : GameObject, own : GameObject) : boolean {
 }
 
 
-//this function gets all the owned ships nearby the player ship
+//this function gets all the owned ships nearby the player ship, except itself
 static function getNearbyOwnedShips(own : Vector3, range : float, faction : int) : GameObject[] {
 	var ships : GameObject[] = GameObject.FindGameObjectsWithTag("Ship");
 	var returnList : List.<GameObject> = new List.<GameObject>();
 	
 	for(var ship : GameObject in ships) { //loop through all elements
 		if((ship.transform.position - own).sqrMagnitude < range * range) { //if its in range
-			var fac : int = ship.GetComponent(shipProperties).getFaction();
-			if(faction == fac) { //if it belongs to the same faction
+			var props : shipProperties = ship.GetComponent(shipProperties);
+			var fac : int = props.getFaction();
+			var player : boolean = props.getPlayer();
+			if(!player && faction == fac) { //if it isn't the player and belongs to the same faction
 				returnList.Add(ship);
 			}
 			

@@ -16,7 +16,7 @@ class CommPanel extends FloatingWindow implements IHailable {
 	
 	private var save : SaveGame;
 	private var props : shipProperties;
-	private var scene : SceneStart;
+
 	
 	public static final var SAVE_GAME : String = "SaveGame";
 
@@ -28,7 +28,7 @@ class CommPanel extends FloatingWindow implements IHailable {
 		save = GameObject.FindGameObjectWithTag(SAVE_GAME).GetComponent(SaveGame);		
 		hud = GameObject.FindGameObjectWithTag(GLOBAL_INFO).GetComponent(HUDStatus);
 		props = gameObject.GetComponent(shipProperties);
-		scene = GameObject.FindGameObjectWithTag("SceneStart").GetComponent.<SceneStart>();
+		
 	}
 	
 	function OnGUI() {
@@ -65,7 +65,7 @@ class CommPanel extends FloatingWindow implements IHailable {
 		if(isPlayerFaction()) {
 			if(GUI.Button(resizeRect(commandRect), "Command",skin.GetStyle("CommButton"))) {
 					save.takeShipCommand(gameObject);
-					scene.LoadNewSquadShip(gameObject);
+					
 			}
 		} else {
 			GUI.Button(resizeRect(commandRect), "",skin.GetStyle("CommButton"));

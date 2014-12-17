@@ -32,8 +32,6 @@ private var classe : IClasseable;
 private var sceneStart : SceneStart; 
 
 //handle gameobject
-private var player : GameObject;
-private var fleet : GameObject[];
 private var selected : GameObject;
 
 function Start () {
@@ -122,7 +120,7 @@ private function drawMouseOver() {
 
 private function drawFleet() {
 
-	if(fleetDisplay.Draw(player, fleet, skin)) {
+	if(fleetDisplay.Draw(skin)) {
 		selected = fleetDisplay.getSelected();
 		setShipData(selected);
 	}
@@ -132,11 +130,11 @@ private function drawFleet() {
 private function resetStatus() {
 	categories.reset();
 	fleetDisplay.Reset();
-	fleet = sceneStart.playerFleet.ToArray();
-	player = save.getPlayerShip();
+	var fleet : GameObject[] = sceneStart.playerFleet.ToArray();
+	var player : GameObject = save.getPlayerShip();
 	selected = player;
 	setShipData(selected);
-	fleetDisplay.SetSelected(player);
+	fleetDisplay.SetFleet(player, fleet);
 }
 
 private function setShipData(ship : GameObject) {

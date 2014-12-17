@@ -180,8 +180,13 @@ class shipProperties extends MonoBehaviour implements IFactionable, IStrenghteab
 	}
 
 	function getName() : String {
-		var faction : FactionInfo = general.getFactionInfo(getFaction());
-		return faction.getPrefix() + " " + shipInfo.shipName;
+		try {
+			var faction : FactionInfo = general.getFactionInfo(getFaction());
+			return faction.getPrefix() + " " + shipInfo.shipName;
+		} catch(e : NullReferenceException) {
+			general = GameObject.FindGameObjectWithTag("SaveGame").GetComponent(GeneralInfo);
+			return getName(); 
+		}
 	}
 	
 	function getNameWithNoPrefix() : String {
@@ -221,7 +226,12 @@ class shipProperties extends MonoBehaviour implements IFactionable, IStrenghteab
 	}
 
 	function getSpeed() : float {
-		return movement.impulseSpeed + upgrades.getSpeedBonus();
+		try {
+			return movement.impulseSpeed + upgrades.getSpeedBonus();
+		} catch (e : NullReferenceException) {
+			upgrades = gameObject.GetComponent.<Upgrades>();
+			return getSpeed();
+		}
 	}
 	
 	function getAgility() : float {

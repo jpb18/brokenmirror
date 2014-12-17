@@ -72,9 +72,13 @@ class HUDHealth extends HUDBottom {
 	}
 	
 	function getHullPercentage() : int {
-		var maxHull : float = super.health.getMaxHull();
-		var hull : float = super.health.getHull();
-		return valueToPercentage(maxHull, hull);		
+		try {
+			var maxHull : float = super.health.getMaxHull();
+			var hull : float = super.health.getHull();
+			return valueToPercentage(maxHull, hull);
+		} catch (e : NullReferenceException) {
+			return 0;
+		}
 	}
 	
 	function getShieldPercentage() : int {

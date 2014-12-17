@@ -93,6 +93,13 @@ protected function SetInventoryPanel() {
 	inv.setSceneStart(this);
 }
 
+protected function SetSceneStart() {
+	//set save game scene start component
+	var go : GameObject = GameObject.FindGameObjectWithTag("SaveGame");
+	var save : SaveGame = go.GetComponent.<SaveGame>();
+	save.SetSceneStart(this);
+}
+
 function Update () {
 
 	checkInvasion();
