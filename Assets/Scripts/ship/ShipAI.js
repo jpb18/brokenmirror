@@ -280,7 +280,7 @@ function planetDanger() {
 
 ///<summary>This function controls the ship behaviour when there's a risk of colliding with another ship.</summary>
 function shipDanger() {
-	Debug.Log("DANGER! " + gameObject.name);	
+	//Debug.Log("DANGER! " + gameObject.name);	
 	var danger : GameObject = getDanger();
 	//Debug.Log(gameObject.name + "In collision danger by " + danger.name);
 	if(danger && isObjectInFront(danger)) {

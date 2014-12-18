@@ -1,10 +1,9 @@
 ﻿#pragma strict
 
 private var parent : GameObject;
-var rotation : float = 50f;
-var translation : float= 5f;
 
-
+public static final var ROTATION_SPEED : float = 360f;
+public static final var TRANSLATION_SPEED : float = 1f;
 
 function Start () {
 
@@ -20,13 +19,13 @@ function LateUpdate () {
 	if(Input.GetAxis("camSpace")) //Check status of "camSpace" Input Axis
 	{
 		//update coordinates
-		var x : float = Input.GetAxis("Mouse X") * rotation * Time.deltaTime;
-		var y :float = Input.GetAxis("Mouse Y") * rotation * Time.deltaTime;
-		transform.Rotate(x, y, 0);
+		var x : float = Input.GetAxis("Mouse X") * ROTATION_SPEED * Time.deltaTime;
+		var y : float = Input.GetAxis("Mouse Y") * ROTATION_SPEED * Time.deltaTime;
+		transform.Rotate(-y, -x, 0);
 	}
 
-	var trans : float = Input.GetAxis("camZoom") * translation;
-	transform.Translate(transform.forward * trans);
+	var trans : float = Input.GetAxis("camZoom") * TRANSLATION_SPEED;
+	transform.Translate(transform.forward * -trans);
 		
 	if(Input.GetAxis("FreeCamera")) {
 		destroy();

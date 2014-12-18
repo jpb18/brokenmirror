@@ -21,11 +21,17 @@ var position;
 
 private var forked = false;
 var freeCamera : GameObject;
+var spaceCamera : GameObject;
+
+private var nextFork : float;
+private static final var FORK_TIME : float = 0.2f;
 
 function Start () {
     var angles = transform.eulerAngles;
     x = angles.y;
     y = angles.x;
+
+	spaceCamera = GameObject.FindGameObjectWithTag("SpaceScene_Camera");
 
 	// Make the rigid body not change rotation
    	if (rigidbody)
@@ -39,8 +45,10 @@ function LateUpdate () {
     }
     
     
-    if(Input.GetAxis("FreeCamera")) {
+    if(Input.GetAxis("FreeCamera") && !forked && Time.time >= nextFork) {
+		lastFork = Time.time + FORK_TIME;
 		fork();
+		
 	}
     
     
@@ -186,22 +194,38 @@ static function ClampAngle (angle : float, min : float, max : float) {
 }
 
 function fork() {
+	//signal its forked
 	forked = true;
+	//disable this gameobject audio
 	var audio : AudioListener = gameObject.GetComponent.<AudioListener>();
 	audio.enabled = false;
-	Camera.main.enabled = false;
+	//disable this gameobject camera
+	var c : Camera = gameObject.GetComponent(Camera);
+	c.enabled = false;
 	
+	//instanteate and initialize new camera and its script
 	var cam : GameObject = GameObject.Instantiate(freeCamera, transform.position, transform.rotation);
 	var script : FreeCamera = cam.GetComponent.<FreeCamera>();
 	script.init(gameObject);
 	
+	//associate the space camera with the new free floating camera
+	var spaceScript : SU_SpaceSceneCamera = spaceCamera.GetComponent(SU_SpaceSceneCamera);
+	spaceScript.parentCamera = cam.GetComponent(Camera);
 	
 
 }
 
 function join() {
+	//signal it isn't forked
 	forked = false;
+	//enable this audio listener
 	var audio : AudioListener = gameObject.GetComponent.<AudioListener>();
 	audio.enabled = true;
-	Camera.main.enabled = true;
+	//enable this camera
+	var c : Camera = gameObject.GetComponent(Camera);
+	c.enabled = true;
+	//associate space cameta with this one
+	var spaceScript : SU_SpaceSceneCamera = spaceCamera.GetComponent(SU_SpaceSceneCamera);
+	spaceScript.parentCamera = Camera.main;
+	
 } 
