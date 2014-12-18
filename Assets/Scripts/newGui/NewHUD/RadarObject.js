@@ -81,28 +81,13 @@ class RadarObject extends GuiElement {
 	
 	function OnGUI () {
 		
-		if(playerShip) {
-			if(hud.isShowingGui() && isOnScreen() && !player) {
-				drawObject();
-			}
-		}
-	}
-	
-	function Update() {
 		playerShip = getPlayer();
 		player = isPlayer();
-		if(player) return;
-		
-		//get sizes
-		this.normalSize = sensor.bigSize;
-		this.smallSize = sensor.smallSize;
 		
 		//cache stuff		
-		var mouse : Vector3 = Input.mousePosition;
-		mouse = new Vector3(mouse.x, Screen.height - mouse.y,0); 					
+		var mouse : Vector2 = Event.current.mousePosition;
 		size = getSize();
-		pos = mainCam.WorldToScreenPoint(transform.position);
-		rect = resizeRect(new Rect(pos.x, convertBotToTop(pos.y) - size.y, size.x, size.y));
+		rect = getRect(size);
 		widget = new Rect(0,0, rect.width, rect.height);
 
 		//check if the mouse is inside the image rect when the player presses the left mouse button
@@ -112,7 +97,15 @@ class RadarObject extends GuiElement {
 			big = !big;
 		} 
 		
-		
+		if(playerShip) {
+			if(hud.isShowingGui() && isOnScreen() && !player) {
+				drawObject();
+			}
+		}
+	}
+	
+	function Update() {
+		pos = mainCam.WorldToScreenPoint(transform.position);		
 	}
 	
 	function drawObject () {
@@ -214,6 +207,19 @@ class RadarObject extends GuiElement {
 	
 	private function getSize() : Vector2 {
 		return big ? normalSize : smallSize;
+	}
+	
+	private function getRect(size : Vector2) : Rect {
+		var r : Rect = new Rect();
+		if(big) {
+			r = new Rect(pos.x, convertBotToTop(pos.y) - size.y, size.x, size.y);
+		} else {
+			var half : float = size.y /2;
+			r = new Rect(pos.x, convertBotToTop(pos.y) - half, size.x, size.y);
+		}
+		
+		
+		return resizeRect(r);
 	}
 
 }
