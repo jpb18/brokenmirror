@@ -28,7 +28,9 @@ class RadarObject extends GuiElement {
 	private var general : GeneralInfo;
 	private var mainCam : Camera;
 	private var sensor : SensorTextureCache;
-	
+	private var nameable : INameable;
+	private var classeable : IClasseable;
+	private var playable : IPlayable;
 	
 	private var pos : Vector3;
 	private var size : Vector2;
@@ -51,7 +53,9 @@ class RadarObject extends GuiElement {
 		save = GameObject.FindGameObjectWithTag(SAVE_GAME).GetComponent(SaveGame);		
 		hud = GameObject.FindGameObjectWithTag(GLOBAL_INFO).GetComponent(HUDStatus);
 		general = GameObject.FindGameObjectWithTag(SAVE_GAME).GetComponent(GeneralInfo);
-		props = gameObject.GetComponent(shipProperties);
+		playable = gameObject.GetComponent(typeof(IPlayable)) as IPlayable;
+		nameable = gameObject.GetComponent(typeof(INameable)) as INameable;
+		classeable = gameObject.GetComponent(typeof(IClasseable)) as IClasseable;
 		mainCam = Camera.main;
 		
 		//load the textures
@@ -134,18 +138,17 @@ class RadarObject extends GuiElement {
 			//draw labels			
 			GUI.Label(resizeRect(nameRect), getName(), skin.GetStyle("MessageComm"));
 			GUI.Label(resizeRect(classRect), getClass(), skin.GetStyle("MessageComm"));
-			GUI.Label(resizeRect(distanceRect), "Distance: " + getDistance(getPlayer()).ToString() + "KM", skin.GetStyle("MessageComm"));
+			GUI.Label(resizeRect(distanceRect), "Distance: " + getDistance(playerShip).ToString() + "KM", skin.GetStyle("MessageComm"));
 
 	}
 	
 	
 	function isOnScreen() : boolean {
-		var pos : Vector3 = mainCam.WorldToScreenPoint(transform.position);
 		return pos.z > 0;
 	}
 
 	function isPlayer() : boolean {
-		return props.getPlayer();
+		return playable.isPlayer();
 	}
 	
 	function getPlayer() : GameObject {
@@ -153,11 +156,11 @@ class RadarObject extends GuiElement {
 	}
 	
 	function getName() : String {
-		return props.getName();
+		return nameable.getName();
 	}
 	
 	function getClass() : String {
-		return props.getClass();
+		return classeable.getClass();
 	}
 	
 	function convertBotToTop(y : int) : int {

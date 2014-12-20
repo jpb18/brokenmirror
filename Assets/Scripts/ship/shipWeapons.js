@@ -182,6 +182,19 @@ public class shipWeapons extends MonoBehaviour implements IWeaponable {
 	function getBackwardTorpedo() : GameObject {
 		return torp2.torpedo;
 	}
+	
+	
+	function isPhaserEnabled() : boolean {
+		return this.phaser.isEnabled;
+	}
+	
+	function isForwardTorpedoEnabled() : boolean {
+		return this.torp1.isEnabled;
+	}
+	
+	function isBackwardTorpedoEnabled() : boolean {
+		return this.torp2.isEnabled;
+	}
 
 
 }

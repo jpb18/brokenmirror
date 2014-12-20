@@ -114,6 +114,7 @@
      <Compile Include="Assets\Scripts\Interfaces\ITextureable.js" />
      <Compile Include="Assets\Scripts\Interfaces\ITradeable.js" />
      <Compile Include="Assets\Scripts\Interfaces\IUpgrade.js" />
+     <Compile Include="Assets\Scripts\Interfaces\IUpgrades.js" />
      <Compile Include="Assets\Scripts\Interfaces\IWeaponable.js" />
      <Compile Include="Assets\Scripts\Invasion\IInvasion.js" />
      <Compile Include="Assets\Scripts\Invasion\InvasionForce.js" />
@@ -145,6 +146,7 @@
      <Compile Include="Assets\Scripts\SaveGame\PulseIndicator.js" />
      <Compile Include="Assets\Scripts\SaveGame\SaveGame.js" />
      <Compile Include="Assets\Scripts\SaveGame\SaveScript.js" />
+     <Compile Include="Assets\Scripts\SaveGame\SaveStation.js" />
      <Compile Include="Assets\Scripts\SaveGame\Stardate.js" />
      <Compile Include="Assets\Scripts\Start\StartScript.js" />
      <Compile Include="Assets\Scripts\Statics.js" />
@@ -192,6 +194,7 @@
      <Compile Include="Assets\Scripts\newGui\InventoryPanel\InventoryPanel.js" />
      <Compile Include="Assets\Scripts\newGui\InventoryPanel\MainDisplay.js" />
      <Compile Include="Assets\Scripts\newGui\InventoryPanel\ShipStatus.js" />
+     <Compile Include="Assets\Scripts\newGui\InventoryPanel\WeaponsPanel.js" />
      <Compile Include="Assets\Scripts\newGui\MissionDialogue.js" />
      <Compile Include="Assets\Scripts\newGui\NewHUD\AlertMode.js" />
      <Compile Include="Assets\Scripts\newGui\NewHUD\AlertWarning.js" />

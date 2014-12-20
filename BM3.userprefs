@@ -1,18 +1,16 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\newGui\NewHUD\RadarObject.js">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\GameSerialization\GameData.js">
     <Files>
-      <File FileName="BM3.sln" Line="64" Column="1" />
-      <File FileName="Assets\Scripts\newGui\InventoryPanel\MainDisplay.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\newGui\InventoryPanel\FleetDisplay.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\newGui\InventoryPanel\InventoryPanel.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\ship\shipProperties.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\newGui\CommPanel.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\SaveGame\SaveGame.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Load\StartSceneStart.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\camera\FreeCamera.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\newGui\NewHUD\RadarObject.js" Line="36" Column="1" />
-      <File FileName="Assets\Scripts\Statics.js" Line="61" Column="1" />
+      <File FileName="Assets\Scripts\Events\EventGenerator.js" Line="145" Column="36" />
+      <File FileName="Assets\Scripts\Events\SceneTransfer.js" Line="71" Column="104" />
+      <File FileName="Assets\Scripts\GameSerialization\FactionData.js" Line="59" Column="155" />
+      <File FileName="Assets\Scripts\SaveGame\PlanetInfo.js" Line="245" Column="56" />
+      <File FileName="Assets\Scripts\station\Station.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\SaveGame\SaveStation.js" Line="82" Column="32" />
+      <File FileName="Assets\Scripts\Construction\Construction.js" Line="20" Column="97" />
+      <File FileName="Assets\Scripts\SaveGame\GeneralInfo.js" Line="194" Column="1" />
+      <File FileName="Assets\Scripts\GameSerialization\GameData.js" Line="42" Column="189" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

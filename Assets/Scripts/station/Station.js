@@ -1,6 +1,6 @@
 ﻿#pragma strict
 
-class Station extends MonoBehaviour implements IFactionable {
+class Station extends MonoBehaviour implements IFactionable, IPlayable {
 
 	var health : Health;
 	var weapon : StationWeapons;
@@ -119,6 +119,9 @@ class Station extends MonoBehaviour implements IFactionable {
 		return this.faction == faction;
 	}
 	
+	function isPlayer() : boolean {
+		return false;
+	}
 	
 	
 }

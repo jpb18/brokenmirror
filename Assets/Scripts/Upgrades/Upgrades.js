@@ -1,6 +1,6 @@
 ﻿import System.Collections.Generic;
 #pragma strict
-class Upgrades extends MonoBehaviour {
+public class Upgrades extends MonoBehaviour implements IUpgrades{
 	var upgrades : List.<GameObject>;
 	var activeUpgrades : List.<UpgradeClass>;
 	
@@ -199,6 +199,22 @@ class Upgrades extends MonoBehaviour {
 	
 	function setActiveUpgrade(upgrade : GameObject) {
 		var active : UpgradeClass = new UpgradeClass(upgrade);
-		activeUpgrades.Add(active);
+		if(!activeUpgrades.Contains(active)) {
+			activeUpgrades.Add(active);
+			return true;
+		} else {
+			return false;
+		}
 	}
+	
+	function removeActiveUpgrade(upgrade : Active) {
+		var active : UpgradeClass = upgrade as UpgradeClass;
+		if(activeUpgrades.Contains(active)) {
+			activeUpgrades.Remove(active);
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
 }

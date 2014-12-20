@@ -28,7 +28,7 @@ class StationInterface extends MonoBehaviour implements INameable, IBuildable, I
 	var upgrades : List.<GameObject>;
 
 	//radar label
-	var radar : RadarLabel;
+	//var radar : RadarLabel;
 
 	//GUI
 	var gui : StationGui;
@@ -65,7 +65,7 @@ class StationInterface extends MonoBehaviour implements INameable, IBuildable, I
 		combatDialogue = gameObject.GetComponent(CombatMissionDialogue);
 
 		mainCam = Camera.main;
-		radar.Set(gameObject);
+		//radar.Set(gameObject);
 		camScript = mainCam.GetComponent(MouseOrbit);
 			
 		//Missions scripts here.
@@ -105,14 +105,14 @@ class StationInterface extends MonoBehaviour implements INameable, IBuildable, I
 	}
 
 	function guiFunction() {
-		drawLabel();
+		//drawLabel();
 
 		if(gui.isOn()) {
 			gui.draw();
 		} 
 	}
 
-	function drawLabel() {
+	/*function drawLabel() {
 		var pos : Vector3 = mainCam.WorldToScreenPoint(trans.position);
 		if(camScript.target) {
 			var player : GameObject = camScript.target.gameObject;
@@ -124,7 +124,7 @@ class StationInterface extends MonoBehaviour implements INameable, IBuildable, I
 		}
 		
 		
-	}
+	}*/
 
 	function isOnScreen(cood : Vector3) : boolean {
 		return cood.x > 0 && cood.x < Screen.width && cood.y > 0 && cood.y < Screen.height && cood.z > 0;

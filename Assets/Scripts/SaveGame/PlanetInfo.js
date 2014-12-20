@@ -2,6 +2,7 @@ import System.Collections.Generic;
 #pragma strict
 
 class PlanetInfo implements IPopuleable, IProfitable, IConquerable { //this class stores all planet information necessary for the map
+	
 	var name : String;
 	var isEnabled : boolean;
 	var faction : int;
@@ -22,6 +23,11 @@ class PlanetInfo implements IPopuleable, IProfitable, IConquerable { //this clas
 	var hasPlayerVisit : boolean = false;
 	var isColonized : boolean = false;
 	
+	//these are to assist station placement
+	var bodyLocation : Vector3[]; //here goes each of the celestial bodies locations...
+	var minimumDistance : float[]; //and here goes the minimum distance from each one...
+	var maximumDistance : float[]; //and here goes the maximum distance from each one...
+	private static final var MIN_STATION_DISTANCE : int = 9; //minimum distance between stations, squared
 	
 	function PlanetInfo() {
 		defenseFleet = new List.<SaveShip>();
@@ -182,11 +188,88 @@ class PlanetInfo implements IPopuleable, IProfitable, IConquerable { //this clas
 	}
 	
 	function addRandomShip(fleet : List.<GameObject>) : GameObject {
+		if(fleet.Count <= 0) return null;
+	
 		var num : int = Random.Range(0, fleet.Count-1);
 		var ship : GameObject = fleet[num];
 		var newShip : SaveShip = new SaveShip(ship, faction);
 		defenseFleet.Add(newShip);
 		return ship;
+	}
+	
+	function addRandomStation(stations : List.<GameObject>, faction : FactionInfo, stardate : int) : GameObject {
+		if(stations.Count <= 0) return null;
+		
+		//pick station
+		var num : int = Random.Range(0, stations.Count - 1);
+		var station : GameObject = stations[num];
+		
+		//get its coordinates
+		var cood : Vector3 = getStationCoordinate();
+		
+		//now get its name
+		var name : String = faction.getRandomStationName();
+						
+		//and now generate construction
+		var const : Construction = new Construction(stardate, name, this.faction, cood, station);
+		this.constructions.Add(const);
+		
+		//return selected station
+		return station;
+	}
+	
+	private function getStationCoordinate() : Vector3 {
+		//first pick a celestial body and get its coordinates
+		var rnd : int = Random.Range(0, bodyLocation.Length - 1);
+		var bodyCood : Vector3 = bodyLocation[rnd];
+		
+		//now lets find a suitable set of coordinates...
+		var cood : Vector3;
+		do {
+			cood = bodyCood + (Random.insideUnitSphere * Random.Range(minimumDistance[rnd], maximumDistance[rnd]));
+		} while (isOverlaping(cood));
+		
+		return cood;
+		
+	}
+	
+	private function isOverlaping(cood : Vector3) : boolean {
+		var distance : float; //lets put it here, since its called through the entire code, and we don't want to be 
+							  //allocating a new variable with each loop
+							  
+		//first check the planets
+		//cycle through all celestial bodies in system
+		for(var i : int = 0; i < bodyLocation.Length; i++) {
+			var bodyCood : Vector3 = bodyLocation[i];
+			distance = (cood - bodyCood).sqrMagnitude; //using squared magnitude because it's much faster than magnitude
+			if(distance < minimumDistance[i] * minimumDistance[i]){ //if the squared distance is smaller than the 
+															  //square of minimum distance
+				return true;						   //return true
+			}		
+		}
+		
+		//then check each of the stations
+		//cycle through all the stations in system
+		for(var station : SaveStation in stations) {
+			var stationCood : Vector3 = station.position;
+			distance = (cood - stationCood).sqrMagnitude;
+			if(distance < MIN_STATION_DISTANCE) { 
+				return true;
+			}
+		}
+		
+		//and finally each of the existing constructions
+		for(var construction : Construction in constructions) {
+			var constructionCood : Vector3 = construction.position;
+			distance = (cood - constructionCood).sqrMagnitude;
+			if(distance < MIN_STATION_DISTANCE) {
+				return true;
+			}
+		}
+	
+		//if none of the above complies
+		return false;
+	
 	}
 	
 	function destroyRandomShip() {

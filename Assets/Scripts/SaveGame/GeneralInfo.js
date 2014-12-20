@@ -29,8 +29,10 @@ class FactionInfo {
 	var hostileFactions : List.<int>;
 	var alliedFactions : List.<int>;
 	var invasionFleet : List.<GameObject>;
+	var stations : List.<GameObject>;
 	var prefix : String;
-	var shipNames : List.<String>; 
+	var shipNames : List.<String>;
+	var stationNames : List.<String>; 
 	
 	function FactionInfo() {
 		factionName = "";
@@ -45,7 +47,8 @@ class FactionInfo {
 		factionName = faction.name;
 		factionRace = Enum.Parse(typeof(Race), faction.race);
 		prefix = faction.prefix;
-		invasionFleet = getGameObjectList(faction.ships);
+		invasionFleet = faction.getFleet();
+		stations = faction.getStations();
 		hostileFactions = faction.enemies;
 		alliedFactions = faction.allies;
 		
@@ -135,6 +138,11 @@ class FactionInfo {
 	  	return shipNames[num];
 	 }
 	 
+	 function getRandomStationName() : String {
+	 	var num : int = Random.Range(0, stationNames.Count-1);
+	 	return stationNames[num];
+	 }
+	 
 	 function hasHostiles() : boolean {
 	 	return hostileFactions.Count > 0;
 	 }
@@ -182,10 +190,6 @@ class FactionInfo {
 		return true;
 	
 	}
-	 
-
-	 
-
 	 
 	 private function getGameObjectList(names : List.<String>) : List.<GameObject> {
 	 	

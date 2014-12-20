@@ -424,5 +424,6 @@ function createMerchant() : GameObject {
 }
 
 function LoadNewSquadShip(ship : GameObject) {
-	playerFleet.Add(ship);
+	if(!playerFleet.Contains(ship))
+		playerFleet.Add(ship);
 }

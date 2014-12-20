@@ -142,6 +142,8 @@ function generateGalacticEvents(days : int) {
 
 
 private function generateInvasion(date : float) {
+	if(map.isPlayerOverlord()) return;
+
 	var i : int;
 	var target : PlanetInfo;
 	do{
@@ -188,15 +190,24 @@ private function generateInvasion(date : float) {
 
 
 private function generateConstruction(date : float) {
-	Debug.Log("Not implemented");
+	if(!map.isPlayerOverlord() && Random.value <= aquisitionProbability) {
+		var planet : PlanetInfo = pickNpcPlanet();
+		var str : int = planet.getStrenght();
+		var faction : int = planet.faction;
+		var factionInfo : FactionInfo = general.getFactionInfo(faction);
+		var stations : List.<GameObject> = factionInfo.stations;
+		if(stations.Count > 0) {
+			var station : GameObject = planet.addRandomStation(stations, factionInfo, date);
+			var classe : IClasseable = station.GetComponent(typeof(IClasseable)) as IClasseable;
+			scene.addStationAcquisition(planet, factionInfo, classe.getClass(), date);
+		}
+		
+	}
 }
 
 private function generateShipAcquisition(date : float) {
 	if(!map.isPlayerOverlord() && Random.value <= aquisitionProbability) {
-		var planet : PlanetInfo;
-		do {
-			planet = pickRandomPlanet();
-		} while (planet.faction == 0);
+		var planet : PlanetInfo = pickNpcPlanet();
 		var str : int = planet.getStrenght();
 		var faction : int = planet.faction;
 		var factionInfo : FactionInfo = general.getFactionInfo(faction);
@@ -226,7 +237,13 @@ private function pickRandomPlanet() : PlanetInfo {
 	return planet;
 }
 
-
+private function pickNpcPlanet() : PlanetInfo {
+	var planet : PlanetInfo;
+	do {
+		planet = pickRandomPlanet();
+	} while (planet.faction == 0);
+	return planet;
+}
 
 private function hasPlanetEnemiesExceptPlayer(planet : PlanetInfo) : boolean {
 	var id : int = planet.getFaction();

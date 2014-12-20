@@ -31,13 +31,15 @@ public class FleetDisplay {
 		this.fleet = new GameObject[ships.Length + 1];
 		this.fleet[0] = player;
 		for(var i : int = 0; i < ships.Length; i++) {
-			this.fleet[i+1] = ships[i]; 
+			if(ships[i] != player) {
+				this.fleet[i+1] = ships[i]; 
+			}
 		}
 		
 		this.images = new Texture2D[this.fleet.Length];
 		for(i = 0; i < this.fleet.Length; i++) {
-			var text : ITextureable = this.fleet[i].GetComponent(typeof(ITextureable)) as ITextureable;
-			this.images[i] = text.getStoreImage();
+				var text : ITextureable = this.fleet[i].GetComponent(typeof(ITextureable)) as ITextureable;
+				this.images[i] = text.getStoreImage() as Texture2D;
 		}
 		
 	}
@@ -118,9 +120,9 @@ public class FleetDisplay {
 		
 		//Here goes the up button (pointing up)
 		var rect : Rect = parent.resizeRect(upButton);
-		if(GUI.Button(rect, "", upStyle) && Time.time > lastLineChange + TIME) {
+		if(GUI.Button(rect, "", upStyle) && Time.time > lastLineChange + TIME && line > 0) {
 			lastLineChange = Time.time;
-			line++;
+			line--;
 		}
 		
 		var count : int = fleet.Length - start;		
@@ -142,9 +144,9 @@ public class FleetDisplay {
 		
 		//and here goes the down button
 		rect = parent.resizeRect(downButton);
-		if(GUI.Button(rect, "", downStyle) && Time.time > lastLineChange + TIME) {
+		if(GUI.Button(rect, "", downStyle) && Time.time > lastLineChange + TIME && line < fleet.Length / 2) {
 			lastLineChange = Time.time;
-			line--;
+			line++;
 		}
 	
 		return changed;
