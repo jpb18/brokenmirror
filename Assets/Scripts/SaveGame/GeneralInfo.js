@@ -222,6 +222,15 @@ function getFactionInfo(faction : int) : FactionInfo {
 
 }
 
+function GetFactionByName(name : String) : FactionInfo {
+	for(var i : int = 0; i < factionInfo.Count; i++) {
+		if(factionInfo[i].getName().Equals(name)) {
+			return factionInfo[i];
+		}
+	}
+	return null;
+}
+
 function getFactionIdByName(name : String) : int {
 	for(var i : int = 0; i < factionInfo.Count; i++) {
 		if(factionInfo[i].getName().Equals(name)) {

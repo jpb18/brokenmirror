@@ -119,6 +119,7 @@
      <Compile Include="Assets\Scripts\Invasion\IInvasion.js" />
      <Compile Include="Assets\Scripts\Invasion\InvasionForce.js" />
      <Compile Include="Assets\Scripts\Load\GameLoad.js" />
+     <Compile Include="Assets\Scripts\Load\LoadNames.js" />
      <Compile Include="Assets\Scripts\Load\SceneStart.js" />
      <Compile Include="Assets\Scripts\Load\StartSceneStart.js" />
      <Compile Include="Assets\Scripts\Load\dontDestroy.js" />
@@ -454,6 +455,9 @@
      <None Include="Assets\New Shadders\DefaultResourcesExtra\TerrainShaders\Details\WavingGrass.shader" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files (x86)/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/4.6.0/UnityEngine.UI.dll</HintPath>
+ </Reference>
+ <Reference Include="Newtonsoft.Json">
+ <HintPath>C:/BM3/Assets/Standard Assets/JsonNet/Newtonsoft.Json.dll</HintPath>
  </Reference>
   </ItemGroup>
   <ItemGroup>

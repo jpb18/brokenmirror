@@ -49,6 +49,15 @@
      <Compile Include="Assets\Standard Assets\Character Controllers\Sources\Scripts\MouseLook.cs" />
      <Compile Include="Assets\Standard Assets\ComboBox.cs" />
      <Compile Include="Assets\Standard Assets\Scripts\General Scripts\ActivateTrigger.cs" />
+     <Compile Include="Assets\Standard Assets\Scripts\NameLoader\Faction.cs" />
+     <Compile Include="Assets\Standard Assets\Scripts\NameLoader\Namer.cs" />
+     <Compile Include="Assets\Standard Assets\Scripts\NameLoader\Serializer.cs" />
+     <Compile Include="Assets\Standard Assets\Scripts\NewInputManager\Axis.cs" />
+     <Compile Include="Assets\Standard Assets\Scripts\NewInputManager\InputManager.cs" />
+     <Compile Include="Assets\Standard Assets\Scripts\NewInputManager\KeyAxis.cs" />
+     <Compile Include="Assets\Standard Assets\Scripts\NewInputManager\MouseAxis.cs" />
+     <Compile Include="Assets\Standard Assets\Scripts\NewInputManager\MouseButton.cs" />
+     <Compile Include="Assets\Standard Assets\Scripts\NewInputManager\ScrollAxis.cs" />
      <Compile Include="Assets\Standard Assets\Scripts\Utility Scripts\CombineChildren.cs" />
      <Compile Include="Assets\Standard Assets\Scripts\Utility Scripts\MeshCombineUtility.cs" />
      <Compile Include="Assets\Standard Assets\SpaceUnity\Editor\SU_AsteroidFieldEditor.cs" />
@@ -268,6 +277,9 @@
      <None Include="Assets\New Shadders\DefaultResourcesExtra\TerrainShaders\Details\WavingGrass.shader" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files (x86)/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/4.6.0/UnityEngine.UI.dll</HintPath>
+ </Reference>
+ <Reference Include="Newtonsoft.Json">
+ <HintPath>C:/BM3/Assets/Standard Assets/JsonNet/Newtonsoft.Json.dll</HintPath>
  </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
