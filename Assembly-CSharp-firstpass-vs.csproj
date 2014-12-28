@@ -1,287 +1,287 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>10.0.20506</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{43D61F62-2305-EBF0-82F5-94E943E2FE5F}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>
-    </RootNamespace>
-    <AssemblyName>Assembly-CSharp-firstpass</AssemblyName>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <BaseDirectory>Assets</BaseDirectory>
+	<Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+	<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+	<ProductVersion>10.0.20506</ProductVersion>
+	<SchemaVersion>2.0</SchemaVersion>
+	<ProjectGuid>{43D61F62-2305-EBF0-82F5-94E943E2FE5F}</ProjectGuid>
+	<OutputType>Library</OutputType>
+	<AppDesignerFolder>Properties</AppDesignerFolder>
+	<RootNamespace></RootNamespace>
+	<AssemblyName>Assembly-CSharp-firstpass</AssemblyName>
+	<TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+	<FileAlignment>512</FileAlignment>
+	<BaseDirectory>Assets</BaseDirectory>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>Temp\bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE;UNITY_4_6_0;UNITY_4_6;UNITY_STANDALONE_WIN;ENABLE_MICROPHONE;ENABLE_TEXTUREID_MAP;ENABLE_UNITYEVENTS;ENABLE_NEW_HIERARCHY ;ENABLE_AUDIO_FMOD;UNITY_STANDALONE;ENABLE_MONO;ENABLE_TERRAIN;ENABLE_SUBSTANCE;ENABLE_GENERICS;INCLUDE_WP8SUPPORT;ENABLE_MOVIES;ENABLE_WWW;ENABLE_IMAGEEFFECTS;ENABLE_4_6_FEATURES;INCLUDE_WP_BLUE_SUPPORT;ENABLE_WEBCAM;INCLUDE_METROSUPPORT;RENDER_SOFTWARE_CURSOR;ENABLE_NETWORK;ENABLE_PHYSICS;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_2D_PHYSICS;ENABLE_SHADOWS;ENABLE_AUDIO;ENABLE_NAVMESH_CARVING;ENABLE_DUCK_TYPING;ENABLE_SINGLE_INSTANCE_BUILD_SETTING;ENABLE_PROFILER;UNITY_EDITOR;UNITY_EDITOR_WIN;Sun</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <NoWarn>0169</NoWarn>
+	<DebugSymbols>true</DebugSymbols>
+	<DebugType>full</DebugType>
+	<Optimize>false</Optimize>
+	<OutputPath>Temp\bin\Debug\</OutputPath>
+	<DefineConstants>DEBUG;TRACE;UNITY_4_6_0;UNITY_4_6;UNITY_STANDALONE_WIN;ENABLE_MICROPHONE;ENABLE_TEXTUREID_MAP;ENABLE_UNITYEVENTS;ENABLE_NEW_HIERARCHY ;ENABLE_AUDIO_FMOD;UNITY_STANDALONE;ENABLE_MONO;ENABLE_TERRAIN;ENABLE_SUBSTANCE;ENABLE_GENERICS;INCLUDE_WP8SUPPORT;ENABLE_MOVIES;ENABLE_WWW;ENABLE_IMAGEEFFECTS;ENABLE_4_6_FEATURES;INCLUDE_WP_BLUE_SUPPORT;ENABLE_WEBCAM;INCLUDE_METROSUPPORT;RENDER_SOFTWARE_CURSOR;ENABLE_NETWORK;ENABLE_PHYSICS;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_2D_PHYSICS;ENABLE_SHADOWS;ENABLE_AUDIO;ENABLE_NAVMESH_CARVING;ENABLE_DUCK_TYPING;ENABLE_SINGLE_INSTANCE_BUILD_SETTING;ENABLE_PROFILER;UNITY_EDITOR;UNITY_EDITOR_WIN;Sun</DefineConstants>
+	<ErrorReport>prompt</ErrorReport>
+	<WarningLevel>4</WarningLevel>
+	<NoWarn>0169</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>Temp\bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <NoWarn>0169</NoWarn>
+	<DebugType>pdbonly</DebugType>
+	<Optimize>true</Optimize>
+	<OutputPath>Temp\bin\Release\</OutputPath>
+	<DefineConstants>TRACE</DefineConstants>
+	<ErrorReport>prompt</ErrorReport>
+	<WarningLevel>4</WarningLevel>
+	<NoWarn>0169</NoWarn>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="System" />
+	<Reference Include="System" />
     <Reference Include="System.XML" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="UnityEngine">
-      <HintPath>C:/Program Files (x86)/Unity/Editor/Data/Managed/UnityEngine.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEditor">
-      <HintPath>C:/Program Files (x86)/Unity/Editor/Data/Managed/UnityEditor.dll</HintPath>
-    </Reference>
+	<Reference Include="System.Core" />
+	<Reference Include="System.Xml.Linq" />
+	<Reference Include="UnityEngine">
+	  <HintPath>C:/Program Files (x86)/Unity/Editor/Data/Managed/UnityEngine.dll</HintPath>
+	</Reference>
+	<Reference Include="UnityEditor">
+	  <HintPath>C:/Program Files (x86)/Unity/Editor/Data/Managed/UnityEditor.dll</HintPath>
+	</Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Standard Assets\Character Controllers\Sources\Scripts\MouseLook.cs" />
-    <Compile Include="Assets\Standard Assets\ComboBox.cs" />
-    <Compile Include="Assets\Standard Assets\Scripts\General Scripts\ActivateTrigger.cs" />
-    <Compile Include="Assets\Standard Assets\Scripts\NameLoader\Faction.cs" />
-    <Compile Include="Assets\Standard Assets\Scripts\NameLoader\Namer.cs" />
-    <Compile Include="Assets\Standard Assets\Scripts\NameLoader\Serializer.cs" />
-    <Compile Include="Assets\Standard Assets\Scripts\NewInputManager\Axis.cs" />
-    <Compile Include="Assets\Standard Assets\Scripts\NewInputManager\InputManager.cs" />
-    <Compile Include="Assets\Standard Assets\Scripts\NewInputManager\KeyAxis.cs" />
-    <Compile Include="Assets\Standard Assets\Scripts\NewInputManager\MouseAxis.cs" />
-    <Compile Include="Assets\Standard Assets\Scripts\NewInputManager\MouseButton.cs" />
-    <Compile Include="Assets\Standard Assets\Scripts\NewInputManager\ScrollAxis.cs" />
-    <Compile Include="Assets\Standard Assets\Scripts\Utility Scripts\CombineChildren.cs" />
-    <Compile Include="Assets\Standard Assets\Scripts\Utility Scripts\MeshCombineUtility.cs" />
-    <Compile Include="Assets\Standard Assets\SpaceUnity\Editor\SU_AsteroidFieldEditor.cs" />
-    <Compile Include="Assets\Standard Assets\SpaceUnity\Editor\SU_SpaceParticlesEditor.cs" />
-    <Compile Include="Assets\Standard Assets\SpaceUnity\Editor\SU_SpaceSceneConstructionKitEditor.cs" />
-    <Compile Include="Assets\Standard Assets\SpaceUnity\Scripts\SU_Asteroid.cs" />
-    <Compile Include="Assets\Standard Assets\SpaceUnity\Scripts\SU_AsteroidField.cs" />
-    <Compile Include="Assets\Standard Assets\SpaceUnity\Scripts\SU_Moon.cs" />
-    <Compile Include="Assets\Standard Assets\SpaceUnity\Scripts\SU_Planet.cs" />
-    <Compile Include="Assets\Standard Assets\SpaceUnity\Scripts\SU_SpaceParticles.cs" />
-    <Compile Include="Assets\Standard Assets\SpaceUnity\Scripts\SU_SpaceSceneCamera.cs" />
-    <Compile Include="Assets\Standard Assets\SpaceUnity\Scripts\SU_SpaceSceneSwitcher.cs" />
-    <Compile Include="Assets\Standard Assets\SpaceUnity\_Demo\Scrips\SU_CameraFollow.cs" />
-    <Compile Include="Assets\Standard Assets\SpaceUnity\_Demo\Scrips\SU_LaserImpact.cs" />
-    <Compile Include="Assets\Standard Assets\SpaceUnity\_Demo\Scrips\SU_LaserShot.cs" />
-    <Compile Include="Assets\Standard Assets\SpaceUnity\_Demo\Scrips\SU_SpaceSceneSwitcherDemoGUI.cs" />
-    <Compile Include="Assets\Standard Assets\SpaceUnity\_Demo\Scrips\SU_Spaceship.cs" />
-    <Compile Include="Assets\Standard Assets\SpaceUnity\_Demo\Scrips\SU_Thruster.cs" />
-    <None Include="Assets\Standard Assets\Projectors\Guidelines.txt" />
-    <None Include="Assets\New Shadders\DefaultResourcesExtra\Reflect-BumpNolight.shader" />
-    <None Include="Assets\Hard Surface Free\HardSurface Shaders\HardSurfacePro Hidden Front Cut Out Specular.shader" />
-    <None Include="Assets\Hard Surface Free\HardSurface Shaders\HardSurface Free Cut Out Opaque Bump.shader" />
-    <None Include="Assets\New Shadders\DefaultResourcesExtra\Alpha-Bumped.shader" />
-    <None Include="Assets\New Shadders\DefaultResourcesExtra\Reflect-Parallax.shader" />
-    <None Include="Assets\Standard Assets\SpaceUnity\_Read Me First.txt" />
-    <None Include="Assets\New Shadders\DefaultResourcesExtra\AlphaTest-SoftEdgeUnlit.shader" />
-    <None Include="Assets\New Shadders\DefaultResourcesExtra\AlphaTest-Glossy.shader" />
-    <None Include="Assets\Standard Assets\Projectors\Sources\Shaders\Projector Multiply.shader" />
-    <None Include="Assets\New Shadders\DefaultResourcesExtra\Lightmap-Bumped.shader" />
-    <None Include="Assets\New Shadders\DefaultResources\Internal-BlitCopy.shader" />
-    <None Include="Assets\Hard Surface Free\HardSurface Shaders\HardSurfacePro Hidden Front Transparent.shader" />
-    <None Include="Assets\New Shadders\CGIncludes\AutoLight.cginc" />
-    <None Include="Assets\New Shadders\DefaultResourcesExtra\Mobile\Mobile-Particle-Add.shader" />
-    <None Include="Assets\Hard Surface Free\HardSurface Shaders\HardSurfacePro Hidden Front Transparent Specular.shader" />
-    <None Include="Assets\Models\Ships\Klingon\bird of prey\K_TNG_BOP_VoxelizerDebug.txt" />
-    <None Include="Assets\New Shadders\DefaultResources\Camera-DepthNormalTexture.shader" />
-    <None Include="Assets\New Shadders\DefaultResourcesExtra\Reflect-VertexLit.shader" />
-    <None Include="Assets\Load\bugs.txt" />
-    <None Include="Assets\New Shadders\DefaultResourcesExtra\uGUI\GUI-Unlit-TextDetail.shader" />
-    <None Include="Assets\New Shadders\DefaultResourcesExtra\TerrainShaders\Details\WavingGrassBillboard.shader" />
-    <None Include="Assets\New Shadders\DefaultResourcesExtra\Nature\TreeCreator\TreeCreatorBark.shader" />
-    <None Include="Assets\New Shadders\DefaultResourcesExtra\Particle Alpha Blend.shader" />
-    <None Include="Assets\Standard Assets\SpaceUnity\Read First.txt" />
-    <None Include="Assets\New Shadders\DefaultResourcesExtra\Mobile\Mobile-BumpSpec.shader" />
-    <None Include="Assets\New Shadders\DefaultResourcesExtra\Particle Blend.shader" />
-    <None Include="Assets\Lightbeam\Shaders\Lightbeam.shader" />
-    <None Include="Assets\Hard Surface Free\HardSurface Shaders\HardSurface Free Transparent Specular.shader" />
-    <None Include="Assets\New Shadders\DefaultResourcesExtra\Particle Multiply.shader" />
-    <None Include="Assets\New Shadders\DefaultResources\Sprites-Default.shader" />
-    <None Include="Assets\Hard Surface Free\HardSurface Shaders\HardSurface Free Transparent Bump.shader" />
-    <None Include="Assets\New Shadders\DefaultResourcesExtra\TerrainShaders\Splats\AddPass.shader" />
-    <None Include="Assets\New Shadders\DefaultResourcesExtra\Illumin-Diffuse.shader" />
-    <None Include="Assets\New Shadders\DefaultResources\Internal-GUITextureClip.shader" />
-    <None Include="Assets\Standard Assets\SpaceUnity\Shaders\PlanetRings.shader" />
-    <None Include="Assets\New Shadders\DefaultResourcesExtra\Normal-DiffuseDetail.shader" />
-    <None Include="Assets\New Shadders\DefaultResources\Internal-GUITextureBlit.shader" />
-    <None Include="Assets\New Shadders\DefaultResourcesExtra\Flare.shader" />
-    <None Include="Assets\Scripts\shaders\AlphaSelfIllum.shader" />
-    <None Include="Assets\SaveGames\last.xml" />
-    <None Include="Assets\New Shadders\DefaultResources\Shadow-ScreenBlurRotated.shader" />
-    <None Include="Assets\New Shadders\DefaultResourcesExtra\uGUI\GUI-Lit-Refraction(ProOnly).shader" />
-    <None Include="Assets\New Shadders\DefaultResourcesExtra\Reflect-BumpSpec.shader" />
-    <None Include="Assets\Standard Assets\Particles\Sources\Shaders\Particle Alpha Blend (Queue +100).shader" />
-    <None Include="Assets\Hard Surface Free\HardSurface Shaders\HardSurfacePro Hidden Front Cut Out Opaque Bump.shader" />
-    <None Include="Assets\Hard Surface Free\HardSurface Shaders\HardSurface Free Opaque.shader" />
-    <None Include="Assets\New Shadders\DefaultResourcesExtra\Reflect-Diffuse.shader" />
-    <None Include="Assets\Scripts\shaders\aditive.shader" />
-    <None Include="Assets\New Shadders\DefaultResourcesExtra\Normal-Diffuse.shader" />
-    <None Include="Assets\Lightbeam\Shaders\Lightbeam_Soft.shader" />
-    <None Include="Assets\New Shadders\DefaultResources\Internal-Clear.shader" />
-    <None Include="Assets\Hard Surface Free\HardSurface Shaders\HardSurface Free Cut Out Diffuse.shader" />
-    <None Include="Assets\Load\changelog.txt" />
-    <None Include="Assets\New Shadders\DefaultResourcesExtra\uGUI\GUI-Lit-RefractionDetail(ProOnly).shader" />
-    <None Include="Assets\New Shadders\DefaultResourcesExtra\Mobile\Mobile-Skybox.shader" />
-    <None Include="Assets\New Shadders\DefaultResourcesExtra\TerrainShaders\Trees\BillboardTree.shader" />
-    <None Include="Assets\New Shadders\DefaultResourcesExtra\AlphaTest-BumpSpec.shader" />
-    <None Include="Assets\New Shadders\DefaultResourcesExtra\Lightmap-VertexLit.shader" />
-    <None Include="Assets\New Shadders\DefaultResourcesExtra\Mobile\Mobile-Diffuse.shader" />
-    <None Include="Assets\New Shadders\CGIncludes\UnityShaderVariables.cginc" />
-    <None Include="Assets\New Shadders\DefaultResourcesExtra\Illumin-Glossy.shader" />
-    <None Include="Assets\New Shadders\DefaultResourcesExtra\Unlit\Unlit-Alpha.shader" />
-    <None Include="Assets\New Shadders\DefaultResourcesExtra\Normal-VertexLit.shader" />
-    <None Include="Assets\Detonator Explosion Framework\Resources\Detonator\Textures\HeatDistort.shader" />
-    <None Include="Assets\New Shadders\DefaultResourcesExtra\Mobile\Mobile-Lightmap-Unlit.shader" />
-    <None Include="Assets\New Shadders\DefaultResourcesExtra\AlphaTest-Diffuse.shader" />
-    <None Include="Assets\Hard Surface Free\HardSurface Shaders\HardSurface Free Cut Out Opaque Diffuse.shader" />
-    <None Include="Assets\Scripts\shaders\shield.shader" />
-    <None Include="Assets\New Shadders\DefaultResourcesExtra\Nature\TreeCreator\TreeCreatorBarkRendertex.shader" />
-    <None Include="Assets\New Shadders\DefaultResourcesExtra\Lightmap-Diffuse.shader" />
-    <None Include="Assets\Standard Assets\Skyboxes\_skybox info.txt" />
-    <None Include="Assets\New Shadders\DefaultResourcesExtra\Nature\SoftOcclusion\TreeSoftOcclusionLeaves.shader" />
-    <None Include="Assets\New Shadders\DefaultResources\Internal-GUITextureClipText.shader" />
-    <None Include="Assets\New Shadders\DefaultResources\Internal-GUITexture.shader" />
-    <None Include="Assets\New Shadders\DefaultResourcesExtra\uGUI\GUI-DefaultFont.shader" />
-    <None Include="Assets\New Shadders\DefaultResourcesExtra\Mobile\Mobile-Particle-Multiply.shader" />
-    <None Include="Assets\New Shadders\DefaultResourcesExtra\Particle MultiplyDouble.shader" />
-    <None Include="Assets\Hard Surface Free\HardSurface Shaders\HardSurfacePro Hidden Front Opaque Bump.shader" />
-    <None Include="Assets\New Shadders\DefaultResourcesExtra\TerrainShaders\Splats\FirstPass.shader" />
-    <None Include="Assets\New Shadders\DefaultResources\Shadow-ScreenBlur.shader" />
-    <None Include="Assets\New Shadders\DefaultResourcesExtra\Nature\TreeCreator\TreeCreatorLeavesFastOptimized.shader" />
-    <None Include="Assets\Hard Surface Free\HardSurface Shaders\HardSurface Free Transparent.shader" />
-    <None Include="Assets\New Shadders\DefaultResourcesExtra\Reflect-BumpVertexLit.shader" />
-    <None Include="Assets\New Shadders\DefaultResources\Internal-CombineDepthNormals.shader" />
-    <None Include="Assets\New Shadders\DefaultResourcesExtra\Alpha-Parallax.shader" />
-    <None Include="Assets\Models\Ships\Earth\galaxy\galaxy_obj\F_TNG_GALAXY_VoxelizerDebug.txt" />
-    <None Include="Assets\Hard Surface Free\HardSurface Shaders\HardSurfacePro Hidden Front Opaque Diffuse.shader" />
-    <None Include="Assets\New Shadders\DefaultResourcesExtra\Particle Add.shader" />
-    <None Include="Assets\Hard Surface Free\HardSurface Shaders\HardSurface Free Transparent Diffuse.shader" />
-    <None Include="Assets\New Shadders\DefaultResourcesExtra\Sprites-Diffuse.shader" />
-    <None Include="Assets\New Shadders\DefaultResources\Internal-PrePassLighting.shader" />
-    <None Include="Assets\New Shadders\DefaultResourcesExtra\TerrainShaders\Details\VertexLit.shader" />
-    <None Include="Assets\New Shadders\DefaultResourcesExtra\Nature\SoftOcclusion\TreeSoftOcclusionBark.shader" />
-    <None Include="Assets\Hard Surface Free\HardSurface Shaders\HardSurfacePro Hidden Front Cut Out Diffuse.shader" />
-    <None Include="Assets\New Shadders\DefaultResourcesExtra\uGUI\GUI-Unlit-Text.shader" />
-    <None Include="Assets\Scripts\shaders\slindev_planet.shader" />
-    <None Include="Assets\New Shadders\DefaultResourcesExtra\AlphaTest-Bumped.shader" />
-    <None Include="Assets\Hard Surface Free\HardSurface Shaders\HardSurface Free Opaque Diffuse.shader" />
-    <None Include="Assets\New Shadders\DefaultResources\Internal-Halo.shader" />
-    <None Include="Assets\New Shadders\DefaultResources\Internal-PrePassCollectShadows.shader" />
-    <None Include="Assets\New Shadders\DefaultResources\Internal-ErrorShader.shader" />
-    <None Include="Assets\New Shadders\DefaultResourcesExtra\Nature\SoftOcclusion\TreeSoftOcclusionLeavesRendertex.shader" />
-    <None Include="Assets\New Shadders\DefaultResourcesExtra\Reflect-ParallaxSpec.shader" />
-    <None Include="Assets\Standard Assets\Projectors\Sources\Shaders\Projector Light.shader" />
-    <None Include="Assets\Lightbeam\Shaders\Lightbeam_Detail_Soft.shader" />
-    <None Include="Assets\Hard Surface Free\HardSurface Shaders\HardSurfacePro Hidden Front Cut Out Opaque Specular.shader" />
-    <None Include="Assets\Standard Assets\AlphaSelfIllum.shader.shader" />
-    <None Include="Assets\Scripts\shaders\atm_scat.shader" />
-    <None Include="Assets\Hard Surface Free\HardSurface Shaders\HardSurface Free Opaque Bump.shader" />
-    <None Include="Assets\Standard Assets\SpaceUnity\Shaders\PlanetSelfIllum.shader" />
-    <None Include="Assets\New Shadders\DefaultResourcesExtra\Alpha-Glossy.shader" />
-    <None Include="Assets\New Shadders\DefaultResourcesExtra\Nature\TreeCreator\TreeCreatorLeavesRendertex.shader" />
-    <None Include="Assets\New Shadders\DefaultResourcesExtra\Illumin-Bumped.shader" />
-    <None Include="Assets\New Shadders\DefaultResourcesExtra\Decal.shader" />
-    <None Include="Assets\Hard Surface Free\HardSurface Shaders\HardSurface Free Cut Out Opaque Specular.shader" />
-    <None Include="Assets\Standard Assets\SpaceUnity\Shaders\PlanetStandard.shader" />
-    <None Include="Assets\New Shadders\DefaultResourcesExtra\uGUI\GUI-Lit-Transparent.shader" />
-    <None Include="Assets\New Shadders\CGIncludes\Tessellation.cginc" />
-    <None Include="Assets\New Shadders\DefaultResourcesExtra\Nature\Terrain\TerrBumpFirstPass.shader" />
-    <None Include="Assets\New Shadders\DefaultResourcesExtra\Skybox.shader" />
-    <None Include="Assets\New Shadders\DefaultResources\Font.shader" />
-    <None Include="Assets\Lightbeam\Shaders\Lightbeam_Detail.shader" />
-    <None Include="Assets\New Shadders\DefaultResourcesExtra\Nature\SoftOcclusion\SH_Vertex.cginc" />
-    <None Include="Assets\New Shadders\DefaultResourcesExtra\Alpha-ParallaxSpec.shader" />
-    <None Include="Assets\Standard Assets\SpaceUnity\Shaders\PlanetAtmosphere.shader" />
-    <None Include="Assets\New Shadders\DefaultResourcesExtra\Reflect-Bumped.shader" />
-    <None Include="Assets\Hard Surface Free\HardSurface Shaders\HardSurfacePro Hidden Front Cut Out Bump.shader" />
-    <None Include="Assets\New Shadders\DefaultResourcesExtra\Particle VertexLit Blended.shader" />
-    <None Include="Assets\New Shadders\CGIncludes\UnityCG.cginc" />
-    <None Include="Assets\Scripts\atm_scat.shader" />
-    <None Include="Assets\New Shadders\DefaultResourcesExtra\Nature\SoftOcclusion\TreeSoftOcclusionBarkRendertex.shader" />
-    <None Include="Assets\New Shadders\DefaultResourcesExtra\Lightmap-BumpSpec.shader" />
-    <None Include="Assets\Hard Surface Free\HardSurface Shaders\HardSurfacePro Hidden Front Transparent Diffuse.shader" />
-    <None Include="Assets\New Shadders\DefaultResourcesExtra\skybox cubed.shader" />
-    <None Include="Assets\Hard Surface Free\HardSurface Shaders\HardSurfacePro Hidden Front Opaque.shader" />
-    <None Include="Assets\New Shadders\DefaultResourcesExtra\Mobile\Mobile-VertexLit.shader" />
-    <None Include="Assets\New Shadders\DefaultResourcesExtra\Nature\TreeCreator\Tree.cginc" />
-    <None Include="Assets\New Shadders\DefaultResources\Internal-Flare.shader" />
-    <None Include="Assets\New Shadders\DefaultResourcesExtra\Reflect-Glossy.shader" />
-    <None Include="Assets\New Shadders\DefaultResourcesExtra\Illumin-VertexLit.shader" />
-    <None Include="Assets\New Shadders\DefaultResourcesExtra\Illumin-Parallax.shader" />
-    <None Include="Assets\Hard Surface Free\HardSurface Shaders\HardSurface Free Cut Out Specular.shader" />
-    <None Include="Assets\Hard Surface Free\HardSurface Shaders\HardSurfacePro Hidden Front Cut Out Opaque Diffuse.shader" />
-    <None Include="Assets\New Shadders\DefaultResourcesExtra\Normal-Glossy.shader" />
-    <None Include="Assets\Hard Surface Free\HardSurface Shaders\HardSurfacePro Hidden Front Transparent Bump.shader" />
-    <None Include="Assets\TestSave.xml" />
-    <None Include="Assets\New Shadders\DefaultResourcesExtra\Mobile\Mobile-Bumped.shader" />
-    <None Include="Assets\New Shadders\DefaultResourcesExtra\Mobile\Mobile-VertexLit-OnlyDirectionalLights.shader" />
-    <None Include="Assets\New Shadders\DefaultResourcesExtra\uGUI\GUI-Default.shader" />
-    <None Include="Assets\New Shadders\DefaultResourcesExtra\uGUI\GUI-Unlit-Detail.shader" />
-    <None Include="Assets\Scripts\shaders\cloudShadder.shader" />
-    <None Include="Assets\New Shadders\CGIncludes\TerrainEngine.cginc" />
-    <None Include="Assets\New Shadders\DefaultResourcesExtra\uGUI\StencilMask.shader" />
-    <None Include="Assets\New Shadders\DefaultResourcesExtra\Particle AddSmooth.shader" />
-    <None Include="Assets\HeatDistortion\HeatDistortion.shader" />
-    <None Include="Assets\New Shadders\DefaultResourcesExtra\Unlit\Unlit-AlphaTest.shader" />
-    <None Include="Assets\New Shadders\DefaultResourcesExtra\Alpha-BumpSpec.shader" />
-    <None Include="Assets\New Shadders\DefaultResourcesExtra\Particle AddMultiply.shader" />
-    <None Include="Assets\New Shadders\DefaultResourcesExtra\Mobile\Mobile-BumpSpec-1DirectionalLight.shader" />
-    <None Include="Assets\Models\Ships\Klingon\bird of prey\K_TNG_KVORT_VoxelizerDebug.txt" />
-    <None Include="Assets\New Shadders\DefaultResources\Camera-DepthTexture.shader" />
-    <None Include="Assets\New Shadders\DefaultResourcesExtra\Mobile\Mobile-Particle-Alpha-VertexLit.shader" />
-    <None Include="Assets\SaveGames\save.xml" />
-    <None Include="Assets\New Shadders\DefaultResourcesExtra\Nature\TreeCreator\TreeCreatorLeaves.shader" />
-    <None Include="Assets\Presets\Weapons\Torpedoes\Space Shooter\Info.txt" />
-    <None Include="Assets\New Shadders\DefaultResourcesExtra\Alpha-VertexLit.shader" />
-    <None Include="Assets\New Shadders\DefaultResourcesExtra\uGUI\GUI-Lit-Bumped.shader" />
-    <None Include="Assets\New Shadders\CGIncludes\Lighting.cginc" />
-    <None Include="Assets\New Shadders\DefaultResourcesExtra\Lightmap-Glossy.shader" />
-    <None Include="Assets\Lightbeam\Documentation\Readme.txt" />
-    <None Include="Assets\New Shadders\DefaultResourcesExtra\Normal-Bumped.shader" />
-    <None Include="Assets\New Shadders\DefaultResourcesExtra\Nature\TreeCreator\TreeCreatorLeavesOptimized.shader" />
-    <None Include="Assets\New Shadders\DefaultResourcesExtra\Nature\Terrain\TerrBumpAddPass.shader" />
-    <None Include="Assets\New Shadders\DefaultResourcesExtra\Unlit\Unlit-Normal.shader" />
-    <None Include="Assets\New Shadders\DefaultResourcesExtra\Illumin-BumpSpec.shader" />
-    <None Include="Assets\New Shadders\DefaultResourcesExtra\Alpha-Diffuse.shader" />
-    <None Include="Assets\Universe\Space Shooter\Info.txt" />
-    <None Include="Assets\New Shadders\DefaultResourcesExtra\Normal-ParallaxSpec.shader" />
-    <None Include="Assets\New Shadders\DefaultResourcesExtra\uGUI\GUI-Unlit-Transparent.shader" />
-    <None Include="Assets\New Shadders\DefaultResourcesExtra\Nature\TreeCreator\TreeCreatorLeavesFast.shader" />
-    <None Include="Assets\New Shadders\DefaultResourcesExtra\Nature\TreeCreator\TreeCreatorBarkOptimized.shader" />
-    <None Include="Assets\New Shadders\DefaultResourcesExtra\uGUI\GUI-Lit-Detail.shader" />
-    <None Include="Assets\New Shadders\DefaultResourcesExtra\Mobile\Mobile-Particle-Alpha.shader" />
-    <None Include="Assets\Hard Surface Free\HardSurface Shaders\HardSurface Free Cut Out Bump.shader" />
-    <None Include="Assets\New Shadders\DefaultResourcesExtra\Normal-Parallax.shader" />
-    <None Include="Assets\Hard Surface Free\HardSurface Shaders\HardSurface Free Opaque Specular.shader" />
-    <None Include="Assets\New Shadders\DefaultResourcesExtra\AlphaTest-VertexLit.shader" />
-    <None Include="Assets\New Shadders\DefaultResourcesExtra\Particle Premultiply Blend.shader" />
-    <None Include="Assets\New Shadders\DefaultResourcesExtra\Normal-DiffuseFast.shader" />
-    <None Include="Assets\Hard Surface Free\HardSurface Shaders\HardSurfacePro Hidden Front Opaque Specular.shader" />
-    <None Include="Assets\Hard Surface Free\HardSurface Shaders\HardSurface SFX Depth Write Only.shader" />
-    <None Include="Assets\New Shadders\DefaultResourcesExtra\Illumin-ParallaxSpec.shader" />
-    <None Include="Assets\New Shadders\DefaultResourcesExtra\Nature\TreeCreator\TreeVertexLit.cginc" />
-    <None Include="Assets\New Shadders\CGIncludes\HLSLSupport.cginc" />
-    <None Include="Assets\Scripts\shaders\EmissionShader.shader" />
-    <None Include="Assets\Scripts\shaders\PlanetShadder.shader" />
-    <None Include="Assets\New Shadders\DefaultResourcesExtra\Normal-BumpSpec.shader" />
-    <None Include="Assets\New Shadders\DefaultResourcesExtra\TerrainShaders\Details\WavingGrass.shader" />
-    <Reference Include="UnityEngine.UI">
-      <HintPath>C:/Program Files (x86)/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/4.6.0/UnityEngine.UI.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>C:/BM3/Assets/Standard Assets/JsonNet/Newtonsoft.Json.dll</HintPath>
-    </Reference>
+     <Compile Include="Assets\Standard Assets\Character Controllers\Sources\Scripts\MouseLook.cs" />
+     <Compile Include="Assets\Standard Assets\ComboBox.cs" />
+     <Compile Include="Assets\Standard Assets\Scripts\General Scripts\ActivateTrigger.cs" />
+     <Compile Include="Assets\Standard Assets\Scripts\NameLoader\Faction.cs" />
+     <Compile Include="Assets\Standard Assets\Scripts\NameLoader\Namer.cs" />
+     <Compile Include="Assets\Standard Assets\Scripts\NameLoader\Serializer.cs" />
+     <Compile Include="Assets\Standard Assets\Scripts\NewInputManager\Axis.cs" />
+     <Compile Include="Assets\Standard Assets\Scripts\NewInputManager\InputManager.cs" />
+     <Compile Include="Assets\Standard Assets\Scripts\NewInputManager\KeyAxis.cs" />
+     <Compile Include="Assets\Standard Assets\Scripts\NewInputManager\MouseAxis.cs" />
+     <Compile Include="Assets\Standard Assets\Scripts\NewInputManager\MouseButton.cs" />
+     <Compile Include="Assets\Standard Assets\Scripts\NewInputManager\ScrollAxis.cs" />
+     <Compile Include="Assets\Standard Assets\Scripts\Utility Scripts\CombineChildren.cs" />
+     <Compile Include="Assets\Standard Assets\Scripts\Utility Scripts\MeshCombineUtility.cs" />
+     <Compile Include="Assets\Standard Assets\SpaceUnity\Editor\SU_AsteroidFieldEditor.cs" />
+     <Compile Include="Assets\Standard Assets\SpaceUnity\Editor\SU_SpaceParticlesEditor.cs" />
+     <Compile Include="Assets\Standard Assets\SpaceUnity\Editor\SU_SpaceSceneConstructionKitEditor.cs" />
+     <Compile Include="Assets\Standard Assets\SpaceUnity\Scripts\SU_Asteroid.cs" />
+     <Compile Include="Assets\Standard Assets\SpaceUnity\Scripts\SU_AsteroidField.cs" />
+     <Compile Include="Assets\Standard Assets\SpaceUnity\Scripts\SU_Moon.cs" />
+     <Compile Include="Assets\Standard Assets\SpaceUnity\Scripts\SU_Planet.cs" />
+     <Compile Include="Assets\Standard Assets\SpaceUnity\Scripts\SU_SpaceParticles.cs" />
+     <Compile Include="Assets\Standard Assets\SpaceUnity\Scripts\SU_SpaceSceneCamera.cs" />
+     <Compile Include="Assets\Standard Assets\SpaceUnity\Scripts\SU_SpaceSceneSwitcher.cs" />
+     <Compile Include="Assets\Standard Assets\SpaceUnity\_Demo\Scrips\SU_CameraFollow.cs" />
+     <Compile Include="Assets\Standard Assets\SpaceUnity\_Demo\Scrips\SU_LaserImpact.cs" />
+     <Compile Include="Assets\Standard Assets\SpaceUnity\_Demo\Scrips\SU_LaserShot.cs" />
+     <Compile Include="Assets\Standard Assets\SpaceUnity\_Demo\Scrips\SU_SpaceSceneSwitcherDemoGUI.cs" />
+     <Compile Include="Assets\Standard Assets\SpaceUnity\_Demo\Scrips\SU_Spaceship.cs" />
+     <Compile Include="Assets\Standard Assets\SpaceUnity\_Demo\Scrips\SU_Thruster.cs" />
+     <None Include="Assets\Standard Assets\Projectors\Guidelines.txt" />
+     <None Include="Assets\New Shadders\DefaultResourcesExtra\Reflect-BumpNolight.shader" />
+     <None Include="Assets\Hard Surface Free\HardSurface Shaders\HardSurfacePro Hidden Front Cut Out Specular.shader" />
+     <None Include="Assets\Hard Surface Free\HardSurface Shaders\HardSurface Free Cut Out Opaque Bump.shader" />
+     <None Include="Assets\New Shadders\DefaultResourcesExtra\Alpha-Bumped.shader" />
+     <None Include="Assets\New Shadders\DefaultResourcesExtra\Reflect-Parallax.shader" />
+     <None Include="Assets\Standard Assets\SpaceUnity\_Read Me First.txt" />
+     <None Include="Assets\New Shadders\DefaultResourcesExtra\AlphaTest-SoftEdgeUnlit.shader" />
+     <None Include="Assets\New Shadders\DefaultResourcesExtra\AlphaTest-Glossy.shader" />
+     <None Include="Assets\Standard Assets\Projectors\Sources\Shaders\Projector Multiply.shader" />
+     <None Include="Assets\New Shadders\DefaultResourcesExtra\Lightmap-Bumped.shader" />
+     <None Include="Assets\New Shadders\DefaultResources\Internal-BlitCopy.shader" />
+     <None Include="Assets\Hard Surface Free\HardSurface Shaders\HardSurfacePro Hidden Front Transparent.shader" />
+     <None Include="Assets\New Shadders\CGIncludes\AutoLight.cginc" />
+     <None Include="Assets\New Shadders\DefaultResourcesExtra\Mobile\Mobile-Particle-Add.shader" />
+     <None Include="Assets\Hard Surface Free\HardSurface Shaders\HardSurfacePro Hidden Front Transparent Specular.shader" />
+     <None Include="Assets\Models\Ships\Klingon\bird of prey\K_TNG_BOP_VoxelizerDebug.txt" />
+     <None Include="Assets\New Shadders\DefaultResources\Camera-DepthNormalTexture.shader" />
+     <None Include="Assets\New Shadders\DefaultResourcesExtra\Reflect-VertexLit.shader" />
+     <None Include="Assets\Load\bugs.txt" />
+     <None Include="Assets\New Shadders\DefaultResourcesExtra\uGUI\GUI-Unlit-TextDetail.shader" />
+     <None Include="Assets\New Shadders\DefaultResourcesExtra\TerrainShaders\Details\WavingGrassBillboard.shader" />
+     <None Include="Assets\New Shadders\DefaultResourcesExtra\Nature\TreeCreator\TreeCreatorBark.shader" />
+     <None Include="Assets\New Shadders\DefaultResourcesExtra\Particle Alpha Blend.shader" />
+     <None Include="Assets\Standard Assets\SpaceUnity\Read First.txt" />
+     <None Include="Assets\New Shadders\DefaultResourcesExtra\Mobile\Mobile-BumpSpec.shader" />
+     <None Include="Assets\New Shadders\DefaultResourcesExtra\Particle Blend.shader" />
+     <None Include="Assets\Lightbeam\Shaders\Lightbeam.shader" />
+     <None Include="Assets\Hard Surface Free\HardSurface Shaders\HardSurface Free Transparent Specular.shader" />
+     <None Include="Assets\New Shadders\DefaultResourcesExtra\Particle Multiply.shader" />
+     <None Include="Assets\New Shadders\DefaultResources\Sprites-Default.shader" />
+     <None Include="Assets\Hard Surface Free\HardSurface Shaders\HardSurface Free Transparent Bump.shader" />
+     <None Include="Assets\New Shadders\DefaultResourcesExtra\TerrainShaders\Splats\AddPass.shader" />
+     <None Include="Assets\New Shadders\DefaultResourcesExtra\Illumin-Diffuse.shader" />
+     <None Include="Assets\New Shadders\DefaultResources\Internal-GUITextureClip.shader" />
+     <None Include="Assets\Standard Assets\SpaceUnity\Shaders\PlanetRings.shader" />
+     <None Include="Assets\New Shadders\DefaultResourcesExtra\Normal-DiffuseDetail.shader" />
+     <None Include="Assets\New Shadders\DefaultResources\Internal-GUITextureBlit.shader" />
+     <None Include="Assets\New Shadders\DefaultResourcesExtra\Flare.shader" />
+     <None Include="Assets\Scripts\shaders\AlphaSelfIllum.shader" />
+     <None Include="Assets\SaveGames\last.xml" />
+     <None Include="Assets\New Shadders\DefaultResources\Shadow-ScreenBlurRotated.shader" />
+     <None Include="Assets\New Shadders\DefaultResourcesExtra\uGUI\GUI-Lit-Refraction(ProOnly).shader" />
+     <None Include="Assets\New Shadders\DefaultResourcesExtra\Reflect-BumpSpec.shader" />
+     <None Include="Assets\Standard Assets\Particles\Sources\Shaders\Particle Alpha Blend (Queue +100).shader" />
+     <None Include="Assets\Hard Surface Free\HardSurface Shaders\HardSurfacePro Hidden Front Cut Out Opaque Bump.shader" />
+     <None Include="Assets\Hard Surface Free\HardSurface Shaders\HardSurface Free Opaque.shader" />
+     <None Include="Assets\New Shadders\DefaultResourcesExtra\Reflect-Diffuse.shader" />
+     <None Include="Assets\Scripts\shaders\aditive.shader" />
+     <None Include="Assets\New Shadders\DefaultResourcesExtra\Normal-Diffuse.shader" />
+     <None Include="Assets\Lightbeam\Shaders\Lightbeam_Soft.shader" />
+     <None Include="Assets\New Shadders\DefaultResources\Internal-Clear.shader" />
+     <None Include="Assets\Hard Surface Free\HardSurface Shaders\HardSurface Free Cut Out Diffuse.shader" />
+     <None Include="Assets\Load\changelog.txt" />
+     <None Include="Assets\New Shadders\DefaultResourcesExtra\uGUI\GUI-Lit-RefractionDetail(ProOnly).shader" />
+     <None Include="Assets\New Shadders\DefaultResourcesExtra\Mobile\Mobile-Skybox.shader" />
+     <None Include="Assets\New Shadders\DefaultResourcesExtra\TerrainShaders\Trees\BillboardTree.shader" />
+     <None Include="Assets\New Shadders\DefaultResourcesExtra\AlphaTest-BumpSpec.shader" />
+     <None Include="Assets\New Shadders\DefaultResourcesExtra\Lightmap-VertexLit.shader" />
+     <None Include="Assets\New Shadders\DefaultResourcesExtra\Mobile\Mobile-Diffuse.shader" />
+     <None Include="Assets\New Shadders\CGIncludes\UnityShaderVariables.cginc" />
+     <None Include="Assets\New Shadders\DefaultResourcesExtra\Illumin-Glossy.shader" />
+     <None Include="Assets\New Shadders\DefaultResourcesExtra\Unlit\Unlit-Alpha.shader" />
+     <None Include="Assets\New Shadders\DefaultResourcesExtra\Normal-VertexLit.shader" />
+     <None Include="Assets\Detonator Explosion Framework\Resources\Detonator\Textures\HeatDistort.shader" />
+     <None Include="Assets\New Shadders\DefaultResourcesExtra\Mobile\Mobile-Lightmap-Unlit.shader" />
+     <None Include="Assets\New Shadders\DefaultResourcesExtra\AlphaTest-Diffuse.shader" />
+     <None Include="Assets\Hard Surface Free\HardSurface Shaders\HardSurface Free Cut Out Opaque Diffuse.shader" />
+     <None Include="Assets\Scripts\shaders\shield.shader" />
+     <None Include="Assets\New Shadders\DefaultResourcesExtra\Nature\TreeCreator\TreeCreatorBarkRendertex.shader" />
+     <None Include="Assets\New Shadders\DefaultResourcesExtra\Lightmap-Diffuse.shader" />
+     <None Include="Assets\Standard Assets\Skyboxes\_skybox info.txt" />
+     <None Include="Assets\New Shadders\DefaultResourcesExtra\Nature\SoftOcclusion\TreeSoftOcclusionLeaves.shader" />
+     <None Include="Assets\New Shadders\DefaultResources\Internal-GUITextureClipText.shader" />
+     <None Include="Assets\New Shadders\DefaultResources\Internal-GUITexture.shader" />
+     <None Include="Assets\New Shadders\DefaultResourcesExtra\uGUI\GUI-DefaultFont.shader" />
+     <None Include="Assets\New Shadders\DefaultResourcesExtra\Mobile\Mobile-Particle-Multiply.shader" />
+     <None Include="Assets\New Shadders\DefaultResourcesExtra\Particle MultiplyDouble.shader" />
+     <None Include="Assets\Hard Surface Free\HardSurface Shaders\HardSurfacePro Hidden Front Opaque Bump.shader" />
+     <None Include="Assets\New Shadders\DefaultResourcesExtra\TerrainShaders\Splats\FirstPass.shader" />
+     <None Include="Assets\New Shadders\DefaultResources\Shadow-ScreenBlur.shader" />
+     <None Include="Assets\New Shadders\DefaultResourcesExtra\Nature\TreeCreator\TreeCreatorLeavesFastOptimized.shader" />
+     <None Include="Assets\Hard Surface Free\HardSurface Shaders\HardSurface Free Transparent.shader" />
+     <None Include="Assets\New Shadders\DefaultResourcesExtra\Reflect-BumpVertexLit.shader" />
+     <None Include="Assets\New Shadders\DefaultResources\Internal-CombineDepthNormals.shader" />
+     <None Include="Assets\New Shadders\DefaultResourcesExtra\Alpha-Parallax.shader" />
+     <None Include="Assets\Models\Ships\Earth\galaxy\galaxy_obj\F_TNG_GALAXY_VoxelizerDebug.txt" />
+     <None Include="Assets\Hard Surface Free\HardSurface Shaders\HardSurfacePro Hidden Front Opaque Diffuse.shader" />
+     <None Include="Assets\New Shadders\DefaultResourcesExtra\Particle Add.shader" />
+     <None Include="Assets\Hard Surface Free\HardSurface Shaders\HardSurface Free Transparent Diffuse.shader" />
+     <None Include="Assets\New Shadders\DefaultResourcesExtra\Sprites-Diffuse.shader" />
+     <None Include="Assets\New Shadders\DefaultResources\Internal-PrePassLighting.shader" />
+     <None Include="Assets\New Shadders\DefaultResourcesExtra\TerrainShaders\Details\VertexLit.shader" />
+     <None Include="Assets\New Shadders\DefaultResourcesExtra\Nature\SoftOcclusion\TreeSoftOcclusionBark.shader" />
+     <None Include="Assets\Hard Surface Free\HardSurface Shaders\HardSurfacePro Hidden Front Cut Out Diffuse.shader" />
+     <None Include="Assets\New Shadders\DefaultResourcesExtra\uGUI\GUI-Unlit-Text.shader" />
+     <None Include="Assets\Scripts\shaders\slindev_planet.shader" />
+     <None Include="Assets\New Shadders\DefaultResourcesExtra\AlphaTest-Bumped.shader" />
+     <None Include="Assets\Hard Surface Free\HardSurface Shaders\HardSurface Free Opaque Diffuse.shader" />
+     <None Include="Assets\New Shadders\DefaultResources\Internal-Halo.shader" />
+     <None Include="Assets\New Shadders\DefaultResources\Internal-PrePassCollectShadows.shader" />
+     <None Include="Assets\New Shadders\DefaultResources\Internal-ErrorShader.shader" />
+     <None Include="Assets\New Shadders\DefaultResourcesExtra\Nature\SoftOcclusion\TreeSoftOcclusionLeavesRendertex.shader" />
+     <None Include="Assets\New Shadders\DefaultResourcesExtra\Reflect-ParallaxSpec.shader" />
+     <None Include="Assets\Standard Assets\Projectors\Sources\Shaders\Projector Light.shader" />
+     <None Include="Assets\Lightbeam\Shaders\Lightbeam_Detail_Soft.shader" />
+     <None Include="Assets\Hard Surface Free\HardSurface Shaders\HardSurfacePro Hidden Front Cut Out Opaque Specular.shader" />
+     <None Include="Assets\Standard Assets\AlphaSelfIllum.shader.shader" />
+     <None Include="Assets\Scripts\shaders\atm_scat.shader" />
+     <None Include="Assets\Models\Ships\Cardassian\Galor\readme.txt" />
+     <None Include="Assets\Hard Surface Free\HardSurface Shaders\HardSurface Free Opaque Bump.shader" />
+     <None Include="Assets\Standard Assets\SpaceUnity\Shaders\PlanetSelfIllum.shader" />
+     <None Include="Assets\New Shadders\DefaultResourcesExtra\Alpha-Glossy.shader" />
+     <None Include="Assets\New Shadders\DefaultResourcesExtra\Nature\TreeCreator\TreeCreatorLeavesRendertex.shader" />
+     <None Include="Assets\New Shadders\DefaultResourcesExtra\Illumin-Bumped.shader" />
+     <None Include="Assets\New Shadders\DefaultResourcesExtra\Decal.shader" />
+     <None Include="Assets\Hard Surface Free\HardSurface Shaders\HardSurface Free Cut Out Opaque Specular.shader" />
+     <None Include="Assets\Standard Assets\SpaceUnity\Shaders\PlanetStandard.shader" />
+     <None Include="Assets\New Shadders\DefaultResourcesExtra\uGUI\GUI-Lit-Transparent.shader" />
+     <None Include="Assets\New Shadders\CGIncludes\Tessellation.cginc" />
+     <None Include="Assets\New Shadders\DefaultResourcesExtra\Nature\Terrain\TerrBumpFirstPass.shader" />
+     <None Include="Assets\New Shadders\DefaultResourcesExtra\Skybox.shader" />
+     <None Include="Assets\New Shadders\DefaultResources\Font.shader" />
+     <None Include="Assets\Lightbeam\Shaders\Lightbeam_Detail.shader" />
+     <None Include="Assets\New Shadders\DefaultResourcesExtra\Nature\SoftOcclusion\SH_Vertex.cginc" />
+     <None Include="Assets\New Shadders\DefaultResourcesExtra\Alpha-ParallaxSpec.shader" />
+     <None Include="Assets\Standard Assets\SpaceUnity\Shaders\PlanetAtmosphere.shader" />
+     <None Include="Assets\New Shadders\DefaultResourcesExtra\Reflect-Bumped.shader" />
+     <None Include="Assets\Hard Surface Free\HardSurface Shaders\HardSurfacePro Hidden Front Cut Out Bump.shader" />
+     <None Include="Assets\New Shadders\DefaultResourcesExtra\Particle VertexLit Blended.shader" />
+     <None Include="Assets\New Shadders\CGIncludes\UnityCG.cginc" />
+     <None Include="Assets\Scripts\atm_scat.shader" />
+     <None Include="Assets\New Shadders\DefaultResourcesExtra\Nature\SoftOcclusion\TreeSoftOcclusionBarkRendertex.shader" />
+     <None Include="Assets\New Shadders\DefaultResourcesExtra\Lightmap-BumpSpec.shader" />
+     <None Include="Assets\Hard Surface Free\HardSurface Shaders\HardSurfacePro Hidden Front Transparent Diffuse.shader" />
+     <None Include="Assets\New Shadders\DefaultResourcesExtra\skybox cubed.shader" />
+     <None Include="Assets\Hard Surface Free\HardSurface Shaders\HardSurfacePro Hidden Front Opaque.shader" />
+     <None Include="Assets\New Shadders\DefaultResourcesExtra\Mobile\Mobile-VertexLit.shader" />
+     <None Include="Assets\New Shadders\DefaultResourcesExtra\Nature\TreeCreator\Tree.cginc" />
+     <None Include="Assets\New Shadders\DefaultResources\Internal-Flare.shader" />
+     <None Include="Assets\New Shadders\DefaultResourcesExtra\Reflect-Glossy.shader" />
+     <None Include="Assets\New Shadders\DefaultResourcesExtra\Illumin-VertexLit.shader" />
+     <None Include="Assets\New Shadders\DefaultResourcesExtra\Illumin-Parallax.shader" />
+     <None Include="Assets\Hard Surface Free\HardSurface Shaders\HardSurface Free Cut Out Specular.shader" />
+     <None Include="Assets\Hard Surface Free\HardSurface Shaders\HardSurfacePro Hidden Front Cut Out Opaque Diffuse.shader" />
+     <None Include="Assets\New Shadders\DefaultResourcesExtra\Normal-Glossy.shader" />
+     <None Include="Assets\Hard Surface Free\HardSurface Shaders\HardSurfacePro Hidden Front Transparent Bump.shader" />
+     <None Include="Assets\TestSave.xml" />
+     <None Include="Assets\New Shadders\DefaultResourcesExtra\Mobile\Mobile-Bumped.shader" />
+     <None Include="Assets\New Shadders\DefaultResourcesExtra\Mobile\Mobile-VertexLit-OnlyDirectionalLights.shader" />
+     <None Include="Assets\New Shadders\DefaultResourcesExtra\uGUI\GUI-Default.shader" />
+     <None Include="Assets\New Shadders\DefaultResourcesExtra\uGUI\GUI-Unlit-Detail.shader" />
+     <None Include="Assets\Scripts\shaders\cloudShadder.shader" />
+     <None Include="Assets\New Shadders\CGIncludes\TerrainEngine.cginc" />
+     <None Include="Assets\New Shadders\DefaultResourcesExtra\uGUI\StencilMask.shader" />
+     <None Include="Assets\New Shadders\DefaultResourcesExtra\Particle AddSmooth.shader" />
+     <None Include="Assets\HeatDistortion\HeatDistortion.shader" />
+     <None Include="Assets\New Shadders\DefaultResourcesExtra\Unlit\Unlit-AlphaTest.shader" />
+     <None Include="Assets\New Shadders\DefaultResourcesExtra\Alpha-BumpSpec.shader" />
+     <None Include="Assets\New Shadders\DefaultResourcesExtra\Particle AddMultiply.shader" />
+     <None Include="Assets\New Shadders\DefaultResourcesExtra\Mobile\Mobile-BumpSpec-1DirectionalLight.shader" />
+     <None Include="Assets\Models\Ships\Klingon\bird of prey\K_TNG_KVORT_VoxelizerDebug.txt" />
+     <None Include="Assets\New Shadders\DefaultResources\Camera-DepthTexture.shader" />
+     <None Include="Assets\New Shadders\DefaultResourcesExtra\Mobile\Mobile-Particle-Alpha-VertexLit.shader" />
+     <None Include="Assets\SaveGames\save.xml" />
+     <None Include="Assets\New Shadders\DefaultResourcesExtra\Nature\TreeCreator\TreeCreatorLeaves.shader" />
+     <None Include="Assets\Presets\Weapons\Torpedoes\Space Shooter\Info.txt" />
+     <None Include="Assets\New Shadders\DefaultResourcesExtra\Alpha-VertexLit.shader" />
+     <None Include="Assets\New Shadders\DefaultResourcesExtra\uGUI\GUI-Lit-Bumped.shader" />
+     <None Include="Assets\New Shadders\CGIncludes\Lighting.cginc" />
+     <None Include="Assets\New Shadders\DefaultResourcesExtra\Lightmap-Glossy.shader" />
+     <None Include="Assets\Lightbeam\Documentation\Readme.txt" />
+     <None Include="Assets\New Shadders\DefaultResourcesExtra\Normal-Bumped.shader" />
+     <None Include="Assets\New Shadders\DefaultResourcesExtra\Nature\TreeCreator\TreeCreatorLeavesOptimized.shader" />
+     <None Include="Assets\New Shadders\DefaultResourcesExtra\Nature\Terrain\TerrBumpAddPass.shader" />
+     <None Include="Assets\New Shadders\DefaultResourcesExtra\Unlit\Unlit-Normal.shader" />
+     <None Include="Assets\New Shadders\DefaultResourcesExtra\Illumin-BumpSpec.shader" />
+     <None Include="Assets\New Shadders\DefaultResourcesExtra\Alpha-Diffuse.shader" />
+     <None Include="Assets\Universe\Space Shooter\Info.txt" />
+     <None Include="Assets\New Shadders\DefaultResourcesExtra\Normal-ParallaxSpec.shader" />
+     <None Include="Assets\New Shadders\DefaultResourcesExtra\uGUI\GUI-Unlit-Transparent.shader" />
+     <None Include="Assets\New Shadders\DefaultResourcesExtra\Nature\TreeCreator\TreeCreatorLeavesFast.shader" />
+     <None Include="Assets\New Shadders\DefaultResourcesExtra\Nature\TreeCreator\TreeCreatorBarkOptimized.shader" />
+     <None Include="Assets\New Shadders\DefaultResourcesExtra\uGUI\GUI-Lit-Detail.shader" />
+     <None Include="Assets\New Shadders\DefaultResourcesExtra\Mobile\Mobile-Particle-Alpha.shader" />
+     <None Include="Assets\Hard Surface Free\HardSurface Shaders\HardSurface Free Cut Out Bump.shader" />
+     <None Include="Assets\New Shadders\DefaultResourcesExtra\Normal-Parallax.shader" />
+     <None Include="Assets\Hard Surface Free\HardSurface Shaders\HardSurface Free Opaque Specular.shader" />
+     <None Include="Assets\New Shadders\DefaultResourcesExtra\AlphaTest-VertexLit.shader" />
+     <None Include="Assets\New Shadders\DefaultResourcesExtra\Particle Premultiply Blend.shader" />
+     <None Include="Assets\New Shadders\DefaultResourcesExtra\Normal-DiffuseFast.shader" />
+     <None Include="Assets\Hard Surface Free\HardSurface Shaders\HardSurfacePro Hidden Front Opaque Specular.shader" />
+     <None Include="Assets\Hard Surface Free\HardSurface Shaders\HardSurface SFX Depth Write Only.shader" />
+     <None Include="Assets\New Shadders\DefaultResourcesExtra\Illumin-ParallaxSpec.shader" />
+     <None Include="Assets\New Shadders\DefaultResourcesExtra\Nature\TreeCreator\TreeVertexLit.cginc" />
+     <None Include="Assets\New Shadders\CGIncludes\HLSLSupport.cginc" />
+     <None Include="Assets\Scripts\shaders\EmissionShader.shader" />
+     <None Include="Assets\Scripts\shaders\PlanetShadder.shader" />
+     <None Include="Assets\New Shadders\DefaultResourcesExtra\Normal-BumpSpec.shader" />
+     <None Include="Assets\New Shadders\DefaultResourcesExtra\TerrainShaders\Details\WavingGrass.shader" />
+ <Reference Include="UnityEngine.UI">
+ <HintPath>C:/Program Files (x86)/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/4.6.0/UnityEngine.UI.dll</HintPath>
+ </Reference>
+ <Reference Include="Newtonsoft.Json">
+ <HintPath>C:/BM3/Assets/Standard Assets/JsonNet/Newtonsoft.Json.dll</HintPath>
+ </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
@@ -291,4 +291,5 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  
 </Project>

@@ -1,0 +1,90 @@
+
+newmtl Material.000001
+Ka 0.588235 0.588235 0.588235
+Kd 1 1 1
+Ks 0.898039 0.898039 0.898039
+d 1
+Ns 0.1
+map_Kd galor1_glow.tga
+
+
+newmtl Material.000326
+Ka 0.588235 0.588235 0.588235
+Kd 1 1 1
+Ks 0.898039 0.898039 0.898039
+d 1
+Ns 0.1
+map_Kd galor4_glow.tga
+
+
+newmtl Material.000479
+Ka 0.588235 0.588235 0.588235
+Kd 1 1 1
+Ks 0.898039 0.898039 0.898039
+d 1
+Ns 0.1
+map_Kd galor3_glow.tga
+
+
+newmtl Material.0005c3
+Ka 0.588235 0.588235 0.588235
+Kd 1 1 1
+Ks 0.898039 0.898039 0.898039
+d 1
+Ns 0.1
+map_Kd galor2_glow.tga
+
+
+newmtl Material.0008bf
+Ka 0.588235 0.588235 0.588235
+Kd 1 1 1
+Ks 0.898039 0.898039 0.898039
+d 1
+Ns 0.1
+map_Kd galor4_glow.tga
+
+
+newmtl Material.000918
+Ka 0.588235 0.588235 0.588235
+Kd 1 1 1
+Ks 0.898039 0.898039 0.898039
+d 1
+Ns 0.1
+map_Kd galor2_glow.tga
+
+
+newmtl Material.000b6a
+Ka 0.588235 0.588235 0.588235
+Kd 1 1 1
+Ks 0.898039 0.898039 0.898039
+d 1
+Ns 0.1
+map_Kd galor1_glow.tga
+
+
+newmtl Material.000e92
+Ka 0.588235 0.588235 0.588235
+Kd 1 1 1
+Ks 0.898039 0.898039 0.898039
+d 1
+Ns 0.1
+map_Kd galor4_glow.tga
+
+
+newmtl Material.000fe3
+Ka 0.588235 0.588235 0.588235
+Kd 1 1 1
+Ks 0.898039 0.898039 0.898039
+d 1
+Ns 0.1
+map_Kd galor3_glow.tga
+
+
+newmtl Material.0010c5
+Ka 0.588235 0.588235 0.588235
+Kd 1 1 1
+Ks 0.898039 0.898039 0.898039
+d 1
+Ns 0.1
+map_Kd galor2_glow.tga
+

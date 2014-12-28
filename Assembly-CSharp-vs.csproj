@@ -178,6 +178,7 @@
      <None Include="Assets\Hard Surface Free\HardSurface Shaders\HardSurfacePro Hidden Front Cut Out Opaque Specular.shader" />
      <None Include="Assets\Standard Assets\AlphaSelfIllum.shader.shader" />
      <None Include="Assets\Scripts\shaders\atm_scat.shader" />
+     <None Include="Assets\Models\Ships\Cardassian\Galor\readme.txt" />
      <None Include="Assets\Hard Surface Free\HardSurface Shaders\HardSurface Free Opaque Bump.shader" />
      <None Include="Assets\Standard Assets\SpaceUnity\Shaders\PlanetSelfIllum.shader" />
      <None Include="Assets\New Shadders\DefaultResourcesExtra\Alpha-Glossy.shader" />

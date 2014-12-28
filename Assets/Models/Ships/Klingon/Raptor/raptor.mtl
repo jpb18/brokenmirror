@@ -1,0 +1,27 @@
+
+newmtl Material.000001
+Ka 0.588235 0.588235 0.588235
+Kd 1 1 1
+Ks 0.898039 0.898039 0.898039
+d 1
+Ns 0.8
+map_Kd raptor03_glow.tga
+
+
+newmtl Material.0014e4
+Ka 0.588235 0.588235 0.588235
+Kd 1 1 1
+Ks 0.898039 0.898039 0.898039
+d 1
+Ns 0.8
+map_Kd raptor01_glow.tga
+
+
+newmtl Material.002181
+Ka 0.588235 0.588235 0.588235
+Kd 1 1 1
+Ks 0.898039 0.898039 0.898039
+d 1
+Ns 0.8
+map_Kd raptor02_glow.tga
+
