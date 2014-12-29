@@ -46,6 +46,7 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Editor\ShipBuilder.cs" />
      <Compile Include="Assets\Hard Surface Free\Editor\Reset Fresnel Reflection Value.cs" />
      <Compile Include="Assets\Lightbeam\Scripts\Editor\LightbeamEditor.cs" />
      <None Include="Assets\Standard Assets\Projectors\Guidelines.txt" />
