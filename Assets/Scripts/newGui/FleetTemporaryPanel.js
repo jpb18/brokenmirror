@@ -49,13 +49,16 @@ public static final var FREE = "Unassigned";
 
 private var save : SaveGame;
 private var map : MapInfo;
+private var merchant : MerchantInfo;
 
 function Start () {
 	initFleet();
 }
 
 function initFleet() {
-	save = GameObject.FindGameObjectWithTag("SaveGame").GetComponent(SaveGame);
+	var saveGo : GameObject = GameObject.FindGameObjectWithTag("SaveGame");
+	save = saveGo.GetComponent(SaveGame);
+	merchant = saveGo.GetComponent.<MerchantInfo>();
 	map = GameObject.FindGameObjectWithTag("MapInfo").GetComponent(MapInfo);
 	
 	changeText = "";
@@ -284,6 +287,8 @@ function setDefence(ship : GameObject) {
 function setMerchant(ship : GameObject) {
 	var mission : IMissionable = ship.GetComponent(typeof(IMissionable)) as IMissionable;
 	mission.setMerchant();
+	var s : SaveShip = new SaveShip(ship);
+	this.merchant.AddShip(s);	
 }
 
 

@@ -148,6 +148,17 @@ function leaderFunction () {
 
 }
 
+function hasLeader() : boolean {
+	return this.leader;
+}
+
+function isDefence() : boolean {
+	return this.defence;
+}
+
+function isMerchant() : boolean {
+	return this.merchant;
+}
 
 function merchantFunction () {
 	var stations : GameObject[] = GameObject.FindGameObjectsWithTag("Station");

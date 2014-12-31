@@ -329,6 +329,15 @@ class SaveShip extends System.Object{
 	
 	}
 	
+	function Equals(ship : SaveShip) {
+		
+		if(this.shipInfo.Name != ship.shipInfo.Name) return false;
+		
+		if(this.shipPrefab != ship.shipPrefab) return false;
+		
+		return true;
+		
+	}
 
 	
 }

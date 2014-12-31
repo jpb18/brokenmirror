@@ -5,9 +5,15 @@ var maximumCombat : int = 10;
 
 var destroyProbability : float;
 var aquisitionProbability : float = 1f;
+var tradeProbability : float = 1f;
 
 var averagePopulationLoss : float = 1f;
 var populationLossPeriod : float = 100f;
+
+var minimumTradeProfit : int = 10;
+var maximumTradeProfit : int = 500;
+
+
 
 private var map : MapInfo;
 private var general : GeneralInfo;
@@ -16,6 +22,7 @@ private var carry : SceneTransferCarry;
 private var inventory : Inventory;
 private var save : SaveGame;
 private var stardate : Stardate;
+private var merchant : MerchantInfo;
 //TODO: Add current date to messages
 
 function Start () {
@@ -27,6 +34,8 @@ function Start () {
 	inventory = saveGo.GetComponent(Inventory);
 	stardate = saveGo.GetComponent(Stardate);
 	save = saveGo.GetComponent(SaveGame);
+	merchant = saveGo.GetComponent.<MerchantInfo>();
+	merchant.ResetChosen();
 	map = GameObject.FindGameObjectWithTag("MapInfo").GetComponent(MapInfo);
 	
 	var time : int = carry.getTime();
@@ -121,7 +130,7 @@ function generateGalacticEvents(days : int) {
 	for(var x : int = 0; x < days; x++) {
 		if(probability >= Random.value) {
 			date = stardate.getFutureDate(x);
-			var pick : int = Random.Range(1, 4);
+			var pick : int = Random.Range(1, 5);
 			switch(pick) {
 				case 1:
 					generateInvasion(date);
@@ -131,6 +140,9 @@ function generateGalacticEvents(days : int) {
 					break;
 				case 3:
 					generateShipAcquisition(date);
+					break;
+				case 4:
+					GenerateTradeProfit(date);	
 					break;
 				default:
 					Debug.Log("Invalid value: " + pick);
@@ -219,6 +231,44 @@ private function generateShipAcquisition(date : float) {
 		}
 	}
 }
+
+private function GenerateTradeProfit(date : float) {
+	
+	//Debug.Log("Generating Profit...");
+	
+	if(merchant.HasTradeShips() && Random.value <= this.tradeProbability) {
+			//first pick a trade ship from the player faction
+			var ship : SaveShip = merchant.ChooseRandomShip(0);
+			if(!ship) {
+				//Debug.Log("Couldn't find ship. Aborting.");
+				return; //if it doesn't find one, return
+			} 
+			
+			
+			//Debug.Log("Acquired trade ship... Starting transaction...");
+			
+			//next pick a planet
+			var planet : PlanetInfo = pickRandomPlanet();
+			
+			//now generate a value
+			var profit : int = Random.Range(this.minimumTradeProfit, this.maximumTradeProfit);
+			
+			//now lets add the profit to the player bank account
+			inventory.addLatinum(profit);
+			
+			//prepare the message
+			var prefix : String = general.getFactionInfo(0).prefix;
+			var shipName : String = prefix + " " + ship.getName(); 	
+			
+			//and now send it
+			scene.AddFleetTrade(planet.name, shipName, profit, date);
+			
+			//Debug.Log("Transaction finished.");
+			
+	}
+
+}
+
 
 
 private function pickRandomPlanet() : PlanetInfo {

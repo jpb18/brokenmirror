@@ -24,6 +24,7 @@ private var general : GeneralInfo;
 private var music : PlaybackScript;
 private var hud : HUDStatus;
 private var load : LoadScene;
+private var merchant : MerchantInfo;
 
 var invasion : boolean = true;
 private var isInvasion : boolean = false;
@@ -63,6 +64,7 @@ function Start () {
 	load = GameObject.FindGameObjectWithTag("LoadScene").GetComponent(LoadScene);
 	save_scr.start = this;
 	hud.show();
+	merchant = GameObject.FindGameObjectWithTag("SaveGame").GetComponent.<MerchantInfo>();
 
 	playerStart();
 	spawnDefenseFleet();
@@ -408,7 +410,7 @@ function spawnMerchants() {
 
 function createMerchant() : GameObject {
 	var position : Vector3 = getSpawnCoordinates();
-	var prefab : GameObject = general.getRandomMerchantShip();
+	var prefab : GameObject = merchant.GetRandomMerchantShip();
 	
 	var ship : GameObject = Instantiate(prefab, position, new Quaternion());
 	ship.transform.LookAt(transform.position);

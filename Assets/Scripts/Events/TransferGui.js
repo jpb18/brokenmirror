@@ -6,6 +6,7 @@ var eventsBackgroundRect : Rect;
 var eventsLabelRect : Rect;
 var continueButtonRect : Rect;
 
+
 var tipMainRect : Rect;
 var tipRect : Rect;
 

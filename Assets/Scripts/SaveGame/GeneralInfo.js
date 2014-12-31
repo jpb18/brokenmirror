@@ -214,7 +214,7 @@ enum Dificulty {
 
 var playerInfo : PlayerInfo;
 var factionInfo : List.<FactionInfo>;
-var merchantFleet : GameObject[];
+
 
 function getFactionInfo(faction : int) : FactionInfo {
 
@@ -310,7 +310,5 @@ function isFactionAllies(faction1 : int, faction2 : int) : boolean {
 	return faction.isAllied(faction2);
 }
 
-function getRandomMerchantShip() : GameObject {
-	return merchantFleet[Random.value * (merchantFleet.Length -1)];
-}
+
 

@@ -124,6 +124,7 @@
      <Compile Include="Assets\Scripts\Load\StartSceneStart.js" />
      <Compile Include="Assets\Scripts\Load\dontDestroy.js" />
      <Compile Include="Assets\Scripts\Load\sceneSwapper.js" />
+     <Compile Include="Assets\Scripts\Merchant\MerchantInfo.js" />
      <Compile Include="Assets\Scripts\Missions\Cargo.js" />
      <Compile Include="Assets\Scripts\Missions\CargoItem.js" />
      <Compile Include="Assets\Scripts\Missions\CombatMission.js" />

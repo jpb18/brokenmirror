@@ -12,6 +12,7 @@ public static final var POPULATION_REDUCTION : String = "Stardate {0:0.0}: {1} h
 public static final var PLANET_DESERTED : String = "Stardate {0:0.0}: {1} is now uninhabited.\n";
 public static final var STATION_FINISHED : String = "Stardate {0:0.0}: {1} has finished construction at {2}.\n";
 public static final var STATION_ACQUIRED : String = "Stardate {0:0.0}: {1} begun construction of a {2} at {3}.\n";
+public static final var TRADE_FLEET : String = "Stardate {0:0.0}: Your ship {1} has profited {2} GPL at {3}.\n";
 
 function addInvasion(target : PlanetInfo, attacker : FactionInfo, originalStrenght : int, date : float) {
 	var message : String = String.Format(INVASION, date, target.name, attacker.getName());
@@ -69,5 +70,10 @@ function addStationFinished(planet : PlanetInfo, station : String, date : float)
 
 function addStationAcquisition(planet : PlanetInfo, faction : FactionInfo, station : String, date : float) {
 	var message : String = String.Format(STATION_ACQUIRED, date, faction.factionName, station, planet.name);
+	messages.Add(message);
+}
+
+function AddFleetTrade(planet : String, ship : String, profit : int, date : float) {
+	var message : String = String.Format(TRADE_FLEET, date, ship, profit, planet);
 	messages.Add(message);
 }
