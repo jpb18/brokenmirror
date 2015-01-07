@@ -13,7 +13,7 @@ public class InventoryPanel extends FloatingWindow {
 	var info : InfoPanel;
 	var fleetDisplay : FleetDisplay;
 	var weapons : WeaponsPanel;
-
+	var context : Context;
 	var skin : GUISkin;
 
 	//handle time
@@ -56,6 +56,7 @@ public class InventoryPanel extends FloatingWindow {
 		info.Set(this);
 		weapons.Set(this, inventory, skin);
 		fleetDisplay.Set(this);
+		context.Set(inventory, weapons);
 	}
 
 	function Update() {
@@ -74,6 +75,7 @@ public class InventoryPanel extends FloatingWindow {
 		
 		if(super.on && super.hud.isShowingGui()) {
 			drawWindow();
+			
 		}
 		items.clear();
 
@@ -93,6 +95,7 @@ public class InventoryPanel extends FloatingWindow {
 		drawMouseOver();
 		drawFleet();
 		drawWeapons();
+		drawContext();
 		super.drag();
 				
 	}
@@ -152,6 +155,18 @@ public class InventoryPanel extends FloatingWindow {
 		classe = ship.GetComponent(typeof(IClasseable)) as IClasseable;
 		weapons.SetShip(ship);
 	}
+	
+	private function drawContext() {
+		
+		var obj : Object = items.GetRightClick();
+		if(obj) {
+			var ship : GameObject = fleetDisplay.getSelected();		
+			context.Open(obj, Event.current.mousePosition, ship);
+		}
+		
+		context.Draw();
+	
+	}
 
 	function setSceneStart(script : SceneStart) {
 		this.sceneStart = script;
@@ -159,6 +174,12 @@ public class InventoryPanel extends FloatingWindow {
 
 	private function drawWeapons() {
 		weapons.Draw();
+	}
+	
+	private function InvertCoordinates(pos : Vector3) : Vector2 {
+		var x : int = pos.x; 
+		var y : int = Screen.height - pos.y;
+		return new Vector2(x, y);
 	}
 
 }

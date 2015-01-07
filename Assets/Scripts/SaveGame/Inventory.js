@@ -18,8 +18,7 @@ var deuranium : int = 15000;
 
 
 function addItem(item : GameObject) {
-	
-	
+
 		items.Add(item);
 		
 }

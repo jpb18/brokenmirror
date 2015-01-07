@@ -19,6 +19,7 @@ public class AvailableItemsPanel {
 	
 	private var parent : InventoryPanel;
 	private var mouseOver : Object;
+	private var rightClick : Object;
 	
 	function Set(parent : InventoryPanel) {
 		this.parent = parent;
@@ -41,6 +42,12 @@ public class AvailableItemsPanel {
 	function getMouseOver() : Object {
 		
 		return mouseOver;
+	}
+	
+	function GetRightClick() : Object {
+		var tmp : Object = this.rightClick;
+		this.rightClick = null;
+		return tmp;
 	}
 	
 	function clear() {
@@ -70,6 +77,12 @@ public class AvailableItemsPanel {
 							
 							if(resizedRect.Contains(Event.current.mousePosition)) {
 								mouseOver = obj;
+								
+								if(Input.GetMouseButtonDown(1)) { //process left click
+									//Debug.Log("RIGHT CLICK! :D");
+									rightClick = obj;
+								}
+								
 							}
 							
 						}

@@ -1,16 +1,17 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Merchant\MerchantInfo.js">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\newGui\InventoryPanel\PhaserContext.js">
     <Files>
-      <File FileName="Assets\Scripts\Merchant\MerchantInfo.js" Line="36" Column="32" />
-      <File FileName="Assets\Scripts\newGui\FleetTemporaryPanel.js" Line="291" Column="27" />
-      <File FileName="Assets\Scripts\SaveGame\GeneralInfo.js" Line="33" Column="12" />
-      <File FileName="Assets\Scripts\SaveGame\SaveGame.js" Line="338" Column="15" />
-      <File FileName="Assets\Scripts\Load\SceneStart.js" Line="413" Column="38" />
-      <File FileName="Assets\Scripts\Events\SceneTransfer.js" Line="76" Column="49" />
-      <File FileName="Assets\Scripts\Events\EventGenerator.js" Line="238" Column="51" />
-      <File FileName="Assets\Scripts\SaveGame\Inventory.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\SaveGame\PlanetInfo.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\SaveGame\Inventory.js" Line="21" Column="1" />
+      <File FileName="Assets\Scripts\newGui\InventoryPanel\AvailableItemsPanel.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\newGui\InventoryPanel\InventoryPanel.js" Line="164" Column="55" />
+      <File FileName="Assets\Scripts\newGui\InventoryPanel\ContextPanel.js" Line="39" Column="20" />
+      <File FileName="Assets\Scripts\newGui\InventoryPanel\WeaponContext.js" Line="18" Column="31" />
+      <File FileName="Assets\Scripts\newGui\InventoryPanel\PhaserContext.js" Line="40" Column="19" />
+      <File FileName="Assets\Scripts\newGui\InventoryPanel\Context.js" Line="38" Column="83" />
+      <File FileName="Assets\Scripts\newGui\InventoryPanel\FleetDisplay.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\newGui\NewHUD\RadarObject.js" Line="151" Column="1" />
+      <File FileName="Assets\Scripts\newGui\NewHUD\HUDBottom.js" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

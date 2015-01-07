@@ -140,7 +140,14 @@ public class WeaponsPanel extends Object {
 		GUI.Button(rect, "", style);
 	}
 	
-
+	function UpdateWeapons() {
+		weapons[0] = weapon.getPhaser();
+		weapons[1] = weapon.getForwardTorpedo();
+		weapons[2] = weapon.getBackwardTorpedo();
+		enabled[0] = weapon.isPhaserEnabled();
+		enabled[1] = weapon.isForwardTorpedoEnabled();
+		enabled[2] = weapon.isBackwardTorpedoEnabled();
+	}
 
 
 }
