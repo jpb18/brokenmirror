@@ -50,8 +50,9 @@ public class ContextPanel extends Object {
 	
 	protected function CheckOutsideClosure() {
 		if(!TimeElapsed()) return;		
-		var e : Event = Event.current;
+			
 		
+		var e : Event = Event.current;
 		var mouseClick : boolean = 	Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1);	
 		var contains : boolean = !rect.Contains(e.mousePosition);						
 		if(mouseClick && contains) {

@@ -23,6 +23,9 @@ public class WeaponsPanel extends Object {
 	private var actives : List.<Active>;
 	//mouse over
 	private var mouseOver : GameObject;
+	//left click
+	private var rightClick : GameObject;
+	private var lastRightClick : float;	
 	//parent script
 	private var parent : InventoryPanel;
 	//hud skin
@@ -32,11 +35,13 @@ public class WeaponsPanel extends Object {
 	private static final var ACTIVE_START : int = 3;
 	private static final var ACTIVE_COUNT : int = 5;
 	private static final var BUTTON_STYLE : String = "WeaponsInventoryButton";
+	private static final var TIME : float = 0.1f;
 	
 	function Set(parent : InventoryPanel, inventory : Inventory, skin : GUISkin) {
 		this.parent = parent;
 		this.skin = skin;
 		this.style = skin.GetStyle(BUTTON_STYLE);
+		lastRightClick = 0f;
 	}
 	
 	function SetShip(ship : GameObject) {
@@ -89,6 +94,13 @@ public class WeaponsPanel extends Object {
 					//Debug.Log(rect + " : " + mouse);
 					if(rect.Contains(mouse)) {
 						mouseOver = weapons[i];
+						
+						//do right click
+						if(Input.GetMouseButtonDown(1) && Time.time > TIME + lastRightClick) {
+							lastRightClick = Time.time;
+							rightClick = weapons[i];
+						}
+						
 					}
 				
 					if(DrawButton(weapons[i], rect, style)) {
@@ -147,6 +159,12 @@ public class WeaponsPanel extends Object {
 		enabled[0] = weapon.isPhaserEnabled();
 		enabled[1] = weapon.isForwardTorpedoEnabled();
 		enabled[2] = weapon.isBackwardTorpedoEnabled();
+	}
+	
+	function GetRightClick() : GameObject {
+		var tmp : GameObject = rightClick;
+		rightClick = null;
+		return tmp;	
 	}
 
 

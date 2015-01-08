@@ -2,20 +2,29 @@
 
 public class PhaserContext extends WeaponContext {
 
-	private var phaser : Phaser;
+	protected var phaser : Phaser;
 
 	public static final var COUNT : int = 2;
 
 	function PhaserContext(rect : Rect, skin : GUISkin, phaser : GameObject, open : float, ship : GameObject, inventory : Inventory, weapons : WeaponsPanel) {
-		super(rect, COUNT, skin, phaser, open, ship, inventory, weapons);
+		this(rect, COUNT, skin, phaser, open, ship, inventory, weapons);
+				
+	}
+	
+	function PhaserContext(rect : Rect, itemCount : int, skin : GUISkin, phaser : GameObject, open : float, ship : GameObject, inventory : Inventory, weapons : WeaponsPanel) {
+		super(rect, itemCount, skin, phaser, open, ship, inventory, weapons);
 		
 		this.phaser = super.weapons.phaser;
 		
 	}
+	
+	
 
 	function Draw() {
 		//first check if its on
 		if(!super.on) return;
+	
+		super.CheckOutsideClosure();
 	
 		//first draw area
 		//Statics.DrawDebugRect(super.rect, Color.red);
@@ -35,15 +44,11 @@ public class PhaserContext extends WeaponContext {
 				super.Close();
 				
 			}
-			
-			if(GUILayout.Button("Close")) {
-				super.Close();
-			}
-			
+					
 		GUILayout.EndArea();
 		
-		//now a  bit of closing logic
-		//super.CheckOutsideClosure();	
+		
+			
 					
 	}
 	
@@ -52,16 +57,16 @@ public class PhaserContext extends WeaponContext {
 		//if there's put it into the inventory
 		if(phaser.phaser) {
 			super.inventory.addItem(phaser.phaser);
-			Debug.Log("Placed " + phaser.phaser.name + " in inventory");
+			//Debug.Log("Placed " + phaser.phaser.name + " in inventory");
 		}
 		
 		//now we remove the weapon we're going to add from the inventory...
 		super.inventory.removeItem(super.weapon);
-		Debug.Log("Removed " + super.weapon.name + " from inventory");
+		//Debug.Log("Removed " + super.weapon.name + " from inventory");
 		
 		//and now we place it into the slot
 		phaser.phaser = super.weapon;
-		Debug.Log("Placed " + super.weapon.name + " in weapon slot");
+		//Debug.Log("Placed " + super.weapon.name + " in weapon slot");
 		
 		super.weaponsPanel.UpdateWeapons();
 	

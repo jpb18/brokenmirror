@@ -159,9 +159,15 @@ public class InventoryPanel extends FloatingWindow {
 	private function drawContext() {
 		
 		var obj : Object = items.GetRightClick();
-		if(obj) {
-			var ship : GameObject = fleetDisplay.getSelected();		
-			context.Open(obj, Event.current.mousePosition, ship);
+		var ship : GameObject = fleetDisplay.getSelected();
+		if(obj) {	
+			context.OpenInventory(obj, Event.current.mousePosition, ship);
+		}
+		
+		var go : GameObject = weapons.GetRightClick();
+		if(!obj && go) {
+			//Debug.Log("Going to slot context menu with " + go.name);		
+			context.OpenSlot(go as Object, Event.current.mousePosition, ship);
 		}
 		
 		context.Draw();

@@ -88,13 +88,17 @@ class HUDWeapons extends HUDBottom {
 	}
 	
 	function drawWeaponButton(phaser : Phaser, rect : Rect) {
-		if(phaser.isEnabled && phaser.phaser) {
-				var texture : Texture = getPhaserTexture(phaser);
-				if(GUI.Button(rect, texture, skin.button)) {
-					firePhaser(phaser);
-				}
-						
+		
+		
+		if(!phaser.isEnabled || !phaser.phaser) return;
+		
+		
+		var texture : Texture = getPhaserTexture(phaser);
+		if(GUI.Button(rect, texture, skin.button)) {
+			firePhaser(phaser);
 		}
+						
+	
 		
 		if(phaser.getNextShot(upgrades) > Time.time) {
 			//Calculate size

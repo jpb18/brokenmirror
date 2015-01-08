@@ -1,17 +1,19 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\newGui\InventoryPanel\PhaserContext.js">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\newGui\InventoryPanel\ContextPanels\TorpedoContext.js">
     <Files>
-      <File FileName="Assets\Scripts\SaveGame\Inventory.js" Line="21" Column="1" />
-      <File FileName="Assets\Scripts\newGui\InventoryPanel\AvailableItemsPanel.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\newGui\InventoryPanel\InventoryPanel.js" Line="164" Column="55" />
-      <File FileName="Assets\Scripts\newGui\InventoryPanel\ContextPanel.js" Line="39" Column="20" />
-      <File FileName="Assets\Scripts\newGui\InventoryPanel\WeaponContext.js" Line="18" Column="31" />
-      <File FileName="Assets\Scripts\newGui\InventoryPanel\PhaserContext.js" Line="40" Column="19" />
-      <File FileName="Assets\Scripts\newGui\InventoryPanel\Context.js" Line="38" Column="83" />
-      <File FileName="Assets\Scripts\newGui\InventoryPanel\FleetDisplay.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\newGui\NewHUD\RadarObject.js" Line="151" Column="1" />
-      <File FileName="Assets\Scripts\newGui\NewHUD\HUDBottom.js" Line="1" Column="1" />
+      <File FileName="Assets\Load\changelog.txt" Line="11" Column="39" />
+      <File FileName="Assets\Scripts\newGui\InventoryPanel\ContextPanels\PhaserSlotContext.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\SaveGame\Inventory.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\ship\shipWeapons.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\SaveGame\GeneralInfo.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\newGui\InventoryPanel\Context.js" Line="70" Column="4" />
+      <File FileName="Assets\Scripts\newGui\InventoryPanel\ContextPanels\PhaserContext.js" Line="11" Column="3" />
+      <File FileName="Assets\Scripts\newGui\InventoryPanel\ContextPanels\WeaponContext.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\newGui\InventoryPanel\WeaponsPanel.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\newGui\InventoryPanel\ContextPanels\ContextPanel.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\newGui\InventoryPanel\ContextPanels\TorpedoContext.js" Line="5" Column="10" />
+      <File FileName="Assets\Scripts\newGui\InventoryPanel\InventoryPanel.js" Line="167" Column="49" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

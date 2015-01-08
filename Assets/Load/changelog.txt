@@ -7,6 +7,8 @@ Version 0.2.4
 ADDED:
 - Free floating camera.
 - Merchant ships.
+- Merchant ship warp AI
+- Added the Raptor and the Galor class
 
 WIP:
 - Inventory menu.
