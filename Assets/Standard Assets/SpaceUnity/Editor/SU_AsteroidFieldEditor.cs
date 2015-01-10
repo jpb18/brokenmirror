@@ -17,6 +17,7 @@
 // 1.02 - Prefixed with SU_AsteroidFieldEditor to avoid naming conflicts.
 // 0.8 - Initial Release.
 
+#if UNITY_EDITOR
 using UnityEditor;
 using UnityEngine;
 
@@ -250,3 +251,5 @@ public class SU_AsteroidFieldEditor : Editor {
 		EditorGUI.indentLevel = 0;
     }	
 }
+
+#endif

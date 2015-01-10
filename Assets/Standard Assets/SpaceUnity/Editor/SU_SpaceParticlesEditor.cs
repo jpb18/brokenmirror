@@ -17,6 +17,7 @@
 // 1.02 - Prefixed with SU_SpaceParticles to avoid naming conflicts.
 // 0.8 - Initial Release.
 
+#if UNITY_EDITOR
 using UnityEditor;
 using UnityEngine;
 
@@ -141,3 +142,4 @@ public class SU_SpaceParticlesEditor : Editor {
 		EditorGUI.indentLevel = 0;
     }	
 }
+#endif

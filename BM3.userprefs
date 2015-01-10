@@ -1,19 +1,10 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\newGui\InventoryPanel\ContextPanels\TorpedoContext.js">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Load\LoadNames.js">
     <Files>
-      <File FileName="Assets\Load\changelog.txt" Line="11" Column="39" />
-      <File FileName="Assets\Scripts\newGui\InventoryPanel\ContextPanels\PhaserSlotContext.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\SaveGame\Inventory.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\ship\shipWeapons.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\SaveGame\GeneralInfo.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\newGui\InventoryPanel\Context.js" Line="70" Column="4" />
-      <File FileName="Assets\Scripts\newGui\InventoryPanel\ContextPanels\PhaserContext.js" Line="11" Column="3" />
-      <File FileName="Assets\Scripts\newGui\InventoryPanel\ContextPanels\WeaponContext.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\newGui\InventoryPanel\WeaponsPanel.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\newGui\InventoryPanel\ContextPanels\ContextPanel.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\newGui\InventoryPanel\ContextPanels\TorpedoContext.js" Line="5" Column="10" />
-      <File FileName="Assets\Scripts\newGui\InventoryPanel\InventoryPanel.js" Line="167" Column="49" />
+      <File FileName="Assets\Standard Assets\SpaceUnity\Editor\SU_AsteroidFieldEditor.cs" Line="240" Column="2" />
+      <File FileName="Assets\Standard Assets\SpaceUnity\Editor\SU_SpaceParticlesEditor.cs" Line="132" Column="42" />
+      <File FileName="Assets\Scripts\Load\LoadNames.js" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

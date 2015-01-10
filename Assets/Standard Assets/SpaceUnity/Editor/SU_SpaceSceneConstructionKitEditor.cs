@@ -16,6 +16,8 @@
 // 1.02 - Prefixed with SU_SpaceSceneConstructionKitEditor to avoid naming conflicts.
 // 0.8 - Initial Release.
 
+
+#if UNITY_EDITOR
 using UnityEngine;
 using UnityEditor;
 using System;
@@ -1296,3 +1298,4 @@ public class SU_SpaceSceneConstructionKitEditor : EditorWindow {
 		return false;
 	}
 }
+#endif
