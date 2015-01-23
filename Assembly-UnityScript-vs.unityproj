@@ -212,6 +212,7 @@
      <Compile Include="Assets\Scripts\newGui\NewHUD\AlertMode.js" />
      <Compile Include="Assets\Scripts\newGui\NewHUD\AlertWarning.js" />
      <Compile Include="Assets\Scripts\newGui\NewHUD\ExtendClass.js" />
+     <Compile Include="Assets\Scripts\newGui\NewHUD\HUDBalance.js" />
      <Compile Include="Assets\Scripts\newGui\NewHUD\HUDBottom.js" />
      <Compile Include="Assets\Scripts\newGui\NewHUD\HUDComm.js" />
      <Compile Include="Assets\Scripts\newGui\NewHUD\HUDElement.js" />

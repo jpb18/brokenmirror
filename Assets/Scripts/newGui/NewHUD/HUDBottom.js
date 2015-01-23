@@ -32,9 +32,7 @@ class HUDBottom extends HUDElement {
 		}
 
 		var newSize : int;
-		
 		newSize = (FullSize * CurValue)/MaxValue;
-		
 		return newSize;
 		
 
