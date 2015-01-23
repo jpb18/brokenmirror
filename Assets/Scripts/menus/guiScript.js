@@ -12,24 +12,24 @@ class GuiAreas {
 	
 }
 
-//Areas
-var BotGui : GuiAreas;
-var HelmModule : GuiAreas;
-var HealthModule : GuiAreas;
-var WeaponModule : GuiAreas;
-var TorpedoModule : Rect;
-
-var TopGui : Rect;
-var TargetModule : Rect;
-
-//Gui Elements
-var isExpanded : boolean = false; //checks if some elements on the target are expanded
-
-//Skin
-var HudSkin : GUISkin;
-
-//global elements
-var yellowOver : Texture;
+////Areas
+//var BotGui : GuiAreas;
+//var HelmModule : GuiAreas;
+//var HealthModule : GuiAreas;
+//var WeaponModule : GuiAreas;
+//var TorpedoModule : Rect;
+//
+//var TopGui : Rect;
+//var TargetModule : Rect;
+//
+////Gui Elements
+//var isExpanded : boolean = false; //checks if some elements on the target are expanded
+//
+////Skin
+//var HudSkin : GUISkin;
+//
+////global elements
+//var yellowOver : Texture;
 
 //helm
 class HelmGui {
@@ -929,571 +929,571 @@ class RedAlertGui {
 
 }
 
-//fixed
-var Helm : HelmGui;
-var health : HealthGui;
-var Weapon : WeaponGui;
-var Torpedo : TorpedoGui;
-var Target : TargetGui;
-
-//windows
-var commWindow : CommDialogue;
-
-//labels
-var radarLabel : RadarLabel;
-
-//redAlert
-var redAlert : RedAlertGui;
-
-//External Scripts
-var triggers : shipTriggers;
-var shipProps : shipProperties;
-var shipMov : shipMovement;
-var shipHea : shipHealth;
-var shipWeap : shipWeapons;
-var shipTar : shipTarget;
-var mapInfo : MapInfo;
-var loadScene : LoadScene;
-var general : GeneralInfo;
-var hud : HUDStatus;
-var message : ShowMessage;
-var missions : Missions;
-var upgrades : Upgrades;
-
-//main camara
-var mainCam : Camera;
-var camScript : MouseOrbit;
-
-
-function Start () {
-	message = GameObject.FindGameObjectWithTag("ShowMessage").GetComponent(ShowMessage);
-	missions = GameObject.FindGameObjectWithTag("Missions").GetComponent(Missions);
-	triggers = gameObject.GetComponent(shipTriggers);
-	general = GameObject.FindGameObjectWithTag("SaveGame").GetComponent(GeneralInfo);
-	shipProps = gameObject.GetComponent(shipProperties);
-	shipMov = gameObject.GetComponent(shipMovement);
-	shipHea = gameObject.GetComponent(shipHealth);
-	shipWeap = gameObject.GetComponent(shipWeapons);
-	shipTar = gameObject.GetComponent(shipTarget);
-	mapInfo = GameObject.FindGameObjectWithTag("MapInfo").GetComponent(MapInfo);
-	loadScene = GameObject.FindGameObjectWithTag("LoadScene").GetComponent(LoadScene);
-	hud = GameObject.FindGameObjectWithTag("GlobalInfo").GetComponent(HUDStatus);
-	upgrades = gameObject.GetComponent(Upgrades);
-	
-	//reset loadScene status
-	loadScene.show = false;
-	
-	//set radar label
-	radarLabel.Set(gameObject);
-	
-	//get main camera
-	mainCam = Camera.main;
-	camScript = mainCam.GetComponent(MouseOrbit);
-
-}
-
-function OnGUI () {
-
-	//if(hud.isShowingGui())	guiFunction();
-	
-
-}
-
-function guiFunction() {
-	//fixed gui stuff
-	if(shipProps.playerProps.isPlayer)
-	{
-		BotGUI();
-		TopGUI();
-	
-	} 
-	
-	//windows
-	//commWindow.DrawWindow();
-	
-	//non player labels
-	if(!shipProps.playerProps.isPlayer) 
-	{
-		if(camScript.target) {
-			var player : GameObject = camScript.target.gameObject;
-		
-		
-			var pos : Vector3 = mainCam.WorldToScreenPoint(transform.position);
-			if(pos.z > 0) {
-				radarLabel.Draw(pos, player, general);
-			}
-		}
-		
-	}
-}
-
-//Bottom GUI
-function BotGUI () {
-
-	GUILayout.BeginArea(Rect(Screen.width/2 - BotGui.x/2, Screen.height - BotGui.y, BotGui.width, BotGui.height));
-	
-		//helmModule();
-		//healthModule();
-		//weaponModule();
-		//torpedoModule();
-	
-	GUILayout.EndArea();
-
-
-}
-
-//Helm Module
-
-function helmModule () {
-
-	GUILayout.BeginArea(HelmModule.getRect());
-	
-		
-		Helm.Draw(shipMov, mapInfo, HudSkin, shipProps);
-		
-	
-	GUILayout.EndArea();
-
-}
-
-//Shows health
-
-function healthModule() {
-
-	GUILayout.BeginArea(Rect(HealthModule.x, HealthModule.y, HealthModule.width, HealthModule.height));
-	
-		//calculations
-		//get hull values
-		var maxHull : float = shipHea.shipHealth.getMaxHull(upgrades);
-		var curHull : float = shipHea.shipHealth.getHull(upgrades);
-		var percHull : float = ValueToPercentage(maxHull, curHull);
-		
-		
-		//get shield values
-		var maxShield : float = shipHea.shipHealth.getMaxShield(upgrades);
-		var curShield : float = shipHea.shipHealth.getShield(upgrades);
-		var percShield : float = ValueToPercentage(maxShield, curShield);
-	
-	
-		//Health Bars
-		//Hull Background
-		GUI.DrawTexture(Rect(health.hull_area.x, health.hull_area.y, health.hull_area.width, health.hull_area.height), health.hull_bg);
-		
-		//Calculate foreground transparency
-		var hullColor : Color = Color.white;
-		var hullAlpha : float = percHull/100;
-		hullColor.a = hullAlpha;
-					
-		GUI.color = hullColor; //sets transparency
-		
-		//Hull Foreground
-		GUI.DrawTexture(Rect(health.hull_fg_area.x, health.hull_fg_area.y, health.hull_fg_area.width, health.hull_fg_area.height), health.hull_fg);
-		
-		GUI.color = Color.white; //sets back to default
-	
-		//Shield Backgroound
-		GUI.DrawTexture(Rect(health.shield_area.x, health.shield_area.y, health.shield_area.width, health.shield_area.height), health.shield_bg);  
-		
-		//Calculate foreground transparency
-		var shieldColor : Color = Color.white;
-		var shieldAlpha : float = percShield/100;
-		shieldColor.a = shieldAlpha;
-		
-		GUI.color = shieldColor; //sets transparent
-		
-		//Shield Foreground
-		GUI.DrawTexture(Rect(health.shield_fg_area.x, health.shield_fg_area.y, health.shield_fg_area.width, health.shield_fg_area.height), health.shield_fg);
-		
-		GUI.color = Color.white; //sets default back
-		
-		//Health Orbs
-		//Draw Background
-		GUI.DrawTexture(Rect(health.orbs_area.x, health.orbs_area.y, health.orbs_area.width, health.orbs_area.height), health.orbs_img);
-		
-		
-	
-		//Write hull value
-		GUI.Label(Rect(health.hull_label_area.x, health.hull_label_area.y, health.hull_label_area.width, health.hull_label_area.height), Mathf.RoundToInt(percHull).ToString() + "%", HudSkin.label);
-	
-		//Write shield value
-		GUI.Label(Rect(health.shield_label_area.x, health.shield_label_area.y, health.shield_label_area.width, health.shield_label_area.height), Mathf.RoundToInt(percShield).ToString() + "%", HudSkin.GetStyle("ShieldLabel"));
-	
-	GUILayout.EndArea();
-
-
-}
-
-//Shows weapon gui module
-
-function weaponModule() {
-
-	GUILayout.BeginArea(Rect(WeaponModule.x, WeaponModule.y, WeaponModule.width, WeaponModule.height));
-	
-		//Draw Background
-		GUI.DrawTexture(Rect(Weapon.bg_area.x, Weapon.bg_area.y, Weapon.bg_area.width, Weapon.bg_area.height), Weapon.bg_image);
-	
-		//Draw Button background
-		
-		for(var y : int = 0; y < 8; y++) {
-		
-			GUI.DrawTexture(Weapon.weap_area[y], Weapon.empty_texture);
-		
-		}
-		
-		//Draw buttons
-		//first button - phaser
-		CreateWeapButton(shipWeap.phaser, HudSkin, Weapon.weap_area[0]);
-		
-		//second button - torpedo 1
-		CreateWeapButton(shipWeap.torp1, HudSkin, Weapon.weap_area[1]);
-		
-		//third button - torpedo 2
-		CreateWeapButton(shipWeap.torp2, HudSkin, Weapon.weap_area[2]);
-		
-		
-		
-	
-		
-		//Draw inventory button and check if its pressed
-		if(GUI.Button(Weapon.inv_area, Weapon.inv_img, HudSkin.button)) {
-		
-			//Open inventory window
-		
-		}
-		
-		//Draw beam down button and check if its pressed
-		if(GUI.Button(Weapon.cargo_area, Weapon.cargo_img, HudSkin.button)) {
-		
-			//first lets see if we're inside orbit range
-			if(!triggers.isOrbit()) {
-				message.AddMessage("Not in a planets orbit.");
-			} else {
-				missions.finishTradeMissionInSystem();
-			}
-		
-		}
-		
-		
-		
-	
-	
-	GUILayout.EndArea();
-
-}
-
-//torpedo module
-
-function torpedoModule() {
-	GUILayout.BeginArea(TorpedoModule);
-	
-		//Draw Background image
-		GUI.DrawTexture(Torpedo.bg_area, Torpedo.bg_image);
-		
-		//set overlay transparency at 0.75
-		var overColor : Color = Color.white;
-		overColor.a = 0.75;	
-	
-		
-		//Draw 3x modifier button
-		if(GUI.Button(Torpedo.area_3x, "x3", HudSkin.button)) {
-			if(shipWeap.torpVolley != Volley.three) {
-				shipWeap.torpVolley = Volley.three;
-			} else {
-				shipWeap.torpVolley = Volley.one;
-			}
-		
-		}
-		
-		//if its selected, draw a overlay over it
-		if(shipWeap.torpVolley == Volley.three) {
-		
-			GUI.color = overColor;	
-		
-			GUI.DrawTexture(Torpedo.area_3x, yellowOver);
-			
-			GUI.color = Color.white;
-		
-		}
-		
-		
-		
-	
-		//5x modifier button
-		if(GUI.Button(Torpedo.area_5x, "x5", HudSkin.button)) {
-			if(shipWeap.torpVolley != Volley.five) {
-				shipWeap.torpVolley = Volley.five;
-			} else {
-				shipWeap.torpVolley = Volley.one;
-			}
-		}
-		
-		//if its selected, draw a overlay over it
-		if(shipWeap.torpVolley == Volley.five) {
-		
-			GUI.color = overColor;	
-		
-			GUI.DrawTexture(Torpedo.area_5x, yellowOver);
-			
-			GUI.color = Color.white;
-		
-		}
-		
-		//8x modifier button
-		if(GUI.Button(Torpedo.area_8x, "x8", HudSkin.button)) {
-			
-			if(shipWeap.torpVolley != Volley.eight) {
-				shipWeap.torpVolley = Volley.eight;
-			} else {
-				shipWeap.torpVolley = Volley.one;
-			}
-		}
-		
-		//if its selected, draw a overlay over it
-		if(shipWeap.torpVolley == Volley.eight) {
-		
-			GUI.color = overColor;	
-		
-			GUI.DrawTexture(Torpedo.area_8x, yellowOver);
-			
-			GUI.color = Color.white;
-		
-		}
-		
-	
-	GUILayout.EndArea();
-
-
-}
-
-
-//Draws the superior part of the HUD
-function TopGUI() {
-
-	GUILayout.BeginArea(Rect(Screen.width/2 - TopGui.x/2, TopGui.y, TopGui.width, TopGui.height));
-	
-		//redAlertModule();
-		//targetModule();	
-	
-	GUILayout.EndArea();
-
-
-}
-
-function redAlertModule() {
-
-	GUILayout.BeginArea(redAlert.areaRect);
-	
-		redAlert.drawRedAlert(shipProps.getRedAlert());
-	
-	GUILayout.EndArea();
-	
-
-}
-
-
-//Draws the targetting module of the HUD
-function targetModule() {
-
-	Target.Draw(shipTar, TargetModule, gameObject, commWindow, general, shipProps, HudSkin);	
-
-
-}
-
-
-//this function automates the button creation process for the weapons
-//Weapon contains the weapon slot information
-//Skin contains the GUI aspect information
-//Area contains the coordinates and size of the button
-//Phaser Overflow
-function CreateWeapButton(Weapon : Phaser, Skin : GUISkin, Area : Rect) {
-	//Start
-	
-	//check if weapon is not enabled or is not empty
-	if(Weapon.isEnabled && Weapon.phaser) {
-	
-		//Get weapon image
-		var weapon_scr : weaponScript = Weapon.phaser.GetComponent(weaponScript); //Get weapon script
-		var weapon_img : Texture = weapon_scr.guiInfo.image; //Get weapon GUI Image
-		
-		
-		//Draw button with Area, weapon_img and Skin and check if said button is pressed 
-		if(GUI.Button(Area, weapon_img, Skin.button) && shipProps.combatStatus.isRedAlert) {
-		
-			
-				if(shipTar.target) { //check if there's a target
-					if(Weapon.canFire(shipTar.target, upgrades)) {//check if weapon can fire
-						Weapon.fire(shipTar.target, shipWeap.volleyNum(), shipWeap, upgrades); //Set isFiring as true
-					}
-				
-				} else { //if there isn't, find one and set isFiring as true after
-				
-					shipTar.target = shipTar.FindTarget(gameObject, shipProps); //Find target 
-					
-					if(Weapon.canFire(shipTar.target,  upgrades)) {//check if weapon can fire
-						Weapon.fire(shipTar.target, shipWeap.volleyNum(), shipWeap, upgrades); //Set isFiring as true
-					}
-				
-				}
-			
-			
-		
-		}
-		
-		//If weapon is reloading, draw overlay
-		if(Time.time < Weapon.getNextShot(upgrades)) {
-			
-			//Calculate size
-			//Get total reload time and time remaining
-			var totalReload : float = Weapon.getCooldown(upgrades);
-			var remainTime : float = Weapon.getNextShot(upgrades) - Time.time;
-			
-			//Get overlay height
-			var overHeight : int = GetBarSize(Area.height, totalReload, remainTime);
-			
-			//get size diference
-			var sizeDif : int = Area.height - overHeight;
-		
-			//transparency
-			var overColor : Color = Color.white;
-			overColor.a = 0.75;
-			
-			GUI.color = overColor;
-		
-			GUI.DrawTexture(Rect(Area.x, Area.y + sizeDif, Area.width, overHeight), yellowOver);
-		
-			GUI.color = Color.white;
-		}
-		
-		
-	
-	} 
-	
-	//End
-}
-
-
-//this function automates the button creation process for the weapons
-//Weapon contains the weapon slot information
-//Skin contains the GUI aspect information
-//Area contains the coordinates and size of the button
-//Torpedo Overflow
-function CreateWeapButton(Weapon : Torpedo, Skin : GUISkin, Area : Rect) {
-	//Start
-	
-	//check if weapon is not enabled or is not empty
-	if(Weapon.isEnabled && Weapon.torpedo) {
-	
-		//Get weapon image
-		var weapon_scr : weaponScript = Weapon.torpedo.GetComponent(weaponScript); //Get weapon script
-		var weapon_img : Texture = weapon_scr.guiInfo.image; //Get weapon GUI Image
-		
-		
-		//Draw button with Area, weapon_img and Skin and check if said button is pressed 
-		if(GUI.Button(Area, weapon_img, Skin.button) && shipProps.combatStatus.isRedAlert) {
-		
-			
-				if(shipTar.target) { //check if there's a target
-					if(Weapon.canFire(shipTar.target)) {//check if weapon can fire
-						StartCoroutine(Weapon.fire(shipTar.target, shipWeap.volleyNum(),  upgrades)); //Set isFiring as true
-					}
-				
-				} else { //if there isn't, find one and set isFiring as true after
-				
-					shipTar.target = shipTar.FindTarget(gameObject, shipProps); //Find target 
-					
-					if(Weapon.canFire(shipTar.target)) {//check if weapon can fire
-						StartCoroutine(Weapon.fire(shipTar.target, shipWeap.volleyNum(),  upgrades)); //Set isFiring as true
-					}
-				
-				}
-			
-			
-		
-		}
-		
-		//If weapon is reloading, draw overlay
-		if(Time.time < Weapon.getNextShot()) {
-			
-			//Calculate size
-			//Get total reload time and time remaining
-			var totalReload : float = Weapon.getCooldown(upgrades);
-			var remainTime : float = Weapon.getNextShot() - Time.time;
-			
-			//Get overlay height
-			var overHeight : int = GetBarSize(Area.height, totalReload, remainTime);
-			
-			//get size diference
-			var sizeDif : int = Area.height - overHeight;
-		
-			//transparency
-			var overColor : Color = Color.white;
-			overColor.a = 0.75;
-			
-			GUI.color = overColor;
-		
-			GUI.DrawTexture(Rect(Area.x, Area.y + sizeDif, Area.width, overHeight), yellowOver);
-		
-			GUI.color = Color.white;
-		}
-		
-		
-	
-	} 
-	
-	//End
-}
-
-//this function returns the size of a bar in pixels
-function GetBarSize (FullSize : int, MaxValue : float, CurValue : float) : int {
-
-	if(MaxValue == 0) {
-		return 0;
-	}
-
-	var newSize : int;
-	
-	newSize = (FullSize * CurValue)/MaxValue;
-	
-	return newSize;
-	
-
-}
-
-function ValueToPercentage(MaxValue : float, CurValue : float) : float {
-
-	if(MaxValue == 0) {
-		return 0;
-	}
-
-	var perc : float;
-	
-	perc = (100*CurValue) / MaxValue;
-	
-	return perc;
-
-
-}
-
-//this function will check if a certain element belongs in 1 array
-function CheckArrayValue(desValue : int, array : int[]) : boolean {
-
-	var belongs : boolean = false;
-	
-	for(var val : int in array) {
-	
-		if (desValue == val)
-		{
-			belongs = true;
-		}
-	
-	}
-	
-	return belongs;
-
-}
-
-function openComm(target : GameObject) {
-	if(!commWindow.isOpen){
-		commWindow.open(target, gameObject);
-		}
-}
+////fixed
+//var Helm : HelmGui;
+//var health : HealthGui;
+//var Weapon : WeaponGui;
+//var Torpedo : TorpedoGui;
+//var Target : TargetGui;
+//
+////windows
+//var commWindow : CommDialogue;
+//
+////labels
+//var radarLabel : RadarLabel;
+//
+////redAlert
+//var redAlert : RedAlertGui;
+//
+////External Scripts
+//var triggers : shipTriggers;
+//var shipProps : shipProperties;
+//var shipMov : shipMovement;
+//var shipHea : shipHealth;
+//var shipWeap : shipWeapons;
+//var shipTar : shipTarget;
+//var mapInfo : MapInfo;
+//var loadScene : LoadScene;
+//var general : GeneralInfo;
+//var hud : HUDStatus;
+//var message : ShowMessage;
+//var missions : Missions;
+//var upgrades : Upgrades;
+//
+////main camara
+//var mainCam : Camera;
+//var camScript : MouseOrbit;
+//
+//
+//function Start () {
+//	message = GameObject.FindGameObjectWithTag("ShowMessage").GetComponent(ShowMessage);
+//	missions = GameObject.FindGameObjectWithTag("Missions").GetComponent(Missions);
+//	triggers = gameObject.GetComponent(shipTriggers);
+//	general = GameObject.FindGameObjectWithTag("SaveGame").GetComponent(GeneralInfo);
+//	shipProps = gameObject.GetComponent(shipProperties);
+//	shipMov = gameObject.GetComponent(shipMovement);
+//	shipHea = gameObject.GetComponent(shipHealth);
+//	shipWeap = gameObject.GetComponent(shipWeapons);
+//	shipTar = gameObject.GetComponent(shipTarget);
+//	mapInfo = GameObject.FindGameObjectWithTag("MapInfo").GetComponent(MapInfo);
+//	loadScene = GameObject.FindGameObjectWithTag("LoadScene").GetComponent(LoadScene);
+//	hud = GameObject.FindGameObjectWithTag("GlobalInfo").GetComponent(HUDStatus);
+//	upgrades = gameObject.GetComponent(Upgrades);
+//	
+//	//reset loadScene status
+//	loadScene.show = false;
+//	
+//	//set radar label
+//	radarLabel.Set(gameObject);
+//	
+//	//get main camera
+//	mainCam = Camera.main;
+//	camScript = mainCam.GetComponent(MouseOrbit);
+//
+//}
+//
+//function OnGUI () {
+//
+//	//if(hud.isShowingGui())	guiFunction();
+//	
+//
+//}
+//
+//function guiFunction() {
+//	//fixed gui stuff
+//	if(shipProps.playerProps.isPlayer)
+//	{
+//		BotGUI();
+//		TopGUI();
+//	
+//	} 
+//	
+//	//windows
+//	//commWindow.DrawWindow();
+//	
+//	//non player labels
+//	if(!shipProps.playerProps.isPlayer) 
+//	{
+//		if(camScript.target) {
+//			var player : GameObject = camScript.target.gameObject;
+//		
+//		
+//			var pos : Vector3 = mainCam.WorldToScreenPoint(transform.position);
+//			if(pos.z > 0) {
+//				radarLabel.Draw(pos, player, general);
+//			}
+//		}
+//		
+//	}
+//}
+//
+////Bottom GUI
+//function BotGUI () {
+//
+//	GUILayout.BeginArea(Rect(Screen.width/2 - BotGui.x/2, Screen.height - BotGui.y, BotGui.width, BotGui.height));
+//	
+//		//helmModule();
+//		//healthModule();
+//		//weaponModule();
+//		//torpedoModule();
+//	
+//	GUILayout.EndArea();
+//
+//
+//}
+//
+////Helm Module
+//
+//function helmModule () {
+//
+//	GUILayout.BeginArea(HelmModule.getRect());
+//	
+//		
+//		Helm.Draw(shipMov, mapInfo, HudSkin, shipProps);
+//		
+//	
+//	GUILayout.EndArea();
+//
+//}
+//
+////Shows health
+//
+//function healthModule() {
+//
+//	GUILayout.BeginArea(Rect(HealthModule.x, HealthModule.y, HealthModule.width, HealthModule.height));
+//	
+//		//calculations
+//		//get hull values
+//		var maxHull : float = shipHea.shipHealth.getMaxHull(upgrades);
+//		var curHull : float = shipHea.shipHealth.getHull(upgrades);
+//		var percHull : float = ValueToPercentage(maxHull, curHull);
+//		
+//		
+//		//get shield values
+//		var maxShield : float = shipHea.shipHealth.getMaxShield(upgrades);
+//		var curShield : float = shipHea.shipHealth.getShield(upgrades);
+//		var percShield : float = ValueToPercentage(maxShield, curShield);
+//	
+//	
+//		//Health Bars
+//		//Hull Background
+//		GUI.DrawTexture(Rect(health.hull_area.x, health.hull_area.y, health.hull_area.width, health.hull_area.height), health.hull_bg);
+//		
+//		//Calculate foreground transparency
+//		var hullColor : Color = Color.white;
+//		var hullAlpha : float = percHull/100;
+//		hullColor.a = hullAlpha;
+//					
+//		GUI.color = hullColor; //sets transparency
+//		
+//		//Hull Foreground
+//		GUI.DrawTexture(Rect(health.hull_fg_area.x, health.hull_fg_area.y, health.hull_fg_area.width, health.hull_fg_area.height), health.hull_fg);
+//		
+//		GUI.color = Color.white; //sets back to default
+//	
+//		//Shield Backgroound
+//		GUI.DrawTexture(Rect(health.shield_area.x, health.shield_area.y, health.shield_area.width, health.shield_area.height), health.shield_bg);  
+//		
+//		//Calculate foreground transparency
+//		var shieldColor : Color = Color.white;
+//		var shieldAlpha : float = percShield/100;
+//		shieldColor.a = shieldAlpha;
+//		
+//		GUI.color = shieldColor; //sets transparent
+//		
+//		//Shield Foreground
+//		GUI.DrawTexture(Rect(health.shield_fg_area.x, health.shield_fg_area.y, health.shield_fg_area.width, health.shield_fg_area.height), health.shield_fg);
+//		
+//		GUI.color = Color.white; //sets default back
+//		
+//		//Health Orbs
+//		//Draw Background
+//		GUI.DrawTexture(Rect(health.orbs_area.x, health.orbs_area.y, health.orbs_area.width, health.orbs_area.height), health.orbs_img);
+//		
+//		
+//	
+//		//Write hull value
+//		GUI.Label(Rect(health.hull_label_area.x, health.hull_label_area.y, health.hull_label_area.width, health.hull_label_area.height), Mathf.RoundToInt(percHull).ToString() + "%", HudSkin.label);
+//	
+//		//Write shield value
+//		GUI.Label(Rect(health.shield_label_area.x, health.shield_label_area.y, health.shield_label_area.width, health.shield_label_area.height), Mathf.RoundToInt(percShield).ToString() + "%", HudSkin.GetStyle("ShieldLabel"));
+//	
+//	GUILayout.EndArea();
+//
+//
+//}
+//
+////Shows weapon gui module
+//
+//function weaponModule() {
+//
+//	GUILayout.BeginArea(Rect(WeaponModule.x, WeaponModule.y, WeaponModule.width, WeaponModule.height));
+//	
+//		//Draw Background
+//		GUI.DrawTexture(Rect(Weapon.bg_area.x, Weapon.bg_area.y, Weapon.bg_area.width, Weapon.bg_area.height), Weapon.bg_image);
+//	
+//		//Draw Button background
+//		
+//		for(var y : int = 0; y < 8; y++) {
+//		
+//			GUI.DrawTexture(Weapon.weap_area[y], Weapon.empty_texture);
+//		
+//		}
+//		
+//		//Draw buttons
+//		//first button - phaser
+//		CreateWeapButton(shipWeap.phaser, HudSkin, Weapon.weap_area[0]);
+//		
+//		//second button - torpedo 1
+//		CreateWeapButton(shipWeap.torp1, HudSkin, Weapon.weap_area[1]);
+//		
+//		//third button - torpedo 2
+//		CreateWeapButton(shipWeap.torp2, HudSkin, Weapon.weap_area[2]);
+//		
+//		
+//		
+//	
+//		
+//		//Draw inventory button and check if its pressed
+//		if(GUI.Button(Weapon.inv_area, Weapon.inv_img, HudSkin.button)) {
+//		
+//			//Open inventory window
+//		
+//		}
+//		
+//		//Draw beam down button and check if its pressed
+//		if(GUI.Button(Weapon.cargo_area, Weapon.cargo_img, HudSkin.button)) {
+//		
+//			//first lets see if we're inside orbit range
+//			if(!triggers.isOrbit()) {
+//				message.AddMessage("Not in a planets orbit.");
+//			} else {
+//				missions.finishTradeMissionInSystem();
+//			}
+//		
+//		}
+//		
+//		
+//		
+//	
+//	
+//	GUILayout.EndArea();
+//
+//}
+//
+////torpedo module
+//
+//function torpedoModule() {
+//	GUILayout.BeginArea(TorpedoModule);
+//	
+//		//Draw Background image
+//		GUI.DrawTexture(Torpedo.bg_area, Torpedo.bg_image);
+//		
+//		//set overlay transparency at 0.75
+//		var overColor : Color = Color.white;
+//		overColor.a = 0.75;	
+//	
+//		
+//		//Draw 3x modifier button
+//		if(GUI.Button(Torpedo.area_3x, "x3", HudSkin.button)) {
+//			if(shipWeap.torpVolley != Volley.three) {
+//				shipWeap.torpVolley = Volley.three;
+//			} else {
+//				shipWeap.torpVolley = Volley.one;
+//			}
+//		
+//		}
+//		
+//		//if its selected, draw a overlay over it
+//		if(shipWeap.torpVolley == Volley.three) {
+//		
+//			GUI.color = overColor;	
+//		
+//			GUI.DrawTexture(Torpedo.area_3x, yellowOver);
+//			
+//			GUI.color = Color.white;
+//		
+//		}
+//		
+//		
+//		
+//	
+//		//5x modifier button
+//		if(GUI.Button(Torpedo.area_5x, "x5", HudSkin.button)) {
+//			if(shipWeap.torpVolley != Volley.five) {
+//				shipWeap.torpVolley = Volley.five;
+//			} else {
+//				shipWeap.torpVolley = Volley.one;
+//			}
+//		}
+//		
+//		//if its selected, draw a overlay over it
+//		if(shipWeap.torpVolley == Volley.five) {
+//		
+//			GUI.color = overColor;	
+//		
+//			GUI.DrawTexture(Torpedo.area_5x, yellowOver);
+//			
+//			GUI.color = Color.white;
+//		
+//		}
+//		
+//		//8x modifier button
+//		if(GUI.Button(Torpedo.area_8x, "x8", HudSkin.button)) {
+//			
+//			if(shipWeap.torpVolley != Volley.eight) {
+//				shipWeap.torpVolley = Volley.eight;
+//			} else {
+//				shipWeap.torpVolley = Volley.one;
+//			}
+//		}
+//		
+//		//if its selected, draw a overlay over it
+//		if(shipWeap.torpVolley == Volley.eight) {
+//		
+//			GUI.color = overColor;	
+//		
+//			GUI.DrawTexture(Torpedo.area_8x, yellowOver);
+//			
+//			GUI.color = Color.white;
+//		
+//		}
+//		
+//	
+//	GUILayout.EndArea();
+//
+//
+//}
+//
+//
+////Draws the superior part of the HUD
+//function TopGUI() {
+//
+//	GUILayout.BeginArea(Rect(Screen.width/2 - TopGui.x/2, TopGui.y, TopGui.width, TopGui.height));
+//	
+//		//redAlertModule();
+//		//targetModule();	
+//	
+//	GUILayout.EndArea();
+//
+//
+//}
+//
+//function redAlertModule() {
+//
+//	GUILayout.BeginArea(redAlert.areaRect);
+//	
+//		redAlert.drawRedAlert(shipProps.getRedAlert());
+//	
+//	GUILayout.EndArea();
+//	
+//
+//}
+//
+//
+////Draws the targetting module of the HUD
+//function targetModule() {
+//
+//	Target.Draw(shipTar, TargetModule, gameObject, commWindow, general, shipProps, HudSkin);	
+//
+//
+//}
+//
+////
+//////this function automates the button creation process for the weapons
+//////Weapon contains the weapon slot information
+//////Skin contains the GUI aspect information
+//////Area contains the coordinates and size of the button
+//////Phaser Overflow
+////function CreateWeapButton(Weapon : Phaser, Skin : GUISkin, Area : Rect) {
+////	//Start
+////	
+////	//check if weapon is not enabled or is not empty
+////	if(Weapon.isEnabled && Weapon.phaser) {
+////	
+////		//Get weapon image
+////		var weapon_scr : weaponScript = Weapon.phaser.GetComponent(weaponScript); //Get weapon script
+////		var weapon_img : Texture = weapon_scr.guiInfo.image; //Get weapon GUI Image
+////		
+////		
+////		//Draw button with Area, weapon_img and Skin and check if said button is pressed 
+////		if(GUI.Button(Area, weapon_img, Skin.button) && shipProps.combatStatus.isRedAlert) {
+////		
+////			
+////				if(shipTar.target) { //check if there's a target
+////					if(Weapon.canFire(shipTar.target, upgrades)) {//check if weapon can fire
+////						Weapon.fire(shipTar.target, shipWeap.volleyNum(), shipWeap, upgrades); //Set isFiring as true
+////					}
+////				
+////				} else { //if there isn't, find one and set isFiring as true after
+////				
+////					shipTar.target = shipTar.FindTarget(gameObject, shipProps); //Find target 
+////					
+////					if(Weapon.canFire(shipTar.target,  upgrades)) {//check if weapon can fire
+////						Weapon.fire(shipTar.target, shipWeap.volleyNum(), shipWeap, upgrades); //Set isFiring as true
+////					}
+////				
+////				}
+////			
+////			
+////		
+////		}
+////		
+////		//If weapon is reloading, draw overlay
+////		if(Time.time < Weapon.getNextShot(upgrades)) {
+////			
+////			//Calculate size
+////			//Get total reload time and time remaining
+////			var totalReload : float = Weapon.getCooldown(upgrades);
+////			var remainTime : float = Weapon.getNextShot(upgrades) - Time.time;
+////			
+////			//Get overlay height
+////			var overHeight : int = GetBarSize(Area.height, totalReload, remainTime);
+////			
+////			//get size diference
+////			var sizeDif : int = Area.height - overHeight;
+////		
+////			//transparency
+////			var overColor : Color = Color.white;
+////			overColor.a = 0.75;
+////			
+////			GUI.color = overColor;
+////		
+////			GUI.DrawTexture(Rect(Area.x, Area.y + sizeDif, Area.width, overHeight), yellowOver);
+////		
+////			GUI.color = Color.white;
+////		}
+////		
+////		
+////	
+////	} 
+////	
+////	//End
+////}
+////
+////
+//////this function automates the button creation process for the weapons
+//////Weapon contains the weapon slot information
+//////Skin contains the GUI aspect information
+//////Area contains the coordinates and size of the button
+//////Torpedo Overflow
+////function CreateWeapButton(Weapon : Torpedo, Skin : GUISkin, Area : Rect) {
+////	//Start
+////	
+////	//check if weapon is not enabled or is not empty
+////	if(Weapon.isEnabled && Weapon.torpedo) {
+////	
+////		//Get weapon image
+////		var weapon_scr : weaponScript = Weapon.torpedo.GetComponent(weaponScript); //Get weapon script
+////		var weapon_img : Texture = weapon_scr.guiInfo.image; //Get weapon GUI Image
+////		
+////		
+////		//Draw button with Area, weapon_img and Skin and check if said button is pressed 
+////		if(GUI.Button(Area, weapon_img, Skin.button) && shipProps.combatStatus.isRedAlert) {
+////		
+////			
+////				if(shipTar.target) { //check if there's a target
+////					if(Weapon.canFire(shipTar.target)) {//check if weapon can fire
+////						StartCoroutine(Weapon.fire(shipTar.target, shipWeap.volleyNum(),  upgrades)); //Set isFiring as true
+////					}
+////				
+////				} else { //if there isn't, find one and set isFiring as true after
+////				
+////					shipTar.target = shipTar.FindTarget(gameObject, shipProps); //Find target 
+////					
+////					if(Weapon.canFire(shipTar.target)) {//check if weapon can fire
+////						StartCoroutine(Weapon.fire(shipTar.target, shipWeap.volleyNum(),  upgrades)); //Set isFiring as true
+////					}
+////				
+////				}
+////			
+////			
+////		
+////		}
+////		
+////		//If weapon is reloading, draw overlay
+////		if(Time.time < Weapon.getNextShot()) {
+////			
+////			//Calculate size
+////			//Get total reload time and time remaining
+////			var totalReload : float = Weapon.getCooldown(upgrades);
+////			var remainTime : float = Weapon.getNextShot() - Time.time;
+////			
+////			//Get overlay height
+////			var overHeight : int = GetBarSize(Area.height, totalReload, remainTime);
+////			
+////			//get size diference
+////			var sizeDif : int = Area.height - overHeight;
+////		
+////			//transparency
+////			var overColor : Color = Color.white;
+////			overColor.a = 0.75;
+////			
+////			GUI.color = overColor;
+////		
+////			GUI.DrawTexture(Rect(Area.x, Area.y + sizeDif, Area.width, overHeight), yellowOver);
+////		
+////			GUI.color = Color.white;
+////		}
+////		
+////		
+////	
+////	} 
+////	
+////	//End
+////}
+////
+//////this function returns the size of a bar in pixels
+////function GetBarSize (FullSize : int, MaxValue : float, CurValue : float) : int {
+////
+////	if(MaxValue == 0) {
+////		return 0;
+////	}
+////
+////	var newSize : int;
+////	
+////	newSize = (FullSize * CurValue)/MaxValue;
+////	
+////	return newSize;
+////	
+////
+////}
+////
+////function ValueToPercentage(MaxValue : float, CurValue : float) : float {
+////
+////	if(MaxValue == 0) {
+////		return 0;
+////	}
+////
+////	var perc : float;
+////	
+////	perc = (100*CurValue) / MaxValue;
+////	
+////	return perc;
+////
+////
+////}
+////
+//////this function will check if a certain element belongs in 1 array
+////function CheckArrayValue(desValue : int, array : int[]) : boolean {
+////
+////	var belongs : boolean = false;
+////	
+////	for(var val : int in array) {
+////	
+////		if (desValue == val)
+////		{
+////			belongs = true;
+////		}
+////	
+////	}
+////	
+////	return belongs;
+////
+////}
+////
+////function openComm(target : GameObject) {
+////	if(!commWindow.isOpen){
+////		commWindow.open(target, gameObject);
+////		}
+////}

@@ -66,7 +66,6 @@ public class InventoryPanel extends FloatingWindow {
 			if(Input.GetAxis("Inventory") && lastPress + TIME <= Time.time) {
 				lastPress = Time.time;
 				super.toggle();
-				if(super.on) this.resetStatus();
 			}
 		}
 	}
@@ -135,7 +134,7 @@ public class InventoryPanel extends FloatingWindow {
 
 	}
 
-	private function resetStatus() {
+	protected function resetStatus() {
 		categories.reset();
 		fleetDisplay.Reset();
 		var fleet : GameObject[] = sceneStart.playerFleet.ToArray();

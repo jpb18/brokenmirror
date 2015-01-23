@@ -46,7 +46,6 @@ var fleetSize : int;
 var merchantCount : int;
 private var merchants : GameObject[];
 
-
 function Start () {
 	
 	if(merchantCount == 0) {
@@ -142,6 +141,7 @@ function spawnDefenseFleet() {
 		defenseFleet.Add(ship);
 		ship.GetComponent(ShipAI).setDefence();
 		ship.name = save_scr.RemoveClone(ship.name);
+		ShipCache.cache.AddShip(ship);
 		
 		
 	}
@@ -175,7 +175,7 @@ function playerStart() {
 	var cam_scr = cam.GetComponent(MouseOrbit);
 	cam_scr.target = playerShip.transform;
 	
-	
+	ShipCache.cache.AddShip(playerShip);
 	
 
 }
@@ -196,6 +196,7 @@ function spawnPlayerFleet() {
 		botShip.name = save_scr.RemoveClone(botShip.name);
 		botShip.GetComponent(ShipAI).setLeader(playerShip);
 		playerFleet.Add(botShip);
+		ShipCache.cache.AddShip(botShip);
 		
 	}
 
@@ -216,6 +217,7 @@ function spawnStations() {
 		
 		station.name = save_scr.RemoveClone(station.name);
 		stationList.Add(station);
+		StationCache.cache.AddStation(station);
 	
 	}
 	
@@ -274,6 +276,7 @@ function spawnInvasion () {
 	if(toBeSpawned.Count > 0) {
 		//first spawn the leader
 		var leader : GameObject = spawnLeader(toBeSpawned);
+		ShipCache.cache.AddShip(leader);
 		var faction : FactionInfo;	
 		var props : shipProperties;
 		var ai : ShipAI;
@@ -298,6 +301,8 @@ function spawnInvasion () {
 				
 				//remove clone
 				s.name = save_scr.RemoveClone(s.name);
+				
+				ShipCache.cache.AddShip(s);
 			}
 		
 		}
@@ -321,6 +326,7 @@ function spawnLeader(fleet : List.<GameObject>) : GameObject {
 			leader = fleet[x];
 		
 		}
+		
 			
 	}
 	

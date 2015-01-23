@@ -41,18 +41,18 @@ class Station extends MonoBehaviour implements IFactionable, IPlayable {
 		
 		//scan for phasers
 		for(var x : int = 0; x < weapon.getLength(WeaponType.beam); x++) {
-			weapon.scan(x, WeaponType.beam, factionInfo);
+			weapon.scan(x, WeaponType.beam);
 			
 		}
 
 		//scan for torpedoes
 		for(x  = 0; x < weapon.getLength(WeaponType.torpedo); x++) {
-			weapon.scan(x, WeaponType.torpedo, factionInfo);
+			weapon.scan(x, WeaponType.torpedo);
 		}
 		
 		//scan for pulses
 		for(x = 0; x < weapon.getLength(WeaponType.pulse); x++) {
-			weapon.scan(x, WeaponType.pulse, factionInfo);
+			weapon.scan(x, WeaponType.pulse);
 		}
 
 	}

@@ -98,15 +98,15 @@ function dangerFunction () {
 }
 
 function defenseFunction () {
-	var target : GameObject = target.getTarget();
+	var target : GameObject = this.target.getTarget();
 	if(target) {
 		intercept(target);
 		return;
 	}
 	
-	var stations : GameObject[] = GameObject.FindGameObjectsWithTag("Station");
-	if (stations.Length > 0){
-		var station : GameObject = stations[Random.value * (stations.length-1)];
+	var stations : List.<GameObject> = StationCache.cache.GetStations();
+	if (stations.Count > 0){
+		var station : GameObject = stations[Random.value * (stations.Count-1)];
 		defend(station);
 		return;
 	} 

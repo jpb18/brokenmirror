@@ -4,108 +4,40 @@
 public static var debugTexture : Texture2D = null;
 
 ///<summary>This searches for all ships in enemy list</summary>
-///<param name="enemyList">List with all enemy faction ids</param>
 ///<param name="origin">object searching</param>
 ///<pre>enemyList != null && origin != null</pre>
-static function findAllEnemyShips(faction : FactionInfo, origin : GameObject) : GameObject[] {
-	var gameObjs : GameObject[] = GameObject.FindGameObjectsWithTag("Ship");
-	var enemies : List.<GameObject> = new List.<GameObject>();
-	
-	for(var go : GameObject in gameObjs) {
-		
-			
-			if (go.transform.parent == null) //check if it's parent GO
-			{
-				if(go != origin) //check if GO is diferent than origin
-				{
-					if (go.tag == "Ship") //check if GO is a ship 
-					{
-					
-						//Get ships properties script and faction
-						var ship_props : shipProperties = go.GetComponent(shipProperties);
-						var ship_faction : int = ship_props.shipInfo.faction;
-												
-						if(faction.isHostile(ship_faction))
-						{
-							if(!ship_props.isEscapePod()) {
-								enemies.Add(go);
-							}
-						}
-					}
-				}
-			}
-		}
-	
-	
-	return enemies.ToArray();
-	
-	
+static function findAllEnemyShips(origin : GameObject) : GameObject[] {
+	var list : List.<GameObject> = ShipCache.cache.GetHostileShips(origin);
+	return list.ToArray();
 }
 
-static function findAllEnemyStations(faction : FactionInfo, origin : GameObject) : GameObject[] {
-	var gameObjs : GameObject[] = GameObject.FindGameObjectsWithTag("Station");
-	var enemies : List.<GameObject> = new List.<GameObject>();
+static function findAllEnemyStations(origin : GameObject) : GameObject[] {
+
+	//get ship faction
+	var factionable : IFactionable = origin.GetComponent(typeof(IFactionable)) as IFactionable;
+	var faction : int = factionable.getFaction();
 	
-	for(var go : GameObject in gameObjs) {
-		
-			
-			if (go.transform.parent == null) //check if it's parent GO
-			{
-				if(go != origin) //check if GO is diferent than origin
-				{
-					if (go.tag == "Station") //check if GO is a ship 
-					{
-					
-						//Get ships properties script and faction
-						var props : Station = go.GetComponent(Station);
-						var sfaction : int = props.faction;
-												
-						if(faction.isHostile(sfaction))
-						{
-							enemies.Add(go);
-						}
-					}
-				}
-			}
-		}
+	//get system faction info
+	var mapGo : GameObject = GameObject.FindGameObjectWithTag("MapInfo");
+	var map : MapInfo = mapGo.GetComponent.<MapInfo>();
+	var system : PlanetInfo = map.getPlanetInCurrentScene();
+	var general : GeneralInfo = GameObject.FindGameObjectWithTag("SaveGame").GetComponent(GeneralInfo);
+	var factionInfo : FactionInfo = general.getFactionInfo(system.faction);
 	
+	//check if the system is hostile
+	if(factionInfo.isHostile(faction)) {
+		var enemies : List.<GameObject> = StationCache.cache.GetStations();
+		return enemies.ToArray();
+	}
 	
-	return enemies.ToArray();
+	return new GameObject[0];
 
 
 }
 
-static function findAllEnemyEscapePods(faction : FactionInfo, origin : GameObject) : GameObject[] {
-	var gameObjs : GameObject[] = GameObject.FindGameObjectsWithTag("Ship");
-	var enemies : List.<GameObject> = new List.<GameObject>();
-	
-	for(var go : GameObject in gameObjs) {
-		
-			
-			if (go.transform.parent == null) //check if it's parent GO
-			{
-				if(go != origin) //check if GO is diferent than origin
-				{
-					if (go.tag == "Ship") //check if GO is a ship 
-					{
-					
-						//Get ships properties script and faction
-						var ship_props : shipProperties = go.GetComponent(shipProperties);
-						var ship_faction : int = ship_props.shipInfo.faction;
-												
-						if(faction.isHostile(ship_faction))
-						{
-							if(ship_props.isEscapePod()) {
-								enemies.Add(go);
-							}
-						}
-					}
-				}
-			}
-		}
-	
-	
-	return enemies.ToArray();
+static function findAllEnemyEscapePods(origin : GameObject) : GameObject[] {
+	var list : List.<GameObject> = EscapePodCache.cache.GetHostilePods(origin);
+	return list.ToArray();
 }
 
 ///<summary>this method finds a suitable target for the game object that calls it</summary>
@@ -113,21 +45,21 @@ static function findAllEnemyEscapePods(faction : FactionInfo, origin : GameObjec
 ///<param name="range">Maximum distance that the target must be from origin</param>
 ///<param name="faction">Faction info.</param>
 ///<returns>Finds the closest enemy from the origin ship. If there're enemy ships, it returns a ship. If not, checks from stations, and lastly for escape pods</returns>
-static function FindTarget(origin : GameObject, range : float, faction : FactionInfo) : GameObject {
+static function FindTarget(origin : GameObject, range : float) : GameObject {
 
-	var enemies : GameObject[] = findAllEnemyShips(faction, origin);
+	var enemies : GameObject[] = findAllEnemyShips(origin);
 	
 	if(enemies.Length > 0) {
 		return getClosest(origin, enemies, range);		
 	}
 	
-	enemies = findAllEnemyStations(faction, origin);
+	enemies = findAllEnemyStations(origin);
 	
 	if(enemies.Length > 0) {
 		return getClosest(origin, enemies, range);
 	}
 	
-	enemies = findAllEnemyEscapePods(faction, origin);
+	enemies = findAllEnemyEscapePods(origin);
 	
 	if(enemies.Length > 0) {
 		return getClosest(origin, enemies, range);

@@ -11,13 +11,16 @@ class HUDElement extends GuiElement {
 	protected var upgrades : Upgrades;
 	protected var movement : shipMovement;
 	protected var reactor : ShipReactor;
+	protected var balance : ReactorBalance;
 	protected var player : GameObject;
+	
 	
 	protected var save : SaveGame;
 	protected var message : ShowMessage;
 	protected var missions : Missions;
 	protected var hud : HUDStatus;
 	protected var map : MapInfo;
+	protected var tooltip : HudTooltip;
 	
 	public static final var SAVE_GAME : String = "SaveGame";
 	public static final var GLOBAL_INFO : String = "GlobalInfo";
@@ -41,6 +44,7 @@ class HUDElement extends GuiElement {
 		message = GameObject.FindGameObjectWithTag(SHOW_MESSAGE).GetComponent(ShowMessage);
 		missions = GameObject.FindGameObjectWithTag(MISSIONS).GetComponent(Missions);
 		map = GameObject.FindGameObjectWithTag(MAP).GetComponent(MapInfo);
+		tooltip = gameObject.GetComponent(HudTooltip);
 		if(hud.isShowingGui()) {
 			player = save.getPlayerShip();
 			getPlayerScripts();
@@ -56,6 +60,7 @@ class HUDElement extends GuiElement {
 		upgrades = player.GetComponent(Upgrades);
 		movement = player.GetComponent(shipMovement);
 		reactor = player.GetComponent(ShipReactor);
+		balance = player.GetComponent.<ReactorBalance>();
 	}
 	
 	function checkPlayer() {
@@ -77,6 +82,18 @@ class HUDElement extends GuiElement {
 		rect.x = 0;
 		rect.y = 0;
 		GUI.DrawTexture(rect, super.getBackground());	
+	}
+	
+	function getPlacementRect() : Rect {}
+	
+	protected function SetMouseOver(rect : Rect, object : GameObject) {
+		var r : Rect = super.SumRectPosition(rect, getPlacementRect());
+		tooltip.Set(r, object);
+	}
+
+	protected function SetMouseOver(rect : Rect, text : String) {
+		var r : Rect = super.SumRectPosition(rect, getPlacementRect());
+		tooltip.Set(r, text);
 	}
 
 }

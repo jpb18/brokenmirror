@@ -18,18 +18,27 @@ var impulseParticleSystem : ParticleSystem;
 var auto : boolean;
 
 class KeyControlMovemnt {
-	var KeyDelay : float = 0.2f;
+	public static final var TIME : float = 0.1f;
 	var SpeedIncreaseKey : float;
 	var SpeedDecreaseKey : float;
 	
 	var autoAim : float;
-	
+	var warp : float;
+		
 	function setAutoAim() {
 		autoAim = Time.time;
 	}
 	
 	function canAutoAim() : boolean {
-		return Time.time > autoAim + KeyDelay;
+		return Time.time > autoAim + TIME;
+	}
+	
+	function SetWarp() {
+		this.warp = Time.time;
+	}
+	
+	function CanWarp() : boolean {
+		return Time.time > warp + TIME;
 	}
 	
 	
@@ -55,7 +64,14 @@ var warpMulti : float = 5f;
 private var curWarpMulti : float = 1f;
 var warpTime : float = 1f;
 private var isSpeeding : boolean = false;
-public static var WARP_MIN : float = 1f; 
+public static var WARP_MIN : float = 1f;
+
+public var warpBurnout : float = 10f;
+public var burnoutRecover : float = 5f;
+private var warpInitTime : float;
+private var burnoutTime : float = 0f;
+private var burnout : boolean = false;
+public static final var BURN_WARNING : float = 0.1f;
 
 private var impulseParticleSpeed : float;
 private var message : ShowMessage;
@@ -63,6 +79,7 @@ private var upgrades : Upgrades;
 private var reactor : ShipReactor;
 private var target : shipTarget;
 private var properties : shipProperties;
+private var balance : ReactorBalance;
 
 var warpParticle : ParticleSystem;
 
@@ -70,10 +87,14 @@ var warpConsumption : float;
 
 function Start () {
 
+	this.warpInitTime = -warpBurnout;
+
+	
 	properties = gameObject.GetComponent(shipProperties);
 	upgrades = gameObject.GetComponent(Upgrades);
 	reactor = gameObject.GetComponent(ShipReactor);
 	target = gameObject.GetComponent(shipTarget);
+	balance = gameObject.GetComponent.<ReactorBalance>();
 	
 	if(!impulseParticleSystem) {
 		Debug.LogWarning("Check if the impulse particle system exists at " + gameObject.name + ".");
@@ -94,7 +115,7 @@ function Update () {
 	}
 	selectWarp();
 	toggleAutoAim();
-	
+	CheckWarpBurnout();
 }
 
 function toggleAutoAim() {
@@ -137,55 +158,35 @@ function sublight() {
 		
 	}
 	
-	var shipSpeed : float = getShipSpeed() * Time.deltaTime;
-	
-	var SpeedChange : float = speedStatus * shipSpeed;
-	
-	if(properties.getRedAlert()) {
-		SpeedChange = SpeedChange * getSpeedReduction();
-	}
-	
-	rigidbody.velocity = transform.forward * SpeedChange;
+	var shipSpeed : float = getShipSpeed() * Time.deltaTime * speedStatus;
+	rigidbody.velocity = transform.forward * shipSpeed;
 }
 
 //this function controls the ship speed
 function shipPlayer_speed () {
-	
 	//var shipAcceleration : float = properties.movement.acceleration;
-	
-	if(Input.GetAxis("ShipSpeed") > 0 && !isChanging)
-	{
-		
-		if (!isAtMax())
-		{
-			increaseSpeed();
-			
+	if(Input.GetAxis("ShipSpeed") > 0 && !isChanging){
+		if (!isAtMax())	{
+			increaseSpeed();	
 		}
-		
-		
-	
 	}
-	else if (Input.GetAxis("ShipSpeed") < 0 && !isChanging)
-	{
-		
-		if (!isAtMin())
-		{
+	else if (Input.GetAxis("ShipSpeed") < 0 && !isChanging)	{
+		if (!isAtMin())	{
 			decreaseSpeed();
-			
 		}
 	}
 	
-	if (Input.GetAxis("FullStop") && !isChanging && speedStatus != 0 && !isStop())
-	{
+	if (Input.GetAxis("FullStop") && !isChanging && speedStatus != 0 && !isStop()){
 		fullStop();
-			
 	}
-	
 }
 
 function getShipSpeed() : float {
 	var speed : float = properties.getSpeed();
-	return speed;
+	if(properties.getRedAlert()) {
+		speed = speed * getSpeedReduction();
+	}	
+	return speed * balance.speed;
 }
 
 function isStopping() : boolean {
@@ -201,15 +202,11 @@ function isStop() : boolean {
 }
 
 function shipPlayer_movement () {
-	
-	
 	if(auto && target.hasTarget()) {
 		automaticMovement();
 	} else {
 		manualMovement();
-	}
-		
-	
+	}		
 }
 
 function manualMovement() {
@@ -399,7 +396,6 @@ transform.Rotate(Vector3(0,0, shipAgility()));
 
 function setWarp() {
 	isWarp = true;
-
 }
 
 function getSpeedReduction() : float {
@@ -426,16 +422,19 @@ private function selectWarp() {
 
 	
 	if(Input.GetAxis("Warp") && properties.getPlayer()) {
+		if(!keys.CanWarp()) return;
+			keys.SetWarp();
 		if(!isAtMax()) {
 			message.AddMessage("Ship needs to be at maximum speed to enter warp.");
 		} else if (isAtWarp) {
 			message.AddMessage("Ship is already at warp.");
 		} else if (isSpeeding) {
 			message.AddMessage("Warp engine can't handle such reactions.");	
+		} else if (this.burnout) {
+			var time : int = BurnoutExpire() - Time.time;
+			message.AddMessage("Warp engines at critical levels. Wait for " + time + " seconds.");	
 		} else {
-			isAtWarp = true;
-			startWarpParticles();
-			StartCoroutine(accelerateToWarp());
+			SystemWarp();
 		}
 		
 	}
@@ -457,6 +456,13 @@ private function selectWarp() {
 		}
 	}
 
+}
+
+function SystemWarp() {
+	this.warpInitTime = Time.time;
+	isAtWarp = true;
+	startWarpParticles();
+	StartCoroutine(accelerateToWarp());
 }
 
 function stopWarp() {
@@ -491,15 +497,11 @@ private function warp() {
 		
 	} else {
 		reactor.spend(consume);
-	
 		var shipSpeed : float = properties.movement.impulseSpeed * Time.deltaTime * properties.getWarpSpeed();
-		
 		var SpeedChange : float = curWarpMulti * shipSpeed;
-		
 		if(properties.getRedAlert()) {
-			SpeedChange = SpeedChange * getSpeedReduction();
+			SpeedChange = SpeedChange * getSpeedReduction() * balance.speed;
 		}
-		
 		rigidbody.velocity = transform.forward * SpeedChange;
 	}
 
@@ -536,4 +538,46 @@ function isSystemWarp() : boolean {
 	return isAtWarp || isWarp;
 }
 
+function IsWarpBurnOut() : boolean {
+	return this.burnout;
+}
 
+function ShowBurnoutWarning() : boolean {
+	if(this.burnout) return true;
+	
+	var less : boolean = Time.time > WarningTime();
+	var more : boolean = Time.time < BurnoutExpire();
+	
+	if(less && more) return true;
+	
+	return false;
+	
+}
+
+private function WarningTime() : float {
+	var warningTime : float = this.warpBurnout * BURN_WARNING;
+	return this.warpInitTime + this.warpBurnout - warningTime;
+}
+
+private function BurnoutExpire() : float {
+	return this.burnoutTime + this.burnoutRecover;
+}
+
+function CheckWarpBurnout() {
+	if(this.burnout) {
+		if(Time.time > this.burnoutTime + this.burnoutRecover) {
+			this.burnout = false;
+		}
+	} else {
+		if(this.isAtWarp && Time.time > this.warpInitTime + this.warpBurnout) {
+			this.burnout = true;
+			this.burnoutTime = Time.time;
+			this.stopWarp();
+			message.AddMessage("Warp engine under heavy stress. Ready in " + this.burnoutRecover + " seconds.");
+		}
+	}
+}
+
+function GetLastBurnoutTime() : float {
+	return burnoutTime;
+}

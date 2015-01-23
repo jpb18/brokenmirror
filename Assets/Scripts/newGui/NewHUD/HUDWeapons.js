@@ -14,18 +14,34 @@ class HUDWeapons extends HUDBottom {
 	
 	var overlay : Texture;
 	
+	private var inventory : InventoryPanel;
+	
 	public static final var ORBIT_ERROR = "Not in a planets orbit.";
 	public static final var COLONIZE_ERROR = "You need a colonization team to colonize a planet.";
 	public static final var COLONIZED = "Planet colonized.";
 	public static final var INVASION_ERROR = "You need an invasion force to ocupy the planet.";
 	public static final var INVASION_FAILED = "Your invasion force has been defeated.";
 	public static final var INVADED = "Planet ocupied.";
-
+	public static final var TRANSPORT_ERROR = "Nothing to beam down.";
 	
+	public static final var TRANSPORT_TIP = "Transport\nAllows you to transport things down to the planets surface.";
+	public static final var INVENTORY_TIP = "Inventory\nOpens the Inventory menu.";
+	
+
+	function OnEnable() {
+		
+		this.inventory = gameObject.GetComponent(InventoryPanel);
+		
+	}
+
 	function OnGUI() {
+		
+		
 		if(hud.isShowingGui()) {
 			drawWeapons();
 		}
+		
+		
 	}
 	
 	function drawWeapons() {
@@ -70,6 +86,9 @@ class HUDWeapons extends HUDBottom {
 			setUpgrade(up);
 		}
 		
+		if(rect.Contains(Event.current.mousePosition)) {
+			SetMouseOver(rect, upgrade);
+		}
 		
 	}
 	
@@ -97,7 +116,12 @@ class HUDWeapons extends HUDBottom {
 		if(GUI.Button(rect, texture, skin.button)) {
 			firePhaser(phaser);
 		}
-						
+		
+		//check for mouseover
+		if(rect.Contains(Event.current.mousePosition)) {
+			
+			SetMouseOver(rect, phaser.phaser);
+		}			
 	
 		
 		if(phaser.getNextShot(upgrades) > Time.time) {
@@ -122,6 +146,8 @@ class HUDWeapons extends HUDBottom {
 		return weapon_img;
 	}
 	
+
+	
 	private function firePhaser(phaser : Phaser) {
 		if(props.getRedAlert()) {
 			var go : GameObject;
@@ -137,7 +163,7 @@ class HUDWeapons extends HUDBottom {
 	
 	private function orderPhaserFire(go : GameObject, phaser : Phaser) {
 		if(phaser.canFire(go, upgrades)) {
-			phaser.fire(go, weapons.volleyNum(), weapons, upgrades);
+			phaser.fire(go, weapons.volleyNum(), weapons, upgrades, balance);
 		}	
 	}
 
@@ -148,8 +174,14 @@ class HUDWeapons extends HUDBottom {
 				if(GUI.Button(rect, texture, skin.button)) {
 					fireTorpedo(torpedo);
 				}
+				
+				if(rect.Contains(Event.current.mousePosition)) {
+					SetMouseOver(rect, torpedo.torpedo);
+				}
 						
 		}
+		
+		
 		
 		if(torpedo.getNextShot() > Time.time) {
 			//Calculate size
@@ -192,19 +224,26 @@ class HUDWeapons extends HUDBottom {
 	
 	private function orderTorpedoFire(target : GameObject, torpedo : Torpedo) {
 		if(torpedo.canFire(target)) {//check if weapon can fire
-			StartCoroutine(torpedo.fire(target, weapons.volleyNum(),  upgrades)); //Set isFiring as true
+			StartCoroutine(torpedo.fire(target, weapons.volleyNum(),  upgrades, balance)); //Set isFiring as true
 		}
 	}
 	
 	function drawInventoryButton() {
-		if(GUI.Button(resizeRect(inventoryRect), inventoryTexture, skin.button)) {
-			//open inventory
+		var rect : Rect = resizeRect(inventoryRect);
+		if(GUI.Button(rect, inventoryTexture, skin.button)) {
+			inventory.toggle();
 		}
+		
+		if(rect.Contains(Event.current.mousePosition)) {
+			SetMouseOver(rect, INVENTORY_TIP);
+		}
+		
 	}
 	
 	function drawTransportButton() {
 		//Draw beam down button and check if its pressed
-		if(GUI.Button(resizeRect(transportRect), transportTexture, skin.button)) {
+		var rect : Rect = resizeRect(transportRect);
+		if(GUI.Button(rect, transportTexture, skin.button)) {
 		
 			//first lets see if we're inside orbit range
 			if(!triggers.isOrbit()) {
@@ -214,27 +253,28 @@ class HUDWeapons extends HUDBottom {
 			}
 		
 		}
+		
+		if(rect.Contains(Event.current.mousePosition)) {
+			SetMouseOver(rect, TRANSPORT_TIP);
+		}
+		
 	}
 	
 	function transport() {
-		
-		
 		var planet : GameObject = findSystemPlanet();
-		
 		var colonizable : IColonizable = planet.GetComponent(IColonizable) as IColonizable;
 		var inventory : Inventory = GameObject.FindGameObjectWithTag("SaveGame").GetComponent(Inventory);
 		var factionable : IFactionable = player.GetComponent(IFactionable) as IFactionable;
 		var faction : int = factionable.getFaction();
 					
 		if(colonizable.canColonize()) {
-			if(!inventory.hasColonizationTeams()) {
-				message.AddMessage(COLONIZE_ERROR);
-			} else {
+			if(inventory.hasColonizationTeams()) {
 				var team : GameObject = inventory.getColonizationTeam();
 				colonizable.colonize(faction, team);
 				message.AddMessage(COLONIZED);
+				return;
 			}
-			return;
+			
 		} 
 		
 		var conquerable : IConquerable = planet.GetComponent(IConquerable) as IConquerable;
@@ -242,9 +282,7 @@ class HUDWeapons extends HUDBottom {
 		
 		if(conquerable.canConquer(faction)) {
 		
-			if(!inventory.hasInvasionForce(populable.getPopulation())) {
-				message.AddMessage(INVASION_ERROR);
-			} else {
+			if(inventory.hasInvasionForce(populable.getPopulation())) {
 				var force : GameObject = inventory.getInvasionForce();
 				var invade : IInvasion = force.GetComponent(IInvasion) as IInvasion;
 				if(!invade.canInvade(populable.getPopulation())) {
@@ -253,14 +291,15 @@ class HUDWeapons extends HUDBottom {
 					invade.invade(conquerable, faction);
 					message.AddMessage(INVADED);
 				}				
-				
-			}
-			return;		
+				return;	
+			}	
 			
 		}
 		
 		
-		missions.finishTradeMissionInSystem();		
+		if(!missions.finishTradeMissionInSystem()) {
+			message.AddMessage(TRANSPORT_ERROR);
+		}		
 	}
 	
 	
@@ -297,7 +336,7 @@ class HUDWeapons extends HUDBottom {
 			GUI.color = Color.white;
 	}
 	
-
+	
 	
 	
 

@@ -182,7 +182,13 @@ public class weaponScript extends MonoBehaviour implements INameable, IImageable
 			gameObject.GetComponent(torpedoScript).setUpgrade(upgrades);
 		}
 
-	} 
+	}
+	
+	function setEnergy(energy : float) {
+		if(type == WeaponType.torpedo || type == WeaponType.pulse) {
+			gameObject.GetComponent(torpedoScript).setEnergy(energy);
+		}
+	}
 
 	function getPrice() : int {
 		return baseCost;

@@ -71,5 +71,10 @@ class GuiElement extends MonoBehaviour {
 	
 	}
 	
+	function SumRectPosition(rect1 : Rect, rect2 : Rect) : Rect {
+	
+		return new Rect(rect1.x + rect2.x, rect1.y + rect2.y, rect1.width, rect1.height);
+	
+	}
 	
 }

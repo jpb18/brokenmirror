@@ -1,6 +1,17 @@
 Star Trek Broken Mirror
 Change Log
 
+Version 0.2.5
+**********************************************************************
+FIXED:
+- Fixed bug where beaming down cargo on unhinabited/hostile planets wouldn't skip the colonization/invasion attempts to allow beaming. 
+
+ADDED:
+- Warp Engine Overload
+
+WIP:
+- Energy Management
+- Tooltips
 
 Version 0.2.4
 **********************************************************************

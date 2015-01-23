@@ -84,20 +84,21 @@ function getTradeMissionsByDestination(destination : String) : List.<TradeMissio
 
 }
 
-function finishTradeMissionInSystem() {
+function finishTradeMissionInSystem() : boolean {
 
     var scene : String = Application.loadedLevelName;
     var planet : PlanetInfo = map.getPlanetBySceneName(scene);
-    finishTradeMissions(planet.name);
+    return finishTradeMissions(planet.name);
 
 }
 
-function finishTradeMissions(destination : String) {
+function finishTradeMissions(destination : String) : boolean {
 
 	var missions : List.<TradeMission> = getTradeMissionsByDestination(destination);
-	
+	var completed : int = 0;
 	if(missions.Count == 0) {
 		message.AddMessage(NO_TRADE);
+		return false;
 	}
 	else {
 		for(var mission : TradeMission in missions) {
@@ -108,7 +109,7 @@ function finishTradeMissions(destination : String) {
 				hold.removeCargo(cargo);
 				mission.finish();
 				tradeMissionsCompleted++;
-				
+				completed++;
 				var mes : String = String.Format(TRADE_FINISHED, reward);
 				message.AddMessage(mes); 
 				
@@ -116,6 +117,7 @@ function finishTradeMissions(destination : String) {
 		}
 	}
 	
+	return completed > 0;
 
 }
 

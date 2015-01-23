@@ -8,7 +8,7 @@ var clickInt : float = 0.2f;
 private var shipProps : shipProperties;
 private var general : GeneralInfo;
 private var shipWeps : shipWeapons;
-private var gui : guiScript;
+//private var gui : guiScript;
 private var guiStatus : GUIStatus;
 
 var repeatClick : boolean = false;
@@ -23,7 +23,7 @@ function Start () {
 
 	shipProps = gameObject.GetComponent(shipProperties);
 	shipWeps = gameObject.GetComponent(shipWeapons);
-	gui = gameObject.GetComponent(guiScript);
+	//gui = gameObject.GetComponent(guiScript);
 	general = GameObject.FindGameObjectWithTag("SaveGame").GetComponent(GeneralInfo);
 	guiStatus = GameObject.FindGameObjectWithTag("GUI").GetComponent.<GUIStatus>();
 	
@@ -148,7 +148,7 @@ function FindTarget(origin : GameObject, shipProps : shipProperties) : GameObjec
 
 
 	var faction : FactionInfo = general.getFactionInfo(shipProps.shipInfo.faction);
-	setTarget(Statics.FindTarget(origin, Mathf.Infinity, faction));
+	setTarget(Statics.FindTarget(origin, Mathf.Infinity));
 	return target;
 
 }
@@ -158,10 +158,8 @@ function botFunction() {
 	if(target == null) {
 		if(Time.time > nextSearch)
 		{
-		
 			FindTarget(gameObject, shipProps);
 			nextSearch = Time.time + Random.value * searchTime;
-			
 		}
 	}
 }

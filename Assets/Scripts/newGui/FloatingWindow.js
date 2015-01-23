@@ -48,7 +48,11 @@ class FloatingWindow extends GuiElement {
 			centerOnScreen();
 		}
 		on = !on;
+		
+		if(on) resetStatus();
+		
 	}
 	
+	protected function resetStatus() {}
 
 }

@@ -21,6 +21,7 @@ public class shipWeapons extends MonoBehaviour implements IWeaponable {
 	private var properties : shipProperties;
 	private var upgrades : Upgrades;
 	private var reactor : ShipReactor;
+	private var balance : ReactorBalance;
 
 	//volley
 	var torpVolley : Volley;
@@ -33,7 +34,7 @@ public class shipWeapons extends MonoBehaviour implements IWeaponable {
 		properties = gameObject.GetComponent(shipProperties);
 		upgrades = gameObject.GetComponent(Upgrades);
 		reactor = gameObject.GetComponent(ShipReactor);
-
+		balance = gameObject.GetComponent.<ReactorBalance>();
 
 	}
 
@@ -85,7 +86,7 @@ public class shipWeapons extends MonoBehaviour implements IWeaponable {
 			if(phaser.canFire(target.target, upgrades)) {
 				var cost : float = phaser.getEnergyCost(volleyNum());
 				if(reactor.hasEnough(cost)) {
-					phaser.fire(target.target, volleyNum(), this, upgrades);
+					phaser.fire(target.target, volleyNum(), this, upgrades, balance);
 					reactor.spend(cost);		
 				}
 			}
@@ -128,7 +129,7 @@ public class shipWeapons extends MonoBehaviour implements IWeaponable {
 			if(torp.canFire(target.target)) {
 				var cost : float = torp.getEnergyCost(volleyNum());
 				if(reactor.hasEnough(cost)) {
-					StartCoroutine(torp.fire(target.target, volleyNum(), upgrades));
+					StartCoroutine(torp.fire(target.target, volleyNum(), upgrades, balance));
 					reactor.spend(cost);
 				}
 			}

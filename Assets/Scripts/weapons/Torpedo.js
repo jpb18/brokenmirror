@@ -31,7 +31,7 @@ class Torpedo {
 		return ws.isAngle(torpedoPoint, target);
 	}
 	
-	function fire(target : GameObject, num : int, upgrades : Upgrades) {
+	function fire(target : GameObject, num : int, upgrades : Upgrades, balance : ReactorBalance) {
 		
 		nextShot = Time.time + (getCooldown(upgrades)) * num;
 		
@@ -43,6 +43,7 @@ class Torpedo {
 				ws.setTarget(target);
 				ws.setOrigin(torpedoPoint);
 				ws.setUpgrade(upgrades);
+				ws.setEnergy(balance.weapons);
 				torp.SetActive(true);
 			yield WaitForSeconds(rate);
 			} else {

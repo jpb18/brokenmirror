@@ -53,6 +53,9 @@
      <Compile Include="Assets\Menus\MenuScript.js" />
      <Compile Include="Assets\NewBehaviourScript.js" />
      <Compile Include="Assets\Paragraph.js" />
+     <Compile Include="Assets\Scripts\Cache\EscapePodCache.js" />
+     <Compile Include="Assets\Scripts\Cache\ShipCache.js" />
+     <Compile Include="Assets\Scripts\Cache\StationCache.js" />
      <Compile Include="Assets\Scripts\Cheat.js" />
      <Compile Include="Assets\Scripts\CloakScript.js" />
      <Compile Include="Assets\Scripts\Colonization\Colonizer.js" />
@@ -60,6 +63,7 @@
      <Compile Include="Assets\Scripts\Colonization\IColonizer.js" />
      <Compile Include="Assets\Scripts\Construction\Construction.js" />
      <Compile Include="Assets\Scripts\Enumerations\Formation.js" />
+     <Compile Include="Assets\Scripts\Enumerations\MouseOverType.js" />
      <Compile Include="Assets\Scripts\Enumerations\Race.js" />
      <Compile Include="Assets\Scripts\Events\EventGenerator.js" />
      <Compile Include="Assets\Scripts\Events\SceneTransfer.js" />
@@ -219,7 +223,9 @@
      <Compile Include="Assets\Scripts\newGui\NewHUD\HUDTop.js" />
      <Compile Include="Assets\Scripts\newGui\NewHUD\HUDTorpedo.js" />
      <Compile Include="Assets\Scripts\newGui\NewHUD\HUDWeapons.js" />
+     <Compile Include="Assets\Scripts\newGui\NewHUD\HudTooltip.js" />
      <Compile Include="Assets\Scripts\newGui\NewHUD\RadarObject.js" />
+     <Compile Include="Assets\Scripts\newGui\NewHUD\Tooltip.js" />
      <Compile Include="Assets\Scripts\newGui\PlanetPanel.js" />
      <Compile Include="Assets\Scripts\newGui\ReputationPanel.js" />
      <Compile Include="Assets\Scripts\newGui\ResourcePanel.js" />
@@ -229,6 +235,7 @@
      <Compile Include="Assets\Scripts\shields\shieldImp.js" />
      <Compile Include="Assets\Scripts\shields\shieldImpPoints.js" />
      <Compile Include="Assets\Scripts\ship\Reactor.js" />
+     <Compile Include="Assets\Scripts\ship\ReactorBalance.js" />
      <Compile Include="Assets\Scripts\ship\ShipAI.js" />
      <Compile Include="Assets\Scripts\ship\ShipCloud.js" />
      <Compile Include="Assets\Scripts\ship\ShipFuel.js" />

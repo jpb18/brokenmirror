@@ -68,11 +68,11 @@ public class WeaponPoints extends Object { //added this so I could use the const
 	
 	//this function scans for a target inside its targeting radius
 	//@pre target != null
-	public function scan(faction : FactionInfo, origin : GameObject) {
+	public function scan(origin : GameObject) {
 		
 		if(Time.time > this.nextScan) {
 			
-			this.searchEnemies(faction, origin);
+			this.searchEnemies(origin);
 			
 			
 		}
@@ -128,9 +128,9 @@ public class WeaponPoints extends Object { //added this so I could use the const
 	
 	///<summary>This caches all enemies in the scene</summary>
 	///<param name="enemyList">List of enemy factions</param>
-	public function searchEnemies(faction : FactionInfo, origin : GameObject) {
+	public function searchEnemies(origin : GameObject) {
 		
-		targetCache = Statics.findAllEnemyShips(faction, origin);
+		targetCache = Statics.findAllEnemyShips(origin);
 		nextScan = Time.time + Random.value * scanTime;
 		
 	}

@@ -1,10 +1,22 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Load\LoadNames.js">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Load\changelog.txt">
     <Files>
-      <File FileName="Assets\Standard Assets\SpaceUnity\Editor\SU_AsteroidFieldEditor.cs" Line="240" Column="2" />
-      <File FileName="Assets\Standard Assets\SpaceUnity\Editor\SU_SpaceParticlesEditor.cs" Line="132" Column="42" />
-      <File FileName="Assets\Scripts\Load\LoadNames.js" Line="1" Column="1" />
+      <File FileName="Assets\Load\changelog.txt" Line="8" Column="1" />
+      <File FileName="Assets\Scripts\ship\shipWeapons.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\ship\shipMovement.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\newGui\NewHUD\HUDHelm.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\ship\Reactor.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\ship\ReactorBalance.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\weapons\Phaser.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\weapons\weaponScript.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\weapons\torpedoScript.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\weapons\Torpedo.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\menus\guiScript.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\ship\shipTarget.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\newGui\NewHUD\HUDWeapons.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\newGui\NewHUD\HUDElement.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\newGui\NewHUD\HUDPower.js" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

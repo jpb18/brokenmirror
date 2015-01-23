@@ -80,20 +80,20 @@ class Phaser {
 	
 	///<summary>This will fire the phaser. Must check canFire(target) first. Also, make sure this is started as a coroutine.</summary>
 	///<param name="target">Target GameObject</param>
-	function fire(target : GameObject, repeat : int, wep : shipWeapons, upgrades : Upgrades) {
+	function fire(target : GameObject, repeat : int, wep : shipWeapons, upgrades : Upgrades, balance : ReactorBalance) {
 		lastShot = Time.time;
 		
 		if(getType() == WeaponType.beam) {
- 			wep.StartCoroutine(fireBeam(target, getPoint(target), upgrades));
+ 			wep.StartCoroutine(fireBeam(target, getPoint(target), upgrades, balance));
 		} else if (getType() == WeaponType.pulse) {
-			wep.StartCoroutine(firePulse(target, repeat, upgrades));
+			wep.StartCoroutine(firePulse(target, repeat, upgrades, balance));
 		}
 		
 
 	
 	}
 	
-	function firePulse(target : GameObject, repeat : int, upgrades : Upgrades) {
+	function firePulse(target : GameObject, repeat : int, upgrades : Upgrades, balance : ReactorBalance) {
 		isFiring = true;
 		var time : float = getAlternateFireRate();
 		var i : int = 0;
@@ -105,6 +105,7 @@ class Phaser {
 				ws.setTarget(target);
 				ws.setOrigin(point);
 				ws.setUpgrade(upgrades);
+				ws.setEnergy(balance.weapons);
 				pulse.SetActive(true);
 			}
 			yield WaitForSeconds(time);
@@ -115,7 +116,7 @@ class Phaser {
 		isFiring = false;
 	}
 	
-	function fireBeam(target : GameObject, origin : GameObject, upgrades : Upgrades) {
+	function fireBeam(target : GameObject, origin : GameObject, upgrades : Upgrades, balance : ReactorBalance) {
 		var rate : float = 1/duration;
 		var i : float = 0;
 		var phaserGO : GameObject;
@@ -131,9 +132,9 @@ class Phaser {
 				
 				if(hasTargetShield(target)) {
 					
-					phaserGO = fireShields(target, origin, or, dir, hit, phaserGO, upgrades);
+					phaserGO = fireShields(target, origin, or, dir, hit, phaserGO, upgrades, balance);
 				} else {
-					phaserGO = fireHull(target, origin, or, dir, hit, phaserGO, upgrades);
+					phaserGO = fireHull(target, origin, or, dir, hit, phaserGO, upgrades, balance);
 				}
 			} else {
 				i = 2;
@@ -160,7 +161,7 @@ class Phaser {
 			
 	}
 	//pre hasTargetShield()
-	private function fireShields(target : GameObject, origin : GameObject, or : Vector3, dir : Vector3, hit : RaycastHit, phaserGO : GameObject, upgrades : Upgrades) : GameObject {
+	private function fireShields(target : GameObject, origin : GameObject, or : Vector3, dir : Vector3, hit : RaycastHit, phaserGO : GameObject, upgrades : Upgrades, balance : ReactorBalance) : GameObject {
 		
 		var isHit : boolean = Physics.Raycast(or, dir, hit, getRange(), shieldLayerMask);
 		if(isHit) {
@@ -168,9 +169,9 @@ class Phaser {
 			//get target health script
 			var ship : GameObject = getParent(hit.transform).gameObject;
 			if(ship.tag.Equals("Ship")) {
-				ship.GetComponent(shipHealth).damageShield(getDamage(upgrades) * Time.deltaTime);
+				ship.GetComponent(shipHealth).damageShield(getDamage(upgrades) * balance.weapons * Time.deltaTime);
 			} else if (ship.tag.Equals("Station")) {
-				ship.GetComponent(Health).getDamage(getDamage(upgrades) *  Time.deltaTime, true);
+				ship.GetComponent(Health).getDamage(getDamage(upgrades) * balance.weapons * Time.deltaTime, true);
 			}
 			//get hit point
 			var point : Vector3 = hit.point;
@@ -194,14 +195,14 @@ class Phaser {
 	
 	}
 	
-	private function fireHull(target : GameObject, origin : GameObject, or : Vector3, dir : Vector3, hit : RaycastHit, phaserGO : GameObject, upgrades : Upgrades) : GameObject {
+	private function fireHull(target : GameObject, origin : GameObject, or : Vector3, dir : Vector3, hit : RaycastHit, phaserGO : GameObject, upgrades : Upgrades, balance : ReactorBalance) : GameObject {
 		if(Physics.Raycast(or, dir, hit, getRange(), hullLayerMask)) {
 				
 				//do phaser logic here
 				//get target health script
 				var ship : GameObject = getParent(hit.transform).gameObject;
 				var dmg : IDamageable = ship.GetComponent(typeof(IDamageable)) as IDamageable;
-				dmg.setDamage(getDamage(upgrades) * Time.deltaTime, true);
+				dmg.setDamage(getDamage(upgrades) * balance.weapons * Time.deltaTime, true);
 				
 				//get hit point
 				var point : Vector3 = hit.point;

@@ -42,6 +42,7 @@ private var trans : Transform;
 private var go : GameObject;
 
 private var upgrades : Upgrades;
+private var energy : float;
 
 function FixedUpdate () {
 	
@@ -265,6 +266,8 @@ function getDamage(isShield : boolean) : float {
 		dmg = dmg + upgrades.getDamageBonus();
 	}
 	
+	dmg = dmg * energy;
+	
 	return dmg;
 }
 
@@ -289,6 +292,10 @@ private function registerShipHit(ship : GameObject) {
 
 function setUpgrade(upgrades : Upgrades) {
 	this.upgrades = upgrades;
+}
+
+function setEnergy(energy : float) {
+	this.energy = energy;
 }
 
 ///<summary>This function calculates the most likelly colision between two objects a (target) and b (projectille)</summary>

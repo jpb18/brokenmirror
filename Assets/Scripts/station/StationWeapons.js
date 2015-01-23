@@ -83,22 +83,22 @@ public function fire (weaponNum : int, type : WeaponType) {
 
 //this method makes the weapon search for a new target
 //pre 0 <= weaponNum < getLength()
-public function scan (weaponNum : int, type : WeaponType, faction : FactionInfo) {
+public function scan (weaponNum : int, type : WeaponType) {
 	
 	switch(type) {
 		case WeaponType.beam:
 			if(phaser != null && !phaserPoints[weaponNum].hasTarget()) {
-				phaserPoints[weaponNum].scan(faction, gameObject);
+				phaserPoints[weaponNum].scan(gameObject);
 			}
 			break;
 		case WeaponType.torpedo:
 			if(torpedo != null && !torpedoPoints[weaponNum].hasTarget()) {
-				torpedoPoints[weaponNum].scan(faction, gameObject);
+				torpedoPoints[weaponNum].scan(gameObject);
 			}
 			break;
 		case WeaponType.pulse:
 			if(pulse != null && !pulsePoints[weaponNum].hasTarget()) {
-				pulsePoints[weaponNum].scan(faction, gameObject);
+				pulsePoints[weaponNum].scan(gameObject);
 			}
 		
 	
