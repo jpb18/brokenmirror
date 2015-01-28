@@ -103,6 +103,7 @@ class shipHealth extends MonoBehaviour implements IHealtheable, IDamageable {
 	private var reactor : ShipReactor;
 	private var ai : ShipAI;
 	private var map : MapInfo;
+	private var balance : ReactorBalance;
 
 	function Start () {
 
@@ -114,6 +115,7 @@ class shipHealth extends MonoBehaviour implements IHealtheable, IDamageable {
 		upgrades = gameObject.GetComponent(Upgrades);
 		reactor = gameObject.GetComponent(ShipReactor);
 		ai = gameObject.GetComponent(ShipAI);
+		balance = gameObject.GetComponent.<ReactorBalance>();
 		
 		missions = GameObject.FindGameObjectWithTag("Missions").GetComponent(Missions);
 		general = GameObject.FindGameObjectWithTag("SaveGame").GetComponent(GeneralInfo);
@@ -173,7 +175,7 @@ class shipHealth extends MonoBehaviour implements IHealtheable, IDamageable {
 			{
 				reactor.spend(cost);
 				shieldRegen.setRegen();
-				var rate : float = shieldRegen.regenRate;
+				var rate : float = shieldRegen.regenRate * balance.defense;
 				shipHealth.shields += rate; //adds shield
 			}
 		

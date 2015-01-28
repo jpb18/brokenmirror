@@ -8,9 +8,9 @@ FIXED:
 
 ADDED:
 - Warp Engine Overload
+- Energy Management
 
 WIP:
-- Energy Management
 - Tooltips
 
 Version 0.2.4

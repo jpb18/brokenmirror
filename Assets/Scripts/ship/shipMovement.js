@@ -176,7 +176,7 @@ function shipPlayer_speed () {
 		}
 	}
 	
-	if (Input.GetAxis("FullStop") && !isChanging && speedStatus != 0 && !isStop()){
+	if (Input.GetAxis("FullStop") && !isChanging && !isStop()){
 		fullStop();
 	}
 }
@@ -198,7 +198,7 @@ function fullStop() {
 }
 
 function isStop() : boolean {
-	return rigidbody.velocity.z == 0;
+	return speedStatus == 0;
 }
 
 function shipPlayer_movement () {
@@ -311,7 +311,7 @@ function FullStop (currentSpeed : float, acceleration : float)
 	
 	
 	isChanging = false;
-
+	speedStatus = 0;
 
 }
 

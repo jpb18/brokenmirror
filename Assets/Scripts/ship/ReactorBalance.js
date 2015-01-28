@@ -18,7 +18,7 @@ function Start () {
 // Update is called once per frame
 function Update () {
 	var cost : float = CalculateEnergyCost();
-	if(cost > 0 && reactor.hasEnough(cost)) {
+	if(cost > 0 && !reactor.hasEnough(cost)) {
 		Shutdown();
 	} else {
 		reactor.spend(cost);
