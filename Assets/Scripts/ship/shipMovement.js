@@ -80,6 +80,7 @@ private var reactor : ShipReactor;
 private var target : shipTarget;
 private var properties : shipProperties;
 private var balance : ReactorBalance;
+private var skills : Skills;
 
 var warpParticle : ParticleSystem;
 
@@ -103,6 +104,7 @@ function Start () {
 	}
 	
 	message = GameObject.FindGameObjectWithTag("ShowMessage").GetComponent(ShowMessage);
+	skills = GameObject.FindGameObjectWithTag("SaveGame").GetComponent.<Skills>();
 	
 }
 
@@ -183,9 +185,15 @@ function shipPlayer_speed () {
 
 function getShipSpeed() : float {
 	var speed : float = properties.getSpeed();
+	
+	if(properties.isPlayer()) {
+		speed = speed + skills.getSpeedBonus();
+	}
+	
 	if(properties.getRedAlert()) {
 		speed = speed * getSpeedReduction();
-	}	
+	}
+		
 	return speed * balance.speed;
 }
 
@@ -264,7 +272,13 @@ function isTargetAtRight(target : Vector3, interval : float) : boolean {
 }
 
 function shipAgility() : float {
-	return (properties.getAgility()) * Time.deltaTime;
+	var agility : float = properties.getAgility();
+	
+	if(properties.isPlayer()) {
+		agility += skills.getAgilityBonus();
+	}
+
+	return agility * Time.deltaTime;
 }
 
 function FullStop (currentSpeed : float, acceleration : float)

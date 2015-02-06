@@ -1,10 +1,6 @@
 ﻿#pragma strict
 
-var navigation : int; //speed and agility upgrade
-var tactical : int; //weapons damage and recharge upgrade
-var engineering : int; //shielding and reactor upgrade
-var science : int; //increases the scan efficiency
-var command : int; //what to do here?
+var skills : SkillSet;
 
 @Tooltip("The amount of speed bonus for 100 navigational points.")
 var speedBonus : float;
@@ -30,53 +26,55 @@ function Update () {
 }
 
 function SetUp(navigation : int, tactical : int, engineering : int, science : int, command : int) {
-	this.navigation = navigation;
-	this.tactical = tactical;
-	this.engineering = engineering;
-	this.science = science;
-	this.command = command;
-	
+	skills = new SkillSet(navigation, tactical, engineering, science, command);
 }
 
+function SetUp(skills : SkillSet) {
+	this.skills = skills;
+}
 
 function upgradeNavigation(increase : int) {
-	this.navigation += increase;
+	this.skills.navigation += increase;
 }
 
 function upgradeTactical(increase : int) {
-	this.tactical += increase;
+	this.skills.tactical += increase;
 }
 
 function upgradeEngineering(increase : int) {
-	this.engineering += increase;
+	this.skills.engineering += increase;
 }
 
 function upgradeScience(increase : int) {
-	this.science += science;
+	this.skills.science += increase;
+}
+
+function upgradeCommand(increase : int) {
+	this.skills.command += increase;
 }
 
 function getSpeedBonus() : float {
-	return speedBonus * (1 + navigation/100);
+	return speedBonus * (1 + skills.navigation/100);
 }
 
 function getAgilityBonus() : float {
-	return agilityBonus * (1 + navigation/100);
+	return agilityBonus * (1 + skills.navigation/100);
 }
 
 function getDamageBonus() : float {
-	return damageBonus * (1 + tactical/100);
+	return damageBonus * (1 + skills.tactical/100);
 }
 
 function getRechargeBonus() : float {
-	return rechargeBonus * (1 - tactical/100);
+	return rechargeBonus * (1 - skills.tactical/100);
 }
 
 function getShieldBonus() : float {
-	return shieldBonus * (1 + engineering/100);
+	return shieldBonus * (1 + skills.engineering/100);
 }
 
 function getReactorBonus() : float {
-	return reactorBonus * (1 + engineering/100);
+	return reactorBonus * (1 + skills.engineering/100);
 }
 
 function getScanBonus() : float {

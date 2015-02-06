@@ -29,7 +29,6 @@ class Phaser {
 		}
 		
 		return can;
-	
 	}
 	
 	function canRangeAndAngle(target : GameObject) : boolean {

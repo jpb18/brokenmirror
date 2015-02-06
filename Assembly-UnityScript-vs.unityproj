@@ -249,6 +249,7 @@
      <Compile Include="Assets\Scripts\ship\shipTriggers.js" />
      <Compile Include="Assets\Scripts\ship\shipWeapons.js" />
      <Compile Include="Assets\Scripts\ship\swapPrototype.js" />
+     <Compile Include="Assets\Scripts\skills\SkillSet.js" />
      <Compile Include="Assets\Scripts\skills\Skills.js" />
      <Compile Include="Assets\Scripts\station\Health.js" />
      <Compile Include="Assets\Scripts\station\InteractionsMode.js" />

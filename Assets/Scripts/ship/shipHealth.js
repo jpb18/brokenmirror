@@ -104,6 +104,7 @@ class shipHealth extends MonoBehaviour implements IHealtheable, IDamageable {
 	private var ai : ShipAI;
 	private var map : MapInfo;
 	private var balance : ReactorBalance;
+	private var skills : Skills;
 
 	function Start () {
 
@@ -118,9 +119,12 @@ class shipHealth extends MonoBehaviour implements IHealtheable, IDamageable {
 		balance = gameObject.GetComponent.<ReactorBalance>();
 		
 		missions = GameObject.FindGameObjectWithTag("Missions").GetComponent(Missions);
-		general = GameObject.FindGameObjectWithTag("SaveGame").GetComponent(GeneralInfo);
+		var saveGo : GameObject = GameObject.FindGameObjectWithTag("SaveGame");
+		general = saveGo.GetComponent(GeneralInfo);
+		skills = saveGo.GetComponent.<Skills>();
 		over = GameObject.FindGameObjectWithTag("GameOver").GetComponent(GameOver);
 		map = GameObject.FindGameObjectWithTag("MapInfo").GetComponent(MapInfo);
+
 		
 		//get health stats
 		shipHealth.maxHealth = properties.ShipHealth.basicHealth;
@@ -167,7 +171,13 @@ class shipHealth extends MonoBehaviour implements IHealtheable, IDamageable {
 	//this function controls a ship shield regeneration
 	function shield_regen() {
 		//checks if the time interval has passed and the shield is able of regenerating
-		if (shieldRegen.canRegen(upgrades.getShieldRecharge()) == true && shipHealth.getShield(upgrades) < shipHealth.getMaxShield(upgrades))
+		var regenMod : float = upgrades.getShieldRecharge();
+		
+		if(properties.isPlayer()) {
+			regenMod += skills.getShieldBonus();
+		}
+		
+		if (shieldRegen.canRegen(regenMod) == true && shipHealth.getShield(upgrades) < shipHealth.getMaxShield(upgrades))
 		{
 			var cost : float = shieldRegen.getEnergyCost();
 		

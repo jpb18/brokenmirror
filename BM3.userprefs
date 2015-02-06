@@ -1,20 +1,10 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\ship\shipMovement.js">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\skills\Skills.js">
     <Files>
-      <File FileName="Assets\Scripts\newGui\NewHUD\HUDBalance.js" Line="99" Column="51" />
-      <File FileName="Assets\Scripts\ship\shipTarget.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\newGui\NewHUD\HUDWeapons.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\newGui\NewHUD\HUDElement.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\newGui\NewHUD\HUDPower.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\newGui\NewHUD\HUDBottom.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\newGui\GuiElement.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\ship\ReactorBalance.js" Line="16" Column="2" />
-      <File FileName="Assets\Scripts\Statics.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\newGui\NewHUD\HudTooltip.js" Line="1" Column="1" />
-      <File FileName="Assets\Load\changelog.txt" Line="13" Column="5" />
-      <File FileName="Assets\Scripts\ship\shipHealth.js" Line="178" Column="63" />
-      <File FileName="Assets\Scripts\ship\shipMovement.js" Line="314" Column="18" />
+      <File FileName="Assets\Load\changelog.txt" Line="37" Column="9" />
+      <File FileName="Assets\Scripts\skills\Skills.js" Line="32" Column="36" />
+      <File FileName="Assets\Scripts\ship\shipProperties.js" Line="24" Column="38" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

@@ -4,6 +4,8 @@ var capacity : float;
 var current : float;
 var rechargeRate : float;
 
+private var skills : Skills;
+
 function Start () {
 	initReactor();
 
@@ -14,7 +16,7 @@ function Update () {
 }
 
 function recharge() {
-	var recharge : float = rechargeRate * Time.deltaTime;
+	var recharge : float = GetRechargeRate() * Time.deltaTime;
 
 	if(capacity < current + recharge) {
 		current = capacity;
@@ -43,6 +45,11 @@ function getPercentage() : int {
 
 function initReactor() {
 	current = capacity;
+	skills = GameObject.FindGameObjectWithTag("SaveGame").GetComponent.<Skills>();
+}
+
+function GetRechargeRate() : float {
+	return rechargeRate + skills.getReactorBonus();
 }
 
 
