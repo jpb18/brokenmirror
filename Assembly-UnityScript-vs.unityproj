@@ -140,6 +140,7 @@
      <Compile Include="Assets\Scripts\Pooler\ObjectPooler.js" />
      <Compile Include="Assets\Scripts\PreventObjectsGoingThrough.js" />
      <Compile Include="Assets\Scripts\SaveGame\CargoHold.js" />
+     <Compile Include="Assets\Scripts\SaveGame\FactionInfo.js" />
      <Compile Include="Assets\Scripts\SaveGame\GeneralInfo.js" />
      <Compile Include="Assets\Scripts\SaveGame\GuiComponent.js" />
      <Compile Include="Assets\Scripts\SaveGame\HUDStatus.js" />

@@ -39,7 +39,7 @@ public class GameData {
 		var facs : List.<FactionInfo> = general.factionInfo;
 		for(var x : int = 0; x < facs.Count; x++) {
 			var faction : FactionInfo = facs[x];
-			var f : FactionData = new FactionData(faction.getName(), faction.getRace(), faction.getPrefix(), faction.hostileFactions, faction.alliedFactions, faction.invasionFleet, faction.stations);
+			var f : FactionData = new FactionData(faction);
 			this.factions.Add(f);
 		}
 		this.map = new MapData(map);

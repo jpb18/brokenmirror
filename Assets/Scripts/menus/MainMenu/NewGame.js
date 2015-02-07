@@ -24,8 +24,9 @@ var speciesLabel : Rect;
 var speciesArea : Rect;
 var selectedRace : Race;
 
-
 var startingFactionLabel : Rect;
+var startingFactionArea : Rect;
+private var selectedFaction : FactionInfo;
 
 var shipClassLabel : Rect;
 
@@ -149,26 +150,30 @@ private function DrawLeft() {
 		GUI.Box(new Rect(0,0, area.width, area.height), "");
 	  	
 	  	GUI.Label(playerNameLabel, charNameString, skin.GetStyle("NameLabel1"));
-		GUI.Label(shipLabel, "ISS " + shipNameString, skin.GetStyle("NameLabel2"));
+	  	if(selectedFaction) {
+	  		var prefix : String = selectedFaction.prefix;
+			GUI.Label(shipLabel, prefix + " " + shipNameString, skin.GetStyle("NameLabel2"));
+		}
 		GUI.Label(empireLabel, customFactionString, skin.GetStyle("NameLabel1"));	   
 	  	
 	  	GUI.DrawTexture(empireLogoRect, empireLogo);
-	  	
-	  	GUI.Label(navLabelRect, NAVIGATION, skin.GetStyle("SkillLabel"));
-	  	GUI.Label(tacLabelRect, TACTICAL, skin.GetStyle("SkillLabel"));
-	  	GUI.Label(engLabelRect, ENGINEERING, skin.GetStyle("SkillLabel"));
-	  	GUI.Label(sciLabelRect, SCIENCE, skin.GetStyle("SkillLabel"));
-	  	GUI.Label(comLabelRect, COMMAND, skin.GetStyle("SkillLabel"));
-	  	
-	  	GUI.Label(navPointsRect, String.Format(POINTS, 15), skin.GetStyle("SkillPoints"));
-	  	GUI.Label(tacPointsRect, String.Format(POINTS, 15), skin.GetStyle("SkillPoints"));
-	  	GUI.Label(engPointsRect, String.Format(POINTS, 15), skin.GetStyle("SkillPoints"));
-	  	GUI.Label(sciPointsRect, String.Format(POINTS, 15), skin.GetStyle("SkillPoints"));
-	  	
-	  	GUI.Label(comPointsRect, "15", skin.GetStyle("CommandPoints"));
-	  	
-	  	GUI.DrawTexture(line3, verLine);
-	  	
+	  	if(selectedFaction != null) {
+	  		var skills : SkillSet = selectedFaction.skills;
+		  	GUI.Label(navLabelRect, NAVIGATION, skin.GetStyle("SkillLabel"));
+		  	GUI.Label(tacLabelRect, TACTICAL, skin.GetStyle("SkillLabel"));
+		  	GUI.Label(engLabelRect, ENGINEERING, skin.GetStyle("SkillLabel"));
+		  	GUI.Label(sciLabelRect, SCIENCE, skin.GetStyle("SkillLabel"));
+		  	GUI.Label(comLabelRect, COMMAND, skin.GetStyle("SkillLabel"));
+		  	
+		  	GUI.Label(navPointsRect, String.Format(POINTS, skills.navigation), skin.GetStyle("SkillPoints"));
+		  	GUI.Label(tacPointsRect, String.Format(POINTS, skills.tactical), skin.GetStyle("SkillPoints"));
+		  	GUI.Label(engPointsRect, String.Format(POINTS, skills.engineering), skin.GetStyle("SkillPoints"));
+		  	GUI.Label(sciPointsRect, String.Format(POINTS, skills.science), skin.GetStyle("SkillPoints"));
+		  	
+		  	GUI.Label(comPointsRect, skills.command.ToString(), skin.GetStyle("CommandPoints"));
+		  	
+		  	GUI.DrawTexture(line3, verLine);
+	  	}
 	GUILayout.EndArea();
 }
 
@@ -197,6 +202,8 @@ private function DrawRight() {
 		
 		GUI.Label(Resize(startingFactionLabel), FACTION_LABEL, skin.GetStyle("MidLabel"));
 		GUI.Label(Resize(shipClassLabel), SHIP_LABEL, skin.GetStyle("MidLabel"));
+		
+		DrawFactionButtons();
 		
 		if(GUI.Button(Resize(InvertXY(rightArea, continueRect)), "Continue")) {
 			setNewGame();
@@ -227,6 +234,24 @@ private function drawSpeciesButtons() {
 	GUILayout.EndArea();
 }
 
+private function DrawFactionButtons() {
+	GUILayout.BeginArea(Resize(startingFactionArea));
+	GUILayout.BeginHorizontal();
+		var factions : List.<FactionInfo> = general.factionInfo;
+		for(var i : int = 1; i < 3; i++) {
+			var faction : FactionInfo = factions[i];
+			if(faction == selectedFaction) {
+				GUI.color = Color.yellow;
+			}
+			if(GUILayout.Button(faction.getName(), skin.GetStyle("RaceButton"))) {
+				selectedFaction = faction;
+			}
+			GUI.color = Color.white;	
+		}
+		
+	GUILayout.EndHorizontal();
+	GUILayout.EndArea();
+}
 
 private function GetScale() : float {
 	return 1f;
@@ -282,5 +307,10 @@ function setNewGame() {
 	save.setPlayerShipName(shipNameString);
 	
 	Application.LoadLevel("Intro");
-	
+}
+
+function SetPlayerSkills() {
+	var save : GameObject = GameObject.FindGameObjectWithTag("SaveGame");
+	var skills : Skills = save.GetComponent.<Skills>();
+	skills.SetUp(selectedFaction.skills);
 }

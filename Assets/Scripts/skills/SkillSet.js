@@ -1,10 +1,19 @@
+#pragma strict
+import System.Xml.Serialization;
+import System.Collections.Generic;
 
+@XmlRoot("SkillSet")
 public class SkillSet {
-
+	
+	@XmlAttribute("navigation")
 	var navigation : int; //speed and agility upgrade
+	@XmlAttribute("tactical")
 	var tactical : int; //weapons damage and recharge upgrade
+	@XmlAttribute("engineering")
 	var engineering : int; //shielding and reactor upgrade
+	@XmlAttribute("science")
 	var science : int; //increases the scan efficiency
+	@XmlAttribute("command")
 	var command : int; //what to do here?
 	
 	
