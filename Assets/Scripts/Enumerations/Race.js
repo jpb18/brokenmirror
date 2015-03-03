@@ -7,5 +7,4 @@ enum Race {
 	Cardassian,
 	Tholian,
 	Farengi,
-
 }
