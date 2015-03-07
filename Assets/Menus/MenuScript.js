@@ -25,7 +25,7 @@ private var fade : FadeInOut;
 private var save : SaveScript;
 private var loadGame : LoadGame;
 
-private var create : NewGame;
+var newGameControler : NewGameControler;
 
 
 function Start () {
@@ -39,13 +39,13 @@ function Start () {
 		fade.fadeIn();
 	}
 	
-	create = GameObject.FindGameObjectWithTag("Create").GetComponent(NewGame);
 	save = GameObject.FindGameObjectWithTag("SaveScript").GetComponent(SaveScript);
 	loadGame = GameObject.FindGameObjectWithTag("SaveScript").GetComponent(LoadGame);
+	newGameControler.Hide();
 }
 
 function Update () {
-	if(!create.on) {
+	if(!newGameControler.on) {
 		getPress();
 		getMouseOver();
 	}
@@ -62,7 +62,7 @@ function getPress() {
 				var hitGo : GameObject = hit.transform.gameObject;
 				if (hitGo.tag == "NewGame") {
 						Hide();
-						create.SetOn();			}
+						newGameControler.Show();		}
 				else if(hitGo.tag == "resume" && save.XmlExists(getFileName())) {
 					loadLatestGame();
 				}

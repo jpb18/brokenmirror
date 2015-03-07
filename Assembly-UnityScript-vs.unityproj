@@ -179,6 +179,7 @@
      <Compile Include="Assets\Scripts\menus\EscMenu.js" />
      <Compile Include="Assets\Scripts\menus\GameOver.js" />
      <Compile Include="Assets\Scripts\menus\MainMenu\NewGame.js" />
+     <Compile Include="Assets\Scripts\menus\MainMenu\NewGameControler.js" />
      <Compile Include="Assets\Scripts\menus\RangeFinder.js" />
      <Compile Include="Assets\Scripts\menus\ResumeGame.js" />
      <Compile Include="Assets\Scripts\menus\ShowMessage.js" />
