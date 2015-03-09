@@ -29,4 +29,14 @@ public class SkillSet {
 		this.command = command;
 	}
 	
+	function ToArray() {
+		var arr : int[] = new int[5];
+		arr[0] = navigation;
+		arr[1] = tactical;
+		arr[2] = engineering;
+		arr[3] = science;
+		arr[4] = command;
+		return arr;
+	}
+	
 }

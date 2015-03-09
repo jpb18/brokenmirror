@@ -158,20 +158,20 @@ private function DrawLeft() {
 	  	
 	  	GUI.DrawTexture(empireLogoRect, empireLogo);
 	  	if(selectedFaction != null) {
-	  		var skills : SkillSet = selectedFaction.skills;
+	  		//var skills : SkillSet = selectedFaction.skills;
 		  	GUI.Label(navLabelRect, NAVIGATION, skin.GetStyle("SkillLabel"));
 		  	GUI.Label(tacLabelRect, TACTICAL, skin.GetStyle("SkillLabel"));
 		  	GUI.Label(engLabelRect, ENGINEERING, skin.GetStyle("SkillLabel"));
 		  	GUI.Label(sciLabelRect, SCIENCE, skin.GetStyle("SkillLabel"));
 		  	GUI.Label(comLabelRect, COMMAND, skin.GetStyle("SkillLabel"));
-		  	
+		  	/*
 		  	GUI.Label(navPointsRect, String.Format(POINTS, skills.navigation), skin.GetStyle("SkillPoints"));
 		  	GUI.Label(tacPointsRect, String.Format(POINTS, skills.tactical), skin.GetStyle("SkillPoints"));
 		  	GUI.Label(engPointsRect, String.Format(POINTS, skills.engineering), skin.GetStyle("SkillPoints"));
 		  	GUI.Label(sciPointsRect, String.Format(POINTS, skills.science), skin.GetStyle("SkillPoints"));
 		  	
 		  	GUI.Label(comPointsRect, skills.command.ToString(), skin.GetStyle("CommandPoints"));
-		  	
+		  	*/
 		  	GUI.DrawTexture(line3, verLine);
 	  	}
 	GUILayout.EndArea();
@@ -312,5 +312,5 @@ function setNewGame() {
 function SetPlayerSkills() {
 	var save : GameObject = GameObject.FindGameObjectWithTag("SaveGame");
 	var skills : Skills = save.GetComponent.<Skills>();
-	skills.SetUp(selectedFaction.skills);
+	//skills.SetUp(selectedFaction.skills);
 }

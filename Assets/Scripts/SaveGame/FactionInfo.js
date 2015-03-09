@@ -11,8 +11,6 @@ class FactionInfo {
 	var shipNames : List.<String>;
 	var stationNames : List.<String>;
 	
-	var skills : SkillSet; 
-	
 	function FactionInfo() {
 		factionName = "";
 		factionRace = Race.Unknown;

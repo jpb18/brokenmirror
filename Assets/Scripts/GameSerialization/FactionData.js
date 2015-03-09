@@ -27,8 +27,7 @@ public class FactionData {
 	@XmlArrayItem("Station")
 	var stations : List.<String>;
 	
-	var skills : SkillSet;
-	
+
 	function FactionData() {
 		name = "";
 		race = "";
@@ -37,10 +36,10 @@ public class FactionData {
 		allies = new List.<int>();
 		ships = new List.<String>();
 		stations = new List.<String>();
-		skills = new SkillSet();
+
 	}
 	
-	function FactionData(name : String, race : Race, prefix : String, enemies : List.<int>, allies : List.<int>, ships : List.<GameObject>, stations : List.<GameObject>, skills : SkillSet) {
+	function FactionData(name : String, race : Race, prefix : String, enemies : List.<int>, allies : List.<int>, ships : List.<GameObject>, stations : List.<GameObject>) {
 
 		this.name = name;
 		this.race = race.ToString();
@@ -56,12 +55,11 @@ public class FactionData {
 		for(var station : GameObject in stations) {
 			this.stations.Add(station.name);
 		}
-		
-		this.skills = skills;	
+			
 	}
 	
 	function FactionData(faction : FactionInfo) {
-		this(faction.getName(), faction.getRace(), faction.getPrefix(), faction.hostileFactions, faction.alliedFactions, faction.invasionFleet, faction.stations, faction.skills);
+		this(faction.getName(), faction.getRace(), faction.getPrefix(), faction.hostileFactions, faction.alliedFactions, faction.invasionFleet, faction.stations);
 	}
 	
 	function getFleet() : List.<GameObject> {
