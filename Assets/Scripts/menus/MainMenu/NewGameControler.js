@@ -6,6 +6,7 @@ var on : boolean;
 var canvas : GameObject;
 var texts : InputField[];
 
+
 var skillLabel : Text[];
 var factionImages : Image[];
 
@@ -16,6 +17,7 @@ private var faction : FactionInfo;
 
 var menu : MenuScript;
 private var general : GeneralInfo;
+private var save : SaveGame;
 
 
 public static final var SKILL_MASK = "{0}/100";
@@ -25,6 +27,7 @@ function Start () {
 	on = false;
 	var go : GameObject = GameObject.FindGameObjectWithTag("SaveGame");
 	general = go.GetComponent.<GeneralInfo>();
+	save = go.GetComponent(SaveGame);
 	
 	menu = GameObject.FindGameObjectWithTag("MainCamera").GetComponent.<MenuScript>();
 	
@@ -61,7 +64,7 @@ function Hide() {
 
 function SetFaction(faction : int) {
 
-	this.faction = general.getFactionInfo(faction);
+	this.faction = general.getFactionInfo(faction+1);
 	
 	for(var i = 0; i < factionImages.Length; i++) {
 		if(i != faction) {
@@ -87,5 +90,17 @@ function SetRace(race : int) {
 
 function StartGame() {
 
-]
+	general.setPlayerName(texts[0].text);
+	general.setPlayerFactionName(texts[1].text);
+	general.setPlayerFactionPrefix(faction.prefix);
+	general.setPlayerRace(this.selectedRace); //NOTE: Here's an implicit cast from int to Race.
+	general.SetPlayerAllegiance(faction);
+	save.setPlayerShipName(texts[2].text);
+	
+	faction.alliedFactions.Add(0);
+	
+	Application.LoadLevel("Intro");
+
+}
+
 

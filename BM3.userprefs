@@ -1,15 +1,21 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Enumerations\Race.js">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Load\StartSceneStart.js">
     <Files>
-      <File FileName="Assets\Scripts\menus\MainMenu\NewGameControler.js" Line="64" Column="2" />
+      <File FileName="Assets\Scripts\menus\MainMenu\NewGameControler.js" Line="97" Column="47" />
       <File FileName="Assets\Scripts\Load\dontDestroy.js" Line="1" Column="1" />
       <File FileName="Assets\Scripts\GameSerialization\GameData.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Enumerations\Race.js" Line="9" Column="14" />
-      <File FileName="Assets\Scripts\menus\MainMenu\NewGame.js" Line="174" Column="8" />
-      <File FileName="Assets\Menus\MenuScript.js" Line="44" Column="26" />
-      <File FileName="Assets\Scripts\SaveGame\GeneralInfo.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\GameSerialization\FactionData.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Enumerations\Race.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\menus\MainMenu\NewGame.js" Line="1" Column="1" />
+      <File FileName="Assets\Menus\MenuScript.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\SaveGame\GeneralInfo.js" Line="66" Column="34" />
+      <File FileName="Assets\Scripts\skills\SkillSet.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\SaveGame\LoadGame.js" Line="1" Column="15" />
+      <File FileName="Assets\Scripts\Load\StartSceneStart.js" Line="25" Column="55" />
+      <File FileName="Assets\Scripts\Load\SceneStart.js" Line="20" Column="32" />
+      <File FileName="Assets\Scripts\SaveGame\FactionInfo.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\SaveGame\SaveGame.js" Line="235" Column="1" />
+      <File FileName="Assets\Scripts\ship\shipProperties.js" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

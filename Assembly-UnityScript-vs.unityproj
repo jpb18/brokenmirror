@@ -125,6 +125,7 @@
      <Compile Include="Assets\Scripts\Load\GameLoad.js" />
      <Compile Include="Assets\Scripts\Load\LoadNames.js" />
      <Compile Include="Assets\Scripts\Load\SceneStart.js" />
+     <Compile Include="Assets\Scripts\Load\StartSceneControler.js" />
      <Compile Include="Assets\Scripts\Load\StartSceneStart.js" />
      <Compile Include="Assets\Scripts\Load\dontDestroy.js" />
      <Compile Include="Assets\Scripts\Load\sceneSwapper.js" />

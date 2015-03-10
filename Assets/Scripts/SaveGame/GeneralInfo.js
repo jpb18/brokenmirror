@@ -61,6 +61,19 @@ function getFactionIdByName(name : String) : int {
 	return -1;
 }
 
+function GetPlayerAllegianceId() : int {
+	var name : String =  playerInfo.allegience.factionName;
+	return getFactionIdByName(name);
+}
+
+function SetPlayerAllegiance(faction : FactionInfo) {
+	playerInfo.allegience = faction;
+	
+	factionInfo[0].hostileFactions = faction.hostileFactions;
+	factionInfo[0].alliedFactions = faction.alliedFactions;
+	factionInfo[0].alliedFactions.Add(getFactionIdByName(faction.factionName));
+}
+
 function setPlayer(player : PlayerData) {
 	playerInfo = new PlayerInfo(player);
 }
@@ -81,6 +94,7 @@ function setPlayerFactionName(name : String) {
 function setPlayerFactionPrefix(prefix : String) {
 	factionInfo[0].setPrefix(prefix);
 }
+
 
 function getPlayerName() : String {
 	return playerInfo.name;

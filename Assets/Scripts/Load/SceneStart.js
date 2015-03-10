@@ -16,15 +16,15 @@ var playerFleet : List.<GameObject>;
 var defenseFleet : List.<GameObject>;
 var stationList : List.<GameObject>;
 
-private var save_scr : SaveGame;
-private var mapScr : MapInfo;
-private var planet : PlanetInfo;
-private var message : ShowMessage;
-private var general : GeneralInfo;
-private var music : PlaybackScript;
-private var hud : HUDStatus;
-private var load : LoadScene;
-private var merchant : MerchantInfo;
+protected var save_scr : SaveGame;
+protected var mapScr : MapInfo;
+protected var planet : PlanetInfo;
+protected var message : ShowMessage;
+protected var general : GeneralInfo;
+protected var music : PlaybackScript;
+protected var hud : HUDStatus;
+protected var load : LoadScene;
+protected var merchant : MerchantInfo;
 
 var invasion : boolean = true;
 private var isInvasion : boolean = false;
@@ -85,6 +85,22 @@ function Start () {
 	
 	SetInventoryPanel();
 	
+}
+
+protected function initScripts() {
+
+	music = GameObject.FindGameObjectWithTag("OST").GetComponent(PlaybackScript);
+	general = GameObject.FindGameObjectWithTag("SaveGame").GetComponent(GeneralInfo);
+	message = GameObject.FindGameObjectWithTag("ShowMessage").GetComponent(ShowMessage);
+	save_scr = GameObject.FindGameObjectWithTag("SaveGame").GetComponent(SaveGame);
+	mapScr = GameObject.FindGameObjectWithTag("MapInfo").GetComponent(MapInfo);
+	planet = mapScr.findPlanet(Application.loadedLevelName);
+	hud = GameObject.FindGameObjectWithTag("GlobalInfo").GetComponent(HUDStatus);
+	load = GameObject.FindGameObjectWithTag("LoadScene").GetComponent(LoadScene);
+	save_scr.start = this;
+	hud.show();
+	merchant = GameObject.FindGameObjectWithTag("SaveGame").GetComponent.<MerchantInfo>();
+
 }
 
 protected function SetInventoryPanel() {
