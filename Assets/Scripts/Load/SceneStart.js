@@ -193,7 +193,6 @@ function playerStart() {
 	
 	ShipCache.cache.AddShip(playerShip);
 	
-
 }
 
 //spawn the player fleet

@@ -19,7 +19,7 @@ public class StartSceneStart extends SceneStart {
 	
 	private function PlantStation() {
 		var id : int = super.general.GetPlayerAllegianceId();
-		GameObject.Instantiate(stations[id-1], stationSpawn, Quaternion.identity);
+		GameObject.Instantiate(stations[id-1], stationSpawn, stations[id-1].transform.rotation);
 	}
 	
 	private function PlantShip() {

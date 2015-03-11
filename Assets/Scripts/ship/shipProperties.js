@@ -6,8 +6,6 @@
 class ShipPlayerProps {
 	var isPlayer : boolean = false;
 	var cloaked : boolean = false;
-	
-	
 }
 
 //this class is used to caracterize ship movement

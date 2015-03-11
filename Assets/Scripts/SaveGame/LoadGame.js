@@ -24,9 +24,6 @@ function Start () {
 	
 	var missionsGo : GameObject = GameObject.FindGameObjectWithTag("Missions");
 	missions = missionsGo.GetComponent(Missions);
-	
-
-
 
 }
 

@@ -56,15 +56,11 @@ class HUDBalance extends HUDBottom {
 	///<summary>This draw the bar that allows the player to control the shields energy levels.</summary>
 	private function drawDefenseBar() {
 		var defenseValue : float = balance.defense;
-		var drawRect : Rect = BuildBarRect(barDimensions, shieldPosition, defenseValue);
-		var resizedDrawRect : Rect = super.resizeRect(drawRect);
-		var areaRect : Rect = BuildRect(shieldPosition, barDimensions);
-		areaRect = super.resizeRect(areaRect);
-		
-		var handleRect : Rect = BuildHandleRect(drawRect);
-		handleRect = super.resizeRect(handleRect);
+		var drawRect : Rect = BuildResizedBarRect(barDimensions, shieldPosition, defenseValue);
+		var areaRect : Rect = BuildResizedRect(shieldPosition, barDimensions);
+		var handleRect : Rect = BuildResizedHandleRect(drawRect);
 		//Statics.DrawDebugRect(areaRect, Color.red);
-		var newValue : float = DrawBar(resizedDrawRect, areaRect, handleRect, defenseValue);
+		var newValue : float = DrawBar(drawRect, areaRect, handleRect, defenseValue);
 		if(newValue != defenseValue)
 			balance.defense = newValue;
 		
@@ -125,6 +121,16 @@ class HUDBalance extends HUDBottom {
 		return rect;
 	}
 	
+	///<summary>Builds a resized bar rect.</summary>
+	///<param name="dimension">The bar dimension, set for a curValue of BAR_MODIFIER</param>
+	///<param name="position">The rect position.</param>
+	///<param name="curValue">The value which will define the final Rect</param>
+	///<returns>Adjusted resized rect</returns>
+	private function BuildResizedBarRect(dimension : Vector2, position : Vector2, curValue : float) : Rect {
+		var rect : Rect = BuildBarRect(dimension, position, curValue);
+		return super.resizeRect(rect);	
+	}
+	
 	///<summary>This transforms the maximum dimension of the bar into unitary vector2</summary>
 	///<param name="dimensions">The bar dimensions, set for BAR_MODIFIER</param>
 	///<returns>Transformed vector</returns>
@@ -157,6 +163,15 @@ class HUDBalance extends HUDBottom {
 		return new Rect(position.x, position.y, dimension.x, dimension.y);
 	}
 	
+	///<summary>This builds a rect from position and dimension, and resized it...</summary>
+	///<param name="position">The position vector</param>
+	///<param name="dimension">The dimension vector</param>
+	///<returns>The generated resized vector</returns>
+	private function BuildResizedRect(position : Vector2, dimension : Vector2) : Rect {
+		var r : Rect = BuildRect(position, dimension);
+		return super.resizeRect(r);
+	}
+	
 	///<summary>This generates the handle rect</summary>
 	///<param name="barRect">The rect of the bar where the handle will be attached</param>
 	///<returns>Handle Rect</returns>
@@ -165,6 +180,14 @@ class HUDBalance extends HUDBottom {
 		var x : float = barRect.x - dif/2;
 		var y : float = barRect.y - handleDimensions.y/2; 
 		return new Rect(x, y, handleDimensions.x, handleDimensions.y);
-	} 	 	 	 	
+	}
+	
+	///<summary>Returns a resized handle rect</summary>
+	///<param name="rect">The rect of the bar where the handle will be attached</param>
+	///<returns>Resized handle rect</returns>
+	private function BuildResizedHandleRect(rect : Rect) : Rect {
+		var r : Rect = BuildHandleRect(rect);
+		return super.resizeRect(r);
+	}	 	 	 	
 				
 }
