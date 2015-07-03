@@ -25,6 +25,7 @@ protected var music : PlaybackScript;
 protected var hud : HUDStatus;
 protected var load : LoadScene;
 protected var merchant : MerchantInfo;
+protected var hudControl : HudControl;
 
 var invasion : boolean = true;
 private var isInvasion : boolean = false;
@@ -53,17 +54,7 @@ function Start () {
 	}
 
 	//set SaveGame start
-	music = GameObject.FindGameObjectWithTag("OST").GetComponent(PlaybackScript);
-	general = GameObject.FindGameObjectWithTag("SaveGame").GetComponent(GeneralInfo);
-	message = GameObject.FindGameObjectWithTag("ShowMessage").GetComponent(ShowMessage);
-	save_scr = GameObject.FindGameObjectWithTag("SaveGame").GetComponent(SaveGame);
-	mapScr = GameObject.FindGameObjectWithTag("MapInfo").GetComponent(MapInfo);
-	planet = mapScr.findPlanet(Application.loadedLevelName);
-	hud = GameObject.FindGameObjectWithTag("GlobalInfo").GetComponent(HUDStatus);
-	load = GameObject.FindGameObjectWithTag("LoadScene").GetComponent(LoadScene);
-	save_scr.start = this;
-	hud.show();
-	merchant = GameObject.FindGameObjectWithTag("SaveGame").GetComponent.<MerchantInfo>();
+	this.initScripts();
 
 	playerStart();
 	spawnDefenseFleet();
@@ -79,12 +70,20 @@ function Start () {
 		if(!music.getStatus(PlaybackStatus.NEUTRAL)) music.setStatus(PlaybackStatus.NEUTRAL);
 	}
 	
+	this.SetHudControl(); // sets the hud control...
+	
 	//set new message
 	message.AddMessage(mapScr.buildSceneLoadMessage());
 	load.setOff();
 	
 	SetInventoryPanel();
 	
+}
+
+///<summary>Sets the Hud</summary>
+protected function SetHudControl() {
+	hudControl = GameObject.FindGameObjectWithTag("GUI").GetComponent.<HudControl>();
+	hudControl.SetHud(this.playerShip);
 }
 
 protected function initScripts() {

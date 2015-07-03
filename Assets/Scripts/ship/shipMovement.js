@@ -595,3 +595,15 @@ function CheckWarpBurnout() {
 function GetLastBurnoutTime() : float {
 	return burnoutTime;
 }
+
+function GetForwardPercentage() : float {
+	if(this.speedStatus > 0) {
+		return this.speedStatus/this.movProps.maxStatus;
+	} else return 0;
+}
+
+function GetBackwardsPercentage() : float {
+	if(this.speedStatus < 0) {
+		return this.speedStatus/this.movProps.minStatus;
+	} else return 0;
+}

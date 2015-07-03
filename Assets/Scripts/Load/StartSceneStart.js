@@ -11,10 +11,11 @@ public class StartSceneStart extends SceneStart {
 	function Start() {
 		super.initScripts();
 		super.SetInventoryPanel();
-		super.SetSceneStart();		
+		super.SetSceneStart();	
 		PlantStation();
 		PlantShip();
 		AttachCameraToShip();
+		super.SetHudControl();	
 	}
 	
 	private function PlantStation() {
