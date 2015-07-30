@@ -16,7 +16,7 @@ class CommPanel extends FloatingWindow implements IHailable {
 	
 	private var save : SaveGame;
 	private var props : shipProperties;
-
+	private var hudControl : HudControl;
 	
 	public static final var SAVE_GAME : String = "SaveGame";
 
@@ -28,6 +28,7 @@ class CommPanel extends FloatingWindow implements IHailable {
 		save = GameObject.FindGameObjectWithTag(SAVE_GAME).GetComponent(SaveGame);		
 		hud = GameObject.FindGameObjectWithTag(GLOBAL_INFO).GetComponent(HUDStatus);
 		props = gameObject.GetComponent(shipProperties);
+		hudControl = GameObject.FindGameObjectWithTag("GUI").GetComponent.<HudControl>();
 		
 	}
 	
@@ -143,7 +144,6 @@ class CommPanel extends FloatingWindow implements IHailable {
 		playerProps.setPlayer(false);
 		
 		//set new ship as player
-		
 		props.setPlayer(true);
 		
 		//now change camera target
@@ -154,6 +154,8 @@ class CommPanel extends FloatingWindow implements IHailable {
 		target.GetComponent(shipTarget).target = null;
 		player.GetComponent(shipTarget).target = null;
 		player.GetComponent(shipTarget).repeatClick = false;
+		
+		hudControl.SetHud(gameObject);
 		
 		closeComm();
 		

@@ -171,6 +171,10 @@ public class shipWeapons extends MonoBehaviour implements IWeaponable {
 			setVolleyOne();
 		}
 	}
+	
+	function CheckVolley(volley : Volley) : boolean {
+		return torpVolley == volley;
+	}
 
 	function getPhaser() : GameObject {
 		return phaser.phaser;
@@ -196,7 +200,74 @@ public class shipWeapons extends MonoBehaviour implements IWeaponable {
 	function isBackwardTorpedoEnabled() : boolean {
 		return this.torp2.isEnabled;
 	}
-
-
+	
+	///<summary>This returns the weapon by index...</summary>
+	///<param name="weapon">Weapon Index: 0 - Phaser / 1 - Forward Torpedo / 2 - Backward Torpedo</param>
+	///<returns>Weapon GameObject</returns>
+	function GetWeapon(weapon : int) : GameObject {
+		switch(weapon) {
+			case 0: return getPhaser();
+			case 1:	return getForwardTorpedo();
+			case 2: return getBackwardTorpedo();
+			default: return null;	
+		}
+	}
+	
+	///<summary>This fires the weapon by index</summary>
+	///<param name="weapon">Weapon Index: 0 - Phaser / 1 - Forward Torpedo / 2 - Backward Torpedo</param>
+	function FireWeapon(weapon : int) {
+		switch(weapon) {
+			case 0: phaserFunction(); break;
+			case 1: torpFunction(torp1); break;
+			case 2: torpFunction(torp2); break;
+		}
+	}
+	
+	///<summary>This gets the recharge percentage of a certain weapon</summary>
+	///<param name="weapon">Weapon Index: 0 - Phaser / 1 - Forward Torpedo / 2 - Backward Torpedo</param>
+	///<returns>Recharge status of the weapon in percentage</returns>
+	///<pre>IsRecharging(weapon)</pre>
+	function RechargePercentage(weapon : int) : float {
+		switch(weapon) {
+			case 0: return RechargePercentage(phaser);
+			case 1: return RechargePercentage(torp1);
+			case 2: return RechargePercentage(torp2);
+			default: return 0f;
+		}
+	}
+	
+	///<summary>This gets the if a certain weapon is recharging</summary>
+	///<param name="weapon">Weapon Index: 0 - Phaser / 1 - Forward Torpedo / 2 - Backward Torpedo</param>
+	///<returns>True if it is recharging. False if it isn't</returns>
+	function IsRecharging(weapon : int) : boolean {
+		switch(weapon) {
+			case 0: return phaser.getNextShot(upgrades) > Time.time;
+			case 1: return torp1.getNextShot() > Time.time;
+			case 2: return torp2.getNextShot() > Time.time;	
+			default: return false;
+		}
+	}
+	
+	private function RechargePercentage(torpedo : Torpedo) : float {
+		var totalReload : float = torpedo.getCooldown(upgrades);
+		var remainTime : float = torpedo.getNextShot() - Time.time;
+		var percentage : float = remainTime/totalReload;
+		if(percentage > 1) {
+			percentage = 1;
+		}
+		return percentage;
+	}
+	
+	private function RechargePercentage(phaser : Phaser) : float {
+		var totalReload : float = phaser.getCooldown(upgrades);
+		var remainTime : float = phaser.getNextShot(upgrades) - Time.time;
+		var percentage : float = remainTime/totalReload;
+		if(percentage > 1) {
+			percentage = 1;
+		}
+		return percentage;
+	}
+	
+	
 }
 

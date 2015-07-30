@@ -9,26 +9,39 @@ var hudGo : GameObject;
 var forwardSpeedBar : Slider;
 var backwardSpeedBar : Slider;
 
-
-
 //player ship stuff
 var ship : GameObject;
 private var movement : shipMovement;
 private var properties : shipProperties;
+private var weapons : shipWeapons;
 
 
 //repeater button stuff
 private var isIncreasingSpeed : boolean = false;
 private var isDecreasingSpeed : boolean = false;
 
+//torpedo data
+private var torpedoOptions : Volley[];
+var torpedoButtons : Toggle[];
+
+//weapons data
+var weaponsImage : Image[];
+var weaponsOverlay : Image[];
+
 
 function Start () {
 
+	torpedoOptions = new Volley[3];
+	torpedoOptions[0] = Volley.three;
+	torpedoOptions[1] = Volley.five;
+	torpedoOptions[2] = Volley.eight;
+	
 }
 
 function Update () {
 	if(on && ship) {
 		UpdateShipSpeed();
+		UpdateWeaponOverlay();
 	}
 }
 
@@ -43,10 +56,12 @@ function SetHud(ship : GameObject) {
 	//load necessary scripts...
 	movement = ship.GetComponent.<shipMovement>();
 	properties = ship.GetComponent.<shipProperties>();
+	weapons = ship.GetComponent.<shipWeapons>();
 	//TODO
 	
 	//set hud values
 	UpdateShipSpeed();
+	SetWeaponsPanel();
 	//TODO
 	
 	ShowHud();
@@ -116,3 +131,43 @@ function FullStop() {
 				movement.fullStop();	  
 	} 
 }
+
+///<summary>Sets the ships torpedo volley</summary>
+///<param name="volley">Volley size: 0 == 3 / 1 == 5 / 2 == 8</param>
+function SetTorpedoVolley(volley : int) {
+		weapons.toggleVolley(this.torpedoOptions[volley]);
+}
+
+
+///<summary>This sets the weapon images on the HUD
+///Order: Phaser, Forward Torpedo, Backward Torpedo
+///</summary>
+function SetWeaponsPanel() {
+	for(var i : int = 0; i < 3; i++) {
+		var w : GameObject = this.weapons.GetWeapon(i);
+		if(w) {
+			var ws : weaponScript = w.GetComponent.<weaponScript>();
+			var img : Texture = ws.getImage();
+			weaponsImage[i].sprite = Sprite.Create(img, new Rect(0,0, img.width, img.height),new Vector2(0.5f, 0.5f));
+			weaponsImage[i].enabled = true;
+		} else weaponsImage[i].enabled = false;
+	}						
+}
+
+///<summary>This fires the selected weapon.</summary>
+///<param name="weapon">1 - Phaser; 2 - Forward Torpedo; 3 - Backward Torpedo</param>
+function FireWeapon(weapon : int) {
+	weapons.FireWeapon(weapon);
+}
+
+
+private function UpdateWeaponOverlay() {
+	for(var i : int = 0; i < weaponsOverlay.Length; i++) {
+		if(weapons.IsRecharging(i)) {
+			weaponsOverlay[i].enabled = true;
+			var percentage : float = weapons.RechargePercentage(i);			
+			weaponsOverlay[i].color.a = percentage;									
+		} else weaponsOverlay[i].enabled = false;
+	}
+}
+
