@@ -10,6 +10,7 @@ private var general : GeneralInfo;
 private var shipWeps : shipWeapons;
 //private var gui : guiScript;
 private var guiStatus : GUIStatus;
+private var hudControl : HudControl;
 
 var repeatClick : boolean = false;
 
@@ -25,8 +26,9 @@ function Start () {
 	shipWeps = gameObject.GetComponent(shipWeapons);
 	//gui = gameObject.GetComponent(guiScript);
 	general = GameObject.FindGameObjectWithTag("SaveGame").GetComponent(GeneralInfo);
-	guiStatus = GameObject.FindGameObjectWithTag("GUI").GetComponent.<GUIStatus>();
-	
+	var guiGo = GameObject.FindGameObjectWithTag("GUI");
+	guiStatus = guiGo.GetComponent.<GUIStatus>();
+	hudControl =  guiGo.GetComponent.<HudControl>();
 	
 
 }
@@ -97,6 +99,7 @@ function ClickTarget() {
 					if(go != gameObject)
 					{
 						target = go; //store the target
+						hudControl.SetTarget(go);
 					}
 				}
 				else
@@ -168,6 +171,7 @@ function cancelTarget() {
 
 	if(Input.GetAxis("CancelLock")) {
 		target = null;
+		hudControl.HideTarget();
 	}
 
 }

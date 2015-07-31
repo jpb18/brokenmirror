@@ -58,6 +58,16 @@ var powerBar : Slider;
 var redAlertImage : Image;
 var redAlertInterval : float;
 
+//target stuff
+var target : GameObject;
+var targetGo : GameObject;
+var factionOrbs : Image[];
+var targetOrb : Image;
+var classLabel : Text;
+var nameLabel : Text;
+var hullBar : Slider;
+var shieldBar : Slider;
+private var targetHealth : IHealtheable;
 
 //constants
 public static final var ORBIT_ERROR = "Not in a planets orbit.";
@@ -89,6 +99,7 @@ function Update () {
 		UpdateHealth();
 		UpdateRedAlert();
 		UpdatePower();
+		UpdateTarget();
 	}
 }
 
@@ -114,6 +125,7 @@ function SetHud(ship : GameObject) {
 	//set hud values
 	SetWeaponsPanel();
 	SetUpgradesPanel();
+	HideTarget();
 	//TODO
 	
 	ShowHud();
@@ -363,3 +375,72 @@ function ChangeDefenseBalance(defense : float) {
 function ChangeSpeedBalance(speed : float) {
 	balance.speed = speed;
 }
+
+///<summary>This sets the Target Hud component</summary>
+///<param name="target">Target GameObject</param>
+function SetTarget(target : GameObject) {
+
+	var faction : IFactionable = target.GetComponent(typeof(IFactionable)) as IFactionable;
+	var text : ITextureable = target.GetComponent(typeof(ITextureable)) as ITextureable;
+	SetTargetOrb(faction, text);
+
+	var cls : IClasseable = target.GetComponent(typeof(IClasseable)) as IClasseable;
+	var name : INameable = target.GetComponent(typeof(INameable)) as INameable;
+	SetTargetLabel(cls, name);
+	
+	targetHealth = target.GetComponent(typeof(IHealtheable)) as IHealtheable;
+	this.target = target;
+	
+	targetGo.SetActive(true);
+}
+
+
+private function SetTargetOrb(faction : IFactionable, text : ITextureable) {
+	if(properties.isOwn(faction.getFaction())) {
+		SetTargetOrbFaction(2);
+	} else if (properties.isAllied(faction.getFaction())) {
+		SetTargetOrbFaction(0);
+	} else if (properties.isHostile(faction.getFaction())) {
+		SetTargetOrbFaction(3);
+	} else if (properties.isNeutral(faction.getFaction())) {
+		SetTargetOrbFaction(1);
+	} else {
+		Debug.LogWarning("We got a problem here!");
+	}
+	
+	var t : Texture = text.getTargetImage();
+	targetOrb.sprite = Sprite.Create(t, new Rect(0,0,t.width,t.height), new Vector2(0.5f, 0.5f));  
+	
+}
+
+private function SetTargetLabel(classe : IClasseable, name : INameable) {
+	classLabel.text = classe.getClass();
+	nameLabel.text = name.getName();
+}
+
+
+///<summary>This sets the faction type for the target orb</summary>
+///<param name="type">Orb type: 0 - ally, 1 - neutral, 2 - owned, 3 - enemy</param>
+private function SetTargetOrbFaction(type : int) {
+	for(var x : int = 0; x < 4; x++) {
+		factionOrbs[x].enabled = (x == type);
+	}
+}
+
+///<summary>This hides the target hud component.</summary>
+function HideTarget() {
+	targetGo.SetActive(false);
+	this.target = null;	
+}
+
+
+private function UpdateTarget() {
+	if(this.target && targetGo.active) {
+		hullBar.value = targetHealth.getHullPercentage();
+		shieldBar.value = targetHealth.getShieldPercentage();
+	} else if (targetGo.active) {
+		HideTarget();
+	}
+}
+
+
