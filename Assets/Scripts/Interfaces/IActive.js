@@ -30,5 +30,9 @@ public interface Active {
 	function isActive() : boolean;
 	
 	function getUpgrade() : GameObject;
+	
+	function isRechaging() : boolean;
+	
+	function getRechargePercentage() : float;
 
 }

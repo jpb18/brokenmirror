@@ -43,6 +43,10 @@ function getPercentage() : int {
 	return (current/capacity) * 100;
 }
 
+function getPowerPercentage() : float {
+	return current/capacity;
+}
+
 function initReactor() {
 	current = capacity;
 	skills = GameObject.FindGameObjectWithTag("SaveGame").GetComponent.<Skills>();

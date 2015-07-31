@@ -45,22 +45,26 @@ public class Upgrades extends MonoBehaviour implements IUpgrades{
 			if(Input.GetAxis(keys[x]) && hasTimeIntervalPassed(x)) {
 				last[x] = Time.time;
 				var up : Active = activeList[x];
-				if(up.canUse()) {
-					if(!up.isActive()) {
-						up.use(gameObject);
-						
-					} else {
-						if(up.isDisabable()) {
-							up.disable(gameObject);
-						}
-					}
-					
-				}
-				
+				fireActive(up);				
 			}
 		
 		}
 	}
+	
+	///<summary>This fires an active upgrade.</summary>
+	///<param name="up">The upgrade to be fired</param>
+	private function fireActive(up : Active) {
+		if(up.canUse()) {
+			if(!up.isActive()) {
+				up.use(gameObject);	
+			} else {
+				if(up.isDisabable()) {
+					up.disable(gameObject);
+				}
+			}
+			
+		}
+	}	
 	
 	private function checkConsumption(activeList : List.<Active>) {
 		var up : GameObject;
@@ -216,5 +220,40 @@ public class Upgrades extends MonoBehaviour implements IUpgrades{
 			return false;
 		}
 	}
+	
+	///<summary>This returns an active upgrade by index</summary>
+	///<param name="index">Active Upgrade Index</param>
+	///<returns>Active Upgrade GameObject</returns>
+	///<pre>0 <= index < 5</pre>
+	function GetActiveUpgrade(index : int) : GameObject {
+		if(index >= 0 && index < ACT_LIMIT && index < activeUpgrades.Count) {
+			return activeUpgrades[index].upgrade;
+		} else return null;
+	}
+	
+	///<summary>This fires an active upgrade by index</summary>
+	///<param name="index">Active Upgrade Index</param>
+	///<pre>0 <= index < 5</pre>
+	function FireActiveUpgrade(index : int) {
+		if(index < 0 || index > ACT_LIMIT || index >= activeUpgrades.Count) return;
+			fireActive(activeUpgrades[index]);
+	}
+	
+	///<summary>Checks if an active upgrade is recharging.</summary>
+	///<param name="index">Active Upgrade Index</param>
+	///<returns>true if the upgrade is recharging, false if it isn't or doesn't exist</returns>
+	function IsActiveRecharging(index : int) : boolean {
+		if(index < 0 || index > ACT_LIMIT || index >= activeUpgrades.Count) return false;
+		return activeUpgrades[index].isRecharging();
+	}
+	
+	///<summary>Returns the recharge percentage of an active upgrade.</summary>
+	///<param name="index">Active Upgrade Index</param>
+	///<returns>Value between 1 and 0. -1 if the index doesn't exist.</returns>
+	function GetActiveRechargePercentage(index : int) : float {
+		if(index < 0 || index > ACT_LIMIT || index >= activeUpgrades.Count) return -1;
+		return activeUpgrades[index].getRechargePercentage();
+	}
+	
 	
 }

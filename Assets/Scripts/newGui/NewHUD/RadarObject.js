@@ -71,7 +71,7 @@ class RadarObject extends GuiElement {
 		//small ones
 		this.ownSmallBackground = sensor.smallOwnBackground;
 		this.allySmallBackground = sensor.smallAlliedBackground;
-		this.enemyBackground = sensor.smallEnemyBackground;
+		this.enemySmallBackground = sensor.smallEnemyBackground;
 		this.neutralSmallBackground = sensor.smallNeutralBackground;
 		
 		//and now sizes

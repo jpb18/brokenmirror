@@ -3,18 +3,31 @@
 
 var on : boolean = false;
 
-//hud stuff
-var hudGo : GameObject;
 
-var forwardSpeedBar : Slider;
-var backwardSpeedBar : Slider;
+
+
+//global stuff
+private var message : ShowMessage;
+private var missions : Missions;
 
 //player ship stuff
 var ship : GameObject;
 private var movement : shipMovement;
 private var properties : shipProperties;
 private var weapons : shipWeapons;
+private var triggers : shipTriggers;
+private var upgrades : Upgrades;
+private var health : shipHealth;
+private var reactor : Reactor;
+private var balance : ReactorBalance;
 
+//hud stuff
+var hudGo : GameObject;
+
+//movement stuff
+var forwardSpeedBar : Slider;
+var backwardSpeedBar : Slider;
+var warpImage : Image;
 
 //repeater button stuff
 private var isIncreasingSpeed : boolean = false;
@@ -28,6 +41,33 @@ var torpedoButtons : Toggle[];
 var weaponsImage : Image[];
 var weaponsOverlay : Image[];
 
+//active upgrades data
+var upgradeImage : Image[];
+var upgradeOverlay : Image[];
+
+//health stuff
+var shieldLabel : Text;
+var shieldImage : Image;
+var hullLabel : Text;
+var hullImage : Image;
+
+//power stuff
+var powerBar : Slider;
+
+//red alert stuff
+var redAlertImage : Image;
+var redAlertInterval : float;
+
+
+//constants
+public static final var ORBIT_ERROR = "Not in a planets orbit.";
+public static final var COLONIZE_ERROR = "You need a colonization team to colonize a planet.";
+public static final var COLONIZED = "Planet colonized.";
+public static final var INVASION_ERROR = "You need an invasion force to ocupy the planet.";
+public static final var INVASION_FAILED = "Your invasion force has been defeated.";
+public static final var INVADED = "Planet ocupied.";
+public static final var TRANSPORT_ERROR = "Nothing to beam down.";
+
 
 function Start () {
 
@@ -36,12 +76,19 @@ function Start () {
 	torpedoOptions[1] = Volley.five;
 	torpedoOptions[2] = Volley.eight;
 	
+	message = GameObject.FindGameObjectWithTag("ShowMessage").GetComponent.<ShowMessage>();
+	missions = GameObject.FindGameObjectWithTag("Missions").GetComponent.<Missions>();
+	
 }
 
 function Update () {
 	if(on && ship) {
 		UpdateShipSpeed();
 		UpdateWeaponOverlay();
+		UpdateUpgradesOverlay();
+		UpdateHealth();
+		UpdateRedAlert();
+		UpdatePower();
 	}
 }
 
@@ -57,11 +104,16 @@ function SetHud(ship : GameObject) {
 	movement = ship.GetComponent.<shipMovement>();
 	properties = ship.GetComponent.<shipProperties>();
 	weapons = ship.GetComponent.<shipWeapons>();
+	upgrades = ship.GetComponent.<Upgrades>();
+	triggers = ship.GetComponent.<shipTriggers>();
+	health = ship.GetComponent.<shipHealth>();
+	reactor = ship.GetComponent.<Reactor>();
+	balance = ship.GetComponent.<ReactorBalance>();
 	//TODO
 	
 	//set hud values
-	UpdateShipSpeed();
 	SetWeaponsPanel();
+	SetUpgradesPanel();
 	//TODO
 	
 	ShowHud();
@@ -83,6 +135,7 @@ function ShowHud() {
 private function UpdateShipSpeed() {
 	forwardSpeedBar.value = movement.GetForwardPercentage();
 	backwardSpeedBar.value = movement.GetBackwardsPercentage();
+	warpImage.enabled = movement.isSystemWarp();
 	
 	if(this.isIncreasingSpeed) {
 		this.IncreaseShipSpeed();
@@ -128,7 +181,7 @@ private function DecreaseShipSpeed() {
 ///<summary>This makes the ship go full stop. If it's stopped, or the speed is changing, it'll ignore</summary>
 function FullStop() {
 	if(!movement.isStop() && !movement.isChanging) {		
-				movement.fullStop();	  
+			movement.fullStop();	  
 	} 
 }
 
@@ -143,7 +196,7 @@ function SetTorpedoVolley(volley : int) {
 ///Order: Phaser, Forward Torpedo, Backward Torpedo
 ///</summary>
 function SetWeaponsPanel() {
-	for(var i : int = 0; i < 3; i++) {
+	for(var i : int = 0; i < weaponsImage.Length; i++) {
 		var w : GameObject = this.weapons.GetWeapon(i);
 		if(w) {
 			var ws : weaponScript = w.GetComponent.<weaponScript>();
@@ -160,7 +213,7 @@ function FireWeapon(weapon : int) {
 	weapons.FireWeapon(weapon);
 }
 
-
+///<summary>This updates the weapons recharge overlay.</summary>
 private function UpdateWeaponOverlay() {
 	for(var i : int = 0; i < weaponsOverlay.Length; i++) {
 		if(weapons.IsRecharging(i)) {
@@ -171,3 +224,142 @@ private function UpdateWeaponOverlay() {
 	}
 }
 
+///<summary>This sets the active upgrades on the HUD</summary>
+function SetUpgradesPanel() {
+	for(var x : int = 0; x < upgradeImage.Length; x++) {
+		var u : GameObject = this.upgrades.GetActiveUpgrade(x);
+		if(u) { 
+			var up : Upgrade = u.GetComponent.<Upgrade>();
+			var img : Texture = up.getImage();
+			upgradeImage[x].sprite = Sprite.Create(img, new Rect(0,0, img.width, img.height), new Vector2(0.5f, 0.5f));
+			upgradeImage[x].enabled = true;
+		} else upgradeImage[x].enabled = false;
+	}	
+}
+
+///<summary>Fires an active upgrade identified by its index...</summary>
+///<param name="upgrade">upgrade indez</param>
+function FireActiveUpgrade(upgrade : int) {
+	upgrades.FireActiveUpgrade(upgrade);
+}
+
+///<summary>This updates the active upgrades recharge overlay.</summary>
+private function UpdateUpgradesOverlay() {
+	for(var x : int = 0; x < upgradeOverlay.Length; x++) {
+		if(upgrades.IsActiveRecharging(x)) {
+			upgradeOverlay[x].enabled = true;
+			upgradeOverlay[x].color.a = upgrades.GetActiveRechargePercentage(x);
+		} else upgradeOverlay[x].enabled = false;
+	}
+}
+
+///<summary>This updates de Red Alert component.</summary>
+private function UpdateRedAlert() {
+	if(properties.getRedAlert()) {
+		redAlertImage.enabled = true;
+		redAlertImage.color.a = getTransparency(redAlertInterval);
+	} else redAlertImage.enabled = false;
+}	
+
+///<summary>This returns a transparency value calculated with scene time.</summary>
+///<param name="timePeriod">The time interval between each "flash"</param>
+///<returns>Floating point Value from 0 to 1.</returns>	
+private function getTransparency(timePeriod : float) : float {
+	return (Mathf.Cos(Time.time * timePeriod)/2) + 0.5f;	
+}
+
+
+///<summary>This executes the "beaming down" function.</summary>
+function Transport() {
+	if(!triggers.isOrbit()) {
+		message.AddMessage(ORBIT_ERROR);
+	} else {
+		transport();
+	}
+}
+
+///<summary>Beams down to the planet surface.</summary>
+private function transport() {
+	var planet : GameObject = findSystemPlanet();
+	var colonizable : IColonizable = planet.GetComponent(IColonizable) as IColonizable;
+	var inventory : Inventory = GameObject.FindGameObjectWithTag("SaveGame").GetComponent(Inventory);
+	var factionable : IFactionable = ship.GetComponent(IFactionable) as IFactionable;
+	var faction : int = factionable.getFaction();
+				
+	if(colonizable.canColonize()) {
+		if(inventory.hasColonizationTeams()) {
+			var team : GameObject = inventory.getColonizationTeam();
+			colonizable.colonize(faction, team);
+			message.AddMessage(COLONIZED);
+			return;
+		}
+		
+	} 
+	
+	var conquerable : IConquerable = planet.GetComponent(IConquerable) as IConquerable;
+	var populable : IPopuleable = planet.GetComponent(IPopuleable) as IPopuleable;
+	
+	if(conquerable.canConquer(faction)) {
+	
+		if(inventory.hasInvasionForce(populable.getPopulation())) {
+			var force : GameObject = inventory.getInvasionForce();
+			var invade : IInvasion = force.GetComponent(IInvasion) as IInvasion;
+			if(!invade.canInvade(populable.getPopulation())) {
+				message.AddMessage(INVASION_FAILED);
+			} else {
+				invade.invade(conquerable, faction);
+				message.AddMessage(INVADED);
+			}				
+			return;	
+		}	
+		
+	}
+	
+	
+	if(!missions.finishTradeMissionInSystem()) {
+		message.AddMessage(TRANSPORT_ERROR);
+	}		
+}
+
+///<summary>Finds the main planet in the current system.</summary>
+///<returns>Main Planet GameObject</returns>
+private function findSystemPlanet() : GameObject {
+	var planets : GameObject[] = GameObject.FindGameObjectsWithTag("Planet");
+	
+	for(var x : int = 0; x < planets.Length; x++) {
+		var panel : PlanetPanel = planets[x].GetComponent(PlanetPanel);
+		if(panel) {
+			return planets[x];
+		}
+	}
+	return null;
+
+}
+
+///<summary>This updates the health information on the HUD.</summary>
+private function UpdateHealth() {
+	var hull : float = health.getHullPercentage();
+	hullImage.color.a = hull;
+	hullLabel.text = Convert.ToInt32(hull * 100).ToString() + "%";
+	
+	var shield : float = health.getShieldPercentage();
+	shieldImage.color.a = shield;
+	shieldLabel.text = Convert.ToInt32(shield * 100).ToString() + "%";
+}
+
+///<summary>This updates the power information on the hud</summary>
+private function UpdatePower() {
+	powerBar.value = reactor.getPowerPercentage();
+}
+
+function ChangeWeaponsBalance(weapons : float) {
+	balance.weapons = weapons;
+} 
+
+function ChangeDefenseBalance(defense : float) {
+	balance.defense = defense;
+}
+
+function ChangeSpeedBalance(speed : float) {
+	balance.speed = speed;
+}

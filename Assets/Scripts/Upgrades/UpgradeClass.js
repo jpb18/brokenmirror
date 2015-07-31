@@ -16,7 +16,7 @@ class UpgradeClass extends Object implements Active {
 		var scr : IActive = getScript();
 		scr.use(target);
 		active = true;
-		
+		lastUse = Time.time;
 	}
 	
 	function canUse() : boolean {
@@ -61,6 +61,16 @@ class UpgradeClass extends Object implements Active {
 	private function setOff() {
 		active = false;
 	}
-
+	
+	function isRecharging() : boolean {
+		var script : IActive = getScript();
+		return Time.time < script.getCooldown() + lastUse;
+	}
+	
+	function getRechargePercentage() : float {
+		var script : IActive = getScript();
+		var time : float = Time.time - lastUse;
+		return 1 - (time / script.getCooldown());
+	}
 
 }

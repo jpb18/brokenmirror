@@ -50,14 +50,14 @@ class Cloak extends Upgrade implements IActive {
 	
 	private function hide(target : GameObject) {
 		//target.renderer.enabled = false;
-		var cloak : ICloakable = target.GetComponent(typeof(ICloakable)) as ICloakable;
-		cloak.setCloak(true);
+		var props : shipProperties = target.GetComponent.<shipProperties>();
+		props.setCloak(true);
 	}
 	
 	private function show(target : GameObject) {
 		//target.renderer.enabled = true;
-		var cloak : ICloakable = target.GetComponent(typeof(ICloakable)) as ICloakable;
-		cloak.setCloak(false);
+		var props : shipProperties = target.GetComponent.<shipProperties>();
+		props.setCloak(false);
 	}
 
 }
