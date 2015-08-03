@@ -16,6 +16,12 @@ var deuranium : int = 15000;
 
 //var guiInventory : ResourcePanel;
 
+private var control : HudControl;
+
+function Start() {
+	control = GameObject.FindGameObjectWithTag("GUI").GetComponent.<HudControl>();
+}
+
 
 function addItem(item : GameObject) {
 
@@ -51,11 +57,12 @@ function canBuy(latinum : int) : boolean{
 
 function spend(latinum : int) {
 	this.latinum -= latinum;
-	
+	control.SetLatinumLabel(this.latinum);
 }
 
 function addLatinum(latinum : int) {
 	this.latinum += latinum;
+	control.SetLatinumLabel(this.latinum);
 }
 
 function addDeuranium(deuranium : int) {

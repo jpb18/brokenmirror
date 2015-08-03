@@ -2,16 +2,20 @@
 var isHidden : boolean = false;
 private var load : LoadScene;
 private var over : GameOver;
+private var control : HudControl;
 var isGame : boolean = false;
 
 private var last : float;
 private var interval : float = 0.2f;
+
+
 
 // Use this for initialization
 function Start () {
 
 	load = GameObject.FindGameObjectWithTag("LoadScene").GetComponent(LoadScene);
 	over = GameObject.FindGameObjectWithTag("GameOver").GetComponent(GameOver);
+	control = GameObject.FindGameObjectWithTag("GUI").GetComponent.<HudControl>();
 
 }
 
@@ -51,8 +55,10 @@ private function isGameOver() : boolean {
 
 function hide() {
 	isHidden = true;
+	control.HideHud();
 }
 
 function show() {
 	isHidden = false;
+	control.ShowHud();
 }

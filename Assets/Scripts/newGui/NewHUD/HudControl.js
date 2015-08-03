@@ -20,6 +20,7 @@ private var upgrades : Upgrades;
 private var health : shipHealth;
 private var reactor : Reactor;
 private var balance : ReactorBalance;
+private var fuel : ShipFuel;
 
 //hud stuff
 var hudGo : GameObject;
@@ -69,6 +70,23 @@ var hullBar : Slider;
 var shieldBar : Slider;
 private var targetHealth : IHealtheable;
 
+//target expansion
+var extendTransform : RectTransform;
+var extendDuration : float;
+var xDiference : float;
+private var animating : boolean;
+private var extended : boolean;
+
+//resources
+var latinumLabel : Text;
+var dilithiumLabel : Text;
+private var inventory : Inventory;
+
+//reputation
+var globalReputationLabel : Text;
+var localReputationLabel : Text;
+private var map : MapInfo;
+
 //constants
 public static final var ORBIT_ERROR = "Not in a planets orbit.";
 public static final var COLONIZE_ERROR = "You need a colonization team to colonize a planet.";
@@ -88,7 +106,13 @@ function Start () {
 	
 	message = GameObject.FindGameObjectWithTag("ShowMessage").GetComponent.<ShowMessage>();
 	missions = GameObject.FindGameObjectWithTag("Missions").GetComponent.<Missions>();
+	inventory = GameObject.FindGameObjectWithTag("SaveGame").GetComponent.<Inventory>();
+	map = GameObject.FindGameObjectWithTag("MapInfo").GetComponent.<MapInfo>();
 	
+	animating = false;
+	extended = false;
+	
+
 }
 
 function Update () {
@@ -120,12 +144,20 @@ function SetHud(ship : GameObject) {
 	health = ship.GetComponent.<shipHealth>();
 	reactor = ship.GetComponent.<Reactor>();
 	balance = ship.GetComponent.<ReactorBalance>();
+	fuel = ship.GetComponent.<ShipFuel>();
 	//TODO
 	
 	//set hud values
 	SetWeaponsPanel();
 	SetUpgradesPanel();
 	HideTarget();
+	
+	SetLatinumLabel(inventory.latinum);
+	SetDilithiumLabel(fuel.getCurrentLoad());
+	
+	SetLocalReputation(map.getCurrentReputation());
+	SetGlobalReputation(map.getGalacticReputation());
+	
 	//TODO
 	
 	ShowHud();
@@ -409,6 +441,7 @@ private function SetTargetOrb(faction : IFactionable, text : ITextureable) {
 	}
 	
 	var t : Texture = text.getTargetImage();
+	if(!t) return;
 	targetOrb.sprite = Sprite.Create(t, new Rect(0,0,t.width,t.height), new Vector2(0.5f, 0.5f));  
 	
 }
@@ -442,5 +475,87 @@ private function UpdateTarget() {
 		HideTarget();
 	}
 }
+
+///<summary>This toggles the target expansion.</summary>
+function ToggleTargetExpansion() {
+	
+	if(animating) return;
+	
+	if(extended) {
+		StartCoroutine(RetractTarget());
+	} else {
+		StartCoroutine(ExtendTarget());
+	}
+	
+}
+
+///<summary>Extends the target expansion.</summary>
+private function ExtendTarget() {
+	animating = true;
+	var x : float = 0;
+	var dx : float = xDiference/extendDuration;
+	var dxi : float;
+	
+	while(x < xDiference) {
+		dxi = dx * Time.deltaTime;	
+		x += dxi;
+		extendTransform.position.x -= dxi;
+		yield;
+	}
+	
+	extended = true;
+	animating = false;
+}
+
+
+///<summary>Retracts the target expansion.</summary>
+private function RetractTarget() {
+	animating = true;
+	var x : float = 0;
+	var dx : float = xDiference/extendDuration;
+	var dxi : float;
+	
+	while(x < xDiference) {
+		dxi = dx * Time.deltaTime;	
+		x += dxi;
+		extendTransform.position.x += dxi;
+		yield;
+	}
+	
+	extended = false;
+	animating = false;
+}
+
+///<summary>This hails the selected target.</summary>
+function HailTarget() {
+	if(!target) return;
+	var hail : IHailable = target.GetComponent(typeof(IHailable)) as IHailable;
+	hail.openComm();
+}
+
+///<summary>This sets the latinum label value.</summary>
+///<param name="latinum">Value to be set</param>
+function SetLatinumLabel(latinum : int) {
+	latinumLabel.text = latinum.ToString();
+}
+
+///<summary>This sets the dilithium label value</summary>
+///<param name="dilithium">Value to be set.</param>
+function SetDilithiumLabel(dilithium : int) {
+	dilithiumLabel.text = dilithium.ToString();
+}
+
+///<summary>This sets the local reputation label value</summary>
+///<param name="local">Value to be set</param>
+function SetLocalReputation(local : int) {
+	localReputationLabel.text = local.ToString();
+}
+
+///<summary>This sets the global reputation label value</summary>
+///<param name="global">Value to be set</param>
+function SetGlobalReputation(global : int) {
+	globalReputationLabel.text = global.ToString();
+}
+
 
 

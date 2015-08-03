@@ -1,20 +1,14 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\SaveGame\PlanetInfo.js">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\newGui\NewHUD\HudControl.js">
     <Files>
-      <File FileName="Assets\Scripts\newGui\NewHUD\HudControl.js" Line="102" Column="18" />
-      <File FileName="Assets\Scripts\ship\shipWeapons.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\weapons\weaponScript.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Upgrades\Upgrades.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Upgrades\Upgrade.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\newGui\NewHUD\HUDWeapons.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\menus\ShowMessage.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\ship\ReactorBalance.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Interfaces\ITextureable.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Interfaces\IClasseable.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Interfaces\INameable.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Interfaces\IHealtheable.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\SaveGame\PlanetInfo.js" Line="227" Column="22" />
+      <File FileName="Assets\Scripts\newGui\NewHUD\HudControl.js" Line="158" Column="12" />
+      <File FileName="Assets\Scripts\newGui\GUIStatus.js" Line="19" Column="1" />
+      <File FileName="Assets\Scripts\SaveGame\HUDStatus.js" Line="33" Column="1" />
+      <File FileName="Assets\Scripts\newGui\NewHUD\HUDTarget.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\ship\ShipFuel.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\SaveGame\MapInfo.js" Line="154" Column="80" />
+      <File FileName="Assets\Scripts\SaveGame\PlanetInfo.js" Line="393" Column="2" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

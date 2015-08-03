@@ -138,6 +138,7 @@ private var hud : HUDStatus;
 private var save : SaveGame;
 private var stardate : Stardate;
 private var carry : SceneTransferCarry;
+private var control : HudControl;
 
 public static var LIGHT_YEAR : float = 2.9f;
 
@@ -150,6 +151,7 @@ function Start() {
 	var saveGo : GameObject = GameObject.FindGameObjectWithTag("SaveGame");
 	save = saveGo.GetComponent(SaveGame);
 	stardate = saveGo.GetComponent(Stardate);
+	control = GameObject.FindGameObjectWithTag("GUI").GetComponent.<HudControl>();
 
 }
 
@@ -516,6 +518,15 @@ function getCurrentReputation() : int {
 	}
 }
 
+///<summary>This adds/removes a certain amount of reputation to a certain planet, and updates the game status</summary>
+///<param name="planet">Planet to update the reputation</param>
+///<param name="reputation">Reputation increase/decrease</param>
+function addReputationToPlanet(planet : PlanetInfo, reputation : int) {
+	planet.addReputation(reputation);
+	UpdateReputationInfo();	
+}
+
+
 function getDistance(origin : PlanetInfo, destiny : PlanetInfo) : float{
 	var a : Vector2 = new Vector2();
 	if(origin) {
@@ -576,7 +587,7 @@ function getPlanetBySceneName(scene : String) : PlanetInfo {
 function addReputationToEmpire(faction : int, amount : int) {
 	for(var planet : PlanetInfo in planets) {
 		if(planet.getFaction() == faction) {
-			planet.addReputation(amount);
+			addReputationToPlanet(planet, amount);
 		}
 	}
 
@@ -643,4 +654,9 @@ function removeShipFromDefense(planet : String, ship : GameObject) {
 
 function isMapOn() : boolean {
 	return isMap;
+}
+
+private function UpdateReputationInfo() {
+	control.SetLocalReputation(getCurrentReputation());
+	control.SetGlobalReputation(getGalacticReputation());
 }
