@@ -62,7 +62,7 @@ class ShipInfo {
 
 }
 
-class shipProperties extends MonoBehaviour implements IFactionable, IStrenghteable, IMovable, INameable, ITextureable, IClasseable, IDescribable, ICloakable, IEscapeable, IMaintainable, IPlayable {
+class shipProperties extends MonoBehaviour implements IFactionable, IBoardeable, IStrenghteable, IMovable, INameable, ITextureable, IClasseable, IDescribable, ICloakable, IEscapeable, IMaintainable, IPlayable {
 
 	//use classes
 	var playerProps : ShipPlayerProps;
@@ -84,6 +84,8 @@ class shipProperties extends MonoBehaviour implements IFactionable, IStrenghteab
 	var message : ShowMessage;
 	private var general : GeneralInfo;
 	private var upgrades : Upgrades;
+	private var inventory : Inventory;
+	private var target : shipTarget;
 	var cloak : CloakScript;
 
 	//constants
@@ -97,8 +99,11 @@ class shipProperties extends MonoBehaviour implements IFactionable, IStrenghteab
 		cloud = gameObject.GetComponent(ShipCloud);
 		upgrades = gameObject.GetComponent.<Upgrades>();
 		message = GameObject.FindGameObjectWithTag("ShowMessage").GetComponent(ShowMessage);
-		general = GameObject.FindGameObjectWithTag("SaveGame").GetComponent(GeneralInfo);
+		var saveGo : GameObject = GameObject.FindGameObjectWithTag("SaveGame");
+		general = saveGo.GetComponent(GeneralInfo);
+		inventory = saveGo.GetComponent.<Inventory>();
 		cloak = gameObject.GetComponent(CloakScript);
+		target = gameObject.GetComponent.<shipTarget>();
 
 	}
 
@@ -263,5 +268,28 @@ class shipProperties extends MonoBehaviour implements IFactionable, IStrenghteab
 		return shipInfo.maintenanceCost;
 	}
 	
+	function Board(team : GameObject, faction : int) : boolean {
+	
+		if(health.isShieldUp()) {
+			message.AddMessage("Can't get a lock. Shields are up.");
+			return false;
+		}
+	
+		var strenght : IStrenghteable = team.GetComponent(typeof(IStrenghteable)) as IStrenghteable;
+		if(shipProps.shipStrenght < strenght.getStrenght()) {
+			message.AddMessage("The ship is yours!");
+			ChangeShipFaction(faction);
+			return true;
+		} else { //you loose the away team
+			message.AddMessage("Your away team has failed its mission.");
+			inventory.removeItem(team);
+			return false;
+		}
+	}
+	
+	function ChangeShipFaction(faction : int) {
+		shipInfo.faction = faction;
+		target.ForceTarget();
+	}
 
 }

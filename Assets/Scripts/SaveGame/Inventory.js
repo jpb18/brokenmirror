@@ -1,4 +1,4 @@
-﻿import System.Collections.Generic;
+import System.Collections.Generic;
 #pragma strict
 
 
@@ -176,6 +176,41 @@ private function getBiggerInvasionForce() : GameObject {
 	}
 	return big;
 
+}
+
+function hasBoardingParty() : boolean {
+	for(var go : GameObject in items) {
+		if(go.tag == "Boarding") return true;
+	}
+	return false;
+}
+
+function getBoardingParty() : GameObject {
+	var i : GameObject = getBiggerBoardingParty();
+	return i;
+}
+
+private function getBiggerBoardingParty() : GameObject {
+	var big : GameObject;
+	var bigAT : AwayTeam;
+	for(var go : GameObject in items) {
+		if(go.tag == "Boarding") {
+			if(!big) {
+				big = go;
+				bigAT = go.GetComponent.<AwayTeam>();
+			} else {
+				var bsize : int = bigAT.getStrenght();
+				var nat : AwayTeam = go.GetComponent.<AwayTeam>();
+				var nsize : int = nat.getStrenght();
+				if(bsize < nsize) {
+					big = go;
+					bigAT = nat;
+				}
+			}
+		}
+	}
+	return big;
+	
 }
 
 function getItems() : GameObject[] {

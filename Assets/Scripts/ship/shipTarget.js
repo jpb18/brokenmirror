@@ -64,6 +64,11 @@ function setTarget(target : GameObject) {
 	this.target = target;
 }
 
+function ForceTarget() {
+	FindTarget(gameObject, shipProps);
+	nextSearch = Time.time + Random.value * searchTime;
+}
+
 function BotRedAlert() {
 	
 	if(!target) {

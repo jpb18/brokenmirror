@@ -12,4 +12,6 @@ interface IHealtheable {
 	function getHull() : float;
 	
 	function getShield() : float;
+	
+	function isShieldUp() : boolean;
 }

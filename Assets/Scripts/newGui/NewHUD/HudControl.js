@@ -69,6 +69,7 @@ var nameLabel : Text;
 var hullBar : Slider;
 var shieldBar : Slider;
 private var targetHealth : IHealtheable;
+private var targetProps : shipProperties;
 
 //target expansion
 var extendTransform : RectTransform;
@@ -421,6 +422,7 @@ function SetTarget(target : GameObject) {
 	SetTargetLabel(cls, name);
 	
 	targetHealth = target.GetComponent(typeof(IHealtheable)) as IHealtheable;
+	targetProps = target.GetComponent.<shipProperties>();
 	this.target = target;
 	
 	targetGo.SetActive(true);
@@ -556,6 +558,30 @@ function SetLocalReputation(local : int) {
 function SetGlobalReputation(global : int) {
 	globalReputationLabel.text = global.ToString();
 }
+
+///<summary>This boards the targeted ship, after verifying if the target ship is ready to be boarded
+/// The player shields are down and he has a boarding party on the inventory, and the hostile shields are down.
+///Also, don't forget to check the ships faction</summary>
+function BoardTargetShip() {
+	if(isBoardable()) {
+		message.AddMessage("Can't board that ship...");
+	}else if(health.isShieldUp()) {
+		message.AddMessage("Lower your shields before transporting.");
+	} else if (!inventory.hasBoardingParty()) {
+		message.AddMessage("Can't board without a boarding party...");
+	} else if (targetHealth.isShieldUp()) {
+		message.AddMessage("Bring down target shields before transporting.");
+	} else {
+		targetProps.Board(inventory.getBoardingParty(), properties.getFaction()); //BOARD!!!!!!
+	}
+}
+
+private function isBoardable() : boolean {
+	return !targetProps.isOwn(properties.getFaction());
+} 
+
+
+
 
 
 
