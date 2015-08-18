@@ -1,14 +1,20 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\SaveGame\Inventory.js">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\station\Station.js">
     <Files>
-      <File FileName="Assets\Scripts\SaveGame\Inventory.js" Line="182" Column="25" />
-      <File FileName="Assets\Scripts\ship\shipProperties.js" Line="281" Column="31" />
-      <File FileName="Assets\Scripts\ship\shipTarget.js" Line="69" Column="53" />
+      <File FileName="Assets\Scripts\newGui\NewHUD\HudControl.js" Line="437" Column="85" />
+      <File FileName="Assets\Scripts\Statics.js" Line="78" Column="35" />
+      <File FileName="Assets\Scripts\SaveGame\Inventory.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\ship\shipProperties.js" Line="275" Column="17" />
+      <File FileName="Assets\Scripts\ship\shipTarget.js" Line="1" Column="1" />
       <File FileName="Assets\Scripts\ship\shipHealth.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\newGui\NewHUD\HudControl.js" Line="577" Column="2" />
       <File FileName="Assets\Scripts\Boarding\AwayTeam.js" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Interfaces\IHealtheable.js" Line="18" Column="1" />
+      <File FileName="Assets\Scripts\Interfaces\IHealtheable.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Cheat.js" Line="1" Column="1" />
+      <File FileName="Assets\StartupScript.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Interfaces\IFactionable.js" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Interfaces\IBoardeable.js" Line="4" Column="49" />
+      <File FileName="Assets\Scripts\station\Station.js" Line="131" Column="28" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

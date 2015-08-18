@@ -1,6 +1,6 @@
 ﻿#pragma strict
 
-class Station extends MonoBehaviour implements IFactionable, IPlayable {
+class Station extends MonoBehaviour implements IFactionable, IPlayable, IBoardeable {
 
 	var health : Health;
 	var weapon : StationWeapons;
@@ -11,6 +11,8 @@ class Station extends MonoBehaviour implements IFactionable, IPlayable {
 	
 
 	private var general : GeneralInfo;
+	private var message : ShowMessage;
+	private var inventory : Inventory;
 
 	function Start () {
 		//get station weapons script
@@ -19,6 +21,9 @@ class Station extends MonoBehaviour implements IFactionable, IPlayable {
 		
 		general = GameObject.FindGameObjectWithTag("SaveGame").GetComponent(GeneralInfo);
 		factionInfo = general.getFactionInfo(faction);
+		
+		message = GameObject.FindGameObjectWithTag("ShowMessage").GetComponent.<ShowMessage>();
+		inventory = GameObject.FindGameObjectWithTag("SaveGame").GetComponent.<Inventory>();
 	}
 
 	function Update () {
@@ -123,5 +128,28 @@ class Station extends MonoBehaviour implements IFactionable, IPlayable {
 		return false;
 	}
 	
+	function Board(team : GameObject, faction : int) : boolean {
+		if(health.isShieldUp()) {
+			message.AddMessage("Can't get a lock. Shields are up.");
+			return false;
+		}
+	
+		var strenght : IStrenghteable = team.GetComponent(typeof(IStrenghteable)) as IStrenghteable;
+		if(this.strenght < strenght.getStrenght()) {
+			message.AddMessage("The station is yours!");
+			ChangeStationFaction(faction);
+			return true;
+		} else { //you loose the away team
+			message.AddMessage("Your away team has failed its mission.");
+			inventory.removeItem(team);
+			return false;
+		}
+	}
+	
+	private function ChangeStationFaction(faction : int) {
+		this.faction = faction;
+		this.factionInfo = general.getFactionInfo(faction);
+		this.scan();
+	}
 	
 }

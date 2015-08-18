@@ -61,6 +61,11 @@ var redAlertInterval : float;
 
 //target stuff
 var target : GameObject;
+private var targetHealth : IHealtheable;
+private var targetFaction : IFactionable;
+private var targetBoard : IBoardeable;
+//private var targetProps : shipProperties;
+
 var targetGo : GameObject;
 var factionOrbs : Image[];
 var targetOrb : Image;
@@ -68,8 +73,9 @@ var classLabel : Text;
 var nameLabel : Text;
 var hullBar : Slider;
 var shieldBar : Slider;
-private var targetHealth : IHealtheable;
-private var targetProps : shipProperties;
+var boardGameObject : GameObject;
+
+
 
 //target expansion
 var extendTransform : RectTransform;
@@ -413,19 +419,29 @@ function ChangeSpeedBalance(speed : float) {
 ///<param name="target">Target GameObject</param>
 function SetTarget(target : GameObject) {
 
-	var faction : IFactionable = target.GetComponent(typeof(IFactionable)) as IFactionable;
+	targetFaction = target.GetComponent(typeof(IFactionable)) as IFactionable;
 	var text : ITextureable = target.GetComponent(typeof(ITextureable)) as ITextureable;
-	SetTargetOrb(faction, text);
+	SetTargetOrb(targetFaction, text);
 
 	var cls : IClasseable = target.GetComponent(typeof(IClasseable)) as IClasseable;
 	var name : INameable = target.GetComponent(typeof(INameable)) as INameable;
 	SetTargetLabel(cls, name);
 	
 	targetHealth = target.GetComponent(typeof(IHealtheable)) as IHealtheable;
-	targetProps = target.GetComponent.<shipProperties>();
+	targetBoard = target.GetComponent(typeof(IBoardeable)) as IBoardeable;
+	//targetProps = target.GetComponent.<shipProperties>();
 	this.target = target;
 	
 	targetGo.SetActive(true);
+	
+	if(target.tag == "Station" && targetFaction.getFaction() == properties.getFaction()) {
+		boardGameObject.SetActive(false);
+	} else if (target.tag == "Ship" || target.tag == "Station") {
+		boardGameObject.SetActive(true);
+	} else {
+		boardGameObject.SetActive(false);
+	}
+	
 }
 
 
@@ -562,23 +578,51 @@ function SetGlobalReputation(global : int) {
 ///<summary>This boards the targeted ship, after verifying if the target ship is ready to be boarded
 /// The player shields are down and he has a boarding party on the inventory, and the hostile shields are down.
 ///Also, don't forget to check the ships faction</summary>
-function BoardTargetShip() {
-	if(isBoardable()) {
-		message.AddMessage("Can't board that ship...");
-	}else if(health.isShieldUp()) {
+function BoardTarget() {
+	if(health.isShieldUp()) {
 		message.AddMessage("Lower your shields before transporting.");
 	} else if (!inventory.hasBoardingParty()) {
 		message.AddMessage("Can't board without a boarding party...");
 	} else if (targetHealth.isShieldUp()) {
 		message.AddMessage("Bring down target shields before transporting.");
 	} else {
-		targetProps.Board(inventory.getBoardingParty(), properties.getFaction()); //BOARD!!!!!!
+		targetBoard.Board(inventory.getBoardingParty(), properties.getFaction()); //BOARD!!!!!!
 	}
 }
 
-private function isBoardable() : boolean {
-	return !targetProps.isOwn(properties.getFaction());
-} 
+function Board() {
+	if(targetFaction.getFaction() == properties.getFaction()) {
+		this.swapShip(this.target, this.ship);
+	} else {
+		this.BoardTarget();
+	}
+}
+
+//this script swaps the ship
+//pre target != null && player != null
+private function swapShip(target : GameObject, player : GameObject) {
+	//set current ship as npc
+	var playerProps : shipProperties = player.GetComponent(shipProperties);
+	playerProps.setPlayer(false);
+	
+	//set new ship as player
+	var targetProps : shipProperties = target.GetComponent.<shipProperties>();
+	targetProps.setPlayer(true);
+	
+	//now change camera target
+	var camScript : MouseOrbit = Camera.main.GetComponent(MouseOrbit);
+	camScript.target = target.transform;
+	
+	//clear targeting information
+	target.GetComponent.<shipTarget>().target = null;
+	player.GetComponent.<shipTarget>().target = null;
+	player.GetComponent.<shipTarget>().repeatClick = false;
+	
+	this.SetHud(target);
+	
+	//closeComm();
+	
+}
 
 
 

@@ -75,6 +75,7 @@ static function FindTarget(origin : GameObject, range : float) : GameObject {
 ///<param name="range">Maximum distance from origin</param>
 ///<returns>Closest gameObject within range from list</returns>
 static function getClosest(origin : GameObject, enemies : GameObject[], range : float) : GameObject {
+	Debug.Log(enemies[0].ToString());
 	var closest : Transform = enemies[0].transform;
 	var closestPosition : Vector3 = closest.position;
 	var enemy : Transform;

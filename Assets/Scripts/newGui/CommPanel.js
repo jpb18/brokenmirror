@@ -78,7 +78,7 @@ class CommPanel extends FloatingWindow implements IHailable {
 			if(isPlayerFaction()) {
 				swapShip(gameObject, getPlayer());
 			} else {
-				//do hostile boarding
+				hudControl.BoardTarget();
 			}
 		}
 	}

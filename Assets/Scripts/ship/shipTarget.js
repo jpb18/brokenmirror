@@ -62,6 +62,7 @@ function getTarget() : GameObject {
 
 function setTarget(target : GameObject) {
 	this.target = target;
+	if(shipProps.isPlayer())hudControl.SetTarget(target);
 }
 
 function ForceTarget() {
@@ -103,8 +104,7 @@ function ClickTarget() {
 				{
 					if(go != gameObject)
 					{
-						target = go; //store the target
-						hudControl.SetTarget(go);
+						setTarget(go);
 					}
 				}
 				else

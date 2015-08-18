@@ -125,6 +125,7 @@ private function getBiggerColonizationTeam() : GameObject {
 
 function cheat() {
 	latinum = int.MaxValue;
+	control.SetLatinumLabel(this.latinum);
 }
 
 function setInventory(inventory : InventoryData) {
