@@ -61,6 +61,7 @@ function Start () {
 	spawnPlayerFleet();
 	spawnStations();
 	spawnMerchants();
+	spawnPhenomenons();
 	
 	if(isPlayerEnemy()) {
 		if(!music.getStatus(PlaybackStatus.HOSTILE)) music.setStatus(PlaybackStatus.HOSTILE);
@@ -448,4 +449,12 @@ function createMerchant() : GameObject {
 function LoadNewSquadShip(ship : GameObject) {
 	if(!playerFleet.Contains(ship))
 		playerFleet.Add(ship);
+}
+
+
+function spawnPhenomenons() {
+	
+	for(var phenomenon : PhenomenonData in this.planet.phenomenons) {
+		phenomenon.instantiate();	
+	}
 }

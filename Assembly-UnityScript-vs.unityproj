@@ -82,6 +82,7 @@
      <Compile Include="Assets\Scripts\GameSerialization\MapData.js" />
      <Compile Include="Assets\Scripts\GameSerialization\MissionData.js" />
      <Compile Include="Assets\Scripts\GameSerialization\MissionsData.js" />
+     <Compile Include="Assets\Scripts\GameSerialization\PhenomenonSaveData.js" />
      <Compile Include="Assets\Scripts\GameSerialization\PlanetData.js" />
      <Compile Include="Assets\Scripts\GameSerialization\PlayerData.js" />
      <Compile Include="Assets\Scripts\GameSerialization\ShipData.js" />
@@ -105,6 +106,7 @@
      <Compile Include="Assets\Scripts\Interfaces\IHailable.js" />
      <Compile Include="Assets\Scripts\Interfaces\IHealtheable.js" />
      <Compile Include="Assets\Scripts\Interfaces\IImageable.js" />
+     <Compile Include="Assets\Scripts\Interfaces\IInstanteable.js" />
      <Compile Include="Assets\Scripts\Interfaces\IMaintainable.js" />
      <Compile Include="Assets\Scripts\Interfaces\IMission.js" />
      <Compile Include="Assets\Scripts\Interfaces\IMissionable.js" />
@@ -116,9 +118,11 @@
      <Compile Include="Assets\Scripts\Interfaces\IPriceable.js" />
      <Compile Include="Assets\Scripts\Interfaces\IProfitable.js" />
      <Compile Include="Assets\Scripts\Interfaces\IReputable.js" />
+     <Compile Include="Assets\Scripts\Interfaces\IScanneable.js" />
      <Compile Include="Assets\Scripts\Interfaces\IStrenghteable.js" />
      <Compile Include="Assets\Scripts\Interfaces\ITextureable.js" />
      <Compile Include="Assets\Scripts\Interfaces\ITradeable.js" />
+     <Compile Include="Assets\Scripts\Interfaces\ITypeable.js" />
      <Compile Include="Assets\Scripts\Interfaces\IUpgrade.js" />
      <Compile Include="Assets\Scripts\Interfaces\IUpgrades.js" />
      <Compile Include="Assets\Scripts\Interfaces\IWeaponable.js" />
@@ -175,6 +179,9 @@
      <Compile Include="Assets\Scripts\effects\LookAtCamera.js" />
      <Compile Include="Assets\Scripts\environment\Cloud.js" />
      <Compile Include="Assets\Scripts\environment\DilithiumCloud.js" />
+     <Compile Include="Assets\Scripts\environment\Phenomenon.js" />
+     <Compile Include="Assets\Scripts\environment\PhenomenonData.js" />
+     <Compile Include="Assets\Scripts\environment\Wormhole.js" />
      <Compile Include="Assets\Scripts\environment\asteroids.js" />
      <Compile Include="Assets\Scripts\environment\border.js" />
      <Compile Include="Assets\Scripts\environment\planetScript.js" />

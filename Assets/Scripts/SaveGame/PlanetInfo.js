@@ -13,6 +13,7 @@ class PlanetInfo implements IPopuleable, IProfitable, IConquerable { //this clas
 	var defenseFleet : List.<SaveShip>;
 	var stations : List.<SaveStation>;
 	var constructions : List.<Construction>;
+	var phenomenons : List.<PhenomenonData>;
 	
 	var population : float;
 	var reputation : int;
@@ -57,6 +58,10 @@ class PlanetInfo implements IPopuleable, IProfitable, IConquerable { //this clas
 		
 		for(var station : StationData in planet.stations) {
 			stations.Add(new SaveStation(station));
+		}
+		
+		for(var phenomenon : PhenomenonSaveData in planet.phenomenons) {
+			phenomenons.Add(new PhenomenonData(phenomenon));
 		}
 	
 	}

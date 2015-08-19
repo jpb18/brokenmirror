@@ -447,4 +447,8 @@ class shipHealth extends MonoBehaviour implements IHealtheable, IDamageable {
 		}
 	}
 
+	function kill() {
+		shipHealth.health = 0f;
+	}
+
 }

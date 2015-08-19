@@ -15,6 +15,7 @@ public class PlanetData extends Data{
 	var cood : Vector2;
 	var defenseFleet : List.<ShipData>;
 	var stations : List.<StationData>;
+	var phenomenons : List.<PhenomenonSaveData>;
 	
 	var population : float;
 	var reputation : int;
@@ -35,6 +36,7 @@ public class PlanetData extends Data{
 		cood = new Vector2();
 		defenseFleet = new List.<ShipData>();
 		stations = new List.<StationData>();
+		phenomenons = new List.<PhenomenonSaveData>();
 		population = 0f;
 		reputation = 0;
 		dilithium = false;
@@ -61,6 +63,10 @@ public class PlanetData extends Data{
 		
 		for(var s : SaveStation in planet.stations) {
 			stations.Add(new StationData(s));
+		}
+		
+		for(var f : PhenomenonData in planet.phenomenons) {
+			phenomenons.Add(new PhenomenonSaveData(f));
 		}
 		
 		population = planet.population;
