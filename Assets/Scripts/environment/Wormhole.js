@@ -16,18 +16,14 @@ public class Wormhole extends MonoBehaviour {
 		this.destination = destination;
 	}
 	
-	function OnTriggerEnter(col : Collider) {
-		var go : GameObject = col.gameObject; 
-		if(go.tag == "Ship") {
-			var playable : IPlayable = go.GetComponent(typeof(IPlayable)) as IPlayable;
-			if(phenomenon.isScanned()) {
-				//send player to destination
-			} else if (playable.isPlayer()) {
-				//kill player ship
-				go.GetComponent.<shipHealth>().kill();
-			}
+	function EnterWormhole(ship : GameObject) {
+		var playable : IPlayable = ship.GetComponent(typeof(IPlayable)) as IPlayable;
+		if(phenomenon.isScanned() && stable && playable.isPlayer()) {
+			//TODO
+		} else if (playable.isPlayer()) {
+			ship.GetComponent.<shipHealth>().kill();
 		}
-		
 	}
+	
 
 }

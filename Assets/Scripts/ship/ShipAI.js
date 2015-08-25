@@ -707,8 +707,8 @@ function LookAway(target : GameObject) {
 
 ///<summary>function containing the defensive behaviour - guard something</summary>
 ///<param name="target">Object to be defended</param>
-function defend(target : GameObject) {
-	if((transform.position - target.transform.position).sqrMagnitude > (defenseStation * defenseStation)) {
+function defend(target : GameObject) { 
+	if(target && ((transform.position - target.transform.position).sqrMagnitude > (defenseStation * defenseStation))) {
 		follow(target);
 	
 	} else {

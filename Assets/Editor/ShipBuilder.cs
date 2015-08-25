@@ -243,6 +243,9 @@ public class ShipBuilder : Object
                         if(ship.GetComponent<ReactorBalance>() == null)
 						    ship.AddComponent<ReactorBalance> ();
 
+						if(ship.GetComponent<ShipPhenomenon>() == null)
+							ship.AddComponent<ShipPhenomenon>();
+
 				}
 
 

@@ -29,6 +29,8 @@ private var buttonStyle : GUIStyle;
 
 private var esc : EscMenu;
 
+var hudObject : GameObject;
+
 function Start () {
 	reset();
 	buttonStyle = hud.GetStyle("GameOverButton");
@@ -73,6 +75,7 @@ function reset() {
 	changing = false;
 	interrupt = true;
 	Time.timeScale = 1;
+	hudObject.SetActive(false);
 }
 
 private function drawAlert() {

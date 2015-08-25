@@ -6,6 +6,7 @@ public class Phenomenon extends MonoBehaviour implements INameable, IDescribable
 	var type : String;
 	var image : Texture;
 	var description : String;
+	var scanPoints : int;
 	var scanned : boolean;
 
 	function Set(name : String, description : String, scanned : boolean) {
@@ -43,5 +44,8 @@ public class Phenomenon extends MonoBehaviour implements INameable, IDescribable
 	function getType() : String {
 		return this.type;
 	}
-
+	
+	function canScan(points: int) : boolean {
+		return points >= scanPoints;
+	}
 }

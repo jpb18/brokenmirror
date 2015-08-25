@@ -253,6 +253,7 @@
      <Compile Include="Assets\Scripts\ship\ShipAI.js" />
      <Compile Include="Assets\Scripts\ship\ShipCloud.js" />
      <Compile Include="Assets\Scripts\ship\ShipFuel.js" />
+     <Compile Include="Assets\Scripts\ship\ShipPhenomenon.js" />
      <Compile Include="Assets\Scripts\ship\ShipReactor.js" />
      <Compile Include="Assets\Scripts\ship\shipEscapePods.js" />
      <Compile Include="Assets\Scripts\ship\shipHealth.js" />

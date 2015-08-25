@@ -21,7 +21,7 @@ public class PhenomenonSaveData extends Object implements INameable, IDescribabl
 		this.position = Vector3.zero;
 		this.scanned = false;
 		this.gameObject = "";
-		
+
 		this.isWormhole = false;
 		this.isStable = false;
 		this.destinationScene = "";
