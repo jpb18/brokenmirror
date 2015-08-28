@@ -32,6 +32,7 @@ class RadarObject extends GuiElement {
 	private var classeable : IClasseable;
 	private var playable : IPlayable;
 	
+	private var view : Vector3;
 	private var pos : Vector3;
 	private var size : Vector2;
 	private var rect : Rect;
@@ -104,12 +105,16 @@ class RadarObject extends GuiElement {
 		if(playerShip) {
 			if(hud.isShowingGui() && isOnScreen() && !player) {
 				drawObject();
+			} else if (hud.isShowingGui() && !player) {
+				//draw border icon
+				this.DrawBorderIcon();
 			}
 		}
 	}
 	
 	function Update() {
-		pos = mainCam.WorldToScreenPoint(transform.position);		
+		pos = mainCam.WorldToScreenPoint(transform.position);
+		view = mainCam.WorldToViewportPoint(transform.position);		
 	}
 	
 	function drawObject () {
@@ -144,7 +149,7 @@ class RadarObject extends GuiElement {
 	
 	
 	function isOnScreen() : boolean {
-		return pos.z > 0;
+		return view.z > 0 && view.x > 0 && view.x < 1 && view.y > 0 && this.view.y < 1 ;
 	}
 
 	function isPlayer() : boolean {
@@ -224,5 +229,52 @@ class RadarObject extends GuiElement {
 		
 		return resizeRect(r);
 	}
+	
+	private function DrawBorderIcon() {
+	
+		var bMatrix : Matrix4x4 = GUI.matrix;
+		var rect : Rect;		
+		var x : int;
+		var y : int;
+		var texture : Texture = getTexture(true);
+		var pivot : Vector2;
+		
+		if(view.x >= 1 && view.x > view.y) { //its at the right of the viewport
+			//TODO this part needs a 180º texture rotation
+			x = Screen.width - smallSize.x;
+			y = (Screen.height * (1 - view.y)) - (smallSize.y/2);
+			rect = new Rect(x, y, smallSize.x, smallSize.y);
+			pivot = new Vector2(rect.xMin + rect.width * 0.5f, rect.yMin + rect.height * 0.5f);
+			GUIUtility.RotateAroundPivot(180f, pivot);
+			GUI.DrawTexture(rect, texture);
+		} else if (view.y >= 1 && view.x < view.y) { //its above the viewport
+			//this part needs a 90º texture rotation
+			y = 0;
+			x = (Screen.width * view.x) - (smallSize.x/2);
+			rect = new Rect(x, y, smallSize.x, smallSize.y);
+			pivot = new Vector2(rect.xMin + rect.width * 0.5f, rect.yMin + rect.height * 0.5f);
+			GUIUtility.RotateAroundPivot(90f, pivot);			
+			GUI.DrawTexture(rect, texture);
+		} else if (view.x <= 0 && view.y > view.x) { //its at the left of the viewport
+			//this doesn't need a texture rotation
+			x = 0;
+			y = (Screen.height * (1 - view.y)) - (smallSize.y/2);
+			rect = new Rect(x, y, smallSize.x, smallSize.y);
+			GUI.DrawTexture(rect, texture);
+		} else if (view.y <= 0 && view.x > view.y) { //its at the bottom of the viewport
+			//this part needs a -90º texture rotation
+			y = Screen.height - smallSize.y;
+			x = (Screen.width * view.x) - (smallSize.x/2);
+			rect = new Rect(x, y, smallSize.x, smallSize.y);
+			pivot = new Vector2(rect.xMin + rect.width * 0.5f, rect.yMin + rect.height * 0.5f);
+			GUIUtility.RotateAroundPivot(270f, pivot);			
+			GUI.DrawTexture(rect, texture);
+		}
+		
+		
+		GUI.matrix = bMatrix;
+		
+	}
+
 
 }

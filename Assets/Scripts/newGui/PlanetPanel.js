@@ -1,7 +1,7 @@
 #pragma strict
 import System.Collections.Generic;
 
-class PlanetPanel extends FloatingWindow implements IFactionable, IHealtheable, ITextureable, IHailable, IPopuleable, INameable, IClasseable, IDescribable, IColonizable, IConquerable {
+class PlanetPanel extends FloatingWindow implements IFactionable, IHealtheable, ITextureable, IHailable, IPopuleable, INameable, IClasseable, IDescribable, IColonizable, IConquerable, ITransportable {
 
 	//stats
 	private var planet : PlanetInfo;
@@ -39,11 +39,22 @@ class PlanetPanel extends FloatingWindow implements IFactionable, IHealtheable, 
 	
 	var skin : GUISkin;
 		
+	//constants
+	public static final var ORBIT_ERROR = "Not in a planets orbit.";
+	public static final var COLONIZE_ERROR = "You need a colonization team to colonize a planet.";
+	public static final var COLONIZED = "Planet colonized.";
+	public static final var INVASION_ERROR = "You need an invasion force to ocupy the planet.";
+	public static final var INVASION_FAILED = "Your invasion force has been defeated.";
+	public static final var INVADED = "Planet ocupied.";
+	public static final var TRANSPORT_ERROR = "Nothing to beam down.";
+	
 	public static final var DILITHIUM_COST : int = 3;
 	public static final var DEURANIUM_COST : int = 1;
 	public static final var SPAWN_RADIUS : int = 5;
 	public static final var CLASS : String = "Planet";
 	public static final var HEALTH : float = 1f;
+	
+	
 	
 	function Start() {
 		initFloat();
@@ -395,6 +406,49 @@ class PlanetPanel extends FloatingWindow implements IFactionable, IHealtheable, 
 	
 	function growPopulation(amount : float) : float {
 		planet.growPopulation(amount);
+	}
+	
+	function Transport() : boolean {
+		var planet : GameObject = gameObject;
+		var colonizable : IColonizable = planet.GetComponent(typeof(IColonizable)) as IColonizable;
+		var inventory : Inventory = GameObject.FindGameObjectWithTag("SaveGame").GetComponent.<Inventory>();
+		var ship : GameObject = save.getPlayerShip();
+		var factionable : IFactionable = ship.GetComponent(typeof(IFactionable)) as IFactionable;
+		var faction : int = factionable.getFaction();
+					
+		if(colonizable.canColonize()) {
+			if(inventory.hasColonizationTeams()) {
+				var team : GameObject = inventory.getColonizationTeam();
+				colonizable.colonize(faction, team);
+				message.AddMessage(COLONIZED);
+				return;
+			}
+			
+		} 
+		
+		var conquerable : IConquerable = planet.GetComponent(IConquerable) as IConquerable;
+		var populable : IPopuleable = planet.GetComponent(IPopuleable) as IPopuleable;
+		
+		if(conquerable.canConquer(faction)) {
+		
+			if(inventory.hasInvasionForce(populable.getPopulation())) {
+				var force : GameObject = inventory.getInvasionForce();
+				var invade : IInvasion = force.GetComponent(IInvasion) as IInvasion;
+				if(!invade.canInvade(populable.getPopulation())) {
+					message.AddMessage(INVASION_FAILED);
+				} else {
+					invade.invade(conquerable, faction);
+					message.AddMessage(INVADED);
+				}				
+				return;	
+			}	
+			
+		}
+		
+		var missions : Missions = GameObject.FindGameObjectWithTag("Missions").GetComponent.<Missions>();
+		if(!missions.finishTradeMissionInSystem()) {
+			message.AddMessage(TRANSPORT_ERROR);
+		}	
 	}
 
 }

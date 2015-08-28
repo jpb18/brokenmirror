@@ -291,5 +291,5 @@ class shipProperties extends MonoBehaviour implements IFactionable, IBoardeable,
 		shipInfo.faction = faction;
 		target.ForceTarget();
 	}
-
+	
 }

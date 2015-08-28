@@ -122,10 +122,12 @@
      <Compile Include="Assets\Scripts\Interfaces\IStrenghteable.js" />
      <Compile Include="Assets\Scripts\Interfaces\ITextureable.js" />
      <Compile Include="Assets\Scripts\Interfaces\ITradeable.js" />
+     <Compile Include="Assets\Scripts\Interfaces\ITransportable.js" />
      <Compile Include="Assets\Scripts\Interfaces\ITypeable.js" />
      <Compile Include="Assets\Scripts\Interfaces\IUpgrade.js" />
      <Compile Include="Assets\Scripts\Interfaces\IUpgrades.js" />
      <Compile Include="Assets\Scripts\Interfaces\IWeaponable.js" />
+     <Compile Include="Assets\Scripts\Interfaces\ShowPhenomenon.js" />
      <Compile Include="Assets\Scripts\Invasion\IInvasion.js" />
      <Compile Include="Assets\Scripts\Invasion\InvasionForce.js" />
      <Compile Include="Assets\Scripts\Load\GameLoad.js" />
@@ -177,6 +179,7 @@
      <Compile Include="Assets\Scripts\camera\testReturn.js" />
      <Compile Include="Assets\Scripts\effects\FadeInOut.js" />
      <Compile Include="Assets\Scripts\effects\LookAtCamera.js" />
+     <Compile Include="Assets\Scripts\environment\ActivateWormhole.js" />
      <Compile Include="Assets\Scripts\environment\Cloud.js" />
      <Compile Include="Assets\Scripts\environment\DilithiumCloud.js" />
      <Compile Include="Assets\Scripts\environment\Phenomenon.js" />
@@ -223,6 +226,7 @@
      <Compile Include="Assets\Scripts\newGui\MissionDialogue.js" />
      <Compile Include="Assets\Scripts\newGui\NewHUD\AlertMode.js" />
      <Compile Include="Assets\Scripts\newGui\NewHUD\AlertWarning.js" />
+     <Compile Include="Assets\Scripts\newGui\NewHUD\BorderRadarIcon.js" />
      <Compile Include="Assets\Scripts\newGui\NewHUD\ExtendClass.js" />
      <Compile Include="Assets\Scripts\newGui\NewHUD\HUDBalance.js" />
      <Compile Include="Assets\Scripts\newGui\NewHUD\HUDBottom.js" />

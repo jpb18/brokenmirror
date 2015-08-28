@@ -21,6 +21,7 @@ static function findAllEnemyStations(origin : GameObject) : GameObject[] {
 	var mapGo : GameObject = GameObject.FindGameObjectWithTag("MapInfo");
 	var map : MapInfo = mapGo.GetComponent.<MapInfo>();
 	var system : PlanetInfo = map.getPlanetInCurrentScene();
+	if(!system) return new GameObject[0];
 	var general : GeneralInfo = GameObject.FindGameObjectWithTag("SaveGame").GetComponent(GeneralInfo);
 	var factionInfo : FactionInfo = general.getFactionInfo(system.faction);
 	

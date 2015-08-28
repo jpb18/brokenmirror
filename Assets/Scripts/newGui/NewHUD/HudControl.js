@@ -320,72 +320,17 @@ private function getTransparency(timePeriod : float) : float {
 }
 
 
-///<summary>This executes the "beaming down" function.</summary>
+///<summary>This transports a team to the selected target</summary>
 function Transport() {
-	if(!triggers.isOrbit()) {
-		message.AddMessage(ORBIT_ERROR);
+	var transport : ITransportable = target.GetComponent(typeof(ITransportable)) as ITransportable;
+	if(transport) {
+		transport.Transport();
 	} else {
-		transport();
+		message.AddMessage("Can't transport to that target.");
 	}
 }
 
-///<summary>Beams down to the planet surface.</summary>
-private function transport() {
-	var planet : GameObject = findSystemPlanet();
-	var colonizable : IColonizable = planet.GetComponent(IColonizable) as IColonizable;
-	var inventory : Inventory = GameObject.FindGameObjectWithTag("SaveGame").GetComponent(Inventory);
-	var factionable : IFactionable = ship.GetComponent(IFactionable) as IFactionable;
-	var faction : int = factionable.getFaction();
-				
-	if(colonizable.canColonize()) {
-		if(inventory.hasColonizationTeams()) {
-			var team : GameObject = inventory.getColonizationTeam();
-			colonizable.colonize(faction, team);
-			message.AddMessage(COLONIZED);
-			return;
-		}
-		
-	} 
-	
-	var conquerable : IConquerable = planet.GetComponent(IConquerable) as IConquerable;
-	var populable : IPopuleable = planet.GetComponent(IPopuleable) as IPopuleable;
-	
-	if(conquerable.canConquer(faction)) {
-	
-		if(inventory.hasInvasionForce(populable.getPopulation())) {
-			var force : GameObject = inventory.getInvasionForce();
-			var invade : IInvasion = force.GetComponent(IInvasion) as IInvasion;
-			if(!invade.canInvade(populable.getPopulation())) {
-				message.AddMessage(INVASION_FAILED);
-			} else {
-				invade.invade(conquerable, faction);
-				message.AddMessage(INVADED);
-			}				
-			return;	
-		}	
-		
-	}
-	
-	
-	if(!missions.finishTradeMissionInSystem()) {
-		message.AddMessage(TRANSPORT_ERROR);
-	}		
-}
 
-///<summary>Finds the main planet in the current system.</summary>
-///<returns>Main Planet GameObject</returns>
-private function findSystemPlanet() : GameObject {
-	var planets : GameObject[] = GameObject.FindGameObjectsWithTag("Planet");
-	
-	for(var x : int = 0; x < planets.Length; x++) {
-		var panel : PlanetPanel = planets[x].GetComponent(PlanetPanel);
-		if(panel) {
-			return planets[x];
-		}
-	}
-	return null;
-
-}
 
 ///<summary>This updates the health information on the HUD.</summary>
 private function UpdateHealth() {

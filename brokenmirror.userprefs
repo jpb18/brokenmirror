@@ -1,11 +1,9 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Interfaces\IScanneable.js">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\newGui\NewHUD\RadarObject.js">
     <Files>
-      <File FileName="Assets\Scripts\environment\PhenomenonData.js" Line="12" Column="32" />
-      <File FileName="Assets\Scripts\environment\Phenomenon.js" Line="31" Column="34" />
-      <File FileName="Assets\Scripts\GameSerialization\PhenomenonSaveData.js" Line="12" Column="26" />
-      <File FileName="Assets\Scripts\Interfaces\IScanneable.js" Line="8" Column="43" />
+      <File FileName="Assets\Scripts\newGui\NewHUD\RadarObject.js" Line="272" Column="4" />
+      <File FileName="Assets\Scripts\GameSerialization\PhenomenonSaveData.js" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
